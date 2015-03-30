@@ -33,4 +33,14 @@ Route::group(['prefix' => 'admin'], function(){
 			}
 		}
 	// });
+
+	Route::get('/error/{detail?}', function($detail)
+	{
+		return view("admin.pages.errors.error")->with('err_type',$detail);
+	});
+
+	Route::get('/500', function()
+	{
+		echo "halo";
+	});
 });
