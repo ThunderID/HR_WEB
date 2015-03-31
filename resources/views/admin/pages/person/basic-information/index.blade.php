@@ -4,13 +4,23 @@
 @stop
 
 @section('content')
-	<div class="row" style="margin-bottom:20px">
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<br>
-			<a href='' class='btn btn-primary btn-raised ink-reaction'>Create</a>
-		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form">
-
+	<div class="card">
+		<div class="card-body pt-10 pb-0">
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<a href='' class='btn btn-primary ink-reaction mt-10'>Create New</a>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
+					{!! Form::open(['route' => null, 'class' => 'form-inline']) !!}
+						<div class="form-group col-sm-9">
+							<input type="text" class="form-control" name="q" style="width:100%">
+							<label for="">Search</label>
+						</div>
+						<button class="btn  btn-default-light ink-reaction" type="submit">Search</button>
+					{!! Form::close() !!}
+				</div>
+				
+			</div>
 		</div>
 	</div>
 	
@@ -21,8 +31,8 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-2 hbox-xs">
-							<div class="hbox-column width-1">
-								<img class="img-circle img-responsive" alt="" src="{{url('images/avatar9.jpg')}}"></img>
+							<div class="hbox-column width-1 pt-5">
+								<img class="img-circle img-responsive" alt="" src="{{url('images/male.png')}}"></img>
 							</div>
 						</div>
 						<div class="col-sm-10">
@@ -48,8 +58,8 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-2 hbox-xs">
-							<div class="hbox-column width-1">
-								<img class="img-circle img-responsive" alt="" src="{{url('images/avatar9.jpg')}}"></img>
+							<div class="hbox-column width-1 pt-5">
+								<img class="img-circle img-responsive" alt="" src="{{url('images/female.png')}}"></img>
 							</div>
 						</div>
 						<div class="col-sm-10">
