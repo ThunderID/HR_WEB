@@ -8,25 +8,25 @@ class AdminPersonBasicInformationController extends AdminController {
 
 	protected $controller_name = 'basic-information';
 
-	function __construct(PersonBasicInformation $model) 
+	function __construct() 
 	{
 		parent::__construct();
 
-		$this->model = $model;
+		// $this->model = $model;
 	}
 	
 	function getIndex()
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$data = $this->model->orderBy('created_at')->get();
+		// $data = $this->model->orderBy('created_at')->get();
 		
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
+		// $this->layout->page_title = strtoupper(str_plural($this->controller_name));
 
 		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name = $this->controller_name;
-		$this->layout->content->data = $data;
+		// $this->layout->content->data = $data;
 
 		return $this->layout;
 	}

@@ -13,15 +13,12 @@ var elixir = require('laravel-elixir');
 elixir.config.sourcemaps = false;
 
 elixir(function(mix) {
-    mix.less('app.less')
-	.copy('resources/fonts/', 'public/build/fonts/')
-	.copy('resources/images/', 'public/images/')
-    .copy('public/css/app.css', 'resources/css/')
-    .styles(['app.css',
-				'theme-default/font-awesome.min.css',
-				'theme-default/material-design-iconic-font.min.css',
-				'theme-default/libs/bootstrap-tagsinput/bootstrap-tagsinput.css',
-				"theme-default/libs/select2/select2.css"
+    mix.styles(['theme-1/bootstrap.css',
+				'theme-1/materialadmin.css',
+    			'theme-1/font-awesome.min.css',
+				'theme-1/material-design-iconic-font.min.css',
+				'theme-1/libs/bootstrap-tagsinput/bootstrap-tagsinput.css',
+				"theme-1/libs/select2/select2.css"
 				], 'public/css/admin.css')
 	.scripts(['libs/jquery/jquery-1.11.2.min.js',
 				'libs/jquery/jquery-migrate-1.2.1.min.js',
@@ -40,5 +37,7 @@ elixir(function(mix) {
 				'thunder/thumbnail_image_upload/thumbnail-image-upload.jquery.js',
 				'thunder/bootstrap.type2confirm/bootstrap.type2confirm.jquery.js'
 				], 'public/js/admin.js')
-	.version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js']);
+	.version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
+	.copy('resources/fonts/', 'public/build/fonts/')
+	.copy('resources/images/', 'public/images/');
 });
