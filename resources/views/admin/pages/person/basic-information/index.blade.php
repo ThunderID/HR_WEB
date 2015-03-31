@@ -27,28 +27,24 @@
 						</div>
 						<div class="col-sm-10">
 							<div class="clearfix">
-								<h3><a href="#" class="margin-bottom-lg">Mark Ketijerk</a></h3>
-								<p>Malang, 11 Agustus 1987</p>
-								<p>Jln. Raya Araya no 43, Blimbing, Malang, Jawa Timur</p>
+								<p class="mt-0 mb-0 text-lg"><a href="#">000-12345-6789-0</a></p>
+								<p class="mtm-15 mb-0 text-xl"><a href="#">Mark Ketijerk</a></p>
+								<p class="mt-0 mb-0">Malang, 11 Agustus 1987</p>
+								<p class="mt-0 mb-0">Jln. Raya Araya no 43, Blimbing, Malang, Jawa Timur</p>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="card-actionbar">
 					<div class="card-actionbar-row">
-						<button type="submit" class="btn btn-flat btn-primary">EDIT</button>
-						<button type="submit" class="btn btn-flat btn-primary">SHOW</button>
+						<a href="javascript:;" class="btn btn-flat btn-primary ink-reaction">EDIT</a>
+						<a href="javascript:;" class="btn btn-flat btn-primary ink-reaction">LIHAT</a>
 					</div>
 				</div>
 			</div>		
 		</div>
 		<div class="col-sm-6">
 			<div class="card">
-				<div class="card-head">
-					<header>
-						<a href="#" class="margin-bottom-lg">00000000000</a>
-					</header>
-				</div>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-2 hbox-xs">
@@ -58,17 +54,18 @@
 						</div>
 						<div class="col-sm-10">
 							<div class="clearfix">
-								<h3><a href="#" class="margin-bottom-lg">Mark Ketijerk</a></h3>
-								<p>Malang, 11 Agustus 1987</p>
-								<p>Jln. Raya Araya no 43, Blimbing, Malang, Jawa Timur</p>
+								<p class="mt-0 mb-0 text-lg"><a href="#">000-86429-7531-0</a></p>
+								<p class="mtm-15 mb-0 text-xl"><a href="#">Mark Ketijerk</a></p>
+								<p class="mt-0 mb-0">Malang, 11 Agustus 1987</p>
+								<p class="mt-0 mb-0">Jln. Raya Araya no 43, Blimbing, Malang, Jawa Timur</p>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="card-actionbar">
 					<div class="card-actionbar-row">
-						<button type="submit" class="btn btn-flat btn-primary">EDIT</button>
-						<button type="submit" class="btn btn-flat btn-primary">SHOW</button>
+						<a href="javascript:;" class="btn btn-flat btn-default ink-reaction">EDIT</a>
+						<a href="javascript:;" class="btn btn-flat btn-primary ink-reaction">LIHAT</a>
 					</div>
 				</div>
 			</div>		
