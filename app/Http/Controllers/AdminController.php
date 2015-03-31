@@ -23,6 +23,8 @@ abstract class AdminController extends Controller {
 			$nav->add('basic_info', 'Basic Information', route('admin.person-basic-information.index'), null, 'person');
 			
 			$nav->add('company', 'Company', 'javascript:;', 'md md-business');
+			$nav->add('company_branch', 'Branch', route('admin.person-basic-information.index'), null, 'company');
+			$nav->add('company_charts', 'Charts', route('admin.person-basic-information.index'), null, 'company');
 
 			$nav->add('position', 'Position', 'javascript:;', 'md md-people');
 
