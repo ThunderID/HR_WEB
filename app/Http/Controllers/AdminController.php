@@ -16,19 +16,21 @@ abstract class AdminController extends Controller {
 			// leftmenu
 			$nav = new MaterialAdminSideMenu();
 
-			$nav->add('dashboard', 'Dashboard', 'javascript:;', 'md md-home');
+			$nav->add('dashboard', 'Dasbor', 'javascript:;', 'md md-home');
 			$nav->add('overview', 'Overview', route('admin.dashboard.overview'), null, 'dashboard');
 
-			$nav->add('person', 'Person', 'javascript:;', 'fa fa-user');
-			$nav->add('basic_info', 'Basic Information', route('admin.person-basic-information.index'), null, 'person');
+			$nav->add('person', 'Orang', 'javascript:;', 'fa fa-user');
+			$nav->add('basic_info', 'Informasi Dasar', route('admin.person-basic-information.index'), null, 'person');
+			$nav->add('basic_info_add', 'Tambah Orang', route('admin.person-basic-information.index'), null, 'person');
+
 			
-			$nav->add('company', 'Company', 'javascript:;', 'md md-business');
-			$nav->add('company_branch', 'Branch', route('admin.person-basic-information.index'), null, 'company');
-			$nav->add('company_charts', 'Charts', route('admin.person-basic-information.index'), null, 'company');
+			$nav->add('company', 'Perusahaan', 'javascript:;', 'md md-business');
+			$nav->add('company_branch', 'Cabang', route('admin.person-basic-information.index'), null, 'company');
+			$nav->add('company_charts', 'Struktur Perusahaan', route('admin.person-basic-information.index'), null, 'company');
 
-			$nav->add('position', 'Position', 'javascript:;', 'md md-people');
+			$nav->add('position', 'Jabatan', 'javascript:;', 'md md-people');
 
-			$nav->add('salary_component', 'Salary Component', 'javascript:;', 'md md-home');
+			$nav->add('salary_component', 'Komponen Gaji', 'javascript:;', 'md md-home');
 
 
 			$this->layout->nav = $nav;
