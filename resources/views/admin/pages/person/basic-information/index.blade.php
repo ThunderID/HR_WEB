@@ -8,7 +8,7 @@
 		<div class="card-body pt-10 pb-0">
 			<div class="row">
 				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-					<a href='' class='btn btn-primary ink-reaction mt-10'>Create New</a>
+					<a href='/admin/person-basic-information/add' class='btn btn-primary ink-reaction mt-10'>Create New</a>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
 					{!! Form::open(['route' => null, 'class' => 'form-inline']) !!}
