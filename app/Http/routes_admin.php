@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin'], function(){
 			{
 				Route::controller($page, $controller, [
 							'getIndex'	=> 'admin.' . $page . '.index',
-	// 						'getCreate'	=> 'admin.' . $page . '.create',
+							'getCreate'	=> 'admin.' . $page . '.add',
 	// 						'postStore'	=> 'admin.' . $page . '.store',
 	// 						'getShow'	=> 'admin.' . $page . '.show',
 							// 'getDelete'	=> 'admin.' . $page . '.delete',
@@ -39,8 +39,5 @@ Route::group(['prefix' => 'admin'], function(){
 		return view("admin.pages.errors.error")->with('err_type',$detail);
 	});
 
-	Route::get('/500', function()
-	{
-		echo "halo";
-	});
+
 });
