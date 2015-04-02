@@ -118,13 +118,13 @@ class AdminPersonBasicInformationController extends AdminController {
 		// }
 
 		// // ---------------------- GENERATE CONTENT ----------------------
-		// $this->layout->page_title = strtoupper($this->controller_name);
+		$this->layout->page_title = strtoupper($this->controller_name);
 
-		// $this->layout->content = view('admin.'.$this->controller_name.'.show');
-		// $this->layout->content->controller_name = $this->controller_name;
+		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.show');
+		$this->layout->content->controller_name = $this->controller_name;
 		// $this->layout->content->data = $data;
 
-		// return $this->layout;
+		return $this->layout;
 	}
 
 	function getDelete($id)

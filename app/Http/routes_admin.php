@@ -27,7 +27,7 @@ Route::group(['prefix' => 'admin'], function(){
 							'getIndex'	=> 'admin.' . $page . '.index',
 							'getCreate'	=> 'admin.' . $page . '.add',
 	// 						'postStore'	=> 'admin.' . $page . '.store',
-	// 						'getShow'	=> 'admin.' . $page . '.show',
+							'getShow'	=> 'admin.' . $page . '.show',
 							// 'getDelete'	=> 'admin.' . $page . '.delete',
 					]);
 			}

@@ -13,7 +13,11 @@ var elixir = require('laravel-elixir');
 elixir.config.sourcemaps = false;
 
 elixir(function(mix) {
-    mix.styles(['theme-1/bootstrap.css',
+	mix.less('app.less')
+	.copy('public/css/app.css', 'resources/css/app.css');
+
+    mix.styles(['app.css',
+    			'theme-1/bootstrap.css',
 				'theme-1/materialadmin.css',
     			'theme-1/font-awesome.min.css',
 				'theme-1/material-design-iconic-font.min.css',
@@ -28,6 +32,7 @@ elixir(function(mix) {
 				'libs/nanoscroller/jquery.nanoscroller.min.js',
 				'libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js',
 				'libs/select2/select2.min.js',
+				'libs/microtemplating/microtemplating.min.js',
 				'core/source/App.min.js',
 				'core/source/AppNavigation.js',
 				'core/source/AppCard.js',
@@ -37,7 +42,9 @@ elixir(function(mix) {
 				'thunder/thumbnail_image_upload/thumbnail-image-upload.jquery.js',
 				'thunder/bootstrap.type2confirm/bootstrap.type2confirm.jquery.js'
 				], 'public/js/admin.js')
-	.version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
+	// .version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
+	.copy('resources/js/libs/utils/html5shiv.js', 'public/js/html5shiv.js')
+	.copy('resources/js/libs/utils/respond.min.js', 'public/js/respond.min.js')
 	.copy('resources/fonts/', 'public/build/fonts/')
 	.copy('resources/images/', 'public/images/');
 });
