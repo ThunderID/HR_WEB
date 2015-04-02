@@ -38,6 +38,4 @@ Route::group(['prefix' => 'admin'], function(){
 	{
 		return view("admin.pages.errors.error")->with('err_type',$detail);
 	});
-
-
 });
