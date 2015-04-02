@@ -146,8 +146,7 @@
 				<div class="tab-pane" id="relation">
 					<ul class="list-unstyled" id="relationList"></ul>
 					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="relationTmpl" data-target="#relationList">TAMBAHKAN RELASI
-						</a>
+						<a class="btn btn-raised btn-default-bright" data-duplicate="relationTmpl" data-target="#relationList">TAMBAHKAN RELASI</a>
 					</div><!--end .form-group -->
 				</div><!--end .tab-pane -->
 				<div class="tab-pane" id="work">
@@ -355,11 +354,80 @@
 											<label for="marital_status_relation_<%=index%>">Status Kawin</label>
 										</div>
 									</div>
-								</div>																	
+								</div>	
+								<div class="page-header no-border holder">
+									<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+									<h4 class="text-accent">Alamat <%=index%></h4>
+								</div>
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_address_<%=index%>" name="address_address_<%=index%>">
+											<label for="address_address_<%=index%>">Alamat Lengkap</label>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_posstal_code_<%=index%>" name="address_posstal_code_<%=index%>">
+											<label for="address_posstal_code_<%=index%>">Kode Pos</label>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_RT_<%=index%>" name="address_RT_<%=index%>">
+											<label for="address_RT_<%=index%>">RT</label>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_RW_<%=index%>" name="address_RW_<%=index%>">
+											<label for="address_RW_<%=index%>">RW</label>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_kecamatan_<%=index%>" name="address_kecamatan_<%=index%>">
+											<label for="address_kecamatan_<%=index%>">Kecamatan</label>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_kelurahan_<%=index%>" name="address_kelurahan_<%=index%>">
+											<label for="address_kelurahan_<%=index%>">Kelurahan</label>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_city_<%=index%>" name="address_city_<%=index%>">
+											<label for="address_city_<%=index%>">Kota</label>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_province_<%=index%>" name="address_province_<%=index%>">
+											<label for="address_province_<%=index%>">Provinsi</label>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<input type="text" class="form-control" id="address_country_<%=index%>" name="address_country_<%=index%>">
+											<label for="address_country_<%=index%>">Negara</label>
+										</div>
+									</div>					
+								</div>																								
 							</div>
 						</div>
 					</div>
-
+					<div class="card-actionbar">
+						<div class="card-actionbar-row">
+							<a class="btn btn-flat" href="../../../html/pages/contacts/search.html">BATAL</a>
+							<button type="button" class="btn btn-flat">SIMPAN DATA</button>
+						</div>
+					</div>
 					<!-- END RELASI DETAIL -->
 				</div>
 			</div>
