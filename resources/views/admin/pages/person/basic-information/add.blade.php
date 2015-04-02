@@ -12,7 +12,6 @@
 		<!-- BEGIN STYLESHEETS -->
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
 		<link type="text/css" rel="stylesheet" href="{{ elixir('css/admin.css') }}" />
-
 		<!-- END STYLESHEETS -->
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -161,8 +160,8 @@
 				<section>
 					<div class="section-header">
 						<ol class="breadcrumb">
-							<li><a href="../../../html/pages/contacts/search.html">Contacts</a></li>
-							<li class="active">Add contact</li>
+							<li><a href="../../../html/pages/contacts/search.html">Orang</a></li>
+							<li class="active">Tambah</li>
 						</ol>
 					</div>
 					<div class="section-body contain-lg">
@@ -223,10 +222,11 @@
 										<!-- BEGIN FORM TABS -->
 										<div class="card-head style-primary">
 											<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
-												<li class="active"><a href="#contact">DETAIL</a></li>
+												<li class="active"><a href="#profil">PROFIL</a></li>
 												<li><a href="#relation">RELASI</a></li>
-												<li><a href="#experience">PENGALAMAN</a></li>
-												<li><a href="#skills">SKILLS</a></li>
+												<li><a href="#work">PEKERJAAN</a></li>
+												<li><a href="#contact">KONTAK</a></li>
+												<li><a href="#document">DOKUMEN</a></li>
 												<li><a href="#general">GENERAL</a></li>
 											</ul>
 										</div><!--end .card-head -->
@@ -234,7 +234,7 @@
 
 										<!-- BEGIN FORM TAB PANES -->
 										<div class="card-body tab-content">
-											<div class="tab-pane active" id="contact">
+											<div class="tab-pane active" id="profil">
 												<div class="row">
 													<div class="col-md-8">
 														<div class="row">
@@ -295,14 +295,14 @@
 															</div><!--end .col -->
 															<div class="col-md-6">
 																<div class="form-group">
-																	<select name="Marital_status" class="form-control">
+																	<select name="marital_status" class="form-control" id="marital_status">
 																		<option value=""></option>
 																		<option value="single">Belum Kawin</option>
 																		<option value="married">Kawin</option>
 																		<option value="divorced">Cerai Hidup</option>
 																		<option value="widowed">Cerai Mati</option>
 																	</select>
-																	<label for="Marital_status">Status Kawin</label>
+																	<label for="marital_status">Status Kawin</label>
 																</div><!--end .row -->
 															</div><!--end .row -->
 														</div><!--end .row -->
@@ -316,16 +316,26 @@
 													</a>
 												</div><!--end .form-group -->
 											</div><!--end .tab-pane -->
-											<div class="tab-pane" id="experience">
-												<ul class="list-unstyled" id="experienceList"></ul>
+											<div class="tab-pane" id="work">
+												<ul class="list-unstyled" id="workList"></ul>
 												<div class="form-group">
-													<a class="btn btn-raised btn-default-bright" data-duplicate="experienceTmpl" data-target="#experienceList">TAMBAHKAN PENGALAMAN</a>
+													<a class="btn btn-raised btn-default-bright" data-duplicate="workTmpl" data-target="#workList">TAMBAHKAN PEKERJAAN</a>
 												</div><!--end .form-group -->
 											</div><!--end .tab-pane -->
-											<div class="tab-pane " id="skills">
-												<ul class="list-unstyled" id="skillsList"></ul>
+											<div class="tab-pane " id="contact">
+												<ul class="list-unstyled" id="addressList"></ul>
 												<div class="form-group">
-													<a class="btn btn-raised btn-default-bright" data-duplicate="skillTmpl" data-target="#skillsList">ADD NEW skill</a>
+													<a class="btn btn-raised btn-default-bright" data-duplicate="addressTmpl" data-target="#addressList">TAMBAHKAN ALAMAT</a>
+												</div><!--end .form-group -->
+												<ul class="list-unstyled" id="contactList"></ul>
+												<div class="form-group">
+													<a class="btn btn-raised btn-default-bright" data-duplicate="contactTmpl" data-target="#contactList">TAMBAHKAN KONTAK</a>
+												</div><!--end .form-group -->											
+											</div><!--end .tab-pane -->
+											<div class="tab-pane " id="document">
+												<ul class="list-unstyled" id="documentList"></ul>
+												<div class="form-group">
+													<a class="btn btn-raised btn-default-bright" data-duplicate="skillTmpl" data-target="#documentList">TAMBAH DOKUMEN</a>
 												</div><!--end .form-group -->
 											</div><!--end .tab-pane -->
 											<div class="tab-pane" id="general">
@@ -866,13 +876,23 @@
 					<h4 class="text-accent">Relasi <%=index%></h4>
 				</div>
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-12">
 						<div class="form-group">
-							<input type="text" class="form-control" id="relationship<%=index%>" name="relationship<%=index%>">
+							<select  id="relationship<%=index%>" name="relationship<%=index%>" class="form-control">
+								<option value=""></option>
+								<option value="father">Ayah</option>
+								<option value="mother">Ibu</option>
+								<option value="husband">Suami</option>
+								<option value="wife">Istri</option>
+								<option value="daughter">Anak Perempuan</option>
+								<option value="son">Anak Laki-laki</option>
+							</select>
 							<label for="relationship<%=index%>">Relasi</label>
 						</div>
 					</div>
-					<div class="col-md-7">
+				</div>
+				<div class="row">
+					<div class="col-md-12">
 						<div class="form-group">
 							<input type="text" class="form-control" id="relation_name_<%=index%>" name="relation_name_<%=index%>">
 							<label for="relation_name_<%=index%>">Nama</label>
@@ -881,7 +901,7 @@
 				</div>
 				<div class="row">
 					<div class="card style-primary-dark">
-						<!-- BEGIN RELASI DETAIL -->
+						<!-- BEGIN RELASI DETAIL -->			
 						<div class="card-head style-primary-dark">
 							<header>Nama</header>
 						</div>
@@ -991,7 +1011,7 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<select name="marital_status_relation_<%=index%>" class="form-control">
+												<select name="marital_status_relation_<%=index%>" id="marital_status_relation_<%=index%>" class="form-control">
 															<option value=""></option>
 															<option value="single">Belum Kawin</option>
 															<option value="married">Kawin</option>
@@ -1014,107 +1034,215 @@
 		<!-- END RELATION TEMPLATES -->
 
 
-		<!-- BEGIN EXPERIENCE TEMPLATES -->
-		<script type="text/html" id="experienceTmpl">
+		<!-- BEGIN WORK TEMPLATES -->
+		<script type="text/html" id="workTmpl">
 			<li class="clearfix">
 				<div class="page-header no-border holder">
 					<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-					<h4 class="text-accent">Pengalaman <%=index%></h4>
+					<h4 class="text-accent">Pekerjaan <%=index%></h4>
 				</div>
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-md-4">
 						<div class="form-group">
-							<input type="text" class="form-control" id="experience-company-<%=index%>" name="experience-company-<%=index%>">
-							<label for="experience-company-<%=index%>">Company</label>
+							<input type="text" class="form-control" id="work_company_<%=index%>" name="work_company_<%=index%>">
+							<label for="work_company_<%=index%>">Perusahaan</label>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-md-4">
 						<div class="form-group">
-							<input type="text" class="form-control" id="experience-functiontitle-<%=index%>" name="experience-functiontitle-<%=index%>">
-							<label for="experience-functiontitle-<%=index%>">Function</label>
+							<input type="text" class="form-control" id="work_department_<%=index%>" name="work_department_<%=index%>">
+							<label for="work_department_<%=index%>">Departemen</label>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-md-4">
 						<div class="form-group">
-							<div class="input-daterange input-group" id="demo-date-range">
-								<div class="input-group-content">
-									<input type="text" class="form-control" name="start<%=index%>" />
-									<label>Date range</label>
-								</div>
-								<span class="input-group-addon">to</span>
-								<div class="input-group-content">
-									<input type="text" class="form-control" name="end<%=index%>" />
-									<div class="form-control-line"></div>
-								</div>
-							</div>
+							<input type="text" class="form-control" id="work_position_<%=index%>" name="work_position_<%=index%>">
+							<label for="work_position_<%=index%>">Posisi</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="work_status_<%=index%>" name="work_status_<%=index%>">
+							<label for="work_status_<%=index%>">Status Pegawai</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="work_department_<%=index%>" name="work_department_<%=index%>">
+							<label for="work_department_<%=index%>">Mulai Bekerja</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="work_position_<%=index%>" name="work_position_<%=index%>">
+							<label for="work_position_<%=index%>">Berhenti Bekerja</label>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<textarea name="experience-description-<%=index%>" id="experience-description-<%=index%>" class="form-control" rows="3"></textarea>
-					<label for="experience-description-<%=index%>">Job description</label>
+					<textarea name="work_reason_quit_<%=index%>" id="work_reason_quit_<%=index%>" class="form-control" rows="3"></textarea>
+					<label for="work_reason_quit_<%=index%>">Alasan Berhenti</label>
 				</div>
 			</li>
 		</script>
-		<!-- END EXPERIENCE TEMPLATES -->
+		<!-- END WORK TEMPLATES -->
 
-		<!-- BEGIN SKILLS TEMPLATES -->
+		<!-- BEGIN ADDRESS TEMPLATES -->
+		<script type="text/html" id="addressTmpl">
+			<li class="clearfix">
+				<div class="page-header no-border holder">
+					<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+					<h4 class="text-accent">Alamat <%=index%></h4>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_address_<%=index%>" name="address_address_<%=index%>">
+							<label for="address_address_<%=index%>">Alamat Lengkap</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_posstal_code_<%=index%>" name="address_posstal_code_<%=index%>">
+							<label for="address_posstal_code_<%=index%>">Kode Pos</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_RT_<%=index%>" name="address_RT_<%=index%>">
+							<label for="address_RT_<%=index%>">RT</label>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_RW_<%=index%>" name="address_RW_<%=index%>">
+							<label for="address_RW_<%=index%>">RW</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_kecamatan_<%=index%>" name="address_kecamatan_<%=index%>">
+							<label for="address_kecamatan_<%=index%>">Kecamatan</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_kelurahan_<%=index%>" name="address_kelurahan_<%=index%>">
+							<label for="address_kelurahan_<%=index%>">Kelurahan</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_city_<%=index%>" name="address_city_<%=index%>">
+							<label for="address_city_<%=index%>">Kota</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_province_<%=index%>" name="address_province_<%=index%>">
+							<label for="address_province_<%=index%>">Provinsi</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="address_country_<%=index%>" name="address_country_<%=index%>">
+							<label for="address_country_<%=index%>">Negara</label>
+						</div>
+					</div>					
+				</div>
+			</li>
+		</script>
+		<!-- END ADDRESS TEMPLATES -->
+
+		<!-- BEGIN CONTACT TEMPLATES -->
+		<script type="text/html" id="contactTmpl">
+			<li class="clearfix">
+				<div class="page-header no-border holder">
+					<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+					<h4 class="text-accent">Kontak <%=index%></h4>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="contact_phone_<%=index%>" name="contact_phone_<%=index%>">
+							<label for="contact_phone_<%=index%>">Nomor Telepon</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="contact_email_<%=index%>" name="contact_email_<%=index%>">
+							<label for="contact_email_<%=index%>">Alamat Email</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="contact_BBM_<%=index%>" name="contact_BBM_<%=index%>">
+							<label for="contact_BBM_<%=index%>">Akun BBM</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="contact_LINE_<%=index%>" name="contact_LINE_<%=index%>">
+							<label for="contact_LINE_<%=index%>">Akun LINE</label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="contact_WhatsApp_<%=index%>" name="contact_WhatsApp_<%=index%>">
+							<label for="contact_WhatsApp_<%=index%>">Akun WhatsApp</label>
+						</div>
+					</div>
+				</div>
+			</li>
+		</script>
+		<!-- END PHONE TEMPLATES -->
+
+
+		<!-- BEGIN DOCUMENT TEMPLATES -->
 		<script type="text/html" id="skillTmpl">
 			<li class="clearfix">
+				<div class="page-header no-border holder">
+					<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+					<h4 class="text-accent">Dokumen <%=index%></h4>
+				</div>
 				<div class="row">
-					<div class="col-xs-8">
-						<div class="form-group">
-							<input type="text" class="form-control" id="skill-<%=index%>" name="skill-<%=index%>">
-							<label for="skill-<%=index%>">Skill <%=index%></label>
-						</div>
-					</div>
-					<div class="col-xs-4">
-						<div class="form-group">
-							<select name="skill-rating-<%=index%>" class="form-control">
-								<option value=""></option>
-								<option value="100">100</option>
-								<option value="90">90</option>
-								<option value="80">80</option>
-								<option value="70">70</option>
-								<option value="60">60</option>
-								<option value="50">50</option>
-								<option value="40">40</option>
-								<option value="30">30</option>
-								<option value="20">20</option>
-								<option value="10">10</option>
-							</select>
-							<label for="skill-rating-<%=index%>">Rating</label>
-						</div>
-					</div>
 				</div>
 			</li>
 		</script>
-		<!-- END SKILLS TEMPLATES -->
+		<!-- END DOCUMENT TEMPLATES -->
 
-		<script src="/resources/js/libs/jquery/jquery-1.11.2.min.js"></script>
-		<script src="/resources/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
-		<script src="/resources/js/libs/bootstrap/bootstrap.min.js"></script>
-		<script src="/resources/js/libs/spin.js/spin.min.js"></script>
-		<script src="/resources/js/libs/autosize/jquery.autosize.min.js"></script>
+		<script src="../../../assets/js/libs/jquery/jquery-1.11.2.min.js"></script>
+		<!-- // <script src="../../../assets/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script> -->
+		<script src="../../../assets/js/libs/bootstrap/bootstrap.min.js"></script>
+		<script src="../../../assets/js/libs/spin.js/spin.min.js"></script>
+		<script src="../../../assets/js/libs/autosize/jquery.autosize.min.js"></script>
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCaFiiyJLSZNfT5D2sBiWzSK1MDo41e-JA&amp;sensor=false"></script>
-		<script src="/resources/assets/js/libs/gmaps/gmaps.js"></script>-->
-		<script src="/resources/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
-		<script src="/resources/js/libs/moment/moment.min.js"></script>
-		<script src="/resources/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-		<script src="/resources/js/libs/bootstrap-multiselect/bootstrap-multiselect.js"></script>
-		<script src="/resources/js/libs/bootstrap-rating/bootstrap-rating-input.min.js"></script>
-		<script src="/resources/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
-		<script src="/resources/js/libs/microtemplating/microtemplating.min.js"></script>
-		<script src="/resources/js/libs/summernote/summernote.min.js"></script>
-		<script src="/resources/js/core/source/App.js"></script>
-		<script src="/resources/js/core/source/AppNavigation.js"></script>
-		<script src="/resources/js/core/source/AppOffcanvas.js"></script>
-		<script src="/resources/js/core/source/AppCard.js"></script>
-		<script src="/resources/js/core/source/AppForm.js"></script>
-		<script src="/resources/js/core/source/AppNavSearch.js"></script>
-		<script src="/resources/js/core/source/AppVendor.js"></script>
-		<script src="/resources/js/core/demo/Demo.js"></script>
-		<script src="/resources/js/core/demo/DemoPageContacts.js"></script>
+		<script src="../../../assets/js/libs/gmaps/gmaps.js"></script>-->
+		<script src="../../../assets/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
+		<!-- // <script src="../../../assets/js/libs/moment/moment.min.js"></script> -->
+		<script src="../../../assets/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+		<script src="../../../assets/js/libs/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+		<script src="../../../assets/js/libs/bootstrap-rating/bootstrap-rating-input.min.js"></script>
+		<script src="../../../assets/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
+		<script src="../../../assets/js/libs/microtemplating/microtemplating.min.js"></script>
+		<script src="../../../assets/js/libs/summernote/summernote.min.js"></script>
+		<script src="../../../assets/js/core/source/App.js"></script>
+		<!-- // <script src="../../../assets/js/core/source/AppNavigation.js"></script> -->
+		<script src="../../../assets/js/core/source/AppOffcanvas.js"></script>
+		<script src="../../../assets/js/core/source/AppCard.js"></script>
+		<script src="../../../assets/js/core/source/AppForm.js"></script>
+		<!-- // <script src="../../../assets/js/core/source/AppNavSearch.js"></script> -->
+		<script src="../../../assets/js/core/source/AppVendor.js"></script>
+		<script src="../../../assets/js/core/demo/Demo.js"></script>
+		<script src="../../../assets/js/core/demo/DemoPageContacts.js"></script>
 		<!-- END JAVASCRIPT -->
 
 	</body>
