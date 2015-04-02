@@ -9,8 +9,6 @@
 			<header>Tambah data orang</header>
 		</div>
 		<form class="form" role="form">
-
-			<!-- BEGIN DEFAULT FORM ITEMS -->
 			<div class="card-body style-primary form-inverse">
 				<div class="row">
 					<div class="col-xs-12">
@@ -139,8 +137,8 @@
 											<option value="widowed">Cerai Mati</option>
 										</select>
 										<label for="marital_status">Status Kawin</label>
-									</div><!--end .row -->
-								</div><!--end .row -->
+									</div><!--end .form -->
+								</div><!--end .col -->
 							</div><!--end .row -->
 						</div><!--end .col -->
 					</div><!--end .row -->
@@ -185,7 +183,7 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="../../../html/pages/contacts/search.html">BATAL</a>
+					<a class="btn btn-flat" href="#">BATAL</a>
 					<button type="button" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
@@ -193,7 +191,16 @@
 		</form>
 	</div><!--end .card -->
 
-	<!-- BEGIN JAVASCRIPT -->
+@stop
+
+@section('css')
+	{!! HTML::style('css/summernote.css')!!}	
+@stop
+
+@section('js')
+	{!! HTML::script('js/summernote.min.js')!!}
+	{!! HTML::script('js/microtemplating.min.js')!!}
+	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
 
 	<!-- BEGIN RELATION TEMPLATES -->
 	<script type="text/html" id="relationTmpl">
@@ -544,5 +551,4 @@
 			</div>
 		</li>
 	</script>
-	<!-- END DOCUMENT TEMPLATES -->
 @stop

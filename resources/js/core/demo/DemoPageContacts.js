@@ -27,8 +27,6 @@
 		this._initSummernote();
 		this._initDatetime();
 		this._initMultiselect();
-		this._initGMaps();
-		this._initInputMask();
 	};
 
 	// =========================================================================
@@ -80,88 +78,6 @@
 	};
 
 	// =========================================================================
-	// GMaps
-	// =========================================================================
-
-	p._initGMaps = function() {
-		if (typeof GMaps === 'undefined') {
-			return;
-		}
-		if ($('#map-canvas').length === 0) {
-			return;
-		}
-
-		this.map = new GMaps({
-			div: '#map-canvas',
-			lat: 52.376950,
-			lng: 4.898365,
-			zoom: 11,
-			disableDefaultUI: true
-		});
-
-		this.map.addMarker({
-			lat: 52.37050,
-			lng: 4.90454,
-			title: 'Amsterdam',
-			click: function(e) {
-				alert('You clicked in this marker');
-			}
-		});
-
-		this._initGMapsEvents();
-	};
-
-	p._initGMapsEvents = function() {
-		var o = this;
-		$('#street, #streetnumber, #city, #zip').on('change', function(e) {
-			o._startGeocoding();
-		});
-	};
-
-	p._startGeocoding = function() {
-		var o = this;
-		GMaps.geocode({
-			address: o._formatAddress(),
-			callback: function(results, status) {
-				if (status === 'OK') {
-					o._addMarker(results, status);
-				}
-			}
-		});
-	};
-	p._addMarker = function(results, status) {
-		this.map.removeMarkers();
-		var latlng = results[0].geometry.location;
-		this.map.setCenter(latlng.lat(), latlng.lng());
-		this.map.addMarker({
-			lat: latlng.lat(),
-			lng: latlng.lng()
-		});
-	};
-
-	p._formatAddress = function(results, status) {
-		var address = [];
-		var street = $('#street').val() + " " + $('#streetnumber').val();
-		var city = $('#city').val();
-		var zip = $('#zip').val();
-
-		// Add values to array if not empty
-		if ($.trim(street) !== '') {
-			address.push(street);
-		}
-		if ($.trim(city) !== '') {
-			address.push(city);
-		}
-		if ($.trim(zip) !== '') {
-			address.push(zip);
-		}
-
-		// Format address to search string
-		return address.join(',');
-	};
-
-
-	// =========================================================================
 	// SUMMERNOTE EDITOR
 	// =========================================================================
 
@@ -210,17 +126,6 @@
 		}
 
 		$('.input-daterange').datepicker({todayHighlight: true});
-	};
-
-	// =========================================================================
-	// InputMask
-	// =========================================================================
-
-	p._initInputMask = function() {
-		if (!$.isFunction($.fn.inputmask)) {
-			return;
-		}
-		$(":input").inputmask();
 	};
 
 	// =========================================================================

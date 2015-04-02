@@ -22,7 +22,7 @@ elixir(function(mix) {
     			'theme-1/font-awesome.min.css',
 				'theme-1/material-design-iconic-font.min.css',
 				'theme-1/libs/bootstrap-tagsinput/bootstrap-tagsinput.css',
-				"theme-1/libs/select2/select2.css"
+				"theme-1/libs/select2/select2.css",
 				], 'public/css/admin.css')
 	.scripts(['libs/jquery/jquery-1.11.2.min.js',
 				'libs/jquery/jquery-migrate-1.2.1.min.js',
@@ -32,7 +32,6 @@ elixir(function(mix) {
 				'libs/nanoscroller/jquery.nanoscroller.min.js',
 				'libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js',
 				'libs/select2/select2.min.js',
-				'libs/microtemplating/microtemplating.min.js',
 				'core/source/App.min.js',
 				'core/source/AppNavigation.js',
 				'core/source/AppCard.js',
@@ -45,6 +44,10 @@ elixir(function(mix) {
 	// .version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
 	.copy('resources/js/libs/utils/html5shiv.js', 'public/js/html5shiv.js')
 	.copy('resources/js/libs/utils/respond.min.js', 'public/js/respond.min.js')
+	.copy('resources/css/theme-default/libs/summernote/summernote.css','public/css/summernote.css')
+	.copy('resources/js/libs/summernote/summernote.min.js', 'public/js/summernote.min.js')
+	.copy('resources/js/libs/microtemplating/microtemplating.min.js', 'public/js/microtemplating.min.js')
+	.copy('resources/js/core/demo/DemoPageContacts.js', 'public/js/pluginmicrotemplating.min.js')
 	.copy('resources/fonts/', 'public/build/fonts/')
 	.copy('resources/images/', 'public/images/');
 });
