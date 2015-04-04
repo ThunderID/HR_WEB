@@ -80,14 +80,92 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-head card-head-sm style-primary">
+					<header>
+						Pekerjaan
+					</header>
+				</div>
+				<div class="card-body height-5">
+					<div class="clearfix">
+						<p class="mtm-5 mb-0 text-xl">Mentari Pagi Sejahtera</p>
+						<p class="mtm-5 mb-0 text-lg opacity-50">Thunder Indonesia</p>
+						<p class="mt-0 mb-0 opacity-75">Web Designers</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="card card-underline">
+				<div class="card-head card-head-sm style-primary">
+					<header >
+						Contact
+					</header>
+				</div>
+				<div class="nano height-5">
+					<div class="nano-content">
+						<div class="card-body no-padding">
+							<ul class="list">
+								<li class="tile">
+									<a href="" class="tile-content ink-reaction">
+										<div class="tile-text">
+											Abbey Johson
+											<small>Ayah</small>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="nano-pane">
+						<div class="nano-slider"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card card-underline">
+				<div class="card-head card-head-sm style-primary">
+					<header >
+						Document
+					</header>
+				</div>
+				<div class="nano height-5">
+					<div class="nano-content">
+						<div class="card-body no-padding">
+							<ul class="list">
+								@for($x=0; $x<5; $x++)
+									<li class="tile">
+										<a href="" class="tile-content ink-reaction">
+											<div class="tile-icon">
+												<i class="fa fa-file-text-o"></i>
+											</div>
+											<div class="tile-text">
+												Surat kenaikan jabatan
+											</div>
+										</a>
+									</li>
+								@endfor
+							</ul>
+						</div>
+					</div>
+					<div class="nano-pane">
+						<div class="nano-slider"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
 			<div class="card card-underline">
 				<div class="card-head card-head-sm style-primary">
 					<header >
 						Relasi
 					</header>
 				</div>
-				<div class="nano height-7">
+				<div class="nano height-5">
 					<div class="nano-content">
 						<div class="card-body no-padding">
 							<ul class="list">
@@ -124,39 +202,6 @@
 										</div>
 									</a>
 								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="nano-pane">
-						<div class="nano-slider"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-sm-4">
-			<div class="card card-underline">
-				<div class="card-head card-head-sm style-primary">
-					<header >
-						Document
-					</header>
-				</div>
-				<div class="nano height-7">
-					<div class="nano-content">
-						<div class="card-body no-padding">
-							<ul class="list">
-								@for($x=0; $x<5; $x++)
-									<li class="tile">
-										<a href="" class="tile-content ink-reaction">
-											<div class="tile-icon">
-												<i class="fa fa-file-text-o"></i>
-											</div>
-											<div class="tile-text">
-												Surat kenaikan jabatan
-											</div>
-										</a>
-									</li>
-								@endfor
 							</ul>
 						</div>
 					</div>

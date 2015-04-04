@@ -33,8 +33,8 @@
 						</div>
 						<div class="col-sm-10">
 							<div class="clearfix">
-								<p class="mt-0 mb-0 text-lg"><a href="#">000-12345-6789-0</a></p>
-								<p class="mtm-15 mb-0 text-xl"><a href="#">Mark Ketijerk</a></p>
+								<p class="mt-0 mb-0 text-lg"><a href="{{ route('admin.person-basic-information.show') }}">000-12345-6789-0</a></p>
+								<p class="mtm-15 mb-0 text-xl"><a href="{{ route('admin.person-basic-information.show') }}">Mark Ketijerk</a></p>
 								<p class="mt-0 mb-0">Malang, 11 Agustus 1987</p>
 								<p class="mt-0 mb-0">Jln. Raya Araya no 43, Blimbing, Malang, Jawa Timur</p>
 							</div>

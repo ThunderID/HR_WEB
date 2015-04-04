@@ -107,17 +107,20 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="../../../html/pages/contacts/search.html">BATAL</a>
+					<a class="btn btn-flat" href="#">BATAL</a>
 					<button type="button" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
 			<!-- END FORM FOOTER -->
 		</form>
 	</div><!--end .card -->
+@stop
 
-	<!-- BEGIN JAVASCRIPT -->
 
-	<!-- BEGIN DEPARTMENT TEMPLATES -->
+@section('js')
+	{!! HTML::script('js/microtemplating.min.js')!!}
+	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
+
 	<script type="text/html" id="departmentTmpl">
 		<li class="clearfix">
 			<div class="page-header no-border holder">
@@ -374,5 +377,4 @@
 			</div>
 		</li>
 	</script>
-	<!-- END PHONE TEMPLATES -->
 @stop

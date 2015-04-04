@@ -23,7 +23,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="firstname" name="firstname">
+									<input type="text" class="form-control input-lg" id="firstname" name="firstname" disabled>
 									<label for="firstname">Nama Depan</label>
 								</div>
 							</div><!--end .col -->

@@ -9,7 +9,6 @@
 			<header>Tambah data Organisasi</header>
 		</div>
 		<form class="form" role="form">
-
 			<!-- BEGIN DEFAULT FORM ITEMS -->
 			<div class="card-body style-primary form-inverse">
 				<div class="row">
@@ -25,12 +24,11 @@
 					</div><!--end .col -->
 				</div><!--end .row -->
 			</div><!--end .card-body -->
-			<!-- END DEFAULT FORM ITEMS -->
-
+			
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="../../../html/pages/contacts/search.html">BATAL</a>
+					<a class="btn btn-flat" href="#">BATAL</a>
 					<button type="button" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
