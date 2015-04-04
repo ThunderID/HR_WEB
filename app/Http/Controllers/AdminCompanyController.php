@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers;
 
-use \App\DAL\Models\PersonBasicInformation;
+// use \App\DAL\Models\PersonBasicInformation;
 use Input, Session;
 // use Illuminate\Pagination\LengthAwarePaginator;
 
-class AdminPersonBasicInformationController extends AdminController {
+class AdminCompanyController extends AdminController {
 
-	protected $controller_name = 'basic-information';
+	protected $controller_name = 'company';
 
 	function __construct() 
 	{
@@ -24,7 +24,7 @@ class AdminPersonBasicInformationController extends AdminController {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
 
-		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.index');
+		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name = $this->controller_name;
 		// $this->layout->content->data = $data;
 
@@ -59,7 +59,7 @@ class AdminPersonBasicInformationController extends AdminController {
 		// // ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.add');
+		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.add');
 		$this->layout->content->controller_name = $this->controller_name;
 		// $this->layout->content->country_list = $country_list;
 
@@ -118,13 +118,13 @@ class AdminPersonBasicInformationController extends AdminController {
 		// }
 
 		// // ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper($this->controller_name);
+		// $this->layout->page_title = strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.show');
-		$this->layout->content->controller_name = $this->controller_name;
+		// $this->layout->content = view('admin.pages.person.'.$this->controller_name.'.show');
+		// $this->layout->content->controller_name = $this->controller_name;
 		// $this->layout->content->data = $data;
 
-		return $this->layout;
+		// return $this->layout;
 	}
 
 	function getDelete($id)

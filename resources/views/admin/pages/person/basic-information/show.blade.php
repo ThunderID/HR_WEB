@@ -106,16 +106,9 @@
 				<div class="nano height-5">
 					<div class="nano-content">
 						<div class="card-body no-padding">
-							<ul class="list">
-								<li class="tile">
-									<a href="" class="tile-content ink-reaction">
-										<div class="tile-text">
-											Abbey Johson
-											<small>Ayah</small>
-										</div>
-									</a>
-								</li>
-							</ul>
+							<p class="mtm-5 mb-0 text-xl">Mentari Pagi Sejahtera</p>
+							<p class="mtm-5 mb-0 text-lg opacity-50">Thunder Indonesia</p>
+							<p class="mt-0 mb-0 opacity-75">Web Designers</p>
 						</div>
 					</div>
 					<div class="nano-pane">
