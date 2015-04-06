@@ -19,7 +19,8 @@ Route::group(['prefix' => 'admin'], function(){
 	// 				'order' 		=> 'AdminOrderController',
 					'person-basic-information' 		=> 'AdminPersonBasicInformationController',
 					'company'						=> 'AdminCompanyController',
-					'organisation'					=> 'AdminOrganisationController'
+					'organisation'					=> 'AdminOrganisationController',
+					'organisation-branch'			=> 'AdminOrganisationBranchController'
 				];
 		if (isset($pages))
 		{
