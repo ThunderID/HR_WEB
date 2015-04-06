@@ -23,7 +23,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="firstname" name="firstname" disabled>
+									<input type="text" class="form-control input-lg" id="firstname" name="firstname">
 									<label for="firstname">Nama Depan</label>
 								</div>
 							</div><!--end .col -->
@@ -599,7 +599,7 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<textarea name="input_text<%=index%>" id="input_text<%=index%>" class="form-control" rows="3"></textarea>
-								<label for="input_text<%=index%>">input select</label>
+								<label for="input_text<%=index%>">inputan teks multibaris</label>
 							</div>	
 						</div>	
 					</div>	
