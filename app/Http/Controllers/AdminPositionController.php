@@ -56,14 +56,14 @@ class AdminPositionController extends AdminController {
 		// 	$country_list[$country] = $country;
 		// }
 	
-		// // ---------------------- GENERATE CONTENT ----------------------
-		// $this->layout->page_title = strtoupper($this->controller_name);
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title = strtoupper($this->controller_name);
 
-		// $this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.add');
-		// $this->layout->content->controller_name = $this->controller_name;
-		// // $this->layout->content->country_list = $country_list;
+		$this->layout->content = view('admin.pages.organisation.organisation-branch.add');
+		$this->layout->content->controller_name = $this->controller_name;
+		// $this->layout->content->country_list = $country_list;
 
-		// return $this->layout;
+		return $this->layout;
 	}
 
 	function postStore($id = null)
