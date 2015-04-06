@@ -569,19 +569,19 @@
 								<option value="pengalaman kerja">pengalaman kerja formal</option>
 								<option value="proyek">proyek formal</option>
 						</select>					
-						<label for="document_name_<%=index%>">Akun BBM</label>
+						<label for="document_name_<%=index%>">Jenis Dokumen</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="card style-primary-dark">
-					<!-- BEGIN RELASI DETAIL -->			
 					<div class="card-head style-primary-dark">
-						<header>Nama</header>
+						<header>Nama Dokumen</header>
 					</div>
 					<div class="card-body style-primary-dark form-inverse">
 						<div class="row">
 							<div class="col-xs-12">
+
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
@@ -590,16 +590,21 @@
 										</div>	
 									</div>	
 								</div>	
+
 								<div class="row">
-									<div class="col-md-12">
-										<div class="input-daterange input-group" id="input_date" style="width:100%;">
-											<div class="input-group-content">
-												<input type="text" class="form-control" name="input_date" />
-												<label>input date</label>
+									<div class="col-md-12">	
+										<div class="form-group">							
+											<div class="input-daterange input-group" id="input_date" style="width:100%;">
+												<div class="input-group-content">
+													<input type="text" class="form-control" name="input_date" />
+													<label>input date</label>
+												</div>
 											</div>
 										</div>
 									</div>	
 								</div>	
+
+
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
@@ -611,7 +616,8 @@
 											<label for="input_text<%=index%>">input select</label>
 										</div>	
 									</div>	
-								</div>			
+								</div>	
+
 							</div>	
 						</div>	
 					</div>	
