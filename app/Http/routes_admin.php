@@ -20,7 +20,8 @@ Route::group(['prefix' => 'admin'], function(){
 					'person-basic-information' 		=> 'AdminPersonBasicInformationController',
 					'company'						=> 'AdminCompanyController',
 					'organisation'					=> 'AdminOrganisationController',
-					'organisation-branch'			=> 'AdminOrganisationBranchController',
+					'department'					=> 'AdminDepartmentController',
+					'position'						=> 'AdminPositionController',
 					'document'						=> 'AdminDocumentController'
 
 				];

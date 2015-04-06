@@ -28,8 +28,8 @@ abstract class AdminController extends Controller {
 			$nav->add('company_branch', 'Cabang', route('admin.company.index'), null, 'company');
 			
 			$nav->add('company_charts', 'Struktur Perusahaan', 'javascript:;', null, 'company');
-			$nav->add('department', 'Departemen', route('admin.organisation-branch.index'), null,'company_charts');
-			$nav->add('jabatan', 'Jabatan', route('admin.organisation-branch.index'), null,'company_charts');
+			$nav->add('department', 'Departemen', route('admin.department.index'), null,'company_charts');
+			$nav->add('jabatan', 'Jabatan', route('admin.position.index'), null,'company_charts');
 
 			$nav->add('document', 'Dokumen', route('admin.document.index'), 'md md-insert-drive-file');
 

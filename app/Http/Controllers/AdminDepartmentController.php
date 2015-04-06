@@ -4,9 +4,9 @@
 use Input, Session;
 // use Illuminate\Pagination\LengthAwarePaginator;
 
-class AdminOrganisationBranchController extends AdminController {
+class AdminDepartmentController extends AdminController {
 
-	protected $controller_name = 'organisation-branch';
+	protected $controller_name = 'department';
 
 	function __construct() 
 	{
@@ -24,7 +24,7 @@ class AdminOrganisationBranchController extends AdminController {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
 
-		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.index');
+		$this->layout->content = view('admin.pages.organisation.organisation-branch.index');
 		$this->layout->content->controller_name = $this->controller_name;
 		// $this->layout->content->data = $data;
 
@@ -56,14 +56,14 @@ class AdminOrganisationBranchController extends AdminController {
 		// 	$country_list[$country] = $country;
 		// }
 	
-		// // ---------------------- GENERATE CONTENT ----------------------
-		// $this->layout->page_title = strtoupper($this->controller_name);
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title = strtoupper($this->controller_name);
 
-		// $this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.add');
-		// $this->layout->content->controller_name = $this->controller_name;
-		// // $this->layout->content->country_list = $country_list;
+		$this->layout->content = view('admin.pages.organisation.organisation-branch.add');
+		$this->layout->content->controller_name = $this->controller_name;
+		// $this->layout->content->country_list = $country_list;
 
-		// return $this->layout;
+		return $this->layout;
 	}
 
 	function postStore($id = null)
