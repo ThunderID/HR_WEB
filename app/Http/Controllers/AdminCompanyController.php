@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 // use \App\DAL\Models\PersonBasicInformation;
-use Input, Session;
+use Input, Session, View;
 // use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminCompanyController extends AdminController {
@@ -17,6 +17,7 @@ class AdminCompanyController extends AdminController {
 	
 	function getIndex()
 	{
+		// View::composer('profile', 'App\Http\ViewComposers\ProfileComposer');
 		// ---------------------- LOAD DATA ----------------------
 		// $data = $this->model->orderBy('created_at')->get();
 		
@@ -26,7 +27,7 @@ class AdminCompanyController extends AdminController {
 
 		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		// // $this->layout->content->data = $data;
 
 		return $this->layout;
 	}

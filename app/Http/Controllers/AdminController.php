@@ -21,12 +21,14 @@ abstract class AdminController extends Controller {
 
 			$nav->add('person', 'Orang', 'javascript:;', 'fa fa-user');
 			$nav->add('basic_info', 'Informasi Dasar', route('admin.person-basic-information.index'), null, 'person');
-			$nav->add('basic_info_add', 'Tambah Orang', route('admin.person-basic-information.add'), null, 'person');
 
 			
 			$nav->add('company', 'Perusahaan', 'javascript:;', 'md md-business');
 			$nav->add('company_branch', 'Cabang', route('admin.company.index'), null, 'company');
-			$nav->add('company_charts', 'Struktur Perusahaan', route('admin.organisation.index'), null, 'company');
+			$nav->add('company_charts', 'Struktur Perusahaan', 'javascript:;', null, 'company');
+
+			$nav->add('depature', 'Departemen', 'javascript:;', null, 'company_charts');
+			$nav->add('jabatan', 'Jabatan', 'javascript:;', null, 'company_charts');
 
 			$nav->add('position', 'Jabatan', 'javascript:;', 'md md-people');
 

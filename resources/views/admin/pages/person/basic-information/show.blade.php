@@ -97,22 +97,18 @@
 			</div>
 		</div>
 		<div class="col-sm-6">
-			<div class="card card-underline">
+			<div class="card">
 				<div class="card-head card-head-sm style-primary">
 					<header >
 						Contact
 					</header>
 				</div>
-				<div class="nano height-5">
-					<div class="nano-content">
-						<div class="card-body no-padding">
-							<p class="mtm-5 mb-0 text-xl">Mentari Pagi Sejahtera</p>
-							<p class="mtm-5 mb-0 text-lg opacity-50">Thunder Indonesia</p>
-							<p class="mt-0 mb-0 opacity-75">Web Designers</p>
-						</div>
-					</div>
-					<div class="nano-pane">
-						<div class="nano-slider"></div>
+				<div class="card-body height-5">
+					<div class="clearfix">
+						<p class="mtm-5 mb-0 text-lg">Mobile</p>
+						<p class="mtm-5 mb-0 opacity-50">+6287979797979</p>
+						<p class="mtm-0 mb-0 text-lg">Work</p>
+						<p class="mtm-5 mb-0 opacity-50">+623419900876</p>
 					</div>
 				</div>
 			</div>

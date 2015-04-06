@@ -19,6 +19,36 @@
 		</div>
 		
 	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<table class="table no-margin">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Nama Pehusahaan</th>
+								<th>No Ijin Pehusahaan</th>
+								<th>NPWP</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>PT. Makmur Sejati</td>
+								<td>09090909080</td>
+								<td>98989898899</td>
+								<td>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 @stop
 
 
