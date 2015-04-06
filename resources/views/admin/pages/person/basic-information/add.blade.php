@@ -61,7 +61,6 @@
 					<li><a href="#work">PEKERJAAN</a></li>
 					<li><a href="#contact">KONTAK</a></li>
 					<li><a href="#document">DOKUMEN</a></li>
-					<li><a href="#general">GENERAL</a></li>
 				</ul>
 			</div><!--end .card-head -->
 			<!-- END FORM TABS -->
@@ -169,11 +168,6 @@
 					<ul class="list-unstyled" id="documentList"></ul>
 					<div class="form-group">
 						<a class="btn btn-raised btn-default-bright" data-duplicate="skillTmpl" data-target="#documentList">TAMBAH DOKUMEN</a>
-					</div><!--end .form-group -->
-				</div><!--end .tab-pane -->
-				<div class="tab-pane" id="general">
-					<div class="form-group">
-						<textarea id="summernote" name="message" class="form-control control-4-rows" placeholder="Enter note ..." spellcheck="false"></textarea>
 					</div><!--end .form-group -->
 				</div><!--end .tab-pane -->
 			</div><!--end .card-body.tab-content -->
@@ -574,50 +568,40 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="card style-primary-dark">
-					<div class="card-head style-primary-dark">
-						<header>Nama Dokumen</header>
-					</div>
-					<div class="card-body style-primary-dark form-inverse">
-						<div class="row">
-							<div class="col-xs-12">
+				<div class="col-xs-12">
 
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="input_text<%=index%>" name="input_text<%=index%>">
-											<label for="input_text<%=index%>">input text</label>
-										</div>	
-									</div>	
-								</div>	
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<input type="text" class="form-control" id="input_text<%=index%>" name="input_text<%=index%>">
+								<label for="input_text<%=index%>">input text</label>
+							</div>	
+						</div>	
+					</div>	
 
-								<div class="row">
-									<div class="col-md-12">	
-										<div class="form-group">							
-											<div class="input-daterange input-group" id="input_date" style="width:100%;">
-												<div class="input-group-content">
-													<input type="text" class="form-control" name="input_date" />
-													<label>input date</label>
-												</div>
-											</div>
-										</div>
-									</div>	
-								</div>	
+					<div class="row">
+						<div class="col-md-12">	
+							<div class="form-group">							
+								<div class="input-daterange input-group" id="input_date" style="width:100%;">
+									<div class="input-group-content">
+										<input type="text" class="form-control" name="input_date" />
+										<label>input date</label>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>	
 
 
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<select name="input_select<%=index%>" id="input_select<%=index%>" class="form-control">										
-												<option value=""></option>
-												<option value="a">a</option>
-												<option value="b">b</option>						
-											</select>					
-											<label for="input_text<%=index%>">input select</label>
-										</div>	
-									</div>	
-								</div>	
-
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<select name="input_select<%=index%>" id="input_select<%=index%>" class="form-control">										
+									<option value=""></option>
+									<option value="a">a</option>
+									<option value="b">b</option>						
+								</select>					
+								<label for="input_text<%=index%>">input select</label>
 							</div>	
 						</div>	
 					</div>	
