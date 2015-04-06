@@ -575,8 +575,8 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<input type="text" class="form-control" id="input_text<%=index%>" name="input_text<%=index%>">
-								<label for="input_text<%=index%>">input text</label>
+								<input type="text" class="form-control" id="input_string<%=index%>" name="input_string<%=index%>">
+								<label for="input_string<%=index%>">inputan teks satu baris</label>
 							</div>	
 						</div>	
 					</div>	
@@ -587,7 +587,7 @@
 								<div class="input-daterange input-group" id="input_date" style="width:100%;">
 									<div class="input-group-content">
 										<input type="text" class="form-control" name="input_date" />
-										<label>input date</label>
+										<label>inputan tanggal</label>
 									</div>
 								</div>
 							</div>
@@ -598,11 +598,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<select name="input_select<%=index%>" id="input_select<%=index%>" class="form-control">										
-									<option value=""></option>
-									<option value="a">a</option>
-									<option value="b">b</option>						
-								</select>					
+								<textarea name="input_text<%=index%>" id="input_text<%=index%>" class="form-control" rows="3"></textarea>
 								<label for="input_text<%=index%>">input select</label>
 							</div>	
 						</div>	
