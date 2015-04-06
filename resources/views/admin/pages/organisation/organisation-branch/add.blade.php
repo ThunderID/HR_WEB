@@ -24,10 +24,42 @@
 									<select name="company" id="company" class="form-control">
 										<option value=""></option>
 									</select>
-									<label for="Name">Nama Perusahaan</label>
+									<label for="company">Nama Perusahaan</label>
 								</div>
 							</div><!--end .col -->
-						</div><!--end .row -->					
+						</div><!--end .row -->	
+						@if($controller_name == "position")
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<select name="department" id="department" class="form-control">
+										<option value=""></option>
+									</select>
+									<label for="department">Nama Departemen</label>
+								</div>
+							</div><!--end .col -->
+						</div><!--end .row -->	
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<input type="text" class="form-control" id="min_employee_<%=index%>" name="min_employee_<%=index%>">
+									<label for="min_employee_<%=index%>">Jumlah Minimum Pegawai</label>
+								</div>
+								</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<input type="text" class="form-control" id="ideal_employee_<%=index%>" name="ideal_employee_<%=index%>">
+									<label for="ideal_employee_<%=index%>">Jumlah Ideal Pegawai</label>
+								</div>
+								</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
+									<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
+								</div>
+							</div> 					 					
+						</div>											
+						@endif
 					</div><!--end .col -->
 				</div><!--end .row -->
 			</div><!--end .card-body -->
@@ -55,7 +87,8 @@
 		</form>
 	</div><!--end .card -->
 	
-	<!-- BEGIN ORGANISATION BRANCH TEMPLATES -->
+	@if($controller_name == "department")
+	<!-- BEGIN DEPARTMENT TEMPLATES -->
 	<script type="text/html" id="skillTmpl">
 		<li class="clearfix">
 			<div class="page-header no-border holder">
@@ -92,7 +125,53 @@
 			</div>
 		</li>
 	</script>
-	<!-- END ORGANISATION BRANCH TEMPLATES -->	
+	<!-- END DEPARTMENT TEMPLATES -->	
+	@elseif($controller_name == "position")
+	<!-- BEGIN POSITION TEMPLATES -->
+	<script type="text/html" id="skillTmpl">
+		<li class="clearfix">
+			<div class="page-header no-border holder">
+				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+				<h4 class="text-accent">Jabatan <%=index%></h4>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<input type="text" class="form-control" id="position_name<%=index%>" name="position_name<%=index%>">
+						<label for="position_name<%=index%>">Nama Jabatan</label>
+					</div>
+					</div>	
+				<div class="col-md-6">
+					<div class="form-group">
+						<input type="text" class="form-control" id="position_grade_<%=index%>" name="position_grade_<%=index%>">
+						<label for="position_grade_<%=index%>">Grade Jabatan</label>
+					</div>
+					</div>	 								
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<input type="text" class="form-control" id="min_employee_<%=index%>" name="min_employee_<%=index%>">
+						<label for="min_employee_<%=index%>">Jumlah Minimum Pegawai</label>
+					</div>
+					</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<input type="text" class="form-control" id="ideal_employee_<%=index%>" name="ideal_employee_<%=index%>">
+						<label for="ideal_employee_<%=index%>">Jumlah Ideal Pegawai</label>
+					</div>
+					</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
+						<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
+					</div>
+				</div> 					 					
+			</div>
+		</li>
+	</script>
+	<!-- END POSITION TEMPLATES -->		
+	@endif
 @stop
 
 @section('css')
