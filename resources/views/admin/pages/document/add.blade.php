@@ -68,6 +68,39 @@
 			<!-- END FORM FOOTER -->
 		</form>
 	</div><!--end .card -->
+	
+	<!-- BEGIN DOCUMENT TEMPLATES -->
+	<script type="text/html" id="skillTmpl">
+		<li class="clearfix">
+			<div class="col-xs-12">
+
+				<div class="page-header no-border holder">
+					<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+					<h4 class="text-accent">Inputan ke-<%=index%></h4>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="work_company_<%=index%>" name="work_company_<%=index%>">
+							<label for="work_company_<%=index%>">Nama Inputan</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<select name="doc_input_type_<%=index%>" id="doc_input_type_<%=index%>" class="form-control">
+								<option value=""></option>
+								<option value="string">inputan teks satu baris</option>
+								<option value="text">inputan teks multibaris</option>
+								<option value="date">inputan tanggal</option>
+							</select>								
+							<label for="doc_input_type_<%=index%>">Jenis Inputan</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	</script>
+	<!-- END DOCUMENT TEMPLATES -->	
 @stop
 
 @section('css')
