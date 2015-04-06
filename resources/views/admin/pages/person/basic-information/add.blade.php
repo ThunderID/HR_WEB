@@ -552,7 +552,71 @@
 				<h4 class="text-accent">Dokumen <%=index%></h4>
 			</div>
 			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<select name="document_name_<%=index%>" id="document_name_<%=index%>" class="form-control">
+								<option value=""></option>
+								<option value="surat peringatan">surat peringatan</option>
+								<option value="kontrak kerja">kontrak kerja</option>
+								<option value="penilaian kinerja">penilaian kinerja</option>
+								<option value="pendidikan formal">pendidikan formal</option>
+								<option value="pendidikan non formal">pendidikan non formal formal</option>
+								<option value="ktp">ktp formal</option>
+								<option value="bpjs">bpjs formal</option>
+								<option value="npwp">npwp formal</option>
+								<option value="bank">bank formal</option>
+								<option value="reksa dana">reksa dana formal</option>
+								<option value="pengalaman kerja">pengalaman kerja formal</option>
+								<option value="proyek">proyek formal</option>
+						</select>					
+						<label for="document_name_<%=index%>">Akun BBM</label>
+					</div>
+				</div>
 			</div>
+			<div class="row">
+				<div class="card style-primary-dark">
+					<!-- BEGIN RELASI DETAIL -->			
+					<div class="card-head style-primary-dark">
+						<header>Nama</header>
+					</div>
+					<div class="card-body style-primary-dark form-inverse">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<input type="text" class="form-control" id="input_text<%=index%>" name="input_text<%=index%>">
+											<label for="input_text<%=index%>">input text</label>
+										</div>	
+									</div>	
+								</div>	
+								<div class="row">
+									<div class="col-md-12">
+										<div class="input-daterange input-group" id="input_date" style="width:100%;">
+											<div class="input-group-content">
+												<input type="text" class="form-control" name="input_date" />
+												<label>input date</label>
+											</div>
+										</div>
+									</div>	
+								</div>	
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<select name="input_select<%=index%>" id="input_select<%=index%>" class="form-control">										
+												<option value=""></option>
+												<option value="a">a</option>
+												<option value="b">b</option>						
+											</select>					
+											<label for="input_text<%=index%>">input select</label>
+										</div>	
+									</div>	
+								</div>			
+							</div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>																																																											
 		</li>
 	</script>
 @stop
