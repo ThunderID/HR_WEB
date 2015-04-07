@@ -22,8 +22,8 @@ Route::group(['prefix' => 'admin'], function(){
 					'organisation'					=> 'AdminOrganisationController',
 					'department'					=> 'AdminDepartmentController',
 					'position'						=> 'AdminPositionController',
-					'document'						=> 'AdminDocumentController'
-
+					'document'						=> 'AdminDocumentController',
+					'API'							=> 'AdminAPIController'
 				];
 		if (isset($pages))
 		{
