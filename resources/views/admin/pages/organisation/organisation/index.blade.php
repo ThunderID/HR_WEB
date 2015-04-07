@@ -35,14 +35,18 @@
 								<td>1</td>
 								<td>Mentari Pagi Sejahtera</td>
 								<td>
-									
+									<a href="{{ route('admin.organisation.show') }}">
+										Detail
+									</a>
 								</td>
 							</tr>
 							<tr>
 								<td>2</td>
 								<td>Bintang Malam Senyap</td>
 								<td>
-									
+									<a href="{{ route('admin.organisation.show') }}">
+										Detail
+									</a>
 								</td>
 							</tr>							
 						</tbody>

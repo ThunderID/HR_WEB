@@ -153,7 +153,7 @@
 						<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
 						<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
 					</div>
-					</div> 					 					
+				</div> 					 					
 			</div>
 		</li>
 	</script>
