@@ -16,7 +16,7 @@ abstract class AdminController extends Controller {
 			// leftmenu
 			$nav = new MaterialAdminSideMenu();
 
-			$nav->add('dashboard', 'Dasbor', 'javascript:;', 'md md-home');
+			$nav->add('dashboard', 'Dashboard', 'javascript:;', 'md md-home');
 			$nav->add('overview', 'Overview', route('admin.dashboard.overview'), null, 'dashboard');
 
 			$nav->add('person', 'Orang', 'javascript:;', 'fa fa-user');

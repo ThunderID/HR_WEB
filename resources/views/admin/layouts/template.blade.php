@@ -22,7 +22,7 @@
 		<script type="text/javascript" src="js/respond.min.js"></script>
 		<![endif]-->
 	</head>
-	<body class="header-fixed menubar-pin">
+	<body class="header-fixed menubar-pin" onload="init();">
 		<header id="header">
 			@include('admin.widgets.header_bar')
 		</header>
