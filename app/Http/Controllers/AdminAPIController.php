@@ -4,9 +4,9 @@
 use Input, Session;
 // use Illuminate\Pagination\LengthAwarePaginator;
 
-class AdminOrganisationController extends AdminController {
+class AdminAPIController extends AdminController {
 
-	protected $controller_name = 'organisation';
+	protected $controller_name = 'API';
 
 	function __construct() 
 	{
@@ -22,13 +22,13 @@ class AdminOrganisationController extends AdminController {
 		
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
+		// $this->layout->page_title = strtoupper(str_plural($this->controller_name));
 
-		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.index');
-		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		// $this->layout->content = view('admin.pages.person.'.$this->controller_name.'.index');
+		// $this->layout->content->controller_name = $this->controller_name;
+		// // $this->layout->content->data = $data;
 
-		return $this->layout;
+		// return $this->layout;
 	}
 
 	function getCreate($id = null)
@@ -59,7 +59,7 @@ class AdminOrganisationController extends AdminController {
 		// // ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.add');
+		$this->layout->content = view('admin.pages.'.$this->controller_name.'.add');
 		$this->layout->content->controller_name = $this->controller_name;
 		// $this->layout->content->country_list = $country_list;
 
@@ -120,9 +120,9 @@ class AdminOrganisationController extends AdminController {
 		// // ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.show');
+		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name = $this->controller_name;
-		$this->layout->content->data = $data;
+		// $this->layout->content->data = $data;
 
 		return $this->layout;
 	}

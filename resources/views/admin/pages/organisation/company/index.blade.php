@@ -20,7 +20,6 @@
 				<button class="btn btn-raised btn-default-light ink-reaction" type="submit">Search</button>
 			{!! Form::close() !!}
 		</div>
-		
 	</div>
 	<div class="row">
 		<div class="col-sm-12">

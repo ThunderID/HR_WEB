@@ -17,6 +17,14 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group floating-label">
+									<input type="text" class="form-control input-lg" id="organisationName" name="organisationName">
+									<label for="organisationName">Nama Organisasi</label>
+								</div>
+							</div><!--end .col -->
+						</div><!--end .row -->						
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group floating-label">
 									<input type="text" class="form-control input-lg" id="companyName" name="companyName">
 									<label for="companyName">Nama Perusahaan</label>
 								</div>
@@ -153,7 +161,7 @@
 						<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
 						<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
 					</div>
-					</div> 					 					
+				</div> 					 					
 			</div>
 		</li>
 	</script>
@@ -257,7 +265,7 @@
 						<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
 						<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
 					</div>
-					</div> 					 					
+				</div> 					 					
 			</div>
 		</li>
 	</script>
