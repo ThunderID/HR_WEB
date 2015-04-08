@@ -17,7 +17,12 @@
 				<div class="col-sm-10">
 					<div class="margin-bottom-xxl row">
 						<div class="col-sm-10 col-md-10">
-							<h1 class="text-light no-margin">HRD</h1>
+							<h1 class="text-light no-margin">
+								@if($controller_name == "position")
+								Staff - 
+								@endif
+								HRD
+							</h1>
 							<h3 class="text-light no-margin opacity-50">PT. Mentari Pagi Sejahtera</h3>
 						</div>											
 					</div>
