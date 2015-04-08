@@ -20,9 +20,4 @@ class APIOrganisation {
 	{
 		return self::runPost(self::$basic_url . 'organisations/'.$page, ['search' => $search, 'sort' => $sort]);
 	}
-
-	function show($id)
-	{
-		return self::runGet(self::$basic_url . 'organisations/show/'.$id, ['id' => $id]);
-	}
 }
