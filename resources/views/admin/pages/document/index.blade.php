@@ -28,6 +28,7 @@
 							<tr>
 								<th>No</th>
 								<th>Jenis Dokumen</th>
+								<th>Jumlah</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -35,29 +36,41 @@
 							<tr>
 								<td>1</td>
 								<td>Surat peringatan</td>
+								<td>1</td>
 								<td>
-									
+									<a href="{{route('admin.document.show') }}">
+										Detail
+									</a>
 								</td>
 							</tr>
 							<tr>
 								<td>2</td>
 								<td>Kontrak Kerja</td>
+								<td>1</td>
 								<td>
-									
+									<a href="{{route('admin.document.show') }}">
+										Detail
+									</a>
 								</td>
 							</tr>
 							<tr>
 								<td>3</td>
 								<td>Peniliaian Kinerja</td>
+								<td>3</td>
 								<td>
-									
+									<a href="{{route('admin.document.show') }}">
+										Detail
+									</a>
 								</td>
 							</tr>
 							<tr>
 								<td>4</td>
 								<td>Pendidikan Formal</td>
+								<td>4</td>
 								<td>
-									
+									<a href="{{route('admin.document.show') }}">
+										Detail
+									</a>
 								</td>
 							</tr>
 
