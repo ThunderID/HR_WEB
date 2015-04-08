@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin'], function(){
 					'organisation'					=> 'AdminOrganisationController',
 					'department'					=> 'AdminDepartmentController',
 					'position'						=> 'AdminPositionController',
+					'document-template'				=> 'AdminDocumentTemplateController',
 					'document'						=> 'AdminDocumentController',
 					'API'							=> 'AdminAPIController'
 				];

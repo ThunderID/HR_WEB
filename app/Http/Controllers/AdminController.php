@@ -32,7 +32,10 @@ abstract class AdminController extends Controller {
 			$nav->add('department', 'Departemen', route('admin.department.index'), null,'company_charts');
 			$nav->add('jabatan', 'Jabatan', route('admin.position.index'), null,'company_charts');
 
-			$nav->add('document', 'Dokumen', route('admin.document.index'), 'md md-insert-drive-file');
+			$nav->add('document', 'Dokumen', 'javascript:;', 'md md-business');
+			$nav->add('document-template', 'Template Dokumen', route('admin.document-template.index'), null, 'document');
+			$nav->add('document-data', 'Data Dokumen', route('admin.document.index'), null, 'document');
+
 
 			$nav->add('salary_component', 'Komponen Gaji', 'javascript:;', 'md md-home');
 
