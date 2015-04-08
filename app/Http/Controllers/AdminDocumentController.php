@@ -117,14 +117,14 @@ class AdminDocumentController extends AdminController {
 		// 	$data = $this->model->newInstance();
 		// }
 
-		// // ---------------------- GENERATE CONTENT ----------------------
-		// $this->layout->page_title = strtoupper($this->controller_name);
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title = strtoupper($this->controller_name);
 
-		// $this->layout->content = view('admin.pages.person.'.$this->controller_name.'.show');
-		// $this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		$this->layout->content = view('admin.pages.'.$this->controller_name.'.show');
+		$this->layout->content->controller_name = $this->controller_name;
+		$this->layout->content->data = $data;
 
-		// return $this->layout;
+		return $this->layout;
 	}
 
 	function getDelete($id)
