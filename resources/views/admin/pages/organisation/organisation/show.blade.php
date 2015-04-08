@@ -42,103 +42,56 @@
 		</div>
 	</div>	
 
-	<div class="row">
-		<div class="col-sm-6">
-			<div class="card">
-				<div class="card-head card-head-sm style-primary">
-					<header >
-						API Keys 1
-					</header>
-				</div>
-				<div class="card-body height-4">
-					<div class="clearfix">
-						<p class="mtm-5 mb-0 text-lg">API Key</p>
-						<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-						<p class="mtm-0 mb-0 text-lg">API Secret</p>
-						<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
+	@for ($a=0; $a<4; $a++)
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="card">
+					<div class="card-head card-head-sm style-primary">
+						<header >
+							API Keys 1
+						</header>
 					</div>
+					<div class="card-body height-4">
+						<div class="clearfix">
+							<p class="mtm-5 mb-0 text-lg">API Key</p>
+							<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
+							<p class="mtm-0 mb-0 text-lg">API Secret</p>
+							<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
+						</div>
+					</div>
+					<div class="card-actionbar">
+						<div class="card-actionbar-row">
+							<a class="btn btn-flat btn-primary ink-reaction" href="#">EDIT</a>
+							<a class="btn btn-flat btn-primary ink-reaction" href="#">HAPUS</a>
+						</div><!--end .card-actionbar-row -->
+					</div><!--end .card-actionbar -->
 				</div>
-				<div class="card-actionbar">
-					<div class="card-actionbar-row">
-						<a class="btn btn-flat" href="#">EDIT</a>
-						<a class="btn btn-flat" href="#">HAPUS</a>
-					</div><!--end .card-actionbar-row -->
-				</div><!--end .card-actionbar -->
+			</div>
+			<div class="col-sm-6">
+				<div class="card">
+					<div class="card-head card-head-sm style-primary">
+						<header >
+							API Keys 2
+						</header>
+					</div>
+					<div class="card-body height-4">
+						<div class="clearfix">
+							<p class="mtm-5 mb-0 text-lg">API Key</p>
+							<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
+							<p class="mtm-0 mb-0 text-lg">API Secret</p>
+							<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
+						</div>
+					</div>
+					<div class="card-actionbar">
+						<div class="card-actionbar-row">
+							<a class="btn btn-flat btn-primary ink-reaction" href="#">EDIT</a>
+							<a class="btn btn-flat btn-primary ink-reaction" href="#">HAPUS</a>
+						</div><!--end .card-actionbar-row -->
+					</div><!--end .card-actionbar -->
+				</div>
 			</div>
 		</div>
-		<div class="col-sm-6">
-			<div class="card">
-				<div class="card-head card-head-sm style-primary">
-					<header >
-						API Keys 2
-					</header>
-				</div>
-				<div class="card-body height-4">
-					<div class="clearfix">
-						<p class="mtm-5 mb-0 text-lg">API Key</p>
-						<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-						<p class="mtm-0 mb-0 text-lg">API Secret</p>
-						<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-					</div>
-				</div>
-				<div class="card-actionbar">
-					<div class="card-actionbar-row">
-						<a class="btn btn-flat" href="#">EDIT</a>
-						<a class="btn btn-flat" href="#">HAPUS</a>
-					</div><!--end .card-actionbar-row -->
-				</div><!--end .card-actionbar -->
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-6">
-			<div class="card">
-				<div class="card-head card-head-sm style-primary">
-					<header >
-						API Keys 3
-					</header>
-				</div>
-				<div class="card-body height-4">
-					<div class="clearfix">
-						<p class="mtm-5 mb-0 text-lg">API Key</p>
-						<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-						<p class="mtm-0 mb-0 text-lg">API Secret</p>
-						<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-					</div>
-				</div>
-				<div class="card-actionbar">
-					<div class="card-actionbar-row">
-						<a class="btn btn-flat" href="#">EDIT</a>
-						<a class="btn btn-flat" href="#">HAPUS</a>
-					</div><!--end .card-actionbar-row -->
-				</div><!--end .card-actionbar -->
-			</div>
-		</div>
-		<div class="col-sm-6">
-			<div class="card">
-				<div class="card-head card-head-sm style-primary">
-					<header >
-						API Keys 4
-					</header>
-				</div>
-				<div class="card-body height-4">
-					<div class="clearfix">
-						<p class="mtm-5 mb-0 text-lg">API Key</p>
-						<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-						<p class="mtm-0 mb-0 text-lg">API Secret</p>
-						<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-					</div>
-				</div>
-				<div class="card-actionbar">
-					<div class="card-actionbar-row">
-						<a class="btn btn-flat" href="#">EDIT</a>
-						<a class="btn btn-flat" href="#">HAPUS</a>
-					</div><!--end .card-actionbar-row -->
-				</div><!--end .card-actionbar -->
-			</div>
-		</div>
-	</div>	
-
+	@endfor
 
 	<h1 class='text-primary'>Daftar Perusahaan</h1>
 

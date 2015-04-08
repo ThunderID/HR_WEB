@@ -356,7 +356,7 @@
 					</div>
 					<div class="card-actionbar">
 						<div class="card-actionbar-row">
-							<a class="btn btn-flat" href="../../../html/pages/contacts/search.html">BATAL</a>
+							<a class="btn btn-flat" href="#">BATAL</a>
 							<button type="button" class="btn btn-flat">SIMPAN DATA</button>
 						</div>
 					</div>
@@ -378,19 +378,35 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="work_company_<%=index%>" name="work_company_<%=index%>">
+						<select class="select2" id="work_company_<%=index%>" name="work_company_<%=index%>">
+							<option value="0">Pilih perusahaan</option>
+							<option value="malang">Malang</option>
+							<option value="batu">Batu</option>
+							<option value="jakarta">Jakarta</option>
+						</select>
 						<label for="work_company_<%=index%>">Perusahaan</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="work_department_<%=index%>" name="work_department_<%=index%>">
+						<select class="select2" id="work_department_<%=index%>" name="work_company_<%=index%>">
+							<option value="0">Pilih departemen</option>
+							<option value="malang">Malang</option>
+							<option value="batu">Batu</option>
+							<option value="jakarta">Jakarta</option>
+						</select>
+						
 						<label for="work_department_<%=index%>">Departemen</label>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="work_position_<%=index%>" name="work_position_<%=index%>">
 					<div class="form-group">
-						<input type="text" class="form-control" id="work_position_<%=index%>" name="work_position_<%=index%>">
+						<select class="select2" id="work_department_<%=index%>">
+							<option value="0">Pilih posisi</option>
+							<option value="malang">Malang</option>
+							<option value="batu">Batu</option>
+							<option value="jakarta">Jakarta</option>
+						</select>
 						<label for="work_position_<%=index%>">Posisi</label>
 					</div>
 				</div>
@@ -606,5 +622,10 @@
 				</div>	
 			</div>																																																											
 		</li>
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.select2').select2();
+		});
 	</script>
 @stop

@@ -79,8 +79,8 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="../../../html/pages/contacts/search.html">BATAL</a>
-					<button type="button" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+					<a class="btn btn-flat btn-default ink-reaction" href="../../../html/pages/contacts/search.html">BATAL</a>
+					<button type="button" class="btn btn-flat btn-primary ink-reaction">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
 			<!-- END FORM FOOTER -->
@@ -88,89 +88,89 @@
 	</div><!--end .card -->
 	
 	@if($controller_name == "department")
-	<!-- BEGIN DEPARTMENT TEMPLATES -->
-	<script type="text/html" id="skillTmpl">
-		<li class="clearfix">
-			<div class="page-header no-border holder">
-				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Departemen <%=index%></h4>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<input type="text" class="form-control" id="department_name_<%=index%>" name="department_name_<%=index%>">
-						<label for="department_name_<%=index%>">Nama Departemen</label>
+		<!-- BEGIN DEPARTMENT TEMPLATES -->
+		<script type="text/html" id="skillTmpl">
+			<li class="clearfix">
+				<div class="page-header no-border holder">
+					<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+					<h4 class="text-accent">Departemen <%=index%></h4>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="text" class="form-control" id="department_name_<%=index%>" name="department_name_<%=index%>">
+							<label for="department_name_<%=index%>">Nama Departemen</label>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="min_employee_<%=index%>" name="min_employee_<%=index%>">
-						<label for="min_employee_<%=index%>">Jumlah Minimum Pegawai</label>
-					</div>
-					</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="ideal_employee_<%=index%>" name="ideal_employee_<%=index%>">
-						<label for="ideal_employee_<%=index%>">Jumlah Ideal Pegawai</label>
-					</div>
-					</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
-						<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
-					</div>
-				</div> 					 					
-			</div>
-		</li>
-	</script>
-	<!-- END DEPARTMENT TEMPLATES -->	
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="min_employee_<%=index%>" name="min_employee_<%=index%>">
+							<label for="min_employee_<%=index%>">Jumlah Minimum Pegawai</label>
+						</div>
+						</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="ideal_employee_<%=index%>" name="ideal_employee_<%=index%>">
+							<label for="ideal_employee_<%=index%>">Jumlah Ideal Pegawai</label>
+						</div>
+						</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
+							<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
+						</div>
+					</div> 					 					
+				</div>
+			</li>
+		</script>
+		<!-- END DEPARTMENT TEMPLATES -->	
 	@elseif($controller_name == "position")
-	<!-- BEGIN POSITION TEMPLATES -->
-	<script type="text/html" id="skillTmpl">
-		<li class="clearfix">
-			<div class="page-header no-border holder">
-				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Jabatan <%=index%></h4>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<input type="text" class="form-control" id="position_name<%=index%>" name="position_name<%=index%>">
-						<label for="position_name<%=index%>">Nama Jabatan</label>
-					</div>
-					</div>	
-				<div class="col-md-6">
-					<div class="form-group">
-						<input type="text" class="form-control" id="position_grade_<%=index%>" name="position_grade_<%=index%>">
-						<label for="position_grade_<%=index%>">Grade Jabatan</label>
-					</div>
-					</div>	 								
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="min_employee_<%=index%>" name="min_employee_<%=index%>">
-						<label for="min_employee_<%=index%>">Jumlah Minimum Pegawai</label>
-					</div>
-					</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="ideal_employee_<%=index%>" name="ideal_employee_<%=index%>">
-						<label for="ideal_employee_<%=index%>">Jumlah Ideal Pegawai</label>
-					</div>
-					</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
-						<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
-					</div>
-				</div> 					 					
-			</div>
-		</li>
-	</script>
-	<!-- END POSITION TEMPLATES -->		
+		<!-- BEGIN POSITION TEMPLATES -->
+		<script type="text/html" id="skillTmpl">
+			<li class="clearfix">
+				<div class="page-header no-border holder">
+					<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+					<h4 class="text-accent">Jabatan <%=index%></h4>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="position_name<%=index%>" name="position_name<%=index%>">
+							<label for="position_name<%=index%>">Nama Jabatan</label>
+						</div>
+						</div>	
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="position_grade_<%=index%>" name="position_grade_<%=index%>">
+							<label for="position_grade_<%=index%>">Grade Jabatan</label>
+						</div>
+						</div>	 								
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="min_employee_<%=index%>" name="min_employee_<%=index%>">
+							<label for="min_employee_<%=index%>">Jumlah Minimum Pegawai</label>
+						</div>
+						</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="ideal_employee_<%=index%>" name="ideal_employee_<%=index%>">
+							<label for="ideal_employee_<%=index%>">Jumlah Ideal Pegawai</label>
+						</div>
+						</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="max_employee_<%=index%>" name="max_employee_<%=index%>">
+							<label for="max_employee_<%=index%>">Jumlah Maximum Pegawai</label>
+						</div>
+					</div> 					 					
+				</div>
+			</li>
+		</script>
+		<!-- END POSITION TEMPLATES -->		
 	@endif
 @stop
 

@@ -28,8 +28,8 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="#">BATAL</a>
-					<button type="button" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+					<a class="btn btn-flat btn-default ink-reaction" href="#">BATAL</a>
+					<button type="button" class="btn btn-flat btn-primary ink-reaction">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
 			<!-- END FORM FOOTER -->

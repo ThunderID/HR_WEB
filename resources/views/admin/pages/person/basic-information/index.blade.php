@@ -70,7 +70,7 @@
 				</div>
 				<div class="card-actionbar">
 					<div class="card-actionbar-row">
-						<a href="javascript:;" class="btn btn-flat btn-default ink-reaction">EDIT</a>
+						<a href="javascript:;" class="btn btn-flat btn-primary ink-reaction">EDIT</a>
 						<a href="javascript:;" class="btn btn-flat btn-primary ink-reaction">LIHAT</a>
 					</div>
 				</div>
