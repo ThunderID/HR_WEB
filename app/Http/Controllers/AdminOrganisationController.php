@@ -1,8 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Session;
+use Input, Session, App;
 use App\APIConnector\API;
-use App;
 
 class AdminOrganisationController extends AdminController {
 
@@ -15,10 +14,10 @@ class AdminOrganisationController extends AdminController {
 		// $this->model = $model;
 	}
 	
-	function getIndex()
+	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['branches']];
+		$search 									= [];
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::organisation()->index($page, $search, $sort);
@@ -31,12 +30,13 @@ class AdminOrganisationController extends AdminController {
 		
 		$data 										= json_decode(json_encode($contents->data), true);
 
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
 
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
-		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= $data;
+		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.index');
+		$this->layout->content->controller_name = $this->controller_name;
+		$this->layout->content->data = $data;
 
 		return $this->layout;
 	}
