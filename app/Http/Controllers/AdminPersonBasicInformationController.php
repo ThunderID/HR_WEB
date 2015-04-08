@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Session, App;
+use Input, Session, App, Config;
 use App\APIConnector\API;
 
 class AdminPersonBasicInformationController extends AdminController {
@@ -17,7 +17,7 @@ class AdminPersonBasicInformationController extends AdminController {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= [];
+		$search 									= ['WithAttributes' => ['contacts']];
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::person()->index($page, $search, $sort);
@@ -124,7 +124,7 @@ class AdminPersonBasicInformationController extends AdminController {
 		// {
 		// 	App::abort(404);
 		// }
-		
+
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// // ---------------------- GENERATE CONTENT ----------------------

@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Auth, \Illuminate\Support\MessageBag, Redirect;
+use Input, Auth, \Illuminate\Support\MessageBag, Redirect, Config, Session;
 use App\APIConnector\API;
 
-class AdminLoginController extends AdminController {
+class AuthController extends AdminController {
 
 	/**
 	 * login form
@@ -14,6 +14,7 @@ class AdminLoginController extends AdminController {
 	function getLogin()
 	{
 		$this->layout->content = view('admin.pages.login.form');
+
 		return $this->layout;
 	}
 
@@ -35,9 +36,23 @@ class AdminLoginController extends AdminController {
 
 		if($content->meta->success)
 		{
-			// return Redirect::intended('ada')
+			return Redirect::intended(route('hr.persons.index'));
 		}
 
 		return Redirect::back()->withInput()->withError(json_decode(json_encode($content->meta->errors), true));
+	}
+
+	/**
+	 * handle logout
+	 *
+	 * @return void
+	 * @author 
+	 **/
+
+	function getLogout()
+	{
+		Session::flush();
+
+		return Redirect::route('hr.login.get');
 	}
 }

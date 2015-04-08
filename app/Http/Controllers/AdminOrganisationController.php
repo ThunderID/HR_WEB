@@ -10,8 +10,6 @@ class AdminOrganisationController extends AdminController {
 	function __construct() 
 	{
 		parent::__construct();
-
-		// $this->model = $model;
 	}
 	
 	function getIndex($page = 1)

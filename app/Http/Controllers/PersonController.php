@@ -1,67 +1,63 @@
 <?php namespace App\Http\Controllers;
 
-// use \App\DAL\Models\PersonBasicInformation;
-use Input, Session;
-// use Illuminate\Pagination\LengthAwarePaginator;
+use Input, Session, App, Config, Paginator;
+use App\APIConnector\API;
 
-class AdminAPIController extends AdminController {
+class PersonController extends AdminController {
 
-	protected $controller_name = 'API';
+	protected $controller_name = 'person';
 
 	function __construct() 
 	{
 		parent::__construct();
-
-		// $this->model = $model;
 	}
 	
-	function getIndex()
+	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// $data = $this->model->orderBy('created_at')->get();
+		$search 									= ['WithAttributes' => ['contacts']];
+		if(Input::has('q'))
+		{
+			$search['firstname']					= Input::get('q');			
+		}
+
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::person()->index($page, $search, $sort);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
 		
+		$data 										= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		// $this->layout->page_title = strtoupper(str_plural($this->controller_name));
+		$this->layout->page_title 					= strtoupper(str_plural($this->controller_name));
 
-		// $this->layout->content = view('admin.pages.person.'.$this->controller_name.'.index');
-		// $this->layout->content->controller_name = $this->controller_name;
-		// // $this->layout->content->data = $data;
+		if(Input::has('q'))
+		{
+			$this->layout->page_title 				= 'Hasil Pencarian "'.Input::get('q').'"';
+		}
 
-		// return $this->layout;
+		$this->layout->content 						= view('admin.pages.person.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->paginator 			= $paginator;
+
+		return $this->layout;
 	}
 
 	function getCreate($id = null)
 	{
-		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
-		// {
-		// 	$data = $this->model->findorfail($id);
-		// }
-		// else
-		// {
-		// 	$data = $this->model->newInstance();
-		// }
 
-		// // Load country list
-		// $filename = base_path('/resources/data/countries.json');
-		// $fd = fopen($filename, 'r');
-		// $json = json_decode(fread($fd, filesize($filename)));
-		// fclose($fd);
-
-		// $country_list = [];
-		// foreach ($json as $country)
-		// {
-		// 	$tmp = json_decode($country);
-		// 	$country_list[$country] = $country;
-		// }
-	
-		// // ---------------------- GENERATE CONTENT ----------------------
+		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.'.$this->controller_name.'.add');
+		$this->layout->content = view('admin.pages.person.create');
 		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->country_list = $country_list;
 
 		return $this->layout;
 	}
@@ -105,24 +101,25 @@ class AdminAPIController extends AdminController {
 		// }
 	}
 
-	function getShow($id)
+	function getShow($id = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
-		// {
-		// 	$data = $this->model->findorfail($id);
-		// }
-		// else
-		// {
-		// 	$data = $this->model->newInstance();
-		// }
+		$results 									= API::person()->show($id);
+		$contents 									= json_decode($results);
 
-		// // ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper($this->controller_name);
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
 
-		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.show');
-		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
+
+		$this->layout->content 						= view('admin.pages.person.show');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
 
 		return $this->layout;
 	}

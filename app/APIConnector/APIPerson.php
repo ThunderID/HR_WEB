@@ -13,7 +13,7 @@ class APIPerson {
 
 	function check($id)
 	{
-		return self::runGet(self::$basic_url . 'authentications/person', ['id' => $id]);
+		return self::runPost(self::$basic_url . 'authentications/person', ['id' => $id]);
 	}
 
 	function index($page, $search, $sort)

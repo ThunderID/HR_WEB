@@ -11,7 +11,7 @@ trait APITrait {
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_HTTPHEADER,
 			array("Content-type: application/json"));
-		curl_setopt($curl, CURLOPT_GET, true);
+		// curl_setopt($curl, CURLOPT_GET, true);
 
 		$results 		= curl_exec($curl);
 
@@ -32,7 +32,6 @@ trait APITrait {
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
 
 		$results 		= curl_exec($curl);
-
 
 		return $results;
 	}

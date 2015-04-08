@@ -1,34 +1,67 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+Route::group(['prefix' => 'cms'], function(){
 
-// Route::get('/', function(){
-// $check = '$2y$10$X3wYn6Y6alYJLe.b/EmceeXlwtIx8F2.Zn0n2u2rlqKQ0fyAzbOQ2';
-// $data = new \App\DAL\Models\PersonBasicInformation;
-// $data->fill(['first_name' => 'cemcem']);
-// if(!$data->save())
-// {
-// 	print_r($data->getError());exit;
-// }
-// print_r(2);
-// });
-error_reporting(E_ERROR);
+	Route::get('/login', 				['as' => 'hr.login.get', 	'uses' => 'AuthController@getLogin']);
+	Route::post('/login', 				['as' => 'hr.login.post', 	'uses' => 'AuthController@postLogin']);
 
-require_once('routes_admin.php');
+	Route::get('/logout',				['as' => 'hr.logout.get', 	'uses' => 'AuthController@getLogout']);
 
-Route::get('home', 'HomeController@index');
-// Route::controllers([
-// 	'auth' => 'Auth\AuthController',
-// 	'password' => 'Auth\PasswordController',
-// ]);
+	Route::group(['prefix' => 'persons', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'PersonController@getIndex', 
+							'as' 	=> 'hr.persons.index'
+						]
+					);
 
-// require_once('routes_api.php'); 
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'PersonController@getCreate', 
+							'as' 	=> 'hr.persons.create'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'PersonController@getShow', 
+							'as' 	=> 'hr.persons.show'
+						]
+					);
+		Route::get('shows/{person_id}/documents/{id}', 
+					[
+						'uses' 	=> 'PersonController@getShow', 
+						'as' 	=> 'hr.person.document.show'
+					]
+				);
+	});
+
+	Route::group(['prefix' => 'companies', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'PersonController@getIndex', 
+							'as' 	=> 'hr.organisation.branches.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'PersonController@getCreate', 
+							'as' 	=> 'hr.organisation.branches.create'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'PersonController@getShow', 
+							'as' 	=> 'hr.organisation.branches.show'
+						]
+					);
+	});
+
+	Route::controller('dashboard', 'AdminDashboardController', [
+																'getOverview'	=> 'admin.dashboard.overview'
+														   ]);
+
+
+});
