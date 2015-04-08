@@ -25,9 +25,11 @@
 								<div class="form-group">
 									<select name="Type" id="Type" class="form-control form-control input-lg">
 										<option value=""></option>
-										<option value="string">inputan teks satu baris</option>
-										<option value="text">inputan teks multibaris</option>
-										<option value="date">inputan tanggal</option>
+										<option value="letter">Surat</option>
+										<option value="certificate">Sertifikat</option>
+										<option value="identity">Identitas</option>
+										<option value="account">Akun</option>
+										<option value="portofolio">Portofolio</option>
 									</select>	
 									<label for="Type">Tipe Dokumen</label>
 								</div>
