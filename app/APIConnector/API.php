@@ -10,4 +10,9 @@ class API {
 	{
 		return new APIPerson();
 	}
+
+	static function document()
+	{
+		return new APIDocument();
+	}
 }

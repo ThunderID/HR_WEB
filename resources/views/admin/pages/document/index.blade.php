@@ -33,46 +33,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Surat peringatan</td>
-								<td>1</td>
-								<td>
-									<a href="{{route('admin.document.show') }}">
-										Detail
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>Kontrak Kerja</td>
-								<td>1</td>
-								<td>
-									<a href="{{route('admin.document.show') }}">
-										Detail
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Peniliaian Kinerja</td>
-								<td>3</td>
-								<td>
-									<a href="{{route('admin.document.show') }}">
-										Detail
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>Pendidikan Formal</td>
-								<td>4</td>
-								<td>
-									<a href="{{route('admin.document.show') }}">
-										Detail
-									</a>
-								</td>
-							</tr>
+							@foreach($data as $key => $value)
+								<tr>
+									<td>{{$key+1}}</td>
+									<td>{{$value['name']}}</td>
+									<td>{{count($value['persons'])}}</td>
+									<td>
+										<a href="{{route('admin.document.show') }}">
+											Detail
+										</a>
+									</td>
+								</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>
