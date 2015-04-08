@@ -23,8 +23,42 @@
 				<button class="btn btn-raised btn-default-light ink-reaction" type="submit">Search</button>
 			{!! Form::close() !!}
 		</div>
-		
 	</div>
+	
+	<div class="card-body style-primary form-inverse">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<select name="company" id="company" class="form-control">
+								<option value=""></option>
+							</select>
+							<label for="company">Nama Perusahaan</label>
+						</div>
+					</div><!--end .col -->
+				</div><!--end .row -->	
+			</div>
+		</div>
+		@if($controller_name == "position")
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<select name="department" id="department" class="form-control">
+								<option value=""></option>
+							</select>
+							<label for="department">Nama Departemen</label>
+						</div>
+					</div><!--end .col -->
+				</div><!--end .row -->	
+			</div>
+		</div>		
+		@endif
+	</div>
+
+
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card">
@@ -33,7 +67,12 @@
 						<thead>
 							<tr>
 								<th>No</th>
-								<th>Nama</th>
+								@if($controller_name == "department")
+								<th>Nama Departemen</th>
+								@elseif($controller_name == "position")
+								<th>Nama Jabatan</th>
+								<th>Grade</th>
+								@endif
 								<th>Current</th>								
 								<th>Min</th>
 								<th>Ideal</th>
@@ -44,13 +83,26 @@
 						<tbody>
 							<tr>
 								<td>1</td>
+								@if($controller_name == "department")
 								<td>HRD</td>
+								@elseif($controller_name == "position")
+								<td>Staff</td>
+								<td>12A</td>
+								@endif
 								<td>12</td>
 								<td>5</td>
 								<td>10</td>
 								<td>15</td>
 								<td>
-									
+									@if($controller_name == "department")
+									<a href="{{route('admin.department.show') }}">
+										Detail
+									</a>
+									@elseif($controller_name == "position")
+									<a href="{{route('admin.position.show') }}">
+										Detail
+									</a>
+									@endif
 								</td>
 							</tr>
 						</tbody>
@@ -59,6 +111,7 @@
 			</div>
 		</div>
 	</div>
+
 @stop
 
 
