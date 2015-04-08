@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-// use \App\DAL\Models\PersonBasicInformation;
 use Input, Session;
-// use Illuminate\Pagination\LengthAwarePaginator;
+use App\APIConnector\API;
+use App;
 
 class AdminOrganisationController extends AdminController {
 
@@ -18,15 +18,25 @@ class AdminOrganisationController extends AdminController {
 	function getIndex()
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// $data = $this->model->orderBy('created_at')->get();
+		$search 									= ['WithAttributes' => ['branches']];
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::organisation()->index($page, $search, $sort);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
 		
+		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
 
-		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.index');
-		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
 
 		return $this->layout;
 	}

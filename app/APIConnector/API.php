@@ -15,4 +15,9 @@ class API {
 	{
 		return new APIDocument();
 	}
+
+	static function organisation()
+	{
+		return new APIOrganisation();
+	}
 }
