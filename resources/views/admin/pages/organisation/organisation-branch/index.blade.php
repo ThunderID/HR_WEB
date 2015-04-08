@@ -25,44 +25,35 @@
 		</div>
 	</div>
 	
-	<div class="card-body style-primary form-inverse">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<select name="company" id="company" class="form-control">
-								<option value=""></option>
-							</select>
-							<label for="company">Nama Perusahaan</label>
-						</div>
-					</div><!--end .col -->
-				</div><!--end .row -->	
-			</div>
-		</div>
-		@if($controller_name == "position")
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<select name="department" id="department" class="form-control">
-								<option value=""></option>
-							</select>
-							<label for="department">Nama Departemen</label>
-						</div>
-					</div><!--end .col -->
-				</div><!--end .row -->	
-			</div>
-		</div>		
-		@endif
-	</div>
-
-
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
+					<div class="row  pb-20">
+						@if($controller_name == "department")
+						<div class="col-md-12">
+						@elseif($controller_name == "position")
+						<div class="col-md-6">
+						@endif
+							<div class="form-group">
+								<select name="company" id="company" class="form-control select2">
+									<option value="">Nama Perusahaan</option>
+									<option value="mps">PT. Mentari Pagi Sejahtera</option>
+								</select>
+							</div>
+						</div><!--end .col -->
+						@if($controller_name == "position")
+						<div class="col-md-6">
+							<div class="form-group">
+								<select name="department" id="department" class="form-control select2">
+									<option value="">Nama Jabatan</option>
+									<option value="hrd">HRD</option>
+								</select>
+							</div>
+						</div><!--end .col -->					
+						@endif
+					</div>
+
 					<table class="table no-margin">
 						<thead>
 							<tr>
@@ -111,7 +102,15 @@
 			</div>
 		</div>
 	</div>
-
 @stop
+
+@section('js')
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.select2').select2();
+		});
+	</script>
+@stop
+
 
 
