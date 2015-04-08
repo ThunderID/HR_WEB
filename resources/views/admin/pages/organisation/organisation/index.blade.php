@@ -31,24 +31,21 @@
 							</tr>
 						</thead>
 						<tbody>
+							@foreach($data as $key => $value)
 							<tr>
-								<td>1</td>
-								<td>Mentari Pagi Sejahtera</td>
 								<td>
-									<a href="{{ route('admin.organisation.show') }}" class="btn btn-flat btn-primary ink-reaction">
+									{{$value['id']}}
+								</td>
+								<td>
+									{{$value['name']}}
+								</td>
+								<td>
+									<a href="{{ route('admin.organisation.show', [$value['id']]) }}">
 										Detail
 									</a>
 								</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>Bintang Malam Senyap</td>
-								<td>
-									<a href="{{ route('admin.organisation.show') }}" class="btn btn-flat btn-primary ink-reaction">
-										Detail
-									</a>
-								</td>
-							</tr>							
+							</tr>	
+							@endforeach					
 						</tbody>
 					</table>
 				</div>

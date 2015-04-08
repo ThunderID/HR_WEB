@@ -33,8 +33,8 @@
 							</div>
 							<div class="col-sm-10">
 								<div class="clearfix">
-									<p class="mt-0 mb-0 text-lg"><a href="{{ route('admin.person-basic-information.show') }}">{{$value['contacts'][1]['value']}}</a></p>
-									<p class="mtm-15 mb-0 text-xl"><a href="{{ route('admin.person-basic-information.show') }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a></p>
+									<p class="mt-0 mb-0 text-lg"><a href="{{ route('admin.person-basic-information.show' ) }}">{{$value['contacts'][1]['value']}}</a></p>
+									<p class="mtm-15 mb-0 text-xl"><a href="{{ route('admin.person-basic-information.show' ,['id'=>$value['id']]) }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a></p>
 									<p class="mt-0 mb-0">{{$value['place_of_birth']}}, {{$value['date_of_birth']}}</p>
 									<p class="mt-0 mb-0">{{$value['contacts'][0]['value']}}</p>
 								</div>
