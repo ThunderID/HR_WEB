@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use \App\DAL\Models\PersonBasicInformation;
 use Input, Session, App;
 use App\APIConnector\API;
 
@@ -18,7 +17,7 @@ class AdminPersonBasicInformationController extends AdminController {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['contacts']];
+		$search 									= [];
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::person()->index($page, $search, $sort);
