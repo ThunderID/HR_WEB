@@ -9,7 +9,7 @@
 			@if($controller_name == "department")
 			<header>Tambah Data Departemen</header>
 			@elseif($controller_name == "position")
-			<header>Tambah Data Posisi</header>
+			<header>Tambah Data Jabatan</header>
 			@endif
 		</div>
 		<form class="form" role="form">
