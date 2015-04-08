@@ -12,7 +12,7 @@
 	@endif
 @endforeach
 
-@if ($errors->count())
+@if (isset($errors) && $errors->count())
 	<div class='alert style-danger'>
 		@foreach ($errors->all('<p>:message</p>') as $error)
 			{!! $error !!}

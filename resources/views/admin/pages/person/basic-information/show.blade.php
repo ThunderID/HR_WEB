@@ -22,7 +22,7 @@
 									<img class="img-circle size-3" src="{{url('images/male.png')}}" alt="" />
 								</div>
 								<div class="col-sm-9 col-md-9">
-									<h1 class="text-light no-margin">Prof. Dr. Philip Ericsson, S.T, P.Hd</h1>
+									<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['first_name'].' '.$data['middle_name'].' '.$data['last_name'].' '.$data['suffix_title']}}</h1>
 									<div class="form-horizontal">
 										<div class="row pt-10 no-margin">
 											<div class="form-group">
@@ -30,7 +30,7 @@
 													<label class="text-lg text-light">Nama panggilan</label>
 												</div>
 												<div class="col-sm-8">
-													<label class="text-lg text-light">Philip</label>
+													<label class="text-lg text-light">{{$data['nick_name']}}</label>
 												</div>
 											</div>
 										

@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use \App\DAL\Models\PersonBasicInformation;
-use Input, Session;
-// use Illuminate\Pagination\LengthAwarePaginator;
+use Input, Session, App;
+use App\APIConnector\API;
 
 class AdminPersonBasicInformationController extends AdminController {
 
@@ -15,18 +15,28 @@ class AdminPersonBasicInformationController extends AdminController {
 		// $this->model = $model;
 	}
 	
-	function getIndex()
+	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// $data = $this->model->orderBy('created_at')->get();
+		$search 									= ['WithAttributes' => ['contacts']];
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::person()->index($page, $search, $sort);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
 		
+		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
+		$this->layout->page_title 					= strtoupper(str_plural($this->controller_name));
 
-		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.index');
-		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		$this->layout->content 						= view('admin.pages.person.'.$this->controller_name.'.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
 
 		return $this->layout;
 	}
@@ -105,24 +115,25 @@ class AdminPersonBasicInformationController extends AdminController {
 		// }
 	}
 
-	function getShow($id)
+	function getShow($id = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
+		$results 									= API::person()->show($id);
+		$contents 									= json_decode($results);
+
+		// if(!$contents->meta->success)
 		// {
-		// 	$data = $this->model->findorfail($id);
+		// 	App::abort(404);
 		// }
-		// else
-		// {
-		// 	$data = $this->model->newInstance();
-		// }
+		
+		$data 										= json_decode(json_encode($contents->data), true);
 
 		// // ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper($this->controller_name);
 
 		$this->layout->content = view('admin.pages.person.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		$this->layout->content->data = $data;
 
 		return $this->layout;
 	}

@@ -6,7 +6,7 @@
 @section('content')
 	<div class="row pb-10">
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<a href="{{route('admin.document.add') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Tambah</a>
+			<a href="{{route('admin.document-template.add') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Tambah</a>
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
 			{!! Form::open(['route' => null, 'class' => 'form-inline']) !!}
@@ -28,23 +28,47 @@
 							<tr>
 								<th>No</th>
 								<th>Jenis Dokumen</th>
-								<th>Jumlah</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($data as $key => $value)
-								<tr>
-									<td>{{$key+1}}</td>
-									<td>{{$value['name']}}</td>
-									<td>{{count($value['persons'])}}</td>
-									<td>
-										<a href="{{route('admin.document.show') }}">
-											Detail
-										</a>
-									</td>
-								</tr>
-							@endforeach
+							<tr>
+								<td>1</td>
+								<td>Surat peringatan</td>
+								<td>
+									<a href="{{route('admin.document-template.show') }}">
+										Detail
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Kontrak Kerja</td>
+								<td>
+									<a href="{{route('admin.document-template.show') }}">
+										Detail
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Peniliaian Kinerja</td>
+								<td>
+									<a href="{{route('admin.document-template.show') }}">
+										Detail
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Pendidikan Formal</td>
+								<td>
+									<a href="{{route('admin.document-template.show') }}">
+										Detail
+									</a>
+								</td>
+							</tr>
+
 						</tbody>
 					</table>
 				</div>

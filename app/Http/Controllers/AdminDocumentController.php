@@ -1,8 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-// use \App\DAL\Models\PersonBasicInformation;
-use Input, Session;
-// use Illuminate\Pagination\LengthAwarePaginator;
+use Input, Session, App;
+use App\APIConnector\API;
 
 class AdminDocumentController extends AdminController {
 
@@ -18,15 +17,25 @@ class AdminDocumentController extends AdminController {
 	function getIndex()
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// $data = $this->model->orderBy('created_at')->get();
+		$search 									= ['WithAttributes' => ['persons']];
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::document()->index($page, $search, $sort);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
 		
+		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
 
 		$this->layout->content = view('admin.pages.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		$this->layout->content->data = $data;
 
 		return $this->layout;
 	}
@@ -117,14 +126,14 @@ class AdminDocumentController extends AdminController {
 		// 	$data = $this->model->newInstance();
 		// }
 
-		// // ---------------------- GENERATE CONTENT ----------------------
-		// $this->layout->page_title = strtoupper($this->controller_name);
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title = strtoupper($this->controller_name);
 
-		// $this->layout->content = view('admin.pages.person.'.$this->controller_name.'.show');
-		// $this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->data = $data;
+		$this->layout->content = view('admin.pages.'.$this->controller_name.'.show');
+		$this->layout->content->controller_name = $this->controller_name;
+		$this->layout->content->data = $data;
 
-		// return $this->layout;
+		return $this->layout;
 	}
 
 	function getDelete($id)

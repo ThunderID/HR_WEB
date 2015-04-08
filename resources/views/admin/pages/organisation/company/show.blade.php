@@ -156,7 +156,7 @@
 			<div class="card">
 				<div class="card-head">
 					<header class="mt-10">
-						Departemen
+						Struktur Perusahaan
 					</header>
 				</div>
 				<div class="card-body pt-10 pb-0">

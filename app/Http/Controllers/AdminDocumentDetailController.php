@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+// use \App\DAL\Models\PersonBasicInformation;
 use Input, Session;
-use App\APIConnector\API;
-use App;
+// use Illuminate\Pagination\LengthAwarePaginator;
 
-class AdminOrganisationController extends AdminController {
+class AdminDocumentDetailController extends AdminController {
 
-	protected $controller_name = 'organisation';
+	protected $controller_name = 'document-detail';
 
 	function __construct() 
 	{
@@ -18,25 +18,15 @@ class AdminOrganisationController extends AdminController {
 	function getIndex()
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['branches']];
-		$sort 										= ['created_at' => 'asc'];
-
-		$results 									= API::organisation()->index($page, $search, $sort);
-		$contents 									= json_decode($results);
-
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}
+		// $data = $this->model->orderBy('created_at')->get();
 		
-		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper(str_plural($this->controller_name));
 
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
-		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= $data;
+		$this->layout->content = view('admin.pages.'.$this->controller_name.'.index');
+		$this->layout->content->controller_name = $this->controller_name;
+		// $this->layout->content->data = $data;
 
 		return $this->layout;
 	}
@@ -66,14 +56,14 @@ class AdminOrganisationController extends AdminController {
 		// 	$country_list[$country] = $country;
 		// }
 	
-		// // ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper($this->controller_name);
+		// ---------------------- GENERATE CONTENT ----------------------
+		// $this->layout->page_title = strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.add');
-		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->country_list = $country_list;
+		// $this->layout->content = view('admin.pages.'.$this->controller_name.'.add');
+		// $this->layout->content->controller_name = $this->controller_name;
+		// // $this->layout->content->country_list = $country_list;
 
-		return $this->layout;
+		// return $this->layout;
 	}
 
 	function postStore($id = null)
@@ -127,14 +117,14 @@ class AdminOrganisationController extends AdminController {
 		// 	$data = $this->model->newInstance();
 		// }
 
-		// // ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper($this->controller_name);
+		// ---------------------- GENERATE CONTENT ----------------------
+		// $this->layout->page_title = strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.show');
-		$this->layout->content->controller_name = $this->controller_name;
-		$this->layout->content->data = $data;
+		// $this->layout->content = view('admin.pages.'.$this->controller_name.'.show');
+		// $this->layout->content->controller_name = $this->controller_name;
+		// $this->layout->content->data = $data;
 
-		return $this->layout;
+		// return $this->layout;
 	}
 
 	function getDelete($id)
