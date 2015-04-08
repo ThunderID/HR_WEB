@@ -43,7 +43,7 @@
 							<tr>
 								<th>No</th>
 								<th>Nama Pegawai</th>
-								<th>Tanggal (if any)</th>								
+								<th>Tanggal (Created @)</th>								
 								<th></th>
 							</tr>
 						</thead>
@@ -53,8 +53,8 @@
 								<td>Mark Zuckenbrugebreg</td>
 								<td>12 Desember 2001</td>
 								<td>
-									<a href="#">
-										detail (if any)
+									<a href="{{route('admin.document-detail.index') }}">
+										detail
 									</a>
 								</td>
 							</tr>
