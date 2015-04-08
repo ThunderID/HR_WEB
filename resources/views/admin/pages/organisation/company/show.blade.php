@@ -49,91 +49,97 @@
 												<label class="text-lg text-light">Industri IT</label>
 											</div>
 										</div>
-										<div class="row no-margin pt-20">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Alamat</label>
+										<a id="detail" class="pull-right" data-toggle="collapse" href="#detail-company" aria-expanded="false" aria-controls="collapseExample" style="margin-right:-95px">
+											<i class="fa fa-plus-circle fa-lg"></i> lihat detail
+										</a>
+										<hr class="ruler-xl"></hr>
+										<div id="detail-company" class="collapse">
+											<div class="row no-margin pt-20" >
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Alamat</label>
+												</div>
+												<div class="col-sm-6 col-md-6 pr-0">
+													<label class="text-lg text-light">Jln. Kota Araya Blok A10</label>
+												</div>
 											</div>
-											<div class="col-sm-6 col-md-6 pr-0">
-												<label class="text-lg text-light">Jln. Kota Araya Blok A10</label>
+											<div class="row no-margin pt-5">
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">RT / RW</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">03 / 05</label>
+												</div>
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Kecamatan</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">Blimbing</label>
+												</div>
 											</div>
-										</div>
-										<div class="row no-margin pt-5">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">RT / RW</label>
+											<div class="row no-margin">
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Kelurahan	</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">Blimbing</label>
+												</div>
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Kota</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">Malang</label>
+												</div>
 											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">03 / 05</label>
+											<div class="row no-margin">
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Provinsi</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">Jawa Timur</label>
+												</div>
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Negara</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">Indonesia</label>
+												</div>
 											</div>
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Kecamatan</label>
+											<hr class="ruler-xl"></hr>
+											<div class="row no-margin pt-20">
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">No Tlp</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">+62 856 780 900</label>
+												</div>
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Email</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">kota@malang.com</label>
+												</div>
 											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">Blimbing</label>
+											<div class="row no-margin">
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">BBM</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">5133cad3</label>
+												</div>
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Line</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">kotamalang</label>
+												</div>
 											</div>
-										</div>
-										<div class="row no-margin">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Kelurahan	</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">Blimbing</label>
-											</div>
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Kota</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">Malang</label>
-											</div>
-										</div>
-										<div class="row no-margin">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Provinsi</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">Jawa Timur</label>
-											</div>
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Negara</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">Indonesia</label>
-											</div>
-										</div>
-
-										<div class="row no-margin pt-20">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">No Tlp</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">+62 856 780 900</label>
-											</div>
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Email</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">kota@malang.com</label>
-											</div>
-										</div>
-										<div class="row no-margin">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">BBM</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">5133cad3</label>
-											</div>
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Line</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">kotamalang</label>
-											</div>
-										</div>
-										<div class="row no-margin">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Whatsapp</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">+62 856 780 900</label>
+											<div class="row no-margin">
+												<div class="col-sm-3 col-md-3">
+													<label class="text-lg text-light text-medium">Whatsapp</label>
+												</div>
+												<div class="col-sm-3 col-md-3 pr-0">
+													<label class="text-lg text-light">+62 856 780 900</label>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -149,7 +155,7 @@
 		<div class="col-sm-12 col-md-12">
 			<div class="card">
 				<div class="card-head">
-					<header>
+					<header class="mt-10">
 						Departemen
 					</header>
 				</div>
@@ -169,4 +175,15 @@
 @section('js')
 	{!! HTML::script('js/jit.min.js')!!}
 	@include('admin.pages.organisation.company.orgchart')
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#detail').click(function () {
+				if ($('#detail > i').hasClass('fa fa-plus-circle')){
+					$('#detail').html('<i class="fa fa-minus-circle"></i> Tutup detail');
+				} else {
+					$('#detail').html('<i class="fa fa-plus-circle"></i> Lihat detail');
+				}
+			})
+		});
+	</script>
 @stop
