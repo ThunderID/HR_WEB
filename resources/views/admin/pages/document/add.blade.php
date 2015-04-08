@@ -5,35 +5,24 @@
 
 @section('content')
 	<div class="card">
-		<div class="card-head style-primary">
-			<header>Tambah Template Dokumen</header>
+		<div class="card-head">
+			<header>Tambah Dokumen</header>
 		</div>
 		<form class="form" role="form">
-
 			<!-- BEGIN DEFAULT FORM ITEMS -->
-			<div class="card-body style-primary form-inverse">
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control input-lg" id="Name" name="Name">
-									<label for="Name">Nama Dokumen</label>
-								</div>
-							</div><!--end .col -->
-							<div class="col-md-6">
-								<div class="form-group">
-									<select name="Type" id="Type" class="form-control form-control input-lg">
-										<option value=""></option>
-										<option value="letter">Surat</option>
-										<option value="certificate">Sertifikat</option>
-										<option value="identity">Identitas</option>
-										<option value="account">Akun</option>
-										<option value="portofolio">Portofolio</option>
-									</select>	
-									<label for="Type">Tipe Dokumen</label>
-								</div>
-							</div><!--end .col -->
+			<div class="card-body tab-content">
+				<div class="tab-pane active" id="profil">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="text" class="form-control input-lg" id="Name" name="Name">
+										<label for="Name">Nama Pegawai</label>
+									</div>
+								</div><!--end .col -->
+							</div>
+							<p>NIK : 1234652542754</p>
 						</div><!--end .row -->
 					</div><!--end .col -->
 				</div><!--end .row -->
@@ -75,30 +64,63 @@
 	<script type="text/html" id="skillTmpl">
 		<li class="clearfix">
 			<div class="col-xs-12">
-
 				<div class="page-header no-border holder">
 					<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
 					<h4 class="text-accent">Inputan ke-<%=index%></h4>
 				</div>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<div class="form-group">
-							<input type="text" class="form-control" id="work_company_<%=index%>" name="work_company_<%=index%>">
-							<label for="work_company_<%=index%>">Nama Inputan</label>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<select name="doc_input_type_<%=index%>" id="doc_input_type_<%=index%>" class="form-control">
+							<select name="Type" id="Type" class="form-control form-control input-lg">
 								<option value=""></option>
-								<option value="string">inputan teks satu baris</option>
-								<option value="text">inputan teks multibaris</option>
-								<option value="date">inputan tanggal</option>
-							</select>								
-							<label for="doc_input_type_<%=index%>">Jenis Inputan</label>
+								<option value="surat peringatan">surat peringatan</option>
+								<option value="kontrak kerja">kontrak kerja</option>
+								<option value="penilaian kinerja">penilaian kinerja</option>
+								<option value="pendidikan formal">pendidikan formal</option>
+								<option value="pendidikan non formal">pendidikan non formal formal</option>
+								<option value="ktp">ktp formal</option>
+								<option value="bpjs">bpjs formal</option>
+								<option value="npwp">npwp formal</option>
+								<option value="bank">bank formal</option>
+								<option value="reksa dana">reksa dana formal</option>
+								<option value="pengalaman kerja">pengalaman kerja formal</option>
+								<option value="proyek">proyek formal</option>
+							</select>	
+							<label for="Type">Jenis Dokumen</label>
 						</div>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="text" class="form-control" id="input_string<%=index%>" name="input_string<%=index%>">
+							<label for="input_string<%=index%>">inputan teks satu baris</label>
+						</div>	
+					</div>	
+				</div>	
+
+				<div class="row">
+					<div class="col-md-12">	
+						<div class="form-group">							
+							<div class="input-daterange input-group" id="input_date" style="width:100%;">
+								<div class="input-group-content">
+									<input type="text" class="form-control" name="input_date" />
+									<label>inputan tanggal</label>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>	
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<textarea name="input_text<%=index%>" id="input_text<%=index%>" class="form-control" rows="3"></textarea>
+							<label for="input_text<%=index%>">inputan teks multibaris</label>
+						</div>	
+					</div>	
+				</div>	
 			</div>
 		</li>
 	</script>
