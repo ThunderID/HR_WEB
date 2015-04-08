@@ -177,7 +177,9 @@
 								<td>09090909080</td>
 								<td>98989898899</td>
 								<td>
-									
+									<a href="{{route('admin.company.show') }}">
+										Detail
+									</a>
 								</td>
 							</tr>
 						</tbody>
