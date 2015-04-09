@@ -18,7 +18,7 @@ class CompanyController extends AdminController {
 		$search 									= [];
 		if(Input::has('q'))
 		{
-			$search['firstname']					= Input::get('q');			
+			$search['name']							= Input::get('q');			
 		}
 
 		$sort 										= ['created_at' => 'asc'];
@@ -26,6 +26,7 @@ class CompanyController extends AdminController {
 		$results 									= API::organisationbranch()->index($page, $search, $sort);
 		$contents 									= json_decode($results);
 
+		print_r($contents);exit;
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
