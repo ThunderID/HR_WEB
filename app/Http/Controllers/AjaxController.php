@@ -13,15 +13,26 @@ class AjaxController extends AdminController {
 	{
 		parent::__construct();
 
-		// $this->model = $model;
 	}
 
 	function search_company()
 	{
-		$product = Input::get('company');
+		$search 									= [];
+		if(Input::has('term'))
+		{
+			$search['name']							= 'asdad';			
+		}
 
-		$products = 
+		$sort 										= ['created_at' => 'asc'];
 
-		return Response::json($products);
+		$results 									= API::organisationbranch()->index(1, $search, $sort);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			return Response::json(NULL,500);
+		}
+
+		return Response::json($contents->data);
 	}
 }
