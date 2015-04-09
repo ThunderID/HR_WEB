@@ -39,7 +39,9 @@
 					<div class="section-body contain-lg">
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-								<h1 class='text-primary'>{{$page_title}} <small>{{Input::get('page') > 1 ? ' / Page ' . Input::get('page') : ""}}</small> </h1>
+								@if(isset($page_title))
+									<h1 class='text-primary'>{{$page_title}} <small>{{Input::get('page') > 1 ? ' / Page ' . Input::get('page') : ""}}</small> </h1>
+								@endif
 								@include('admin.widgets.alerts')
 								@yield('content')
 							</div>

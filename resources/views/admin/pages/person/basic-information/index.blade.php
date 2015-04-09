@@ -20,7 +20,7 @@
 		
 	</div>
 	
-	@for($x=0; $x<3; $x++)
+	@foreach($data as $key => $value)
 	<div class="row">
 			<div class="col-sm-6">
 				<div class="card">
