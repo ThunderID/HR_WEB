@@ -195,7 +195,8 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML' 		=> 'Illuminate\Html\HtmlFacade',
-		'Faker'		=> 'Faker\Factory'
+		'Faker'		=> 'Faker\Factory',
+		'Paginator' => 'App\Libraries\PrettyPaginator'
 	],
 
 ];
