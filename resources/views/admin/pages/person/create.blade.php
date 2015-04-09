@@ -261,7 +261,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<input type="text" class="form-control" id="relation_name_<%=index%>" name="relation_name_<%=index%>">
+						<input name="relation_name_<%=index%>" id="relation_name_<%=index%>" class="form-control getName">											
 						<label for="relation_name_<%=index%>">Nama</label>
 					</div>
 					</div>
@@ -416,30 +416,19 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<input name="work_company_<%=index%>" id="work_company_<%=index%>" class="form-control getCompany">											
+						<input name="work_company_<%=index%>" id="work_company_<%=index%>" class="form-control getCompany" data-comp="">											
 						<label for="work_company_<%=index%>">Perusahaan</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<select class="select2" id="work_department_<%=index%>" name="work_company_<%=index%>">
-							<option value="0">Pilih departemen</option>
-							<option value="malang">Malang</option>
-							<option value="batu">Batu</option>
-							<option value="jakarta">Jakarta</option>
-						</select>
-						
+						<input name="work_department_<%=index%>" id="work_department_<%=index%>" class="form-control getDepartment">											
 						<label for="work_department_<%=index%>">Departemen</label>
 					</div>
 				</div>
-				<div class="col-md-4" id="work_position_<%=index%>" name="work_position_<%=index%>">
+				<div class="col-md-4">
 					<div class="form-group">
-						<select class="select2" id="work_department_<%=index%>">
-							<option value="0">Pilih posisi</option>
-							<option value="malang">Malang</option>
-							<option value="batu">Batu</option>
-							<option value="jakarta">Jakarta</option>
-						</select>
+						<input name="work_position_<%=index%>" id="work_position_<%=index%>" class="form-control getPosition">											
 						<label for="work_position_<%=index%>">Posisi</label>
 					</div>
 				</div>
@@ -659,6 +648,33 @@
 
 	<script type="text/javascript">
 		$(document).ready(function () {
+			$('.getName').select2({
+	            minimumInputLength: 3,
+	            placeholder: '',
+	            ajax: {
+	                url: "{{route('hr.ajax.name')}}",
+	                dataType: 'json',
+	                quietMillis: 500,
+	               data: function (term) {
+	                    return {
+	                        term: term
+	                    };
+	                },
+	                results: function (data) {
+	                    return {
+	                        results: $.map(data, function (item) {
+	                            return {
+	                                text: item.first_name + ' ' + item.middle_name + ' ' + item.last_name ,
+	                                id: item.id
+	                            }
+	                        })
+	                    };
+	                }
+	            }
+	        });
+
+			var n = 1;
+
 			$('.getCompany').select2({
 	            minimumInputLength: 3,
 	            placeholder: '',
@@ -666,7 +682,7 @@
 	                url: "{{route('hr.ajax.company')}}",
 	                dataType: 'json',
 	                quietMillis: 500,
-	               data: function (term) {
+	               	data: function (term) {
 	                    return {
 	                        term: term
 	                    };
@@ -684,14 +700,121 @@
 	            }
 	        });
 
-			var n = 1;
+			$('#work_department_' + n).select2({
+	            minimumInputLength: 3,
+	            placeholder: '',
+	            ajax: {
+	                url: "{{route('hr.ajax.department')}}",
+	                dataType: 'json',
+	                quietMillis: 500,
+	               	data: function (term) {},
+	                results: function (data) {
+	                    return {
+	                        results: $.map(data, function (item) {
+	                            return {
+	                                text: item.name,
+	                                id: item.id,
+	                            }
+	                        })
+	                    };
+	                }
+	            }	        
+	        });
+
+			$('#work_position_' + n).select2({
+	            minimumInputLength: 3,
+	            placeholder: '',
+	            ajax: {
+	                url: "{{route('hr.ajax.position')}}",
+	                dataType: 'json',
+	                quietMillis: 500,
+	               	data: function (term) {},
+	                results: function (data) {
+	                    return {
+	                        results: $.map(data, function (item) {
+	                            return {
+	                                text: item.name,
+	                                id: item.id,
+	                            }
+	                        })
+	                    };
+	                }
+	            }
+	        });		        
+
 			$('.work-add').click(function(){
 				n = n + 1;
 				$('#work_company_' + n).select2({
 		            minimumInputLength: 3,
-		            placeholder: 'Nama Perusahaan',
+		            placeholder: '',
 		            ajax: {
 		                url: "{{route('hr.ajax.company')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               data: function (term) {},
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id,
+		                            }			                        
+		                        })
+		                    };
+		                }
+		            }
+		        });	
+
+				$('#work_department_' + n).select2({
+		            minimumInputLength: 3,
+		            placeholder: '',
+		            ajax: {
+		                url: "{{route('hr.ajax.department')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               	data: function (term) {},
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id,
+		                            }
+		                        })
+		                    };
+		                }
+		            }	        
+		        });
+
+				$('#work_position_' + n).select2({
+		            minimumInputLength: 3,
+		            placeholder: '',
+		            ajax: {
+		                url: "{{route('hr.ajax.position')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               	data: function (term) {},
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id,
+		                            }
+		                        })
+		                    };
+		                }
+		            }
+		        });		        
+
+			});
+
+			$('#work_company_'+n).on('change', function() {
+				$('#work_department_' + n).select2({
+		            minimumInputLength: 3,
+		            placeholder: '',
+		            ajax: {
+		                url: "{{route('hr.ajax.department')}}",
 		                dataType: 'json',
 		                quietMillis: 500,
 		               data: function (term) {
@@ -704,15 +827,39 @@
 		                        results: $.map(data, function (item) {
 		                            return {
 		                                text: item.name,
-		                                id: item.id
+		                                id: item.id,
 		                            }
 		                        })
 		                    };
 		                }
 		            }
 		        });
-			});
 
+				$('#work_position_' + n).select2({
+		            minimumInputLength: 3,
+		            placeholder: '',
+		            ajax: {
+		                url: "{{route('hr.ajax.position')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               data: function (term) {
+		                    return {
+		                        term: term
+		                    };
+		                },
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id,
+		                            }
+		                        })
+		                    };
+		                }
+		            }
+		        });		        
+			});
 		});
 	</script>
 @stop
