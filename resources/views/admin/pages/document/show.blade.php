@@ -6,7 +6,7 @@
 @section('content')
 	<div class="row pb-10">
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<a href="{{route('admin.document.add') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Create New</a>
+			<a href="{{route('hr.documents.create') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Create New</a>
 
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
@@ -24,16 +24,13 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-head card-head-sm style-primary">
-					<header>Surat Peringatan</header>
+					<header>{{$data['name']}}</header>
 				</div>				
 				<div class="card-body">
 					<div class="row  pb-20">
 						<div class="col-md-12">
 							<div class="form-group">
-								<select name="company" id="company" class="form-control select2">
-									<option value="">Nama Perusahaan</option>
-									<option value="mps">PT. Mentari Pagi Sejahtera</option>
-								</select>
+								<label for="">{{$data['organisation']['name']}}</label>
 							</div>
 						</div><!--end .col -->
 					</div>
@@ -48,16 +45,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Mark Zuckenbrugebreg</td>
-								<td>12 Desember 2001</td>
-								<td>
-									<a href="{{route('admin.document-detail.index') }}">
-										detail
-									</a>
-								</td>
-							</tr>
+							@foreach($data['persons'] as $key => $value)
+								<tr>
+									<td>{{$key+1}}</td>
+									<td>{{$value['first_name'].' '.$value['last_name']}}</td>
+									<td><?php print_r($value);?></td>
+									<td>
+										<a href="{{route('hr.persons.show', ['person_id' => $data['id']])}}">
+											detail
+										</a>
+									</td>
+								</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>

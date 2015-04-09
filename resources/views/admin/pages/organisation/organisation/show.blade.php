@@ -7,8 +7,8 @@
 	<div class="card">
 		<div class="card-head card-head-sm style-primary">
 			<header style="padding-top:5px;padding-bottom:5px">
-				<a href="#" class="btn btn-flat ink-reaction">
-					<i class="md md-reply"></i> Back
+				<a href="{{route('hr.organisations.index')}}" class="btn btn-flat ink-reaction">
+					<i class="md md-reply"></i> Kembali
 				</a>
 			</header>
 		</div>
@@ -17,7 +17,7 @@
 				<div class="col-sm-10">
 					<div class="margin-bottom-xxl row">
 						<div class="col-sm-10 col-md-10">
-							<h1 class="text-light no-margin">PT. Mentari Pagi Sejahtera</h1>										
+							<h1 class="text-light no-margin">{{$data['name']}}</h1>										
 						</div>											
 					</div>
 				</div>											
@@ -25,120 +25,96 @@
 		</div>
 	</div>
 
-	<h1 class='text-primary'>API KEYS</h1>
+	<a id="detail" class="pull-right" data-toggle="collapse" href="#detail-api" aria-expanded="false" aria-controls="collapseExample" style="margin-right:0px">
+		<i class="fa fa-plus-circle fa-lg"></i> API KEYS
+	</a>
+	<hr class="ruler-xl"></hr>
+	<div id="detail-api" class="collapse">
 
-	<div class="row pb-10">
+	<div class="row pb-25">
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<a href="{{route('admin.API.add') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Tambah</a>
-		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
-			{!! Form::open(['route' => null, 'class' => 'form-inline']) !!}
-				<div class="form-group col-sm-9">
-					<input type="text" class="form-control" name="q" style="width:100%">
-					<label for="">Cari</label>
-				</div>
-				<button class="btn btn-raised btn-default-light ink-reaction" type="submit">Cari</button>
-			{!! Form::close() !!}
+			<a href="{{route('hr.organisations.apis.create', [$data['id']])}}" class='btn btn-raised btn-primary ink-reaction mt-10'>Tambah</a>
 		</div>
 	</div>	
-
-	@for ($a=0; $a<4; $a++)
 		<div class="row">
-			<div class="col-sm-6">
-				<div class="card">
-					<div class="card-head card-head-sm style-primary">
-						<header >
-							API Keys 1
-						</header>
-					</div>
-					<div class="card-body height-4">
-						<div class="clearfix">
-							<p class="mtm-5 mb-0 text-lg">API Key</p>
-							<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-							<p class="mtm-0 mb-0 text-lg">API Secret</p>
-							<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
+			<?php $i=0;?>
+			@foreach($data['authentications'] as $key => $value)
+				@if($value['role']=='application')
+					@if($i%2==0 && $key!=0)
+						</div>
+						<div class="row">
+					@endif
+					<div class="col-sm-6">
+						<div class="card">
+							<div class="card-head card-head-sm style-primary">
+								<header >
+									{{'API Keys '.($i+1)}}
+								</header>
+							</div>
+							<div class="card-body height-4">
+								<div class="clearfix">
+									<p class="mtm-5 mb-0 text-lg">API Key</p>
+									<p class="mtm-5 mb-0 opacity-50">{{$value['client']}}</p>
+									<p class="mtm-0 mb-0 text-lg">API Secret</p>
+									<p class="mtm-5 mb-0 opacity-50">{{$value['secret']}}</p>
+								</div>
+							</div>
+							<div class="card-actionbar">
+								<div class="card-actionbar-row">
+									<a class="btn btn-flat btn-primary ink-reaction" href="#">EDIT</a>
+									<a class="btn btn-flat btn-primary ink-reaction" href="#">HAPUS</a>
+								</div><!--end .card-actionbar-row -->
+							</div><!--end .card-actionbar -->
 						</div>
 					</div>
-					<div class="card-actionbar">
-						<div class="card-actionbar-row">
-							<a class="btn btn-flat btn-primary ink-reaction" href="#">EDIT</a>
-							<a class="btn btn-flat btn-primary ink-reaction" href="#">HAPUS</a>
-						</div><!--end .card-actionbar-row -->
-					</div><!--end .card-actionbar -->
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="card">
-					<div class="card-head card-head-sm style-primary">
-						<header >
-							API Keys 2
-						</header>
-					</div>
-					<div class="card-body height-4">
-						<div class="clearfix">
-							<p class="mtm-5 mb-0 text-lg">API Key</p>
-							<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-							<p class="mtm-0 mb-0 text-lg">API Secret</p>
-							<p class="mtm-5 mb-0 opacity-50">123456789012345678901234567890123456789012345678901234567890</p>
-						</div>
-					</div>
-					<div class="card-actionbar">
-						<div class="card-actionbar-row">
-							<a class="btn btn-flat btn-primary ink-reaction" href="#">EDIT</a>
-							<a class="btn btn-flat btn-primary ink-reaction" href="#">HAPUS</a>
-						</div><!--end .card-actionbar-row -->
-					</div><!--end .card-actionbar -->
-				</div>
-			</div>
-		</div>
-	@endfor
-
-	<h1 class='text-primary'>Daftar Perusahaan</h1>
-
-	<div class="row pb-10">
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<a href="{{route('admin.company.add') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Tambah</a>
-		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
-			{!! Form::open(['route' => null, 'class' => 'form-inline']) !!}
-				<div class="form-group col-sm-9">
-					<input type="text" class="form-control" name="q" style="width:100%">
-					<label for="">Cari</label>
-				</div>
-				<button class="btn btn-raised btn-default-light ink-reaction" type="submit">Cari</button>
-			{!! Form::close() !!}
+					<?php $i++;?>
+				@endif
+			@endforeach
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="card">
-				<div class="card-body">
-					<table class="table no-margin">
-						<thead>
-							<tr>
-								<th>No</th>
-								<th>Nama Pehusahaan</th>
-								<th>No Ijin Pehusahaan</th>
-								<th>NPWP</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>PT. Makmur Sejati</td>
-								<td>09090909080</td>
-								<td>98989898899</td>
-								<td>
-									<a href="{{route('admin.company.show') }}">
-										Detail
-									</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+
+	<a id="detail" class="pull-right" data-toggle="collapse" href="#detail-superadmin" aria-expanded="false" aria-controls="collapseExample" style="margin-right:0px">
+		<i class="fa fa-plus-circle fa-lg"></i> SUPERADMIN
+	</a>
+	<hr class="ruler-xl"></hr>
+	<div id="detail-superadmin" class="collapse">
+		<div class="row pb-25">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<a href="#" class='btn btn-raised btn-primary ink-reaction mt-10'>Tambah</a>
 			</div>
+		</div>	
+		<div class="row">
+			<?php $i=0;?>
+			@foreach($data['authentications'] as $key => $value)
+				@if($value['role']=='superadmin')
+					@if($i%2==0 && $key!=0)
+						</div>
+						<div class="row">
+					@endif
+					<div class="col-sm-6">
+						<div class="card">
+							<div class="card-head card-head-sm style-primary">
+								<header >
+									{{'Superadmin '.($i+1)}}
+								</header>
+							</div>
+							<div class="card-body height-4">
+								<div class="clearfix">
+									<p class="mtm-5 mb-0 text-lg">{{$value['person']['nick_name']}}</p>
+									<p class="mtm-5 mb-0 opacity-50">{{$value['client']}}</p>
+								</div>
+							</div>
+							<div class="card-actionbar">
+								<div class="card-actionbar-row">
+									<a class="btn btn-flat btn-primary ink-reaction" href="#">EDIT</a>
+									<a class="btn btn-flat btn-primary ink-reaction" href="#">HAPUS</a>
+								</div><!--end .card-actionbar-row -->
+							</div><!--end .card-actionbar -->
+						</div>
+					</div>
+					<?php $i++;?>
+				@endif
+			@endforeach
 		</div>
-	</div>	
+	</div>
 @stop
