@@ -30,7 +30,6 @@ trait APITrait {
 			array("Content-type: application/json"));
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
-
 		$results 		= curl_exec($curl);
 
 		return $results;
