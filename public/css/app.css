@@ -1,3 +1,4 @@
+/*---- Margin & Padding ----*/
 .m-0 {
   margin: 0px;
 }
@@ -223,9 +224,17 @@
 .pb-30 {
   padding-bottom: 30px;
 }
+/*---- row same height ----*/
 .row-same-height {
   display: -webkit-flex;
   display: -moz-flexbox;
   display: -ms-flexbox;
   dispaly: flex;
+}
+/*---- pagination ----*/
+.pagination-hollow a {
+  height: 35px;
+}
+.pagination-hollow a i {
+  line-height: 21px;
 }
