@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Session, App, Config, Paginator;
+use Input, Session, App, Paginator;
 use App\APIConnector\API;
 
-class PersonController extends AdminController {
+class CompanyController extends AdminController {
 
-	protected $controller_name = 'person';
+	protected $controller_name = 'company';
 
 	function __construct() 
 	{
@@ -15,17 +15,18 @@ class PersonController extends AdminController {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['contacts']];
+		$search 									= [];
 		if(Input::has('q'))
 		{
-			$search['firstname']					= Input::get('q');			
+			$search['name']							= Input::get('q');			
 		}
 
 		$sort 										= ['created_at' => 'asc'];
 
-		$results 									= API::person()->index($page, $search, $sort);
+		$results 									= API::organisationbranch()->index($page, $search, $sort);
 		$contents 									= json_decode($results);
 
+		print_r($contents);exit;
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
@@ -42,7 +43,7 @@ class PersonController extends AdminController {
 			$this->layout->page_title 				= 'Hasil Pencarian "'.Input::get('q').'"';
 		}
 
-		$this->layout->content 						= view('admin.pages.person.index');
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
@@ -52,13 +53,35 @@ class PersonController extends AdminController {
 
 	function getCreate($id = null)
 	{
+		// ---------------------- LOAD DATA ----------------------
+		// if (!is_null($id))
+		// {
+		// 	$data = $this->model->findorfail($id);
+		// }
+		// else
+		// {
+		// 	$data = $this->model->newInstance();
+		// }
 
-		// ---------------------- GENERATE CONTENT ----------------------
+		// // Load country list
+		// $filename = base_path('/resources/data/countries.json');
+		// $fd = fopen($filename, 'r');
+		// $json = json_decode(fread($fd, filesize($filename)));
+		// fclose($fd);
+
+		// $country_list = [];
+		// foreach ($json as $country)
+		// {
+		// 	$tmp = json_decode($country);
+		// 	$country_list[$country] = $country;
+		// }
+	
+		// // ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title = strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.person.create');
+		$this->layout->content = view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name = $this->controller_name;
-
+		// $this->layout->content->country_list = $country_list;
 
 		return $this->layout;
 	}
@@ -102,10 +125,10 @@ class PersonController extends AdminController {
 		// }
 	}
 
-	function getShow($id = 1)
+	function getShow($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::person()->show($id);
+		$results 									= API::organisationbranch()->show($id);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -116,38 +139,14 @@ class PersonController extends AdminController {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper($this->controller_name);
 
-		$this->layout->content 						= view('admin.pages.person.show');
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 
 		return $this->layout;
 	}
-
-	function getEdit($id = 1)
-	{
-		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::person()->show($id);
-		$contents 									= json_decode($results);
-
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}
-
-		$data 										= json_decode(json_encode($contents->data), true);
-
-		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper("edit ".$contents->data->nick_name);
-
-		$this->layout->content 						= view('admin.pages.person.create');
-		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= $data;
-
-		return $this->layout;
-	}
-
 
 	function getDelete($id)
 	{

@@ -6,10 +6,10 @@
 @section('content')
 	<div class="row pb-10">
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<a href="{{route('admin.company.add') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Create New</a>
+			<a href="{{route('hr.organisation.branches.index') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Create New</a>
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
-			{!! Form::open(['route' => null, 'class' => 'form-inline']) !!}
+			{!! Form::open(['route' => null, 'class' => 'form-inline', 'method' => 'get']) !!}
 				<div class="form-group col-sm-9">
 					<input type="text" class="form-control" name="q" style="width:100%">
 					<label for="">Search</label>
@@ -33,16 +33,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>PT. Makmur Sejati</td>
-								<td>09090909080</td>
-								<td>98989898899</td>
-								<td class="text-right">
-									<a href="javascript:;" class='btn btn-flat btn-primary ink-reaction mt-10'>Edit</a>
-									<a href="{{ route('admin.company.show') }}" class='btn btn-flat btn-primary ink-reaction mt-10'>Show</a>
-								</td>
-							</tr>
+							@foreach($data as $key => $value)
+								<tr>
+									<td>{{$paginator->from_page + $key}}</td>
+									<td>{{$value['name']}}</td>
+									<td>{{$value['license']}}</td>
+									<td>{{$value['npwp']}}</td>
+									<td class="text-right">
+										<a href="{{ route('hr.organisation.branches.show', $value['id']) }}" class='btn btn-flat btn-primary ink-reaction mt-10'>Edit</a>
+										<a href="{{ route('hr.organisation.branches.show', $value['id']) }}" class='btn btn-flat btn-primary ink-reaction mt-10'>Show</a>
+									</td>
+								</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>

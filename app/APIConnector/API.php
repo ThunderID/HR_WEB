@@ -20,4 +20,9 @@ class API {
 	{
 		return new APIOrganisation();
 	}
+
+	static function organisationbranch()
+	{
+		return new APIOrganisationBranch();
+	}
 }

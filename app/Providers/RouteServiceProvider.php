@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider {
 
 		// Customize filter
 		Session::put('loggedUser', 1);
+		Session::put('user.organisation', 1);
 		Route::filter('hr_acl', function()
 		{
 			if (!Session::has('loggedUser'))

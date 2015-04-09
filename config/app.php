@@ -180,6 +180,7 @@ return [
 		'Lang'      => 'Illuminate\Support\Facades\Lang',
 		'Log'       => 'Illuminate\Support\Facades\Log',
 		'Mail'      => 'Illuminate\Support\Facades\Mail',
+		'Paginator' => 'App\Libraries\PrettyPaginator',
 		'Password'  => 'Illuminate\Support\Facades\Password',
 		'Queue'     => 'Illuminate\Support\Facades\Queue',
 		'Redirect'  => 'Illuminate\Support\Facades\Redirect',
