@@ -87,7 +87,7 @@
 						Pekerjaan
 					</header>
 				</div>
-				<div class="card-body height-5">
+				<div class="card-body height-3">
 					@foreach($data['works'] as $key => $value)
 					<div class="clearfix">
 						<p class="mtm-5 mb-0 text-xl">{{$value['branch']['organisation']['name']}}</p>
@@ -95,8 +95,13 @@
 						<p class="mt-0 mb-0 opacity-75">{{ucfirst($value['name'])}}</p>
 					</div>
 					@endforeach
-				</div>
-			</div>
+				</div>			
+				<div class="card-actionbar pt-25">
+					<div class="card-actionbar-row">
+						<a href="{{ route('hr.work.show' ,['id'=> $value['id']]) }}" class="btn btn-flat btn-primary ink-reaction">DETAIL</a>
+					</div>
+				</div>	
+			</div>			
 		</div>
 		<div class="col-sm-6">
 			<div class="card">
@@ -109,27 +114,65 @@
 					<div class="nano-content">
 						<div class="card-body no-padding">
 							<ul class="list">
+								<?php $ctrA = 0 ;$ctrP = 0; $ctrE = 0;?>
 								@foreach($data['contacts'] as $key => $value)
+									@if($value['item'] == "address" && $ctrA < 1)
 									<li class="tile">
-										<div class="tile-content ink-reaction">
+										<div class="tile-content">
 											<div class="tile-text">
-												{{$value['item']}}
+												Alamat
 												<small>
 													{{$value['value']}}
 												</small>
 											</div>
 										</div>
 									</li>
+									<?php $ctrA = 1;?>
+									@endif
+
+									@if($value['item'] == "email" && $ctrE < 1)
+									<li class="tile">
+										<div class="tile-content">
+											<div class="tile-text">
+												Email
+												<small>
+													{{$value['value']}}
+												</small>
+											</div>
+										</div>
+									</li>
+									<?php $ctrE = 1;?>
+									@endif
+
+									@if($value['item'] == "phone_number" && $ctrP < 1)
+									<li class="tile">
+										<div class="tile-content">
+											<div class="tile-text">
+												Nomor Telepon
+												<small>
+													{{$value['value']}}
+												</small>
+											</div>
+										</div>
+									</li>
+									<?php $ctrP = 1;?>
+									@endif																		
 								@endforeach
 							</ul>
+						</div>
+						<div class="card-actionbar">
+							<div class="card-actionbar-row">
+								<a href="{{ route('hr.contacts.show' ,['id'=> $value['id']]) }}" class="btn btn-flat btn-primary ink-reaction">DETAIL</a>
+							</div>
 						</div>
 					</div>
 					<div class="nano-pane">
 						<div class="nano-slider"></div>
 					</div>
 				</div>
-			</div>
+			</div>				
 		</div>
+
 	</div>
 	<div class="row">
 		<div class="col-sm-6">
