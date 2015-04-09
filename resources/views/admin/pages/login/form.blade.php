@@ -10,7 +10,7 @@
 						<span class="text-lg text-bold text-primary">LOGIN USER</span>
 
 						<br/><br/>
-						<form class="form floating-label" action="{{ route('admin.login.post') }}" accept-charset="utf-8" method="post">
+						<form class="form floating-label" action="{{ route('hr.login.post') }}" accept-charset="utf-8" method="post">
 							<input type='hidden' name='_token' value="{{csrf_token()}}">
 							@include('admin.widgets.alerts')
 							<div class="form-group">

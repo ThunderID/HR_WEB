@@ -5,6 +5,8 @@ use App\APIConnector\API;
 
 class AuthController extends AdminController {
 
+	protected $controller_name = 'login';
+
 	/**
 	 * login form
 	 *
@@ -13,6 +15,8 @@ class AuthController extends AdminController {
 	 **/
 	function getLogin()
 	{
+		$this->layout->page_title = '';
+
 		$this->layout->content = view('admin.pages.login.form');
 
 		return $this->layout;
