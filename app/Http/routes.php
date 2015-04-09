@@ -29,6 +29,12 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.show'
 						]
 					);
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'PersonController@getEdit', 
+							'as' 	=> 'hr.persons.edit'
+						]
+					);		
 		Route::get('shows/{person_id}/documents/{id}', 
 					[
 						'uses' 	=> 'PersonController@getShow', 
@@ -69,3 +75,6 @@ Route::group(['prefix' => 'cms'], function(){
 
 
 });
+
+
+Route::get('companysearch', array('as' => 'hr.ajax.company', 'uses' => 'AjaxController@search_company'));

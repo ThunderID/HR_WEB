@@ -59,6 +59,7 @@ class PersonController extends AdminController {
 		$this->layout->content = view('admin.pages.person.create');
 		$this->layout->content->controller_name = $this->controller_name;
 
+
 		return $this->layout;
 	}
 
@@ -123,6 +124,30 @@ class PersonController extends AdminController {
 
 		return $this->layout;
 	}
+
+	function getEdit($id = 1)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$results 									= API::person()->show($id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= strtoupper("edit ".$contents->data->nick_name);
+
+		$this->layout->content 						= view('admin.pages.person.create');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+
+		return $this->layout;
+	}
+
 
 	function getDelete($id)
 	{
