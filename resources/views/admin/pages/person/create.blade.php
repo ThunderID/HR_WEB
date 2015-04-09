@@ -15,7 +15,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control" id="preffix_title" name="preffix_title">
+									<input type="text" class="form-control" id="preffix_title" name="preffix_title" value=@if (isset($data['prefix_title'])){{ $data['prefix_title'] }}@endif>
 									<label for="company">Gelar Depan</label>
 								</div>
 							</div><!--end .col -->
@@ -23,19 +23,19 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="firstname" name="firstname">
+									<input type="text" class="form-control input-lg" id="firstname" name="firstname" value=@if (isset($data['first_name'])){{ $data['first_name'] }}@endif>
 									<label for="firstname">Nama Depan</label>
 								</div>
 							</div><!--end .col -->
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="midlename" name="midlename">
+									<input type="text" class="form-control input-lg" id="midlename" name="midlename" value=@if (isset($data['middle_name'])){{ $data['middle_name'] }}@endif>
 									<label for="midlename">Nama Tengah</label>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="lastname" name="lastname">
+									<input type="text" class="form-control input-lg" id="lastname" name="lastname" value=@if (isset($data['last_name'])){{ $data['last_name'] }}@endif>
 									<label for="lastname">Nama Belakang</label>
 								</div>
 							</div><!--end .col -->
@@ -43,7 +43,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control" id="suffix_title" name="suffix_title">
+									<input type="text" class="form-control" id="suffix_title" name="suffix_title" value=@if (isset($data['suffix_title'])){{ $data['suffix_title'] }}@endif>
 									<label for="functiontitle">Gelar Belakang</label>
 								</div>
 							</div><!--end .col -->
@@ -73,7 +73,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" id="nickname" name="nickname">
+										<input type="text" class="form-control" id="nickname" name="nickname" value=@if (isset($data['nick_name'])){{ $data['nick_name'] }}@endif>
 										<label for="nickname">Nama Panggilan</label>
 									</div>
 								</div><!--end .col -->
@@ -87,7 +87,13 @@
 								<div class="col-md-2">
 									<div class="radio radio-styled">
 										<label>
-											<input name="gender" type="radio" value="male">
+											<input name="gender" type="radio" value="male"
+											@if (isset($data['gender']))
+												@if ($data['gender'] = "male")
+													 checked="checked"
+												@Endif
+											@endif
+											>
 											<span>Laki-laki</span>
 										</label>
 									</div>
@@ -95,7 +101,13 @@
 								<div class="col-md-2">
 									<div class="radio radio-styled">
 										<label>
-											<input name="gender" type="radio" value="female">
+											<input name="gender" type="radio" value="female"
+											@if (isset($data['gender']))
+												@if ($data['gender'] = "female")
+													 checked="checked"
+												@Endif
+											@endif
+											>
 											<span>Perempuan</span>
 										</label>
 									</div>
@@ -104,7 +116,7 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" id="place_of_birth" name="place_of_birth">
+										<input type="text" class="form-control" id="place_of_birth" name="place_of_birth" value=@if (isset($data['place_of_birth'])){{ $data['place_of_birth'] }}@endif>
 										<label for="place_of_birth">Tempat Lahir</label>
 									</div>
 								</div><!--end .col -->
@@ -112,7 +124,7 @@
 									<div class="form-group">
 										<div class="input-daterange input-group" id="date_of_birth" style="width:100%;">
 											<div class="input-group-content">
-												<input type="text" class="form-control" name="date_of_birth" />
+												<input type="text" class="form-control" name="date_of_birth" value=@if (isset($data['date_of_birth'])){{ $data['date_of_birth'] }}@endif>
 												<label>Tanggal Lahir</label>
 											</div>
 										</div>
@@ -122,19 +134,45 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" id="place_of_birth" name="place_of_birth">
-										<label for="place_of_birth">Kebangsaan</label>
+										<input type="text" class="form-control" id="nationality" name="nationality" value=@if (isset($data['nationality'])){{ $data['nationality'] }}@endif>
+										<label for="nationality">Kebangsaan</label>
 									</div>
 								</div><!--end .col -->
 								<div class="col-md-6">
 									<div class="form-group">
-										<select name="marital_status" class="form-control" id="marital_status">
-											<option value=""></option>
-											<option value="single">Belum Kawin</option>
-											<option value="married">Kawin</option>
-											<option value="divorced">Cerai Hidup</option>
-											<option value="widowed">Cerai Mati</option>
-										</select>
+										@if(isset($data['marital_status']))
+										{!! Form::select('Status Kawin',
+														[
+															'' => '', 	
+															'single' 		=> 'Belum Kawin',
+															'married' 		=> 'Kawin',
+															'divorced' 		=> 'Cerai Hidup',
+															'widowed' 		=> 'Cerai Mati'
+														],
+														$data['marital_status'],
+														[
+															'name'			=>'marital_status',
+															'class'			=>'form-control',
+															'id'			=>'marital_status'
+														]) 
+										!!}		
+										@else
+										{!! Form::select('Status Kawin',
+														[
+															'' => '', 	
+															'single' 		=> 'Belum Kawin',
+															'married' 		=> 'Kawin',
+															'divorced' 		=> 'Cerai Hidup',
+															'widowed' 		=> 'Cerai Mati'
+														],
+														NULL,
+														[
+															'name'			=>'marital_status',
+															'class'			=>'form-control',
+															'id'			=>'marital_status'
+														]) 
+										!!}												
+										@endif								
 										<label for="marital_status">Status Kawin</label>
 									</div><!--end .form -->
 								</div><!--end .col -->
@@ -378,12 +416,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<select class="select2" id="work_company_<%=index%>" name="work_company_<%=index%>">
-							<option value="0">Pilih perusahaan</option>
-							<option value="malang">Malang</option>
-							<option value="batu">Batu</option>
-							<option value="jakarta">Jakarta</option>
-						</select>
+						<input type="hidden" name="work_company_<%=index%>" id="work_company_<%=index%>" class="form-control select2">											
 						<label for="work_company_<%=index%>">Perusahaan</label>
 					</div>
 				</div>
@@ -627,5 +660,32 @@
 		$(document).ready(function () {
 			$('.select2').select2();
 		});
+	</script>
+
+    <script language="javascript">
+        $('#work_company_<%=index%>').select2({
+            minimumInputLength: 3,
+            placeholder: 'Nama Perusahaan',
+            ajax: {
+                url: "{{route('hr.ajax.company')}}",
+                dataType: 'json',
+                quietMillis: 500,
+               data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
 	</script>
 @stop

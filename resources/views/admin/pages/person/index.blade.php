@@ -47,7 +47,7 @@
 					</div>
 					<div class="card-actionbar">
 						<div class="card-actionbar-row">
-							<a href="javascript:;" class="btn btn-flat btn-primary ink-reaction">EDIT</a>
+							<a href="{{ route('hr.persons.edit' ,['id'=> $value['id']]) }}" class="btn btn-flat btn-primary ink-reaction">EDIT</a>
 							<a href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}" class="btn btn-flat btn-primary ink-reaction">LIHAT</a>
 						</div>
 				</div>
