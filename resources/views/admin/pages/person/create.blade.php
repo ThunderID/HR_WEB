@@ -189,8 +189,8 @@
 				<div class="tab-pane" id="work">
 					<ul class="list-unstyled" id="workList"></ul>
 					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="workTmpl" data-target="#workList">TAMBAHKAN PEKERJAAN</a>
-					</div><!--end .form-group -->
+						<a class="btn btn-raised btn-default-bright work-add" data-duplicate="workTmpl" data-target="#workList">TAMBAHKAN PEKERJAAN</a>
+					</div><!--end .form-group -->					
 				</div><!--end .tab-pane -->
 				<div class="tab-pane " id="contact">
 					<ul class="list-unstyled" id="addressList"></ul>
@@ -416,7 +416,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="hidden" name="work_company_<%=index%>" id="work_company_<%=index%>" class="form-control select2">											
+						<input name="work_company_<%=index%>" id="work_company_<%=index%>" class="form-control getCompany">											
 						<label for="work_company_<%=index%>">Perusahaan</label>
 					</div>
 				</div>
@@ -656,36 +656,63 @@
 			</div>																																																											
 		</li>
 	</script>
+
 	<script type="text/javascript">
 		$(document).ready(function () {
-			$('.select2').select2();
-		});
-	</script>
+			$('.getCompany').select2({
+	            minimumInputLength: 3,
+	            placeholder: '',
+	            ajax: {
+	                url: "{{route('hr.ajax.company')}}",
+	                dataType: 'json',
+	                quietMillis: 500,
+	               data: function (term) {
+	                    return {
+	                        term: term
+	                    };
+	                },
+	                results: function (data) {
+	                    return {
+	                        results: $.map(data, function (item) {
+	                            return {
+	                                text: item.name,
+	                                id: item.id
+	                            }
+	                        })
+	                    };
+	                }
+	            }
+	        });
 
-    <script language="javascript">
-        $('#work_company_<%=index%>').select2({
-            minimumInputLength: 3,
-            placeholder: 'Nama Perusahaan',
-            ajax: {
-                url: "{{route('hr.ajax.company')}}",
-                dataType: 'json',
-                quietMillis: 500,
-               data: function (term) {
-                    return {
-                        term: term
-                    };
-                },
-                results: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
+			var n = 1;
+			$('.work-add').click(function(){
+				n = n + 1;
+				$('#work_company_' + n).select2({
+		            minimumInputLength: 3,
+		            placeholder: 'Nama Perusahaan',
+		            ajax: {
+		                url: "{{route('hr.ajax.company')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               data: function (term) {
+		                    return {
+		                        term: term
+		                    };
+		                },
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id
+		                            }
+		                        })
+		                    };
+		                }
+		            }
+		        });
+			});
+
+		});
 	</script>
 @stop

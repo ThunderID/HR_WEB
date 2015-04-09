@@ -9,7 +9,7 @@
 			<a href="{{route('hr.organisation.branches.index') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Create New</a>
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
-			{!! Form::open(['route' => null, 'class' => 'form-inline']) !!}
+			{!! Form::open(['route' => null, 'class' => 'form-inline', 'method' => 'get']) !!}
 				<div class="form-group col-sm-9">
 					<input type="text" class="form-control" name="q" style="width:100%">
 					<label for="">Search</label>
