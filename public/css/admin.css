@@ -223,6 +223,12 @@
 .pb-30 {
   padding-bottom: 30px;
 }
+.row-same-height {
+  display: -webkit-flex;
+  display: -moz-flexbox;
+  display: -ms-flexbox;
+  dispaly: flex;
+}
 
 @-webkit-keyframes fadeIn {
   from {
