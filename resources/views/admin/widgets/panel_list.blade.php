@@ -6,11 +6,12 @@
 		$data['component']	= content component
 	 */
 ?>
+<?php $title = str_replace('_', ' ', $title); ?>
 @if ($mode == 'person')
 	<div class="col-md-6">
 		<div class="card ">
 			<div class="card-head">
-				<header>{{ $title }}</header>
+				<header class="mt-10">{{ ucwords($title) }}</header>
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
@@ -35,7 +36,7 @@
 	<div class="col-md-6">
 		<div class="card ">
 			<div class="card-head">
-				<header>{{ $title }}</header>
+				<header class="mt-10">{{ ucwords($title) }}</header>
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
