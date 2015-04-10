@@ -21,14 +21,14 @@
 		<ul class="header-nav header-nav-profile">
 			<li class="dropdown">
 				<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-					@if(Config::get('user.gender')=='male')
+					@if(Session::get('user.gender')=='male')
 						<img src="{{url('images/male.png')}}" alt="">
 					@else
 						<img src="{{url('images/female.png')}}" alt="">
 					@endif
 					<span class="profile-info">
-						{{Config::get('user.name')}}
-						<small>{{Config::get('user.role')}}</small>
+						{{Session::get('user.name')}}
+						<small>{{Session::get('user.role')}}</small>
 					</span>
 				</a>
 				<ul class="dropdown-menu animation-dock">
