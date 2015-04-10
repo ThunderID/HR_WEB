@@ -18,12 +18,17 @@ abstract class AdminController extends Controller {
 			$nav = new MaterialAdminSideMenu();
 			if(Config::get('user.role')=='developer')
 			{
-				$nav->add('organisasi', 'Organisasi', route('admin.organisation.index'), 'md md-business');
+				$nav->add('dashboard', 'Dashboard', 'javascript:;', 'md md-home');
+				$nav->add('overview', 'Overview', route('hr.dashboard.overview'), null, 'dashboard');
+				
+				$nav->add('organisasi', 'Organisasi', 'javascript:;', 'md md-business');
+				$nav->add('basic_info', 'Lihat Semua', route('hr.organisations.index'), null, 'organisasi');
+				$nav->add('basic_info_add', 'Tambah Baru', route('hr.organisations.create'), null, 'organisasi');
 			}
 			else
 			{
 				$nav->add('dashboard', 'Dashboard', 'javascript:;', 'md md-home');
-				$nav->add('overview', 'Overview', route('admin.dashboard.overview'), null, 'dashboard');
+				$nav->add('overview', 'Overview', route('hr.dashboard.overview'), null, 'dashboard');
 
 				$nav->add('person', 'Karyawan', 'javascript:;', 'fa fa-user');
 				$nav->add('basic_info', 'Lihat Semua', route('hr.persons.index'), null, 'person');
@@ -38,9 +43,9 @@ abstract class AdminController extends Controller {
 				// $nav->add('department', 'Departemen', route('admin.department.index'), null,'company_charts');
 				// $nav->add('jabatan', 'Jabatan', route('admin.position.index'), null,'company_charts');
 
-				// $nav->add('document', 'Dokumen', 'javascript:;', 'md md-business');
-				// $nav->add('document-template', 'Template Dokumen', route('admin.document-template.index'), null, 'document');
-				// $nav->add('document-data', 'Data Dokumen', route('admin.document.index'), null, 'document');
+				$nav->add('document', 'Dokumen', 'javascript:;', 'md md-folder');
+				$nav->add('document_index', 'Lihat Semua', route('hr.documents.index'), null, 'document');
+				$nav->add('document_add', 'Tambah Baru', route('hr.documents.create'), null, 'document');
 			}
 
 			$this->layout->nav 			= $nav;

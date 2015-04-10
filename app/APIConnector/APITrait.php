@@ -2,7 +2,7 @@
 
 trait APITrait {
 
-	static protected $basic_url = 'http://localhost:9000/';
+	static protected $basic_url = 'http://localhost:9200/';
 
 	protected static function runGet($url, $data = [])
 	{
@@ -14,7 +14,6 @@ trait APITrait {
 		// curl_setopt($curl, CURLOPT_GET, true);
 
 		$results 		= curl_exec($curl);
-
 		return $results;
 	}
 
@@ -30,7 +29,9 @@ trait APITrait {
 			array("Content-type: application/json"));
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+
 		$results 		= curl_exec($curl);
+
 		return $results;
 	}
 

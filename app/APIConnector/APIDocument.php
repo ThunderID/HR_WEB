@@ -8,11 +8,11 @@ class APIDocument {
 
 	function index($page, $search, $sort)
 	{
-		return self::runPost(self::$basic_url . 'documents/'.$page, ['search' => $search, 'sort' => $sort]);
+		return self::runPost(self::$basic_url . '/organisations/'.Session::get('user.organisation').'/documents/'.$page, ['search' => $search, 'sort' => $sort]);
 	}
 
 	function show($id)
 	{
-		return self::runGet(self::$basic_url . 'documents/show/'.$id, ['id' => $id]);
+		return self::runGet(self::$basic_url .  '/organisations/'.Session::get('user.organisation').'/documents/show/'.$id, ['id' => $id]);
 	}
 }

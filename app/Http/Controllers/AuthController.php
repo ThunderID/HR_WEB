@@ -15,9 +15,9 @@ class AuthController extends AdminController {
 	 **/
 	function getLogin()
 	{
-		$this->layout->page_title = '';
+		$this->layout->page_title 	= '';
 
-		$this->layout->content = view('admin.pages.login.form');
+		$this->layout->content 		= view('admin.pages.login.form');
 
 		return $this->layout;
 	}
@@ -31,16 +31,16 @@ class AuthController extends AdminController {
 
 	function postLogin()
 	{
-		$username 				= Input::get('username');
-		$password 				= Input::get('password');
+		$username 					= Input::get('username');
+		$password 					= Input::get('password');
 
-		$results 				= API::person()->authenticate($username, $password);
+		$results 					= API::person()->authenticate($username, $password);
 
-		$content 				= json_decode($results);
+		$content 					= json_decode($results);
 
 		if($content->meta->success)
 		{
-			return Redirect::intended(route('hr.persons.index'));
+			return Redirect::intended(route('hr.dashboard.overview'));
 		}
 
 		return Redirect::back()->withInput()->withError(json_decode(json_encode($content->meta->errors), true));

@@ -7,6 +7,89 @@ Route::group(['prefix' => 'cms'], function(){
 
 	Route::get('/logout',				['as' => 'hr.logout.get', 	'uses' => 'AuthController@getLogout']);
 
+	/* ---------------------------------------------------------------------------- DEVELOPER AREA ----------------------------------------------------------------------------*/
+	//Organisation
+	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'OrganisationController@getIndex', 
+							'as' 	=> 'hr.organisations.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'OrganisationController@getCreate', 
+							'as' 	=> 'hr.organisations.create'
+						]
+					);
+
+		Route::post('store', 
+						[
+							'uses' 	=> 'OrganisationController@postStore', 
+							'as' 	=> 'hr.organisations.store'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'OrganisationController@getShow', 
+							'as' 	=> 'hr.organisations.show'
+						]
+					);
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'OrganisationController@getEdit', 
+							'as' 	=> 'hr.organisations.edit'
+						]
+					);		
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'OrganisationController@postUpdate', 
+							'as' 	=> 'hr.organisations.update'
+						]
+					);	
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'OrganisationController@anyDelete', 
+							'as' 	=> 'hr.organisations.delete'
+						]
+					);	
+
+	});
+
+	//api key
+	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
+		Route::get('{id}/create/new', 
+						[
+							'uses' 	=> 'APIKeyController@getCreate', 
+							'as' 	=> 'hr.organisations.apis.create'
+						]
+					);
+		// Route::get('edit/{id}', 
+		// 				[
+		// 					'uses' 	=> 'OrganisationController@getEdit', 
+		// 					'as' 	=> 'hr.organisations.edit'
+		// 				]
+		// 			);		
+		// Route::post('update/{id}', 
+		// 				[
+		// 					'uses' 	=> 'OrganisationController@postUpdate', 
+		// 					'as' 	=> 'hr.organisations.update'
+		// 				]
+		// 			);	
+		// Route::any('delete/{id}', 
+		// 				[
+		// 					'uses' 	=> 'OrganisationController@anyDelete', 
+		// 					'as' 	=> 'hr.organisations.delete'
+		// 				]
+		// 			);	
+
+	});
+	//superadmin
+	/* ---------------------------------------------------------------------------- END OF DEVELOPER AREA ----------------------------------------------------------------------------*/
+
+
 	///BEGIN PERSON///
 	Route::group(['prefix' => 'persons', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
@@ -68,12 +151,44 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 	});
+	///END ORGANISATION BRANCH///
 
-	Route::controller('dashboard', 'AdminDashboardController', [
-																'getOverview'	=> 'admin.dashboard.overview'
-														   ]);
+	///BEGIN DOCUMENT///
+	Route::group(['prefix' => 'documents', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'DocumentController@getIndex', 
+							'as' 	=> 'hr.documents.index'
+						]
+					);
 
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'DocumentController@getCreate', 
+							'as' 	=> 'hr.documents.create'
+						]
+					);
 
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'DocumentController@getShow', 
+							'as' 	=> 'hr.documents.show'
+						]
+					);
+		Route::get('shows/{person_id}/documents/{id}', 
+					[
+						'uses' 	=> 'DocumentController@getShow', 
+						'as' 	=> 'hr.person.document.show'
+					]
+				);
+	});
+	///END DOCUMENT///
+
+	Route::get('dashboard/overview', [
+						'uses' 	=> 'AdminDashboardController@getOverview', 
+						'as' 	=> 'hr.dashboard.overview',
+						'before'=> 'hr_acl'
+					]);
 });
 
 Route::get('namesearch', array('as' => 'hr.ajax.name', 'uses' => 'AjaxController@search_name'));
