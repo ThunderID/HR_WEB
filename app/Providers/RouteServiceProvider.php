@@ -46,14 +46,14 @@ class RouteServiceProvider extends ServiceProvider {
 				$results 									= API::person()->check(Session::get('loggedUser'));
 				$contents 									= json_decode($results);
 
-				if(!$contents->meta->success)
+				if(!$contents->meta->success || !count($contents->data->works))
 				{
 					App::abort(404);
 				}
 
-				Session::put('user.organisation', $contents->data->organisation_id);
-				Session::put('user.role', $contents->data->authentication->role);
-				Session::put('user.name', $contents->data->authentication->client);
+				Session::put('user.organisation', $contents->data->works[0]->branch->organisation);
+				Session::put('user.role', $contents->data->works[0]->name);
+				Session::put('user.name', $contents->data->username);
 				Session::put('user.gender', $contents->data->gender);
 				
 				//check access
@@ -80,48 +80,48 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.getLogout'									=> ['administrator', 'editor', 'writer', 'contributor'],
 							'hr.gallery.upload'								=> ['administrator', 'editor', 'writer', 'contributor'],
 							'hr.search'										=> ['administrator', 'editor', 'writer', 'contributor'],
-							'hr.dashboard.overview'							=> ['developer', 'superadmin', 'admin'],
+							'hr.dashboard.overview'							=> ['developer', 'CEO', 'admin'],
 							'hr.dashboard.getTeam'							=> ['administrator', 'editor', 'writer', 'contributor'],
 							'hr.dashboard.getContents'						=> ['administrator', 'editor', 'writer', 'contributor'],
 							
-							'hr.persons.index'								=> ['developer', 'superadmin', 'admin'],
-							'hr.persons.show'								=> ['developer', 'superadmin', 'admin'],
-							'hr.persons.edit'								=> ['developer', 'superadmin', 'admin'],
-							'hr.persons.create'								=> ['developer', 'superadmin', 'admin'],
-							'hr.persons.store'								=> ['developer', 'superadmin', 'admin'],
-							'hr.persons.update'								=> ['developer', 'superadmin', 'admin'],
-							'hr.persons.delete'								=> ['developer', 'superadmin', 'admin'],
+							'hr.persons.index'								=> ['developer', 'CEO', 'admin'],
+							'hr.persons.show'								=> ['developer', 'CEO', 'admin'],
+							'hr.persons.edit'								=> ['developer', 'CEO', 'admin'],
+							'hr.persons.create'								=> ['developer', 'CEO', 'admin'],
+							'hr.persons.store'								=> ['developer', 'CEO', 'admin'],
+							'hr.persons.update'								=> ['developer', 'CEO', 'admin'],
+							'hr.persons.delete'								=> ['developer', 'CEO', 'admin'],
 							
-							'hr.documents.index'							=> ['developer', 'superadmin', 'admin'],
-							'hr.documents.show'								=> ['developer', 'superadmin', 'admin'],
-							'hr.documents.edit'								=> ['developer', 'superadmin', 'admin'],
-							'hr.documents.create'							=> ['developer', 'superadmin', 'admin'],
-							'hr.documents.store'							=> ['developer', 'superadmin', 'admin'],
-							'hr.documents.update'							=> ['developer', 'superadmin', 'admin'],
-							'hr.documents.delete'							=> ['developer', 'superadmin', 'admin'],
+							'hr.documents.index'							=> ['developer', 'CEO', 'admin'],
+							'hr.documents.show'								=> ['developer', 'CEO', 'admin'],
+							'hr.documents.edit'								=> ['developer', 'CEO', 'admin'],
+							'hr.documents.create'							=> ['developer', 'CEO', 'admin'],
+							'hr.documents.store'							=> ['developer', 'CEO', 'admin'],
+							'hr.documents.update'							=> ['developer', 'CEO', 'admin'],
+							'hr.documents.delete'							=> ['developer', 'CEO', 'admin'],
 
-							'hr.work.index'									=> ['developer', 'superadmin', 'admin'],
-							'hr.work.show'									=> ['developer', 'superadmin', 'admin'],
-							'hr.work.edit'									=> ['developer', 'superadmin', 'admin'],
-							'hr.work.create'								=> ['developer', 'superadmin', 'admin'],
-							'hr.work.store'									=> ['developer', 'superadmin', 'admin'],
-							'hr.work.update'								=> ['developer', 'superadmin', 'admin'],
-							'hr.work.delete'								=> ['developer', 'superadmin', 'admin'],
+							'hr.work.index'									=> ['developer', 'CEO', 'admin'],
+							'hr.work.show'									=> ['developer', 'CEO', 'admin'],
+							'hr.work.edit'									=> ['developer', 'CEO', 'admin'],
+							'hr.work.create'								=> ['developer', 'CEO', 'admin'],
+							'hr.work.store'									=> ['developer', 'CEO', 'admin'],
+							'hr.work.update'								=> ['developer', 'CEO', 'admin'],
+							'hr.work.delete'								=> ['developer', 'CEO', 'admin'],
 
-							'hr.person.work.show'							=> ['developer', 'superadmin', 'admin'],
-							'hr.person.work.edit'							=> ['developer', 'superadmin', 'admin'],
-							'hr.person.work.create'							=> ['developer', 'superadmin', 'admin'],
-							'hr.person.work.store'							=> ['developer', 'superadmin', 'admin'],
-							'hr.person.work.update'							=> ['developer', 'superadmin', 'admin'],
-							'hr.person.work.delete'							=> ['developer', 'superadmin', 'admin'],
+							'hr.person.work.show'							=> ['developer', 'CEO', 'admin'],
+							'hr.person.work.edit'							=> ['developer', 'CEO', 'admin'],
+							'hr.person.work.create'							=> ['developer', 'CEO', 'admin'],
+							'hr.person.work.store'							=> ['developer', 'CEO', 'admin'],
+							'hr.person.work.update'							=> ['developer', 'CEO', 'admin'],
+							'hr.person.work.delete'							=> ['developer', 'CEO', 'admin'],
 
-							'hr.organisation.branches.index'				=> ['developer', 'superadmin', 'admin'],
-							'hr.organisation.branches.show'					=> ['developer', 'superadmin', 'admin'],
-							'hr.organisation.branches.edit'					=> ['developer', 'superadmin', 'admin'],
-							'hr.organisation.branches.create'				=> ['developer', 'superadmin', 'admin'],
-							'hr.organisation.branches.store'				=> ['developer', 'superadmin', 'admin'],
-							'hr.organisation.branches.update'				=> ['developer', 'superadmin', 'admin'],
-							'hr.organisation.branches.delete'				=> ['developer', 'superadmin', 'admin'],
+							'hr.organisation.branches.index'				=> ['developer', 'CEO', 'admin'],
+							'hr.organisation.branches.show'					=> ['developer', 'CEO', 'admin'],
+							'hr.organisation.branches.edit'					=> ['developer', 'CEO', 'admin'],
+							'hr.organisation.branches.create'				=> ['developer', 'CEO', 'admin'],
+							'hr.organisation.branches.store'				=> ['developer', 'CEO', 'admin'],
+							'hr.organisation.branches.update'				=> ['developer', 'CEO', 'admin'],
+							'hr.organisation.branches.delete'				=> ['developer', 'CEO', 'admin'],
 							
 							//developer area
 							'hr.organisations.index'						=> ['developer'],
@@ -132,11 +132,11 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisations.delete'						=> ['developer'],
 							'hr.organisations.show'							=> ['developer'],
 
-							'hr.organisations.apis.create'					=> ['developer', 'superadmin'],
-							'hr.organisations.apis.store'					=> ['developer', 'superadmin'],
-							'hr.organisations.apis.edit'					=> ['developer', 'superadmin'],
-							'hr.organisations.apis.update'					=> ['developer', 'superadmin'],
-							'hr.organisations.apis.delete'					=> ['developer', 'superadmin'],
+							'hr.organisations.apis.create'					=> ['developer', 'CEO'],
+							'hr.organisations.apis.store'					=> ['developer', 'CEO'],
+							'hr.organisations.apis.edit'					=> ['developer', 'CEO'],
+							'hr.organisations.apis.update'					=> ['developer', 'CEO'],
+							'hr.organisations.apis.delete'					=> ['developer', 'CEO'],
 						];
 			return $routes_acl;
 		});
