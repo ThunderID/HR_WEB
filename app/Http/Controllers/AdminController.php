@@ -47,9 +47,6 @@ abstract class AdminController extends Controller {
 				// $nav->add('company_charts', 'Struktur Perusahaan', 'javascript:;', null, 'company');
 				// $nav->add('department', 'Departemen', route('admin.department.index'), null,'company_charts');
 				// $nav->add('jabatan', 'Jabatan', route('admin.position.index'), null,'company_charts');
-
-				$nav->add('document', 'Dokumen', 'javascript:;', 'md md-folder');
-				$nav->add('document_index', 'Lihat Semua', route('hr.documents.index'), null, 'document');
 			}
 
 			$this->layout->nav 			= $nav;

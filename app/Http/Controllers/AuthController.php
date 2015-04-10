@@ -5,7 +5,7 @@ use App\APIConnector\API;
 
 class AuthController extends AdminController {
 
-	protected $controller_name = 'login';
+	protected $controller_name 		= 'login';
 
 	/**
 	 * login form

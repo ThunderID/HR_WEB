@@ -40,7 +40,7 @@
 									<td>{{$value['license']}}</td>
 									<td>{{$value['npwp']}}</td>
 									<td class="text-right">
-										<a href="{{ route('hr.organisation.branches.show', $value['id']) }}" class='btn btn-flat btn-primary ink-reaction mt-10'>Edit</a>
+										<a href="{{ route('hr.organisation.branches.edit', $value['id']) }}" class='btn btn-flat btn-primary ink-reaction mt-10'>Edit</a>
 										<a href="{{ route('hr.organisation.branches.show', $value['id']) }}" class='btn btn-flat btn-primary ink-reaction mt-10'>Detail</a>
 									</td>
 								</tr>

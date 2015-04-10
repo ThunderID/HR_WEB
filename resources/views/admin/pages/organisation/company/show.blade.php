@@ -8,11 +8,18 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-head card-head-sm style-primary">
-					<header style="padding-top:5px;padding-bottom:5px">
-						<a href="{{route('hr.organisation.branches.index')}}" class="btn btn-flat ink-reaction">
-							<i class="md md-reply"></i> Kembali
-						</a>
-					</header>
+					<div class="row">
+						<div class="col-sm-6 pt-5 text-left">
+							<a href="{{route('hr.organisation.branches.index')}}" class="btn btn-flat ink-reaction">
+								<i class="md md-reply"></i> Kembali
+							</a>
+						</div>
+						<div class="col-sm-6 pt-5 text-right">
+							<a href="{{route('hr.organisation.branches.delete', [$data['id']])}}" class="btn btn-red ink-reaction">
+								<i class="fa fa-trash"></i> Hapus
+							</a>
+						</div>
+					</div>
 				</div>
 				<div class="card-body pt-10 pb-0">
 					<div class="row">

@@ -122,6 +122,25 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.organisation.branches.show'
 						]
 					);
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'CompanyController@getEdit', 
+							'as' 	=> 'hr.organisation.branches.edit'
+						]
+					);
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'CompanyController@postUpdate', 
+							'as' 	=> 'hr.organisation.branches.update'
+						]
+					);	
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'CompanyController@anyDelete', 
+							'as' 	=> 'hr.organisation.branches.delete'
+						]
+					);	
+
 	});
 
 	///BEGIN PERSON///

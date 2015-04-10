@@ -21,7 +21,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="name" name="name">
+									<input type="text" class="form-control input-lg" id="name" name="name" value="{{$data['name']}}">
 									<label for="name">Nama Perusahaan</label>
 								</div>
 							</div><!--end .col -->
@@ -29,13 +29,13 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control" id="license" name="license">
+									<input type="text" class="form-control" id="license" name="license" value="{{$data['license']}}">
 									<label for="license">Nomor Ijin Perusahaan</label>
 								</div>
 							</div><!--end .col -->
 							<div class="col-md-6">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control" id="npwp" name="npwp">
+									<input type="text" class="form-control" id="npwp" name="npwp" value="{{$data['npwp']}}">
 									<label for="npwp">NPWP</label>
 								</div>
 							</div>
@@ -49,9 +49,9 @@
 			<div class="card-head style-primary">
 				<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
 					<li class="active"><a href="#profil">PROFIL</a></li>
-					<li><a href="#department">DEPARTEMEN</a></li>
-					<li><a href="#position">JABATAN</a></li>
-					<li><a href="#contact">KONTAK</a></li>
+					@if(!$data['id'])
+						<li><a href="#contact">KONTAK</a></li>
+					@endif
 				</ul>
 			</div><!--end .card-head -->
 			<!-- END FORM TABS -->
@@ -67,33 +67,19 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" id="business_activities" name="business_activities">
+										<input type="text" class="form-control" id="business_activities" name="business_activities" value="{{$data['business_activities']}}">
 										<label for="business_activities">Kegiatan Bisnis</label>
 									</div>
 								</div><!--end .col -->
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" id="business_fields" name="business_fields">
+										<input type="text" class="form-control" id="business_fields" name="business_fields" value="{{$data['business_fields']}}">
 										<label for="business_fields">Bidang Bisnis</label>
 									</div>
 								</div>
 							</div><!--end .row -->
 						</div><!--end .col -->
 					</div><!--end .row -->
-				</div><!--end .tab-pane -->
-				<div class="tab-pane" id="department">
-					<ul class="list-unstyled" id="departmentList"></ul>
-					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="departmentTmpl" data-target="#departmentList">TAMBAHKAN DEPARTEMEN
-						</a>
-					</div><!--end .form-group -->
-				</div><!--end .tab-pane -->
-				<div class="tab-pane" id="position">
-					<ul class="list-unstyled" id="positionList"></ul>
-					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="positionTmpl" data-target="#positionList">TAMBAHKAN JABATAN
-						</a>
-					</div><!--end .form-group -->
 				</div><!--end .tab-pane -->
 				<div class="tab-pane " id="contact">
 					<ul class="list-unstyled" id="addressList"></ul>
@@ -124,148 +110,6 @@
 @section('js')
 	{!! HTML::script('js/microtemplating.min.js')!!}
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
-
-	<script type="text/html" id="departmentTmpl">
-		<li class="clearfix">
-			<div class="page-header no-border holder">
-				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Departemen[<%=index%>]</h4>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<input type="text" class="form-control" id="department_name[<%=index%>]" name="department_name[<%=index%>]">
-						<label for="department_name[<%=index%>]">Nama Departemen</label>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="min_employee[<%=index%>]" name="min_employee[<%=index%>]">
-						<label for="min_employee[<%=index%>]">Jumlah Minimum Pegawai</label>
-					</div>
-					</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="ideal_employee[<%=index%>]" name="ideal_employee[<%=index%>]">
-						<label for="ideal_employee[<%=index%>]">Jumlah Ideal Pegawai</label>
-					</div>
-					</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="max_employee[<%=index%>]" name="max_employee[<%=index%>]">
-						<label for="max_employee[<%=index%>]">Jumlah Maximum Pegawai</label>
-					</div>
-				</div> 					 					
-			</div>
-		</li>
-	</script>
-	<!-- END DEPARTMENT TEMPLATES -->
-
-	<!-- BEGIN POSITION TEMPLATES -->
-	<script type="text/html" id="positionTmpl">
-		<li class="clearfix">
-			<div class="page-header no-border holder">
-				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Jabatan[<%=index%>]</h4>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<input type="text" class="form-control" id="position_department_name[<%=index%>]" name="position_department_name[<%=index%>]">
-						<label for="position_department_name[<%=index%>]">Nama Departemen</label>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="row">
-				<div class="card style-primary-dark">
-					<!-- BEGIN RELASI DETAIL -->			
-					<div class="card-head style-primary-dark">
-						<header>Departemen</header>
-					</div>
-					<div class="card-body style-primary-dark form-inverse">
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="postion_add_department_name[<%=index%>]" name="postion_add_department_name[<%=index%>]">
-											<label for="postion_add_department_name[<%=index%>]">Nama Departemen</label>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="min_employee[<%=index%>]" name="min_employee[<%=index%>]">
-											<label for="min_employee[<%=index%>]">Jumlah Minimum Pegawai</label>
-										</div>
-				 					</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="ideal_employee[<%=index%>]" name="ideal_employee[<%=index%>]">
-											<label for="ideal_employee[<%=index%>]">Jumlah Ideal Pegawai</label>
-										</div>
-				 					</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="max_employee[<%=index%>]" name="max_employee[<%=index%>]">
-											<label for="max_employee[<%=index%>]">Jumlah Maximum Pegawai</label>
-										</div>
-				 					</div> 	
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card-actionbar">
-						<div class="card-actionbar-row">
-							<a class="btn btn-flat" href="../../../html/pages/contacts/search.html">BATAL</a>
-							<button type="button" class="btn btn-flat">SIMPAN DATA</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<input type="text" class="form-control" id="position_nam[<%=index%>]" name="position_nam[<%=index%>]">
-						<label for="position_nam[<%=index%>]">Nama Jabatan</label>
-					</div>
-					</div>	
-				<div class="col-md-6">
-					<div class="form-group">
-						<input type="text" class="form-control" id="position_grade[<%=index%>]" name="position_grade[<%=index%>]">
-						<label for="position_grade[<%=index%>]">Grade Jabatan</label>
-					</div>
-					</div>	 								
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="min_employee[<%=index%>]" name="min_employee[<%=index%>]">
-						<label for="min_employee[<%=index%>]">Jumlah Minimum Pegawai</label>
-					</div>
-					</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="ideal_employee[<%=index%>]" name="ideal_employee[<%=index%>]">
-						<label for="ideal_employee[<%=index%>]">Jumlah Ideal Pegawai</label>
-					</div>
-					</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="max_employee[<%=index%>]" name="max_employee[<%=index%>]">
-						<label for="max_employee[<%=index%>]">Jumlah Maximum Pegawai</label>
-					</div>
-				</div> 					 					
-			</div>
-		</li>
-	</script>
-	<!-- END POSITION TEMPLATES -->
 
 	<!-- BEGIN ADDRESS TEMPLATES -->
 	<script type="text/html" id="addressTmpl">

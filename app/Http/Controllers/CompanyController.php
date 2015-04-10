@@ -15,7 +15,7 @@ class CompanyController extends AdminController {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search['ParentOrganisation']				=	Session::get('user.organisation');
+		$search['ParentOrganisation']				= Session::get('user.organisation');
 		if(Input::has('q'))
 		{
 			$search['name']							= Input::get('q');			
@@ -65,6 +65,7 @@ class CompanyController extends AdminController {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
+		$input['id'] 								= $id;
 		$input['organisation'] 						= Input::only('name','license','npwp','business_activities','business_fields');
 		if(Input::has('address_address'))
 		{
@@ -189,8 +190,6 @@ class CompanyController extends AdminController {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($this->controller_name);
-
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
@@ -198,32 +197,77 @@ class CompanyController extends AdminController {
 		return $this->layout;
 	}
 
-	function getDelete($id)
+
+	function getEdit($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
-		// {
-		// 	$data = $this->model->findorfail($id);
-		// }
-		// else
-		// {
-		// 	App::abort(404);
-		// }
-		
-		// if (str_is('Delete', Input::get('type2confirm')))
-		// {
-		// 	if ($data->delete())
-		// 	{
-		// 		return redirect()->route('admin.'.$this->controller_name.'.index')->with('alert_success', 'Data "' . $data->name . '" has been deleted');
-		// 	}
-		// 	else
-		// 	{
-		// 		return redirect()->back()->withErrors($data->getErrors());
-		// 	}
-		// }
-		// else
-		// {
-		// 	return redirect()->back()->with('alert_danger', 'Invalid delete confirmation text');
-		// }
+		$results 									= API::organisationbranch()->show($id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= strtoupper($this->controller_name);
+
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+
+		return $this->layout;
+	}
+	
+	function postUpdate($id)
+	{
+		return $this->postStore($id);
+	}
+
+	function anyDelete($id)
+	{
+		if (Input::has('from_confirm_form'))
+		{
+			if (Input::get('from_confirm_form')=='Yes')
+			{
+				$results 									= API::organisationbranch()->destroy($id);
+				$contents 									= json_decode($results);
+
+				if (!$contents->meta->success)
+				{
+					return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors($contents->meta->errors);
+				}
+				else
+				{
+					return Redirect::route('hr.organisation.branches.index')->with('alert_success', 'Organisasi "' . $contents->data->name. '" sudah dihapus');
+				}
+			}
+			else
+			{
+				return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors(['Batal Menghapus']);
+			}
+		}
+		else
+		{
+			$results 									= API::organisationbranch()->show($id);
+			$contents 									= json_decode($results);
+
+			if(!$contents->meta->success)
+			{
+				App::abort(404);
+			}
+
+			$data 										= json_decode(json_encode($contents->data), true);
+
+			$this->layout->page_title 					= strtoupper($this->controller_name);
+
+			$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.destroy');
+			$this->layout->content->controller_name 	= $this->controller_name;
+			$this->layout->content->data 				= $data;
+
+			return $this->layout;
+		}
 	}
 }
