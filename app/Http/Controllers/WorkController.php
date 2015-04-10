@@ -12,40 +12,39 @@ class WorkController extends AdminController {
 		parent::__construct();
 	}
 	
-	function getIndex($page = 1)
+	function getIndex($person_id, $page = 1)
 	{
+
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['contacts']];
-		if(Input::has('q'))
-		{
-			$search['firstname']					= Input::get('q');			
-		}
+		$search 									= [];
+		$search['person_id']						= $person_id;			
 
 		$sort 										= ['created_at' => 'asc'];
 
-		$results 									= API::work()->index($page, $search, $sort);
+		$results 									= API::work()->index($page, $search, $sort, $person_id);
 		$contents 									= json_decode($results);
 
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}
+		// print_r($contents);exit;
+		// if(!$contents->meta->success)
+		// {
+		// 	App::abort(404);
+		// }
 		
-		$data 										= json_decode(json_encode($contents->data), true);
-		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+		// $data 										= json_decode(json_encode($contents->data), true);
+		// $paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
-		// ---------------------- GENERATE CONTENT ----------------------
+		// // ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper(str_plural($this->controller_name));
 
-		if(Input::has('q'))
-		{
-			$this->layout->page_title 				= 'Hasil Pencarian "'.Input::get('q').'"';
-		}
+		// if(Input::has('q'))
+		// {
+		// 	$this->layout->page_title 				= 'Hasil Pencarian "'.Input::get('q').'"';
+		// }
 
 		$this->layout->content 						= view('admin.pages.work.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= $data;
-		$this->layout->content->paginator 			= $paginator;
+		// $this->layout->content->data 				= $data;
+		// $this->layout->content->paginator 			= $paginator;
 
 		return $this->layout;
 	}
@@ -107,6 +106,8 @@ class WorkController extends AdminController {
 		// ---------------------- LOAD DATA ----------------------
 		$results 									= API::work()->show($id);
 		$contents 									= json_decode($results);
+
+		print_r($contents);exit;
 
 		if(!$contents->meta->success)
 		{

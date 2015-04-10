@@ -101,6 +101,21 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.documents.update'							=> ['developer', 'superadmin', 'admin'],
 							'hr.documents.delete'							=> ['developer', 'superadmin', 'admin'],
 
+							'hr.work.index'									=> ['developer', 'superadmin', 'admin'],
+							'hr.work.show'									=> ['developer', 'superadmin', 'admin'],
+							'hr.work.edit'									=> ['developer', 'superadmin', 'admin'],
+							'hr.work.create'								=> ['developer', 'superadmin', 'admin'],
+							'hr.work.store'									=> ['developer', 'superadmin', 'admin'],
+							'hr.work.update'								=> ['developer', 'superadmin', 'admin'],
+							'hr.work.delete'								=> ['developer', 'superadmin', 'admin'],
+
+							'hr.person.work.show'							=> ['developer', 'superadmin', 'admin'],
+							'hr.person.work.edit'							=> ['developer', 'superadmin', 'admin'],
+							'hr.person.work.create'							=> ['developer', 'superadmin', 'admin'],
+							'hr.person.work.store'							=> ['developer', 'superadmin', 'admin'],
+							'hr.person.work.update'							=> ['developer', 'superadmin', 'admin'],
+							'hr.person.work.delete'							=> ['developer', 'superadmin', 'admin'],
+
 							'hr.organisation.branches.index'				=> ['developer', 'superadmin', 'admin'],
 							'hr.organisation.branches.show'					=> ['developer', 'superadmin', 'admin'],
 							'hr.organisation.branches.edit'					=> ['developer', 'superadmin', 'admin'],
