@@ -40,6 +40,8 @@ class AuthController extends AdminController {
 
 		if($content->meta->success)
 		{
+			Session::put('loggedUser', $content->data->id);
+
 			return Redirect::intended(route('hr.dashboard.overview'));
 		}
 

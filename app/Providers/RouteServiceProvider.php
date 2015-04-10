@@ -27,8 +27,6 @@ class RouteServiceProvider extends ServiceProvider {
 		parent::boot($router);
 
 		// Customize filter
-		Session::put('loggedUser', 1);
-		Session::put('user.organisation', 1);
 		Route::filter('hr_acl', function()
 		{
 			if (!Session::has('loggedUser'))
@@ -45,9 +43,6 @@ class RouteServiceProvider extends ServiceProvider {
 			else
 			{
 				//check user logged in 
-				Session::put('loggedUser', 1);
-
-				//set config
 				$results 									= API::person()->check(Session::get('loggedUser'));
 
 				$contents 									= json_decode($results);
@@ -56,13 +51,14 @@ class RouteServiceProvider extends ServiceProvider {
 				{
 					App::abort(404);
 				}
-				
-				Config::set('user.role', $contents->data->authentication->role);
-				Config::set('user.name', $contents->data->nick_name);
-				Config::set('user.gender', $contents->data->gender);
+
+				Session::put('user.organisation', $contents->data->organisation_id);
+				Session::set('user.role', $contents->data->authentication->role);
+				Session::set('user.name', $contents->data->nick_name);
+				Session::set('user.gender', $contents->data->gender);
 				
 				//check access
-				if (!in_array(Config::get('user.role'), app('hr_acl')[Route::currentRouteName()]))
+				if (!in_array(Session::get('user.role'), app('hr_acl')[Route::currentRouteName()]))
 				{
 					Session::flush();
 					return Redirect::guest(route('hr.login.get'));
