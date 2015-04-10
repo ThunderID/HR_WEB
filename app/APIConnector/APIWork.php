@@ -8,8 +8,7 @@ class APIWork {
 
 	function index($page, $search, $sort, $person_id)
 	{
-		$a = self::runPost(self::$basic_url . '/persons/show/'.$person_id.'/works/'.$page, ['search' => $search, 'sort' => $sort]);
-		print_r($a);exit;
+		return self::runPost(self::$basic_url . '/persons/show/'.$person_id.'/works/'.$page, ['search' => $search, 'sort' => $sort]);
 	}
 
 	function show($id)
