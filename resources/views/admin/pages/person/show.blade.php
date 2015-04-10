@@ -98,7 +98,7 @@
 				</div>			
 				<div class="card-actionbar pt-25">
 					<div class="card-actionbar-row">
-						<a href="{{ route('hr.person.work.show' ,['id'=> $value['id'], 'person_id' => $value['pivot']['person_id']]) }}" class="btn btn-flat btn-primary ink-reaction">DETAIL</a>
+						<a href="{{ route('hr.person.work.show' ,['person_id' => $value['pivot']['person_id']]) }}" class="btn btn-flat btn-primary ink-reaction">DETAIL</a>
 					</div>
 				</div>	
 			</div>			
