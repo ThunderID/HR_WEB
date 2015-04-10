@@ -17,18 +17,16 @@ class WorkController extends AdminController {
 
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= [];
-		$search['person_id']						= $person_id;			
 
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::work()->index($page, $search, $sort, $person_id);
 		$contents 									= json_decode($results);
 
-		// print_r($contents);exit;
-		// if(!$contents->meta->success)
-		// {
-		// 	App::abort(404);
-		// }
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
 		
 		// $data 										= json_decode(json_encode($contents->data), true);
 		// $paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
