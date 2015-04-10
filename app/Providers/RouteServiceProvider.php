@@ -44,7 +44,6 @@ class RouteServiceProvider extends ServiceProvider {
 			{
 				//check user logged in 
 				$results 									= API::person()->check(Session::get('loggedUser'));
-
 				$contents 									= json_decode($results);
 
 				if(!$contents->meta->success)
@@ -53,9 +52,9 @@ class RouteServiceProvider extends ServiceProvider {
 				}
 
 				Session::put('user.organisation', $contents->data->organisation_id);
-				Session::set('user.role', $contents->data->authentication->role);
-				Session::set('user.name', $contents->data->nick_name);
-				Session::set('user.gender', $contents->data->gender);
+				Session::put('user.role', $contents->data->authentication->role);
+				Session::put('user.name', $contents->data->authentication->client);
+				Session::put('user.gender', $contents->data->gender);
 				
 				//check access
 				if (!in_array(Session::get('user.role'), app('hr_acl')[Route::currentRouteName()]))

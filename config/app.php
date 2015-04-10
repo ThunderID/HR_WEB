@@ -145,7 +145,7 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-		'App\Providers\ComposerServiceProvider',
+		// 'App\Providers\ComposerServiceProvider',
 	],
 
 	/*
@@ -197,7 +197,6 @@ return [
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML' 		=> 'Illuminate\Html\HtmlFacade',
 		'Faker'		=> 'Faker\Factory',
-		'Paginator' => 'App\Libraries\PrettyPaginator'
 	],
 
 ];

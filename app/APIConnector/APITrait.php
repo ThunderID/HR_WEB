@@ -14,6 +14,7 @@ trait APITrait {
 		// curl_setopt($curl, CURLOPT_GET, true);
 
 		$results 		= curl_exec($curl);
+
 		return $results;
 	}
 

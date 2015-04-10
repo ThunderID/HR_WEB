@@ -13,7 +13,7 @@ class ComposerServiceProvider extends ServiceProvider {
     public function boot()
     {
         // Using class based composers...
-        View::composer('admin.pages.dashboard.overview', 'App\Http\ViewComposers\DashboardComposer');
+        // View::composer('admin.pages.dashboard.overview', 'App\Http\ViewComposers\DashboardComposer');
     }
 
     /**

@@ -87,8 +87,42 @@ Route::group(['prefix' => 'cms'], function(){
 
 	});
 	//superadmin
+
 	/* ---------------------------------------------------------------------------- END OF DEVELOPER AREA ----------------------------------------------------------------------------*/
 
+
+	/* ---------------------------------------------------------------------------- SUPERADMIN AREA ----------------------------------------------------------------------------*/
+
+	//Organisation
+	Route::group(['prefix' => 'companies', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'CompanyController@getIndex', 
+							'as' 	=> 'hr.organisation.branches.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'CompanyController@getCreate', 
+							'as' 	=> 'hr.organisation.branches.create'
+						]
+					);
+
+		Route::post('store', 
+						[
+							'uses' 	=> 'CompanyController@postStore', 
+							'as' 	=> 'hr.organisation.branches.store'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'CompanyController@getShow', 
+							'as' 	=> 'hr.organisation.branches.show'
+						]
+					);
+	});
 
 	///BEGIN PERSON///
 	Route::group(['prefix' => 'persons', 'before' => 'hr_acl'], function(){
@@ -127,31 +161,6 @@ Route::group(['prefix' => 'cms'], function(){
 	});
 	///END PERSON///
 	
-
-	///BEGIN ORGANISATION BRANCH///
-	Route::group(['prefix' => 'companies', 'before' => 'hr_acl'], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'CompanyController@getIndex', 
-							'as' 	=> 'hr.organisation.branches.index'
-						]
-					);
-
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'CompanyController@getCreate', 
-							'as' 	=> 'hr.organisation.branches.create'
-						]
-					);
-
-		Route::get('show/{id}', 
-						[
-							'uses' 	=> 'CompanyController@getShow', 
-							'as' 	=> 'hr.organisation.branches.show'
-						]
-					);
-	});
-	///END ORGANISATION BRANCH///
 
 	///BEGIN DOCUMENT///
 	Route::group(['prefix' => 'documents', 'before' => 'hr_acl'], function(){

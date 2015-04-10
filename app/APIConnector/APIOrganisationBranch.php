@@ -8,11 +8,16 @@ class APIOrganisationBranch {
 
 	function index($page, $search, $sort)
 	{
-		return self::runPost(self::$basic_url . 'organisations/show/'.Session::get('user.organisation').'/branches/'.$page, ['search' => $search, 'sort' => $sort]);
+		return self::runPost(self::$basic_url . 'organisations/branches/'.$page, ['search' => $search, 'sort' => $sort]);
 	}
 
 	function show($id)
 	{
-		return self::runGet(self::$basic_url . 'organisations/show/'.Session::get('user.organisation').'/branches/show/'.$id, ['id' => $id]);
+		return self::runGet(self::$basic_url . 'organisations/branches/'.Session::get('user.organisation').'/show/'.$id, ['id' => $id]);
+	}
+
+	function store($id, $attributes)
+	{		
+		return self::runPost(self::$basic_url . 'organisations/branches/store/data', ['id' => $id, 'attributes' => $attributes]);
 	}
 }
