@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use Config;
+
 class AdminDashboardController extends AdminController {
 
 	/**
@@ -8,19 +10,14 @@ class AdminDashboardController extends AdminController {
 	 * @return void
 	 * @author 
 	 **/
-	// function __construct() 
-	// {
-	// 	parent::__construct();
-	// 	$nav = $this->layout->nav;
-	// }
 
 	function getOverview()
 	{
 		// view
 		$this->layout->content = view('admin.pages.dashboard.overview');
 		$this->layout->page_title = 'Dashboard: Overview';
-		// echo $this->layout->nav->render();exit;
 
+		$this->layout->content->dashboard = Config::get('dashboard');
 
 		
 		return $this->layout;

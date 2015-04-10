@@ -11,8 +11,16 @@ abstract class AdminController extends Controller {
 	{
 		if (Session::has('loggedUser'))
 		{
+
 			$this->layout = view('admin.layouts.template');
 			$this->layout->html_title = 'Thunder-HR';
+			Config::set('dashboard', [
+								'total_letters' 			=> 'stats', 
+								'total_branches' 			=> 'stats', 
+								'total_workers' 			=> 'stats', 
+								'total_documents' 			=> 'stats',
+								'new_person' 				=> 'panel_list', 
+								'latest_letter_outgoing' 	=> 'panel_list']);
 			
 			// leftmenu
 			$nav = new MaterialAdminSideMenu();
