@@ -45,6 +45,7 @@ class AuthController extends AdminController {
 			return Redirect::intended(route('hr.dashboard.overview'));
 		}
 
+
 		return Redirect::back()->withInput()->withError(json_decode(json_encode($content->meta->errors), true));
 	}
 

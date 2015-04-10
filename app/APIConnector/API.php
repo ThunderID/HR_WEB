@@ -25,4 +25,9 @@ class API {
 	{
 		return new APIOrganisationBranch();
 	}
+
+	static function work()
+	{
+		return new APIWork();
+	}	
 }

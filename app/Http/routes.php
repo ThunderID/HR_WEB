@@ -184,6 +184,70 @@ Route::group(['prefix' => 'cms'], function(){
 	});
 	///END DOCUMENT///
 
+
+	///BEGIN WORK///
+	Route::group(['prefix' => 'work', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'workController@getIndex', 
+							'as' 	=> 'hr.work.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'workController@getCreate', 
+							'as' 	=> 'hr.work.create'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'workController@getShow', 
+							'as' 	=> 'hr.work.show'
+						]
+					);
+		Route::get('shows/{person_id}/work/{id}', 
+					[
+						'uses' 	=> 'workController@getShow', 
+						'as' 	=> 'hr.person.work.show'
+					]
+				);
+	});
+	///END WORK///	
+
+	///BEGIN CONTACTS///
+	Route::group(['prefix' => 'contacts', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'contacts@getIndex', 
+							'as' 	=> 'hr.contacts.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'contacts@getCreate', 
+							'as' 	=> 'hr.contacts.create'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'contacts@getShow', 
+							'as' 	=> 'hr.contacts.show'
+						]
+					);
+		Route::get('shows/{person_id}/contacts/{id}', 
+					[
+						'uses' 	=> 'contacts@getShow', 
+						'as' 	=> 'hr.person.contacts.show'
+					]
+				);
+	});
+	///END CONTACTS///	
+
+
 	Route::get('dashboard/overview', [
 						'uses' 	=> 'AdminDashboardController@getOverview', 
 						'as' 	=> 'hr.dashboard.overview',
