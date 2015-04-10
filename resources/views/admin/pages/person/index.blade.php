@@ -31,7 +31,7 @@
 				<!-- BEGIN SEARCH NAV -->
 				<div class="col-sm-4 col-md-3 col-lg-2">
 					<ul class="nav nav-pills nav-stacked">
-						<li><small>CATEGORIES</small></li>
+						<li><small>Cari</small></li>
 						<li class="active"><a href="../../../html/pages/contacts/search.html">All contacts <small class="pull-right text-bold opacity-75">153</small></a></li>
 						<li><a href="../../../html/pages/contacts/search.html">Family <small class="pull-right text-bold opacity-75">16</small></a></li>
 						<li><a href="../../../html/pages/contacts/search.html">Friends <small class="pull-right text-bold opacity-75">76</small></a></li>
