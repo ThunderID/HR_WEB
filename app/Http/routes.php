@@ -11,6 +11,7 @@ Route::group(['prefix' => 'cms'], function(){
 
 	Route::get('/logout',				['as' => 'hr.logout.get', 	'uses' => 'AuthController@getLogout']);
 
+	Route::any('/upload', 				['as' => 'hr.images.upload',	'uses' => 'GalleryController@upload']);
 	/* ---------------------------------------------------------------------------- PRIVATE AREA ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'password', 'before' => 'hr_acl'], function(){
 		Route::get('/', 				['as' => 'hr.password.get', 	'uses' => 'AuthController@getPassword']);

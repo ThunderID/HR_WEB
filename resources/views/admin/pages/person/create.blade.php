@@ -162,8 +162,8 @@
 				</div><!--end .tab-pane -->
 				<div class="tab-pane " id="document">
 					<ul class="list-unstyled" id="documentList"></ul>
-					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="skillTmpl" data-target="#documentList">TAMBAH DOKUMEN</a>
+					<div class="form-group" data-duplicate="skillTmpl" data-target="#documentList">
+						
 					</div><!--end .form-group -->
 				</div><!--end .tab-pane -->
 			</div><!--end .card-body.tab-content -->
@@ -184,7 +184,8 @@
 
 @section('css')
 	{!! HTML::style('css/datepicker3.css')!!}
-	{!! HTML::style('css/summernote.css')!!}	
+	{!! HTML::style('css/summernote.css')!!}
+	{!! HTML::style('css/dropzone.css')!!}	
 @stop
 
 @section('js')
@@ -192,6 +193,7 @@
 	{!! HTML::script('js/summernote.min.js')!!}
 	{!! HTML::script('js/microtemplating.min.js')!!}
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
+	{!! HTML::script('js/dropzone.min.js')!!}
 
 	<!-- BEGIN RELATION TEMPLATES -->
 	<script type="text/html" id="relationTmpl">
@@ -504,16 +506,20 @@
 	<script type="text/html" id="skillTmpl">
 		<li class="clearfix">
 			<div class="page-header no-border holder">
-				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Dokumen <%=index%></h4>
+				<h4 class="text-accent">Dokumen</h4>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<textarea name="input_text<%=index%>" id="input_text<%=index%>" class="form-control" rows="3"></textarea>
-								<label for="input_text<%=index%>">DropZone Uploaded</label>
+								<form action="{{ route('hr.images.upload') }}" class="dropzone dz-clickable" id="my-awesome-dropzone"  enctype="multipart/form-data">
+									<div class="dz-message">
+										<h3>Klik atau Drag sebuah file untuk di unggah</h3>
+									</div>
+									<input type="hidden" name="link" id="link">
+								</form>
+								<label for="input_text">DropZone Uploaded</label>
 							</div>	
 						</div>	
 					</div>	

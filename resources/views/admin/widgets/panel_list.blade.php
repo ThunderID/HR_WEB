@@ -12,6 +12,11 @@
 		<div class="card ">
 			<div class="card-head">
 				<header class="mt-10">{{ ucwords($title) }}</header>
+				<div class="tools">
+					<div class="btn-group">
+						<a href="{{ route('hr.persons.index') }}" class="btn btn-primary btn-flat btn-sm">view all</a>
+					</div>
+				</div>
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
@@ -43,6 +48,11 @@
 		<div class="card ">
 			<div class="card-head">
 				<header class="mt-10">{{ ucwords($title) }}</header>
+				<div class="tools">
+					<div class="btn-group">
+						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-primary btn-flat btn-sm">view all</a>
+					</div>
+				</div>
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
