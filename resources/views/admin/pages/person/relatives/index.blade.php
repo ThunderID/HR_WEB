@@ -10,12 +10,16 @@
 
 				<!-- BEGIN CONTACT DETAILS HEADER -->
 				<div class="card-head card-head-sm style-primary">
-					<header style="padding-top:5px;padding-bottom:5px">
-						<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction">
-							<i class="md md-reply"></i> Back
-						</a>
-					</header>
-				</div>
+					<div class="col-md-12 pt-5 ">
+						<div class="row">
+							<div class="col-md-12">
+								<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction pull-left">
+									<i class="md md-reply"></i> Kembali
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>				
 				<!-- END CONTACT DETAILS HEADER -->
 
 				<!-- BEGIN CONTACT DETAILS -->

@@ -42,7 +42,11 @@
 								<!-- END CONTACTS NAV -->
 
 								<!-- BEGIN CONTACTS MAIN CONTENT -->
-								<div class="col-sm-7 col-md-8 col-lg-9">
+
+								<div class="col-sm-7 col-md-8 col-lg-9 pt-5">
+									<div class="row">
+										<p><a href="{{route('hr.persons.edit', [$data['id']])}}" type="button" class="btn pull-right ink-reaction btn-floating-action btn-primary"><i class="fa fa-pencil"></i></a></p>						
+									</div>
 									<div class="margin-bottom-xxl">
 										<div class="pull-left width-3 clearfix hidden-xs">
 											<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
@@ -148,7 +152,7 @@
 															</div>
 														</div>
 														<div class="form-group">
-															<textarea name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3"></textarea>
+															<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3"></textarea>
 															<label for="work_quit_reason">Alasan Berhenti</label>
 														</div>
 

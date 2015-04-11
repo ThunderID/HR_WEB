@@ -377,7 +377,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<textarea name="work_quit_reason[<%=index%>]" id="work_quit_reason[<%=index%>]" class="form-control" rows="3"></textarea>
+				<textarea style="resize: vertical;" name="work_quit_reason[<%=index%>]" id="work_quit_reason[<%=index%>]" class="form-control" rows="3"></textarea>
 				<label for="work_quit_reason[<%=index%>]">Alasan Berhenti</label>
 			</div>
 		</li>
