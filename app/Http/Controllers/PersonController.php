@@ -311,7 +311,7 @@ class PersonController extends AdminController {
 				}
 				else
 				{
-					return Redirect::route('hr.persons.index')->with('alert_success', 'Data Orang "' . $contents->data->name. '" sudah dihapus');
+					return Redirect::route('hr.persons.index')->with('alert_success', 'Data Orang "' . $contents->data->first_name. '" sudah dihapus');
 				}
 			}
 			else
