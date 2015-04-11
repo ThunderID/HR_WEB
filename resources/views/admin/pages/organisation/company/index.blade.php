@@ -7,24 +7,24 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card tabs-left style-default-light">
-
-				<!-- BEGIN SEARCH BAR -->
-				<div class="card-body style-primary no-y-padding">
-					{!! Form::open(['route' => 'hr.organisation.branches.index', 'class' => 'form-inverse', 'method' => 'get']) !!}
-						<div class="form-group">
-							<div class="input-group input-group-lg">
-								<div class="input-group-content">
-									<input type="text" class="form-control" name = "q" id="searchInput" placeholder="Cari">
-									<div class="form-control-line"></div>
-								</div>
-								<div class="input-group-btn">
-									<button class="btn btn-floating-action btn-default-bright" type="submit"><i class="fa fa-search"></i></button>
-								</div>
+				<!-- BEGIN SEARCH HEADER -->
+				<div class="card-head style-primary">
+					<div class="tools pull-left">
+						<form class="navbar-search" role="search">
+							{!! Form::open(['route' => 'hr.organisation.branches.index', 'method' => 'get']) !!}
+							<div class="form-group">
+								<input type="text" class="form-control" name="q" placeholder="Enter your keyword">
 							</div>
-						</div><!--end .form-group -->
-					{!! Form::close() !!}
-				</div><!--end .card-body -->
-				<!-- END SEARCH BAR -->
+							<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+							{!! Form::close() !!}
+						</form>
+					</div>
+					<div class="tools">
+						<a class="btn btn-floating-action btn-default-light" href="{{route('hr.organisation.branches.create') }}"><i class="fa fa-plus"></i></a>
+					</div>
+				</div><!--end .card-head -->
+				<!-- END SEARCH HEADER -->
+
 
 				<!-- BEGIN TAB RESULTS -->
 				<ul class="card-head nav nav-tabs tabs-accent" data-toggle="tabs">
@@ -58,15 +58,17 @@
 								<!-- BEGIN RESULT LIST -->
 								<div class="list-results list-results-underlined">
 									@foreach($data as $key => $value)
-										<div class="col-xs-12">
-											<p>
-												<a class="text-medium text-lg text-primary" href="{{ route('hr.organisation.branches.show', $value['id']) }}">{{$value['name']}}</a><br/>
-												<a class="opacity-75">{{$value['business_fields']}}</a>
-											</p>
-											<div class="contain-xs pull-left">
-												{{$value['business_activities']}}
-											</div>
-										</div><!--end .col -->
+										<div class="row">
+											<div class="col-md-12">
+												<p>
+													<a class="text-medium text-lg text-primary" href="{{ route('hr.organisation.branches.show', $value['id']) }}">{{$value['name']}}</a><br/>
+													<a class="opacity-75">{{$value['business_fields']}}</a>
+												</p>
+												<div class="contain-xs pull-left">
+													{{$value['business_activities']}}
+												</div>
+											</div><!--end .col -->
+										</div>
 										@endforeach
 									@if(count($data))
 										@include('admin.helpers.pagination')
@@ -77,7 +79,6 @@
 											</div>
 										</div>
 									@endif
-
 							</div><!--end .col -->
 						</div><!--end .row -->
 					</div><!--end .tab-pane -->
