@@ -20,7 +20,7 @@ abstract class AdminController extends Controller {
 								'total_workers' 			=> 'stats', 
 								'total_documents' 			=> 'stats',
 								'new_person' 				=> 'panel_list', 
-								'latest_letter_outgoing' 	=> 'panel_list']);
+								'new_branch' 				=> 'panel_list']);
 			
 			// leftmenu
 			$nav = new MaterialAdminSideMenu();

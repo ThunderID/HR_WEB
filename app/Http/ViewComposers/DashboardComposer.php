@@ -110,16 +110,16 @@ class DashboardComposer {
 		}
 
 		$results 									= API::organisationbranch()->index($page, $search, $sort);
-		// $contents 									= json_decode($results);
+		$contents 									= json_decode($results);
 
-		// if(!$contents->meta->success)
-		// {
-		// 	App::abort(404);
-		// }
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
 		
-		// $data 										= json_decode(json_encode($contents->data), true);
+		$data 										= json_decode(json_encode($contents->data), true);
 
-		return $results;
+		return $data;
 	}
 
 	public function document($page)
@@ -128,7 +128,8 @@ class DashboardComposer {
 		$sort                                       = ['created_at' => 'asc'];
 
 		$results                                    = API::document()->index($page, $search, $sort);
-		// $contents                                   = json_decode($results);
+		
+		$contents                                   = json_decode($results);
 
 		// if(!$contents->meta->success)
 		// {
@@ -137,7 +138,7 @@ class DashboardComposer {
 		
 		// $data                                       = json_decode(json_encode($contents->data), true);
 
-		return $results;
+		return $contents;
 	}
 
 }

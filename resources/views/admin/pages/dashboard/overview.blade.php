@@ -9,20 +9,37 @@
 		@foreach ($dashboard as $key => $db)
 			@if ($db == 'stats')
 				<?php 
-					$data['number'] = 30; 
+					if ($key == 'total_branches') {
+						$data['number'] = count($branches); 
+					}
+					else if ($key == 'total_workers') {
+						$data['number']	= count($person);
+					}
+					else if ($key == 'total_documents') {
+						$data['number']	= count($branches);	
+					}
+					else {
+						$data['number']	= count($person);
+					}
 					$data['title'] = ucwords($key); 
 					$data['style'] = $color[$x];
 					$x++;
 				?>
 			@else
-				<?php $data['field'] = $person; $data['row'] = $key; ?>
+				<?php $data['row'] = $key; ?>
 			@endif 
 			
 			@if ($key == 'new_person')
+				<?php $data['field'] =  $person; ?>
 				@include('admin.widgets.'.$db, ['title'	=> $key, 
-												'mode' 	=> '', 
 												'route' => '',
 												'mode'  => 'person',
+											$data])
+			@elseif ($key == 'new_branch')
+				<?php $data['field'] =  $branches; ?>
+				@include('admin.widgets.'.$db, ['title'	=> $key, 
+												'route' => '',
+												'mode'  => '',
 											$data])
 			@else
 				@include('admin.widgets.'.$db, ['title' => $key, 

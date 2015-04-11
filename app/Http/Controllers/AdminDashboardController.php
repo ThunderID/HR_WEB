@@ -22,4 +22,9 @@ class AdminDashboardController extends AdminController {
 		
 		return $this->layout;
 	}
+
+	function storeWidget()
+	{
+		
+	}
 }

@@ -15,17 +15,21 @@
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
-					@foreach($person as $value)
+					@foreach($data['field'] as $value)
 						<li class="tile">
 							<div class="tile-content">
 								<div class="tile-icon">
-									<img src="{{url('images/male.png')}}" alt="" />
+									@if($value['gender'] == 'male') 
+										<img src="{{url('images/male.png')}}" alt="" />
+									@else
+										<img src="{{url('images/female.png')}}" alt="" />
+									@endif
 								</div>
 								<div class="tile-text">
 									<a class="btn-link" href="{{ $route }}">
-										{{ $value['first_name'] .' '. $value['middle_name'] . ' ' . $value['last_name'] }}
+										{{ $value['first_name']. ' '. $value['middle_name'] . ' ' . $value['last_name'] }}
 									</a>
-									<small>{{ $data['row'] }}</small>
+									
 								</div>
 							</div>
 						</li>
@@ -42,15 +46,15 @@
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
-					@foreach($person as $value)
+					@foreach($branches as $value2)
 						<li class="tile">
 							<div class="tile-content">
 								<div class="tile-icon pt-0">
-									<i class="fa fa-envelope-o fa-lg pb-10"></i>
+									<i class="fa fa-building fa-lg pb-10"></i>
 								</div>
 								<div class="tile-text">
 									<a class="btn-link" href="{{ $route }}">
-										{{ $data['field'] }}
+										{{ $value2['name'] }}
 									</a>
 								</div>
 							</div>
