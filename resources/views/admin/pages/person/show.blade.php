@@ -10,11 +10,18 @@
 
 				<!-- BEGIN CONTACT DETAILS HEADER -->
 				<div class="card-head card-head-sm style-primary">
-					<header style="padding-top:5px;padding-bottom:5px">
-						<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction">
-							<i class="md md-reply"></i> Back
-						</a>
-					</header>
+					<div class="col-md-12 pt-5 ">
+						<div class="row">
+							<div class="col-md-12">
+								<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction pull-left">
+									<i class="md md-reply"></i> Kembali
+								</a>
+								<a href="{{route('hr.persons.delete', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+									<i class="fa fa-trash"></i> Hapus
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 				<!-- END CONTACT DETAILS HEADER -->
 
@@ -35,7 +42,11 @@
 								<!-- END CONTACTS NAV -->
 
 								<!-- BEGIN CONTACTS MAIN CONTENT -->
-								<div class="col-sm-7 col-md-8 col-lg-9">
+
+								<div class="col-sm-7 col-md-8 col-lg-9 pt-5">
+									<div class="row">
+										<p><a href="{{route('hr.persons.edit', [$data['id']])}}" type="button" class="btn pull-right ink-reaction btn-floating-action btn-primary"><i class="fa fa-pencil"></i></a></p>						
+									</div>
 									<div class="margin-bottom-xxl">
 										<div class="pull-left width-3 clearfix hidden-xs">
 											<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
@@ -104,7 +115,55 @@
 
 									<!-- BEGIN CONTACTS DETAILS -->
 									<div class="tab-pane" id="details">
-										<h3 class="opacity-50">Experience</h3>
+										<div class="tab-pane" id="work">
+											<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
+												<ul class="list-unstyled" id="workList">
+													<li class="clearfix">
+														<div class="page-header no-border holder">
+															<h4 class="text-accent">Tambahkan Pekerjaan </h4>
+															<br/>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<input name="work_company" id="work_company" class="form-control getCompany" data-comp="">											
+																	<label for="work_company">Posisi</label>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<input type="text" class="form-control" id="work_status" name="work_status">
+																	<label for="work_status">Status Pegawai (contract, trial, permanent, internship)</label>
+																</div>
+															</div>
+															<div class="col-md-12">
+																<div class="form-group">
+																	<input type="text" class="form-control" id="work_start[]" name="work_start">
+																	<label for="work_start">Mulai Bekerja</label>
+																</div>
+															</div>
+															<div class="col-md-12">
+																<div class="form-group">
+																	<input type="text" class="form-control" id="work_end" name="work_end">
+																	<label for="work_end">Berhenti Bekerja</label>
+																</div>
+															</div>
+														</div>
+														<div class="form-group">
+															<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3"></textarea>
+															<label for="work_quit_reason">Alasan Berhenti</label>
+														</div>
+
+														<div class="form-group text-right">
+															<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+														</div><!--end .card-actionbar -->
+													</li>
+												</ul>
+											</form>
+										</div><!--end .tab-pane -->
+										<br/>
 										<ul class="timeline collapse-lg timeline-hairline no-shadow">
 											@foreach($data['experiences'] as $key => $value)
 												@if($key==0)
@@ -130,6 +189,7 @@
 												</li>
 											@endforeach
 										</ul><!--end .timeline -->
+										
 									</div><!--end #details -->
 									<!-- END CONTACTS DETAILS -->
 
@@ -161,7 +221,9 @@
 									</dd>
 								</dl><!--end .dl-horizontal -->
 								<br/>
-								<h4>Kontak</h4>
+								@if(isset($data['contacts']))
+									<h4>Kontak</h4>
+								@endif
 								<br/>
 								<dl class="dl-horizontal dl-icon">
 									@foreach($data['contacts'] as $key => $value)
@@ -203,5 +265,31 @@
 @stop
 
 @section('js')
+	<script type="text/javascript">
+		$('.getCompany').select2({
+            minimumInputLength: 3,
+            placeholder: '',
+            ajax: {
+                url: "{{route('hr.ajax.company')}}",
+                dataType: 'json',
+                quietMillis: 500,
+               	data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name +' of '+ item.branch.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
+    </script>
 	{!! HTML::script('js/dropzone.min.js')!!}
 @stop

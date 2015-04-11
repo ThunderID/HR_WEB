@@ -30,4 +30,9 @@ class APIPerson {
 	{
 		return self::runPost(self::$basic_url . 'persons/store/data', ['id' => $id, 'attributes' => $attributes]);
 	}
+	
+	function destroy($id)
+	{
+		return self::runGet(self::$basic_url . 'persons/delete/'.$id, ['id' => $id]);
+	}
 }

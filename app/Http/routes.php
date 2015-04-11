@@ -69,6 +69,13 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);	
 
+		Route::post('documents/store/', 
+						[
+							'uses' 	=> 'OrganisationController@postDocumentsStore', 
+							'as' 	=> 'hr.organisations.documents.store'
+						]
+					);
+
 	});
 
 	//api key
@@ -205,6 +212,18 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.relatives.index'
 						]
 					);		
+		Route::post('{person_id}/works/store/', 
+						[
+							'uses' 	=> 'PersonController@postWorksStore', 
+							'as' 	=> 'hr.persons.works.store'
+						]
+					);
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'PersonController@anyDelete', 
+							'as' 	=> 'hr.persons.delete'
+						]
+					);	
 	});
 	///END PERSON///
 	

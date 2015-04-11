@@ -59,7 +59,7 @@ class OrganisationController extends AdminController {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['name'] 								= Input::get('name');
+		$input['organisation']['name'] 				= Input::get('name');
 
 		$results 									= API::organisation()->store($id, $input);
 
@@ -67,7 +67,7 @@ class OrganisationController extends AdminController {
 
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisations.index');
+			return Redirect::route('hr.organisations.index')->with('alert_success', 'organisasi "' . $content->data->name. '" sudah disimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -168,5 +168,32 @@ class OrganisationController extends AdminController {
 
 			return $this->layout;
 		}
+	}
+
+	function postDocumentsStore($id = null)
+	{
+		// ---------------------- HANDLE INPUT ----------------------
+		$results 										= API::organisation()->show(Session::get('user.organisation'));
+		$contents 										= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$input['organisation']							= [];
+		$input['document'][]['name'] 					= Input::get('docs_name');
+
+		$results 										= API::organisation()->store(Session::get('user.organisation'), $input);
+
+		$content 										= json_decode($results);
+
+
+		if($content->meta->success)
+		{
+			return Redirect::back()->with('alert_success', 'dokumen "' . $contents->data->name. '" sudah disimpan');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 }

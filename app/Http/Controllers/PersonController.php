@@ -294,34 +294,55 @@ class PersonController extends AdminController {
 		return $this->layout;
 	}
 
+	function postUpdate($id)
+	{
+		return $this->postStore($id);
+	}
 
-	function getDelete($id)
+	function anyDelete($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
-		// {
-		// 	$data = $this->model->findorfail($id);
-		// }
-		// else
-		// {
-		// 	App::abort(404);
-		// }
-		
-		// if (str_is('Delete', Input::get('type2confirm')))
-		// {
-		// 	if ($data->delete())
-		// 	{
-		// 		return redirect()->route('admin.'.$this->controller_name.'.index')->with('alert_success', 'Data "' . $data->name . '" has been deleted');
-		// 	}
-		// 	else
-		// 	{
-		// 		return redirect()->back()->withErrors($data->getErrors());
-		// 	}
-		// }
-		// else
-		// {
-		// 	return redirect()->back()->with('alert_danger', 'Invalid delete confirmation text');
-		// }
+		if (Input::has('from_confirm_form'))
+		{
+			if (Input::get('from_confirm_form')=='Yes')
+			{
+				$results 									= API::person()->destroy($id);
+				$contents 									= json_decode($results);
+
+				if (!$contents->meta->success)
+				{
+					return Redirect::route('hr.persons.show', ['id' => $id])->withErrors($contents->meta->errors);
+				}
+				else
+				{
+					return Redirect::route('hr.persons.index')->with('alert_success', 'Data Orang "' . $contents->data->first_name. '" sudah dihapus');
+				}
+			}
+			else
+			{
+				return Redirect::route('hr.persons.show', ['id' => $id])->withErrors(['Batal Menghapus']);
+			}
+		}
+		else
+		{
+			$results 									= API::person()->show($id);
+			$contents 									= json_decode($results);
+
+			if(!$contents->meta->success)
+			{
+				App::abort(404);
+			}
+
+			$data 										= json_decode(json_encode($contents->data), true);
+
+			$this->layout->page_title 					= strtoupper($this->controller_name);
+
+			$this->layout->content 						= view('admin.pages.person.destroy');
+			$this->layout->content->controller_name 	= $this->controller_name;
+			$this->layout->content->data 				= $data;
+
+			return $this->layout;
+		}
 	}
 
 	function getRelativesIndex($personid, $page = 1)
@@ -361,5 +382,43 @@ class PersonController extends AdminController {
 		$this->layout->content->paginator 			= $paginator;
 
 		return $this->layout;
+	}
+
+	function postWorksStore($person_id, $id = null)
+	{
+		// ---------------------- HANDLE INPUT ----------------------
+		
+		if(Input::has('work_company'))
+		{
+			if(Input::get('work_company')!='')
+			{
+				$results 							= API::person()->show($person_id);
+				$contents 							= json_decode($results);
+
+				if(!$contents->meta->success)
+				{
+					App::abort(404);
+				}
+
+				$input['person'] 					= [];
+
+				$chart['organisation_chart_id'] 	= Input::get('work_company');
+				$chart['status'] 					= Input::get('work_status');
+				$chart['start'] 					= date("Y-m-d", strtotime(Input::get('work_start')));
+				$chart['end'] 						= date("Y-m-d", strtotime(Input::get('work_end')));
+				$chart['reason_end_job'] 			= Input::get('work_quit_reason');
+				$input['works'][] 					= $chart;
+				$results 										= API::person()->store($person_id, $input);
+
+				$content 										= json_decode($results);
+				if($content->meta->success)
+				{
+					return Redirect::route('hr.persons.index');
+				}
+				return Redirect::back()->withErrors($content->meta->errors)->withInput();
+			}
+		}
+
+		return Redirect::back()->withErrors(['Tidak ada data tersimpan'])->withInput();
 	}
 }

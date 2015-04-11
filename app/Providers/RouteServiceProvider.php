@@ -101,18 +101,10 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.documents.update'							=> ['developer', 'CEO', 'manager', 'staff'],
 							'hr.documents.delete'							=> ['developer', 'CEO', 'manager', 'staff'],
 
-							'hr.work.index'									=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.work.show'									=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.work.edit'									=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.work.create'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.work.store'									=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.work.update'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.work.delete'								=> ['developer', 'CEO', 'manager', 'staff'],
-
 							'hr.person.work.show'							=> ['developer', 'CEO', 'manager', 'staff'],
 							'hr.person.work.edit'							=> ['developer', 'CEO', 'manager', 'staff'],
 							'hr.person.work.create'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.person.work.store'							=> ['developer', 'CEO', 'manager', 'staff'],
+							'hr.persons.works.store'						=> ['developer', 'CEO', 'manager', 'staff'],
 							'hr.person.work.update'							=> ['developer', 'CEO', 'manager', 'staff'],
 							'hr.person.work.delete'							=> ['developer', 'CEO', 'manager', 'staff'],
 
@@ -132,6 +124,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisations.update'						=> ['developer'],
 							'hr.organisations.delete'						=> ['developer'],
 							'hr.organisations.show'							=> ['developer'],
+							'hr.organisations.documents.store'				=> ['developer', 'CEO', 'manager', 'staff'],
 
 							'hr.organisations.apis.create'					=> ['developer', 'CEO'],
 							'hr.organisations.apis.store'					=> ['developer', 'CEO'],
