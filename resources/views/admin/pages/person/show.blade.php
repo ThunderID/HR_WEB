@@ -152,7 +152,7 @@
 															</div>
 														</div>
 														<div class="form-group">
-															<textarea name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3"></textarea>
+															<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3"></textarea>
 															<label for="work_quit_reason">Alasan Berhenti</label>
 														</div>
 
