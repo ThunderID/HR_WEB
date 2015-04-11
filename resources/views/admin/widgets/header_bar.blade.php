@@ -32,6 +32,8 @@
 					</span>
 				</a>
 				<ul class="dropdown-menu animation-dock">
+					<li><a href="{{route('hr.password.get')}}"><i class="fa fa-fw fa-gear"></i> Ganti Password</a></li>
+					<li class="divider"></li>
 					<li><a href="{{route('hr.logout.get')}}"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
 				</ul><!--end .dropdown-menu -->
 			</li><!--end .dropdown -->

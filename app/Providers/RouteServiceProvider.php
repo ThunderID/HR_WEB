@@ -43,18 +43,18 @@ class RouteServiceProvider extends ServiceProvider {
 			else
 			{
 				//check user logged in 
-				// $results 									= API::person()->check(Session::get('loggedUser'));
-				// $contents 									= json_decode($results);
+				$results 									= API::person()->check(Session::get('loggedUser'));
+				$contents 									= json_decode($results);
 
-				// if(!$contents->meta->success || !count($contents->data->works))
-				// {
-				// 	App::abort(404);
-				// }
+				if(!$contents->meta->success || !count($contents->data->works))
+				{
+					App::abort(404);
+				}
 
-				// Session::put('user.organisation', $contents->data->works[0]->branch->organisation->id);
-				// Session::put('user.role', $contents->data->works[0]->name);
-				// Session::put('user.name', $contents->data->username);
-				// Session::put('user.gender', $contents->data->gender);
+				Session::put('user.organisation', $contents->data->works[0]->branch->organisation->id);
+				Session::put('user.role', $contents->data->works[0]->name);
+				Session::put('user.name', $contents->data->username);
+				Session::put('user.gender', $contents->data->gender);
 				
 				//check access
 				if (!in_array(Session::get('user.role'), app('hr_acl')[Route::currentRouteName()]))

@@ -167,6 +167,13 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 
+		Route::post('store', 
+						[
+							'uses' 	=> 'PersonController@postStore', 
+							'as' 	=> 'hr.persons.store'
+						]
+					);
+
 		Route::get('show/{id}', 
 						[
 							'uses' 	=> 'PersonController@getShow', 
@@ -179,6 +186,13 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.edit'
 						]
 					);		
+
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'PersonController@postUpdate', 
+							'as' 	=> 'hr.persons.update'
+						]
+					);	
 
 		Route::get('show/{person_id}/relatives/{page?}', 
 						[
