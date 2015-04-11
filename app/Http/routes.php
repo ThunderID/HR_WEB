@@ -7,6 +7,14 @@ Route::group(['prefix' => 'cms'], function(){
 
 	Route::get('/logout',				['as' => 'hr.logout.get', 	'uses' => 'AuthController@getLogout']);
 
+	/* ---------------------------------------------------------------------------- PRIVATE AREA ----------------------------------------------------------------------------*/
+	Route::group(['prefix' => 'password', 'before' => 'hr_acl'], function(){
+		Route::get('/', 				['as' => 'hr.password.get', 	'uses' => 'AuthController@getPassword']);
+
+		Route::post('/', 				['as' => 'hr.password.post', 	'uses' => 'AuthController@postPassword']);
+	});
+	/* ---------------------------------------------------------------------------- END OF PRIVATE AREA ----------------------------------------------------------------------------*/
+	
 	/* ---------------------------------------------------------------------------- DEVELOPER AREA ----------------------------------------------------------------------------*/
 	//Organisation
 	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){

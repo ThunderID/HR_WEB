@@ -81,8 +81,8 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.gallery.upload'								=> ['administrator', 'editor', 'writer', 'contributor'],
 							'hr.search'										=> ['administrator', 'editor', 'writer', 'contributor'],
 							'hr.dashboard.overview'							=> ['developer', 'CEO', 'admin'],
-							'hr.dashboard.getTeam'							=> ['administrator', 'editor', 'writer', 'contributor'],
-							'hr.dashboard.getContents'						=> ['administrator', 'editor', 'writer', 'contributor'],
+							'hr.password.get'								=> ['developer', 'CEO', 'admin'],
+							'hr.password.post'								=> ['developer', 'CEO', 'admin'],
 							
 							'hr.persons.index'								=> ['developer', 'CEO', 'admin'],
 							'hr.persons.show'								=> ['developer', 'CEO', 'admin'],

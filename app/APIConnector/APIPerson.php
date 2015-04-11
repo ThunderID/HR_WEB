@@ -25,4 +25,9 @@ class APIPerson {
 	{
 		return self::runGet(self::$basic_url . 'persons/show/'.$id, ['id' => $id]);
 	}
+
+	function store($id, $attributes)
+	{
+		return self::runPost(self::$basic_url . 'persons/store/data', ['id' => $id, 'attributes' => $attributes]);
+	}
 }

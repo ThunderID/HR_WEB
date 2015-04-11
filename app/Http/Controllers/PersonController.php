@@ -18,19 +18,41 @@ class PersonController extends AdminController {
 		$search 									= ['WithAttributes' => ['contacts']];
 		if(Input::has('q'))
 		{
-			$search['firstname']					= Input::get('q');			
+			if(Input::has('field'))
+			{
+				$search[Input::get('field')]		= Input::get('q');			
+			}
+			else
+			{
+				$search['firstname']				= Input::get('q');			
+				$search['orlastname']				= Input::get('q');			
+				$search['orprefixtitle']			= Input::get('q');			
+				$search['orsuffixtitle']			= Input::get('q');			
+			}
 		}
 
-		$sort 										= ['created_at' => 'asc'];
+		if(Input::has('sort_firstname'))
+		{
+			$sort['first_name']						= Input::get('sort_firstname');			
+		}
+		elseif(Input::has('sort_lastname'))
+		{
+			$sort['last_name']						= Input::get('sort_lastname');			
+		}
+		else
+		{
+			$sort 									= ['created_at' => 'asc'];
+		}
 
 		$results 									= API::person()->index($page, $search, $sort);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
 		}
-		
+
 		$data 										= json_decode(json_encode($contents->data), true);
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 

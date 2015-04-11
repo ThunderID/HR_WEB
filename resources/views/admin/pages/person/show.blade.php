@@ -51,24 +51,6 @@
 													<label class="text-lg text-light">{{$data['gender']}}</label>
 												</div>
 											</div>
-
-											<div class="form-group">
-												<div class="col-sm-4 col-md-4">
-													<label class="text-lg text-light">Status Pernikahan</label>
-												</div>
-												<div class="col-sm-8 col-md-8">
-													<label class="text-lg text-light">{{$data['marital_status']}}</label>
-												</div>
-											</div>
-
-											<div class="form-group">
-												<div class="col-sm-4 col-md-4">
-													<label class="text-lg text-light">Kewarganegaraan</label>
-												</div>
-												<div class="col-sm-8 col-md-8">
-													<label class="text-lg text-light">{{$data['nationality']}}</label>
-												</div>
-											</div>
 										</div>
 									</div>
 								</div>
