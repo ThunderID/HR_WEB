@@ -42,7 +42,9 @@
 										</div>
 										<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['first_name'].' '.$data['middle_name'].' '.$data['last_name'].' '.$data['suffix_title']}}</h1>
 										<h5>
-											{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
+											@if(isset($data['works'][0]))
+												{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
+											@endif
 										</h5>
 										&nbsp;&nbsp;
 									</div><!--end .margin-bottom-xxl -->
@@ -145,11 +147,13 @@
 								<h4>Ringkas</h4>
 								<br/>
 								<dl class="dl-horizontal dl-icon">
-									<dt><span class="fa fa-fw fa-graduation-cap fa-lg opacity-50"></span></dt>
-									<dd>
-										<span class="opacity-50">Karir</span><br/>
-										<span class="text-medium">{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}} </span>
-									</dd>
+									@if(isset($data['works'][0]))
+										<dt><span class="fa fa-fw fa-graduation-cap fa-lg opacity-50"></span></dt>
+										<dd>
+											<span class="opacity-50">Karir</span><br/>
+											<span class="text-medium">{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}} </span>
+										</dd>
+									@endif
 									<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
 									<dd>
 										<span class="opacity-50">Ulang Tahun</span><br/>
@@ -170,6 +174,9 @@
 										@elseif($value['item']=='address')
 											<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
 											<span class="opacity-50">{{$value['item']}}</span><br/>
+										@else
+											<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
+											<span class="opacity-50">{{$value['item']}}</span>
 										@endif
 										<dd>
 											<span class="text-medium">{{$value['value']}}</span> &nbsp;<span class="opacity-50"></span><br/>

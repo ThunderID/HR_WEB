@@ -53,21 +53,21 @@
 															<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a>
 														</div>
 													</div>
-													<div class="clearfix">
-														<div class="col-lg-12">
-															<span class="opacity-75"><span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;{{$value['contacts'][1]['value']}}</span>
-														</div>
-													</div>
-													<div class="clearfix">
-														<div class="col-md-12">
-															<span class="opacity-75"><span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;{{$value['contacts'][2]['value']}}</span>
-														</div>
-													</div>
-													<div class="clearfix">
-														<div class="col-lg-12">
-															<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;{{$value['contacts'][0]['value']}}</span>
-														</div>
-													</div>
+													@if(count($value['contacts']))
+														@foreach($data['contacts'] as $key2 => $value2)
+															<div class="clearfix">
+																<div class="col-lg-12">
+																	@if($value2['item']=='phone_number')
+																		<span class="opacity-75"><span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;{{$value['value']}}</span>
+																	@elseif($value2['item']=='email')
+																		<span class="opacity-75"><span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;{{$value['value']}}</span>
+																	@elseif($value2['item']=='address')
+																		<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;{{$value['value']}}</span>
+																	@endif
+																</div>
+															</div>
+														@endforeach
+													@endif
 												</div><!--end .hbox-column -->
 											</div><!--end .hbox-xs -->
 										@endforeach
