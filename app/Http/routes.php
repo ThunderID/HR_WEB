@@ -1,6 +1,10 @@
 <?php
 
+Route::get('/', function(){
+	return Redirect::route('hr.login.get');
+});
 Route::group(['prefix' => 'cms'], function(){
+
 
 	Route::get('/login', 				['as' => 'hr.login.get', 	'uses' => 'AuthController@getLogin']);
 	Route::post('/login', 				['as' => 'hr.login.post', 	'uses' => 'AuthController@postLogin']);

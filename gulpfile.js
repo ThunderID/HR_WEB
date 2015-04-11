@@ -53,6 +53,8 @@ elixir(function(mix) {
 	.copy('resources/css/theme-1/libs/jit/base.css', 'public/css/base.css')
 	.copy('resources/css/theme-1/libs/jit/spacetree.css', 'public/css/spacetree.css')
 	.copy('resources/js/libs/jit/jit.js', 'public/js/jit.min.js')
+	.copy('resources/css/theme-1/libs/dropzone/dropzone-theme.css', 'public/css/dropzone.css')
+	.copy('resources/js/libs/dropzone/dropzone.min.js', 'public/js/dropzone.min.js')
 	.copy('resources/js/core/demo/DemoPageContacts.js', 'public/js/pluginmicrotemplating.min.js')
 	.copy('resources/fonts/', 'public/build/fonts/')
 	.copy('resources/images/', 'public/images/');

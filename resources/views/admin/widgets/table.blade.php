@@ -1,5 +1,8 @@
 <div class="col-md-6 col-sm-6">
 	<div class="card">
+		<div class="card-head">
+			<header class="mt-10">{{ ucwords($title) }}</header>
+		</div><!--end .card-head -->
 		<div class="card-body no-padding">
 			<table class="table {{ $style }}">
 				<thead>

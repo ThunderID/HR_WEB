@@ -26,8 +26,7 @@ abstract class AdminController extends Controller {
 			$nav = new MaterialAdminSideMenu();
 			if(Session::get('user.role')=='developer')
 			{
-				$nav->add('dashboard', 'Dashboard', 'javascript:;', 'md md-home');
-				$nav->add('overview', 'Overview', route('hr.dashboard.overview'), null, 'dashboard');
+				$nav->add('dashboard', 'Dashboard', route('hr.dashboard.overview'), 'md md-home');
 				
 				$nav->add('organisasi', 'Organisasi', 'javascript:;', 'md md-business');
 				$nav->add('basic_info', 'Lihat Semua', route('hr.organisations.index'), null, 'organisasi');
@@ -35,8 +34,7 @@ abstract class AdminController extends Controller {
 			}
 			else
 			{
-				$nav->add('dashboard', 'Dashboard', 'javascript:;', 'md md-home');
-				$nav->add('overview', 'Overview', route('hr.dashboard.overview'), null, 'dashboard');
+				$nav->add('dashboard', 'Dashboard', route('hr.dashboard.overview'), 'md md-home');
 				
 				$nav->add('company', 'Perusahaan', 'javascript:;', 'md md-business');
 				$nav->add('company_branch', 'Lihat Semua', route('hr.organisation.branches.index'), null, 'company');
