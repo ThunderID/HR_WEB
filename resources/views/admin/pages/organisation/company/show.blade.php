@@ -113,6 +113,22 @@
 								</li>
 							</ul>
 							<div class="card-body tab-content style-default-bright">
+
+								<div class="tab-pane" id="add_document">
+									<div class="col-md-12">
+										<br>
+										<form class="form" role="form">
+											<div class="form-group floating-label">
+												<input type="text" class="form-control" id="docs_name">
+												<label for="docs_name">Nama Dokumen</label>
+											</div>
+										</form>
+									</div><!--end .col -->	
+
+									<div class="card-actionbar-row">
+										<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+									</div><!--end .card-actionbar-row -->
+								</div>
 								<div class="tab-pane active" id="data_document">
 									<h3 class="text-light">Dokumen Perusahaan</h3>
 									<br>
@@ -122,22 +138,6 @@
 									<p class="lead">Ad ius duis dissentiunt, an sit harum primis persecuti, adipisci tacimates mediocrem sit et. Id illud voluptaria omittantur qui, te affert nostro mel. Cu conceptam vituperata temporibus has.</p>
 									<p>Per at postea mediocritatem, vim numquam aliquid eu, in nam sale gubergren. Fuisset delicatissimi duo, qui ut animal noluisse erroribus. Ea eum veniam audire. Dicant vituperata consequuntur.</p>
 								</div>
-
-								<div class="tab-pane" id="add_document">
-
-								<div class="col-md-12">
-									<br>
-									<form class="form" role="form">
-										<div class="form-group floating-label">
-											<input type="text" class="form-control" id="docs_name">
-											<label for="docs_name">Nama Dokumen</label>
-										</div>
-									</form>
-								</div><!--end .col -->	
-
-								<div class="card-actionbar-row">
-									<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-								</div><!--end .card-actionbar-row -->
 							</div>				
 						</div><!--end .card -->
 					</div>
