@@ -327,26 +327,6 @@
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type="text" class="form-control" id="nationality_relation_<%=index%>" name="nationality_relation_<%=index%>">
-											<label for="nationality_relation_<%=index%>">Kebangsaan</label>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<select name="marital_status_relation_<%=index%>" id="marital_status_relation_<%=index%>" class="form-control">
-														<option value=""></option>
-														<option value="single">Belum Kawin</option>
-														<option value="married">Kawin</option>
-														<option value="divorced">Cerai Hidup</option>
-														<option value="widowed">Cerai Mati</option>
-											</select>
-											<label for="marital_status_relation_<%=index%>">Status Kawin</label>
-										</div>
-									</div>
-								</div>																	
 							</div>
 						</div>
 					</div>
@@ -372,48 +352,36 @@
 				<h4 class="text-accent">Pekerjaan <%=index%></h4>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<div class="form-group">
-						<input name="work_company_<%=index%>" id="work_company_<%=index%>" class="form-control getCompany" data-comp="">											
-						<label for="work_company_<%=index%>">Perusahaan</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input name="work_department_<%=index%>" id="work_department_<%=index%>" class="form-control getDepartment">											
-						<label for="work_department_<%=index%>">Departemen</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input name="work_position_<%=index%>" id="work_position_<%=index%>" class="form-control getPosition">											
-						<label for="work_position_<%=index%>">Posisi</label>
+						<input name="work_company[<%=index%>]" id="work_company[<%=index%>]" class="form-control getCompany" data-comp="">											
+						<label for="work_company[<%=index%>]">Perusahaan</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="work_status_<%=index%>" name="work_status_<%=index%>">
-						<label for="work_status_<%=index%>">Status Pegawai</label>
+						<input type="text" class="form-control" id="work_status[<%=index%>]" name="work_status[<%=index%>]">
+						<label for="work_status[<%=index%>]">Status Pegawai (contract, trial, permanent, internship)</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="work_department_<%=index%>" name="work_department_<%=index%>">
-						<label for="work_department_<%=index%>">Mulai Bekerja</label>
+						<input type="text" class="form-control" id="work_start[<%=index%>]" name="work_start[<%=index%>]">
+						<label for="work_start[<%=index%>]">Mulai Bekerja</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="work_position_<%=index%>" name="work_position_<%=index%>">
-						<label for="work_position_<%=index%>">Berhenti Bekerja</label>
+						<input type="text" class="form-control" id="work_end[<%=index%>]" name="work_end[<%=index%>]">
+						<label for="work_end[<%=index%>]">Berhenti Bekerja</label>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<textarea name="work_reason_quit_<%=index%>" id="work_reason_quit_<%=index%>" class="form-control" rows="3"></textarea>
-				<label for="work_reason_quit_<%=index%>">Alasan Berhenti</label>
+				<textarea name="work_quit_reason[<%=index%>]" id="work_quit_reason[<%=index%>]" class="form-control" rows="3"></textarea>
+				<label for="work_quit_reason[<%=index%>]">Alasan Berhenti</label>
 			</div>
 		</li>
 	</script>
@@ -543,57 +511,12 @@
 				<h4 class="text-accent">Dokumen <%=index%></h4>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<select name="document_name_<%=index%>" id="document_name_<%=index%>" class="form-control">
-								<option value=""></option>
-								<option value="surat peringatan">surat peringatan</option>
-								<option value="kontrak kerja">kontrak kerja</option>
-								<option value="penilaian kinerja">penilaian kinerja</option>
-								<option value="pendidikan formal">pendidikan formal</option>
-								<option value="pendidikan non formal">pendidikan non formal formal</option>
-								<option value="ktp">ktp formal</option>
-								<option value="bpjs">bpjs formal</option>
-								<option value="npwp">npwp formal</option>
-								<option value="bank">bank formal</option>
-								<option value="reksa dana">reksa dana formal</option>
-								<option value="pengalaman kerja">pengalaman kerja formal</option>
-								<option value="proyek">proyek formal</option>
-						</select>					
-						<label for="document_name_<%=index%>">Jenis Dokumen</label>
-					</div>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-xs-12">
-
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<input type="text" class="form-control" id="input_string<%=index%>" name="input_string<%=index%>">
-								<label for="input_string<%=index%>">inputan teks satu baris</label>
-							</div>	
-						</div>	
-					</div>	
-
-					<div class="row">
-						<div class="col-md-12">	
-							<div class="form-group">							
-								<div class="input-daterange input-group" id="input_date" style="width:100%;">
-									<div class="input-group-content">
-										<input type="text" class="form-control" name="input_date" />
-										<label>inputan tanggal</label>
-									</div>
-								</div>
-							</div>
-						</div>	
-					</div>	
-
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
 								<textarea name="input_text<%=index%>" id="input_text<%=index%>" class="form-control" rows="3"></textarea>
-								<label for="input_text<%=index%>">inputan teks multibaris</label>
+								<label for="input_text<%=index%>">DropZone Uploaded</label>
 							</div>	
 						</div>	
 					</div>	
@@ -648,7 +571,7 @@
 	                    return {
 	                        results: $.map(data, function (item) {
 	                            return {
-	                                text: item.name,
+	                                text: item.name +' of '+ item.branch.name,
 	                                id: item.id
 	                            }
 	                        })
@@ -656,167 +579,6 @@
 	                }
 	            }
 	        });
-
-			$('#work_department_' + n).select2({
-	            minimumInputLength: 3,
-	            placeholder: '',
-	            ajax: {
-	                url: "{{route('hr.ajax.department')}}",
-	                dataType: 'json',
-	                quietMillis: 500,
-	               	data: function (term) {},
-	                results: function (data) {
-	                    return {
-	                        results: $.map(data, function (item) {
-	                            return {
-	                                text: item.name,
-	                                id: item.id,
-	                            }
-	                        })
-	                    };
-	                }
-	            }	        
-	        });
-
-			$('#work_position_' + n).select2({
-	            minimumInputLength: 3,
-	            placeholder: '',
-	            ajax: {
-	                url: "{{route('hr.ajax.position')}}",
-	                dataType: 'json',
-	                quietMillis: 500,
-	               	data: function (term) {},
-	                results: function (data) {
-	                    return {
-	                        results: $.map(data, function (item) {
-	                            return {
-	                                text: item.name,
-	                                id: item.id,
-	                            }
-	                        })
-	                    };
-	                }
-	            }
-	        });		        
-
-			$('.work-add').click(function(){
-				n = n + 1;
-				$('#work_company_' + n).select2({
-		            minimumInputLength: 3,
-		            placeholder: '',
-		            ajax: {
-		                url: "{{route('hr.ajax.company')}}",
-		                dataType: 'json',
-		                quietMillis: 500,
-		               data: function (term) {},
-		                results: function (data) {
-		                    return {
-		                        results: $.map(data, function (item) {
-		                            return {
-		                                text: item.name,
-		                                id: item.id,
-		                            }			                        
-		                        })
-		                    };
-		                }
-		            }
-		        });	
-
-				$('#work_department_' + n).select2({
-		            minimumInputLength: 3,
-		            placeholder: '',
-		            ajax: {
-		                url: "{{route('hr.ajax.department')}}",
-		                dataType: 'json',
-		                quietMillis: 500,
-		               	data: function (term) {},
-		                results: function (data) {
-		                    return {
-		                        results: $.map(data, function (item) {
-		                            return {
-		                                text: item.name,
-		                                id: item.id,
-		                            }
-		                        })
-		                    };
-		                }
-		            }	        
-		        });
-
-				$('#work_position_' + n).select2({
-		            minimumInputLength: 3,
-		            placeholder: '',
-		            ajax: {
-		                url: "{{route('hr.ajax.position')}}",
-		                dataType: 'json',
-		                quietMillis: 500,
-		               	data: function (term) {},
-		                results: function (data) {
-		                    return {
-		                        results: $.map(data, function (item) {
-		                            return {
-		                                text: item.name,
-		                                id: item.id,
-		                            }
-		                        })
-		                    };
-		                }
-		            }
-		        });		        
-
-			});
-
-			$('#work_company_'+n).on('change', function() {
-				$('#work_department_' + n).select2({
-		            minimumInputLength: 3,
-		            placeholder: '',
-		            ajax: {
-		                url: "{{route('hr.ajax.department')}}",
-		                dataType: 'json',
-		                quietMillis: 500,
-		               data: function (term) {
-		                    return {
-		                        term: term
-		                    };
-		                },
-		                results: function (data) {
-		                    return {
-		                        results: $.map(data, function (item) {
-		                            return {
-		                                text: item.name,
-		                                id: item.id,
-		                            }
-		                        })
-		                    };
-		                }
-		            }
-		        });
-
-				$('#work_position_' + n).select2({
-		            minimumInputLength: 3,
-		            placeholder: '',
-		            ajax: {
-		                url: "{{route('hr.ajax.position')}}",
-		                dataType: 'json',
-		                quietMillis: 500,
-		               data: function (term) {
-		                    return {
-		                        term: term
-		                    };
-		                },
-		                results: function (data) {
-		                    return {
-		                        results: $.map(data, function (item) {
-		                            return {
-		                                text: item.name,
-		                                id: item.id,
-		                            }
-		                        })
-		                    };
-		                }
-		            }
-		        });		        
-			});
 		});
 	</script>
 @stop

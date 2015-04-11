@@ -77,17 +77,29 @@
 								</div>
 								<div class="clearfix">
 									<div class="col-lg-12">
-										<span class="opacity-75"><span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;{{$value['contacts'][1]['value']}}</span>
+										<span class="opacity-75"><span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;
+										@if (isset($value['contacts'][1]['value']))
+											{{$value['contacts'][1]['value']}}
+										@endif
+										</span>
 									</div>
 								</div>
 								<div class="clearfix">
 									<div class="col-md-12">
-										<span class="opacity-75"><span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;{{$value['contacts'][2]['value']}}</span>
+										<span class="opacity-75"><span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;
+										@if (isset($value['contacts'][2]['value']))
+											{{$value['contacts'][2]['value']}}
+										@endif
+										</span>
 									</div>
 								</div>
 								<div class="clearfix">
 									<div class="col-lg-12">
-										<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;{{$value['contacts'][0]['value']}}</span>
+										<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;
+										@if (isset($value['contacts'][0]['value']))
+											{{$value['contacts'][0]['value']}}
+										@endif
+										</span>
 									</div>
 								</div>
 							</div><!--end .hbox-column -->

@@ -44,12 +44,13 @@ class AjaxController extends AdminController {
 		$search 									= [];
 		if(Input::has('term'))
 		{
-			$search['name']							= Input::get('term');			
+			$search									= ['name' => Input::get('term'), 'WithAttributes' => ['branch']];			
 		}
 
 		$sort 										= ['created_at' => 'asc'];
 
-		$results 									= API::organisationbranch()->index(1, $search, $sort);
+		$results 									= API::organisationchart()->index(1, $search, $sort);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)

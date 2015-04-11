@@ -15,7 +15,7 @@ class PersonController extends AdminController {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['CurrentContact' => 'updated_at' /*,'checkwork' => 'active'*/];
+		$search 									= ['CurrentContact' => 'updated_at' ,'checkwork' => 'active'];
 		if(Input::has('q'))
 		{
 			if(Input::has('field'))
@@ -92,6 +92,24 @@ class PersonController extends AdminController {
 		$input['id'] 								= $id;
 		$input['person'] 							= Input::only('prefix_title', 'first_name', 'middle_name', 'last_name', 'suffix_title', 'nick_name', 'gender', 'place_of_birth');
 		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
+		
+		if(Input::has('work_company'))
+		{
+			foreach (Input::get('work_company') as $key => $value) 
+			{
+				$address 							= $value;
+				if(Input::get('work_company')[$key]!='')
+				{
+					$chart['organisation_chart_id'] = Input::get('work_company')[$key];
+					$chart['status'] 				= Input::get('work_status')[$key];
+					$chart['start'] 				= date("Y-m-d", strtotime(Input::get('work_start')[$key]));
+					$chart['end'] 					= date("Y-m-d", strtotime(Input::get('work_end')[$key]));
+					$chart['reason_end_job'] 		= Input::get('work_quit_reason')[$key];
+					$input['works'][] 				= $chart;
+				}
+			}
+		}
+
 		if(Input::has('address_address'))
 		{
 			foreach (Input::get('address_address') as $key => $value) 
