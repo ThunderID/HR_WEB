@@ -49,9 +49,7 @@
 			<div class="card-head style-primary">
 				<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
 					<li class="active"><a href="#profil">PROFIL</a></li>
-					@if(!$data['id'])
-						<li><a href="#contact">KONTAK</a></li>
-					@endif
+					<li><a href="#contact">KONTAK</a></li>
 				</ul>
 			</div><!--end .card-head -->
 			<!-- END FORM TABS -->
