@@ -54,7 +54,7 @@
 														</div>
 													</div>
 													@if(count($value['contacts']))
-														@foreach($data['contacts'] as $key2 => $value2)
+														@foreach($value['contacts'] as $key2 => $value2)
 															<div class="clearfix">
 																<div class="col-lg-12">
 																	@if($value2['item']=='phone_number')

@@ -168,7 +168,9 @@
 									</dd>
 								</dl><!--end .dl-horizontal -->
 								<br/>
-								<h4>Kontak</h4>
+								@if(isset($data['contacts']))
+									<h4>Kontak</h4>
+								@endif
 								<br/>
 								<dl class="dl-horizontal dl-icon">
 									@foreach($data['contacts'] as $key => $value)
