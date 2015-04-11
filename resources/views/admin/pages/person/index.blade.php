@@ -94,17 +94,17 @@
 						</div><!--end .hbox-xs -->
 						@endforeach
 					</div><!--end .list-results -->
-
-					<!-- BEGIN SEARCH RESULTS LIST -->
-
-
-	@if(count($data))
-		@include('admin.helpers.pagination')
-	@else
-		<div class="row">
-			<div class="col-sm-12 text-center">
-				<p>Tidak ada data</p>
+				</div><!--end .list-results -->
 			</div>
+			@if(count($data))
+				@include('admin.helpers.pagination')
+			@else
+				<div class="row">
+					<div class="col-sm-12 text-center">
+						<p>Tidak ada data</p>
+					</div>
+				</div>
+			@endif
 		</div>
-	@endif
+	</div>
 @stop

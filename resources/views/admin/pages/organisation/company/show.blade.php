@@ -58,7 +58,12 @@
 
 							<dt>Kegiatan Bisnis</dt>
 							<dd>{{$data['business_activities']}}</dd>
-						</dl>						
+						</dl>	
+						<div class="card-actionbar">
+							<div class="card-actionbar-row">
+								<a class="btn btn-flat" href="{{route('hr.organisation.branches.edit', ['id' => $data['id']]) }}">EDIT</a>
+							</div>
+						</div>												
 					</div>
 					<div class="tab-pane" id="contact">
 						<h3 class="text-light">Kontak  Perusahaan</h3>

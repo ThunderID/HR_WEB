@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Session, App, Config, Paginator;
+use Input, Session, App, Config, Paginator, Redirect;
 use App\APIConnector\API;
 
 class PersonController extends AdminController {
@@ -15,7 +15,7 @@ class PersonController extends AdminController {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['contacts']];
+		$search 									= ['CurrentContact' => 'updated_at' /*,'checkwork' => 'active'*/];
 		if(Input::has('q'))
 		{
 			if(Input::has('field'))
@@ -76,52 +76,127 @@ class PersonController extends AdminController {
 	{
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper($this->controller_name);
+		$this->layout->page_title 					= strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.person.create');
-		$this->layout->content->controller_name = $this->controller_name;
+		$this->layout->content 						= view('admin.pages.person.create');
+		$this->layout->content->controller_name 	= $this->controller_name;
 
+		$this->layout->content->data 				= null;
 
 		return $this->layout;
 	}
 
 	function postStore($id = null)
 	{
-		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
-		// {
-		// 	$data = $this->model->findorfail($id);
-		// }
-		// else
-		// {
-		// 	$data = $this->model->newInstance();
-		// }
+		// ---------------------- HANDLE INPUT ----------------------
+		$input['id'] 								= $id;
+		$input['person'] 							= Input::only('prefix_title', 'first_name', 'middle_name', 'last_name', 'suffix_title', 'nick_name', 'gender', 'place_of_birth');
+		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
+		if(Input::has('address_address'))
+		{
+			foreach (Input::get('address_address') as $key => $value) 
+			{
+				$address 							= $value;
+				if(Input::get('address_RT')[$key]!='')
+				{
+					$address 						= $address.' RT. '.Input::get('address_RT')[$key];
+				}
+				if(Input::get('address_RW')[$key]!='')
+				{
+					$address 						= $address.' RW. '.Input::get('address_RW')[$key];
+				}
+				if(Input::get('address_kecamatan')[$key]!='')
+				{
+					$address 						= $address.' Kec. '.Input::get('address_kecamatan')[$key];
+				}
+				if(Input::get('address_kelurahan')[$key]!='')
+				{
+					$address 						= $address.' Kel. '.Input::get('address_kelurahan')[$key];
+				}
+				if(Input::get('address_kota')[$key]!='')
+				{
+					$address 						= $address.' Kota/Kab '.Input::get('address_kota')[$key];
+				}
+				if(Input::get('address_provinsi')[$key]!='')
+				{
+					$address 						= $address.' - '.Input::get('address_provinsi')[$key];
+				}
+				if(Input::get('address_negara')[$key]!='')
+				{
+					$address 						= $address.' - '.Input::get('address_negara')[$key];
+				}
+				if(Input::get('address_kode_pos')[$key]!='')
+				{
+					$address 						= $address.' Kode pos '.Input::get('address_kode_pos')[$key];
+				}
+				$input['contact']['address'][] 		= $address;
+			}
+		}
 
-		// // ---------------------- HANDLE INPUT ----------------------
-		// $input = Input::all();
-		// $input['contact_person']['name'] = Input::get('contact_person_name');
-		// $input['contact_person']['phone'] = Input::get('contact_person_phone');
-		// $input['contact_person']['email'] = Input::get('contact_person_email');
+		if(Input::has('contact_phone'))
+		{
+			foreach (Input::get('contact_phone') as $key => $value) 
+			{
+				if($value!='')
+				{
+					$input['contact']['phone_number'][] = $value;
+				}
+			}
+		}
 
-		// $input['address']['street'] = Input::get('address_street');
-		// $input['address']['city'] = Input::get('address_city');
-		// $input['address']['province'] = Input::get('address_province');
-		// $input['address']['country'] = Input::get('address_country');
+		if(Input::has('contact_email'))
+		{
+			foreach (Input::get('contact_email') as $key => $value) 
+			{
+				if($value!='')
+				{
+					$input['contact']['email'][] 		= $value;
+				}
+			}
+		}
 
-		// if ($logo_path = $this->dispatch(new UploadFile('logo', 'uploaded/vendors/logo/'.date('Y/m/d/H'))))
-		// {
-		// 	$input['logo'] = $logo_path;
-		// }
-		// $data->fill($input);
+		if(Input::has('contact_BBM'))
+		{
+			foreach (Input::get('contact_BBM') as $key => $value) 
+			{
+				if($value!='')
+				{
+					$input['contact']['bbm'][] 			= $value;
+				}
+			}
+		}
 
-		// if ($data->save())
-		// {
-		// 	return redirect()->route('admin.' . $this->controller_name . '.index')->with('alert_success', ucwords($this->controller_name) . ' "' . $data->name . '" has been saved');
-		// }
-		// else
-		// {
-		// 	return redirect()->back()->withInput()->withErrors($data->getErrors());
-		// }
+		if(Input::has('contact_LINE'))
+		{
+			foreach (Input::get('contact_LINE') as $key => $value) 
+			{
+				if($value!='')
+				{
+					$input['contact']['line'][]		 	= $value;
+				}
+			}
+		}
+
+		if(Input::has('contact_WhatsApp'))
+		{
+			foreach (Input::get('contact_WhatsApp') as $key => $value) 
+			{
+				if($value!='')
+				{
+					$input['contact']['whatsapp'][] 	= $value;
+				}
+			}
+		}
+
+		$results 										= API::person()->store($id, $input);
+
+		$content 										= json_decode($results);
+		if($content->meta->success)
+		{
+			return Redirect::route('hr.organisation.branches.index');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 
 	function getShow($id = 1)
@@ -198,5 +273,44 @@ class PersonController extends AdminController {
 		// {
 		// 	return redirect()->back()->with('alert_danger', 'Invalid delete confirmation text');
 		// }
+	}
+
+	function getRelativesIndex($personid, $page = 1)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$search 									= ['checkrelation' => $personid, 'CurrentContact' => 'updated_at'];
+		$sort 										= ['first_name' => 'asc'];
+
+		$results 									= API::person()->index($page, $search, $sort);
+
+		$contents 									= json_decode($results);
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$relatives 									= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+
+		$results 									= API::person()->show($personid);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= 'Kerabat '.strtoupper($contents->data->nick_name);
+
+		$this->layout->content 						= view('admin.pages.person.relatives.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->relatives 			= $relatives;
+		$this->layout->content->paginator 			= $paginator;
+
+		return $this->layout;
 	}
 }

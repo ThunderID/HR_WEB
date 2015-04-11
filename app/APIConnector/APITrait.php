@@ -14,6 +14,7 @@ trait APITrait {
 		// curl_setopt($curl, CURLOPT_GET, true);
 
 		$results 		= curl_exec($curl);
+// print_r($results);exit;
 
 		return $results;
 	}
@@ -32,7 +33,7 @@ trait APITrait {
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
 
 		$results 		= curl_exec($curl);
-
+// print_r($results);exit;
 		return $results;
 	}
 

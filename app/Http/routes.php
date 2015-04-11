@@ -171,6 +171,13 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 
+		Route::post('store', 
+						[
+							'uses' 	=> 'PersonController@postStore', 
+							'as' 	=> 'hr.persons.store'
+						]
+					);
+
 		Route::get('show/{id}', 
 						[
 							'uses' 	=> 'PersonController@getShow', 
@@ -183,18 +190,20 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.edit'
 						]
 					);		
-		Route::get('shows/{person_id}/documents/{id}', 
-					[
-						'uses' 	=> 'PersonController@getShow', 
-						'as' 	=> 'hr.person.document.show'
-					]
-				);
-		Route::get('show/{person_id}/works', 
-					[
-						'uses' 	=> 'workController@getIndex', 
-						'as' 	=> 'hr.person.work.show'
-					]
-				);		
+
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'PersonController@postUpdate', 
+							'as' 	=> 'hr.persons.update'
+						]
+					);	
+
+		Route::get('show/{person_id}/relatives/{page?}', 
+						[
+							'uses' 	=> 'PersonController@getRelativesIndex', 
+							'as' 	=> 'hr.persons.relatives.index'
+						]
+					);		
 	});
 	///END PERSON///
 	

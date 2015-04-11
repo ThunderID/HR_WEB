@@ -8,14 +8,18 @@
 		<div class="card-head style-primary">
 			<header>Tambah data orang</header>
 		</div>
-		<form class="form" role="form">
+		@if($data['id'])
+			<form class="form" role="form" action="{{route('hr.persons.update', $data['id'])}}" method="post">
+		@else
+			<form class="form" role="form" action="{{route('hr.persons.store')}}" method="post">
+		@endif
 			<div class="card-body style-primary form-inverse">
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control" id="preffix_title" name="preffix_title" value=@if (isset($data['prefix_title'])){{ $data['prefix_title'] }}@endif>
+									<input type="text" class="form-control" id="prefix_title" name="prefix_title" value=@if (isset($data['prefix_title'])){{ $data['prefix_title'] }}@endif>
 									<label for="company">Gelar Depan</label>
 								</div>
 							</div><!--end .col -->
@@ -23,20 +27,20 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="firstname" name="firstname" value=@if (isset($data['first_name'])){{ $data['first_name'] }}@endif>
-									<label for="firstname">Nama Depan</label>
+									<input type="text" class="form-control input-lg" id="first_name" name="first_name" value=@if (isset($data['first_name'])){{ $data['first_name'] }}@endif>
+									<label for="first_name">Nama Depan</label>
 								</div>
 							</div><!--end .col -->
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="midlename" name="midlename" value=@if (isset($data['middle_name'])){{ $data['middle_name'] }}@endif>
-									<label for="midlename">Nama Tengah</label>
+									<input type="text" class="form-control input-lg" id="middle_name" name="middle_name" value=@if (isset($data['middle_name'])){{ $data['middle_name'] }}@endif>
+									<label for="middle_name">Nama Tengah</label>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="lastname" name="lastname" value=@if (isset($data['last_name'])){{ $data['last_name'] }}@endif>
-									<label for="lastname">Nama Belakang</label>
+									<input type="text" class="form-control input-lg" id="last_name" name="last_name" value=@if (isset($data['last_name'])){{ $data['last_name'] }}@endif>
+									<label for="last_name">Nama Belakang</label>
 								</div>
 							</div><!--end .col -->
 						</div><!--end .row -->
@@ -73,8 +77,8 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" id="nickname" name="nickname" value=@if (isset($data['nick_name'])){{ $data['nick_name'] }}@endif>
-										<label for="nickname">Nama Panggilan</label>
+										<input type="text" class="form-control" id="nick_name" name="nick_name" value=@if (isset($data['nick_name'])){{ $data['nick_name'] }}@endif>
+										<label for="nick_name">Nama Panggilan</label>
 									</div>
 								</div><!--end .col -->
 								<div class="col-md-2">
@@ -131,52 +135,6 @@
 									</div>
 								</div>
 							</div><!--end .row -->
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<input type="text" class="form-control" id="nationality" name="nationality" value=@if (isset($data['nationality'])){{ $data['nationality'] }}@endif>
-										<label for="nationality">Kebangsaan</label>
-									</div>
-								</div><!--end .col -->
-								<div class="col-md-6">
-									<div class="form-group">
-										@if(isset($data['marital_status']))
-										{!! Form::select('Status Kawin',
-														[
-															'' => '', 	
-															'single' 		=> 'Belum Kawin',
-															'married' 		=> 'Kawin',
-															'divorced' 		=> 'Cerai Hidup',
-															'widowed' 		=> 'Cerai Mati'
-														],
-														$data['marital_status'],
-														[
-															'name'			=>'marital_status',
-															'class'			=>'form-control',
-															'id'			=>'marital_status'
-														]) 
-										!!}		
-										@else
-										{!! Form::select('Status Kawin',
-														[
-															'' => '', 	
-															'single' 		=> 'Belum Kawin',
-															'married' 		=> 'Kawin',
-															'divorced' 		=> 'Cerai Hidup',
-															'widowed' 		=> 'Cerai Mati'
-														],
-														NULL,
-														[
-															'name'			=>'marital_status',
-															'class'			=>'form-control',
-															'id'			=>'marital_status'
-														]) 
-										!!}												
-										@endif								
-										<label for="marital_status">Status Kawin</label>
-									</div><!--end .form -->
-								</div><!--end .col -->
-							</div><!--end .row -->
 						</div><!--end .col -->
 					</div><!--end .row -->
 				</div><!--end .tab-pane -->
@@ -215,7 +173,7 @@
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
 					<a class="btn btn-flat" href="#">BATAL</a>
-					<button type="button" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
 			<!-- END FORM FOOTER -->
@@ -323,8 +281,8 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<input type="text" class="form-control" id="nickname_relation_<%=index%>" name="nickname_relation_<%=index%>">
-											<label for="nickname_relation_<%=index%>">Nama Panggilan</label>
+											<input type="text" class="form-control" id="nick_name_relation_<%=index%>" name="nick_name_relation_<%=index%>">
+											<label for="nick_name_relation_<%=index%>">Nama Panggilan</label>
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -466,65 +424,65 @@
 		<li class="clearfix">
 			<div class="page-header no-border holder">
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Alamat <%=index%></h4>
+				<h4 class="text-accent">Alamat[<%=index%>]</h4>
 			</div>
 			<div class="row">
 				<div class="col-md-8">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_address_<%=index%>" name="address_address_<%=index%>">
-						<label for="address_address_<%=index%>">Alamat Lengkap</label>
+						<input type="text" class="form-control" id="address_address[<%=index%>]" name="address_address[<%=index%>]">
+						<label for="address_address[<%=index%>]">Alamat Lengkap</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_posstal_code_<%=index%>" name="address_posstal_code_<%=index%>">
-						<label for="address_posstal_code_<%=index%>">Kode Pos</label>
+						<input type="text" class="form-control" id="address_kode_pos[<%=index%>]" name="address_kode_pos[<%=index%>]">
+						<label for="address_kode_pos[<%=index%>]">Kode Pos</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-2">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_RT_<%=index%>" name="address_RT_<%=index%>">
-						<label for="address_RT_<%=index%>">RT</label>
+						<input type="text" class="form-control" id="address_RT[<%=index%>]" name="address_RT[<%=index%>]">
+						<label for="address_RT[<%=index%>]">RT</label>
 					</div>
 				</div>
 				<div class="col-md-2">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_RW_<%=index%>" name="address_RW_<%=index%>">
-						<label for="address_RW_<%=index%>">RW</label>
+						<input type="text" class="form-control" id="address_RW[<%=index%>]" name="address_RW[<%=index%>]">
+						<label for="address_RW[<%=index%>]">RW</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_kecamatan_<%=index%>" name="address_kecamatan_<%=index%>">
-						<label for="address_kecamatan_<%=index%>">Kecamatan</label>
+						<input type="text" class="form-control" id="address_kecamatan[<%=index%>]" name="address_kecamatan[<%=index%>]">
+						<label for="address_kecamatan[<%=index%>]">Kecamatan</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_kelurahan_<%=index%>" name="address_kelurahan_<%=index%>">
-						<label for="address_kelurahan_<%=index%>">Kelurahan</label>
+						<input type="text" class="form-control" id="address_kelurahan[<%=index%>]" name="address_kelurahan[<%=index%>]">
+						<label for="address_kelurahan[<%=index%>]">Kelurahan</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_city_<%=index%>" name="address_city_<%=index%>">
-						<label for="address_city_<%=index%>">Kota</label>
+						<input type="text" class="form-control" id="address_kota[<%=index%>]" name="address_kota[<%=index%>]">
+						<label for="address_kota[<%=index%>]">Kota</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_province_<%=index%>" name="address_province_<%=index%>">
-						<label for="address_province_<%=index%>">Provinsi</label>
+						<input type="text" class="form-control" id="address_provinsi[<%=index%>]" name="address_provinsi[<%=index%>]">
+						<label for="address_provinsi[<%=index%>]">Provinsi</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="address_country_<%=index%>" name="address_country_<%=index%>">
-						<label for="address_country_<%=index%>">Negara</label>
+						<input type="text" class="form-control" id="address_negara[<%=index%>]" name="address_negara[<%=index%>]">
+						<label for="address_negara[<%=index%>]">Negara</label>
 					</div>
 				</div>					
 			</div>
@@ -537,45 +495,44 @@
 		<li class="clearfix">
 			<div class="page-header no-border holder">
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Kontak <%=index%></h4>
+				<h4 class="text-accent">Kontak[<%=index%>]</h4>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<input type="text" class="form-control" id="contact_phone_<%=index%>" name="contact_phone_<%=index%>">
-						<label for="contact_phone_<%=index%>">Nomor Telepon</label>
+						<input type="text" class="form-control" id="contact_phone[<%=index%>]" name="contact_phone[<%=index%>]">
+						<label for="contact_phone[<%=index%>]">Nomor Telepon</label>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<input type="text" class="form-control" id="contact_email_<%=index%>" name="contact_email_<%=index%>">
-						<label for="contact_email_<%=index%>">Alamat Email</label>
+						<input type="text" class="form-control" id="contact_email[<%=index%>]" name="contact_email[<%=index%>]">
+						<label for="contact_email[<%=index%>]">Alamat Email</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="contact_BBM_<%=index%>" name="contact_BBM_<%=index%>">
-						<label for="contact_BBM_<%=index%>">Akun BBM</label>
+						<input type="text" class="form-control" id="contact_BBM[<%=index%>]" name="contact_BBM[<%=index%>]">
+						<label for="contact_BBM[<%=index%>]">Akun BBM</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="contact_LINE_<%=index%>" name="contact_LINE_<%=index%>">
-						<label for="contact_LINE_<%=index%>">Akun LINE</label>
+						<input type="text" class="form-control" id="contact_LINE[<%=index%>]" name="contact_LINE[<%=index%>]">
+						<label for="contact_LINE[<%=index%>]">Akun LINE</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="contact_WhatsApp_<%=index%>" name="contact_WhatsApp_<%=index%>">
-						<label for="contact_WhatsApp_<%=index%>">Akun WhatsApp</label>
+						<input type="text" class="form-control" id="contact_WhatsApp[<%=index%>]" name="contact_WhatsApp[<%=index%>]">
+						<label for="contact_WhatsApp[<%=index%>]">Akun WhatsApp</label>
 					</div>
 				</div>
 			</div>
 		</li>
 	</script>
-	<!-- END PHONE TEMPLATES -->
 
 
 	<!-- BEGIN DOCUMENT TEMPLATES -->

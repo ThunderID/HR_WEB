@@ -61,7 +61,7 @@
 										<div class="row">
 											<div class="col-md-12">
 												<p>
-													<a class="text-medium text-lg text-primary" href="{{ route('hr.organisation.branches.show', $value['id']) }}">{{$value['name']}}</a><br/>
+													<a class="text-medium text-lg text-primary" href="{{ route('hr.organisation.branches.show', ['id' => $value['id']]) }}">{{$value['name']}}</a><br/>
 													<a class="opacity-75">{{$value['business_fields']}}</a>
 												</p>
 												<div class="contain-xs pull-left">
