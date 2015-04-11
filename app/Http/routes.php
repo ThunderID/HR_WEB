@@ -204,6 +204,12 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.relatives.index'
 						]
 					);		
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'PersonController@anyDelete', 
+							'as' 	=> 'hr.persons.delete'
+						]
+					);	
 	});
 	///END PERSON///
 	
