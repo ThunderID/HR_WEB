@@ -294,6 +294,10 @@ class PersonController extends AdminController {
 		return $this->layout;
 	}
 
+	function postUpdate($id)
+	{
+		return $this->postStore($id);
+	}
 
 	function anyDelete($id)
 	{
