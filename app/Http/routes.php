@@ -179,18 +179,13 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.edit'
 						]
 					);		
-		Route::get('shows/{person_id}/documents/{id}', 
-					[
-						'uses' 	=> 'PersonController@getShow', 
-						'as' 	=> 'hr.person.document.show'
-					]
-				);
-		Route::get('show/{person_id}/works', 
-					[
-						'uses' 	=> 'workController@getIndex', 
-						'as' 	=> 'hr.person.work.show'
-					]
-				);		
+
+		Route::get('show/{person_id}/relatives/{page?}', 
+						[
+							'uses' 	=> 'PersonController@getRelativesIndex', 
+							'as' 	=> 'hr.persons.relatives.index'
+						]
+					);		
 	});
 	///END PERSON///
 	

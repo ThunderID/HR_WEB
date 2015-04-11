@@ -15,7 +15,7 @@ class PersonController extends AdminController {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['contacts']];
+		$search 									= ['CurrentContact' => 'updated_at' ,'checkwork' => 'active'];
 		if(Input::has('q'))
 		{
 			if(Input::has('field'))
@@ -198,5 +198,44 @@ class PersonController extends AdminController {
 		// {
 		// 	return redirect()->back()->with('alert_danger', 'Invalid delete confirmation text');
 		// }
+	}
+
+	function getRelativesIndex($personid, $page = 1)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$search 									= ['checkrelation' => $personid, 'CurrentContact' => 'updated_at'];
+		$sort 										= ['first_name' => 'asc'];
+
+		$results 									= API::person()->index($page, $search, $sort);
+
+		$contents 									= json_decode($results);
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$relatives 									= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+
+		$results 									= API::person()->show($personid);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= 'Kerabat '.strtoupper($contents->data->nick_name);
+
+		$this->layout->content 						= view('admin.pages.person.relatives.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->relatives 			= $relatives;
+		$this->layout->content->paginator 			= $paginator;
+
+		return $this->layout;
 	}
 }
