@@ -339,7 +339,6 @@ class PersonController extends AdminController {
 
 			return $this->layout;
 		}
-		// }
 	}
 
 	function getRelativesIndex($personid, $page = 1)
@@ -379,5 +378,43 @@ class PersonController extends AdminController {
 		$this->layout->content->paginator 			= $paginator;
 
 		return $this->layout;
+	}
+
+	function postWorksStore($person_id, $id = null)
+	{
+		// ---------------------- HANDLE INPUT ----------------------
+		
+		if(Input::has('work_company'))
+		{
+			if(Input::get('work_company')!='')
+			{
+				$results 							= API::person()->show($person_id);
+				$contents 							= json_decode($results);
+
+				if(!$contents->meta->success)
+				{
+					App::abort(404);
+				}
+
+				$input['person'] 					= [];
+
+				$chart['organisation_chart_id'] 	= Input::get('work_company');
+				$chart['status'] 					= Input::get('work_status');
+				$chart['start'] 					= date("Y-m-d", strtotime(Input::get('work_start')));
+				$chart['end'] 						= date("Y-m-d", strtotime(Input::get('work_end')));
+				$chart['reason_end_job'] 			= Input::get('work_quit_reason');
+				$input['works'][] 					= $chart;
+				$results 										= API::person()->store($person_id, $input);
+
+				$content 										= json_decode($results);
+				if($content->meta->success)
+				{
+					return Redirect::route('hr.persons.index');
+				}
+				return Redirect::back()->withErrors($content->meta->errors)->withInput();
+			}
+		}
+
+		return Redirect::back()->withErrors(['Tidak ada data tersimpan'])->withInput();
 	}
 }
