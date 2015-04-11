@@ -62,16 +62,17 @@
 															<header>Tambah Dokumen</header>
 														</div>
 														<div class="card-body no-padding">
-															<form action="../../html/forms/advanced.html" class="dropzone dz-clickable" id="my-awesome-dropzone">
-																<div class="dz-message">
-																	<h3>Drop files here or click to upload.</h3>
-																	<em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
-																</div>
-															</form>
+															<div class ="col-md-12">
+																<form action="../../html/forms/advanced.html" class="dropzone dz-clickable" id="my-awesome-dropzone">
+																	<div class="dz-message">
+																		<h3>Klik atau Drag sebuah file untuk di unggah</h3>
+																	</div>
+																</form>
+															</div>
 														</div><!--end .card-body -->
 													</div><!--end .card -->
-													<em class="text-caption">Dropzone file upload</em>
-													<button type="submit" class="btn btn-raised btn-default-light pull-right">Add this note</button>
+													<em class="text-caption">* untuk menambahkan file, klik area diatas atau drag file pada area tersebut</em>
+													<button type="submit" class="btn btn-raised btn-default-light pull-right">Tambahkan dokumen</button>
 												</div><!--end .col -->
 											</div>
 											<br/>
@@ -190,8 +191,10 @@
 
 @stop
 
-@section('js')
-	<script type="text/javascript">
+@section('css')
+	{!! HTML::style('css/dropzone.css')!!}
+@stop
 
-	</script>
+@section('js')
+	{!! HTML::script('js/dropzone.min.js')!!}
 @stop
