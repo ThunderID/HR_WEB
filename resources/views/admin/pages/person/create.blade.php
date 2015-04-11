@@ -203,24 +203,21 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<select  id="relationship<%=index%>" name="relationship<%=index%>" class="form-control">
+						<select  id="relationship[<%=index%>]" name="relationship[<%=index%>]" class="form-control">
 							<option value=""></option>
-							<option value="father">Ayah</option>
-							<option value="mother">Ibu</option>
-							<option value="husband">Suami</option>
-							<option value="wife">Istri</option>
-							<option value="daughter">Anak Perempuan</option>
-							<option value="son">Anak Laki-laki</option>
+							<option value="parent">Orang Tua</option>
+							<option value="spouse">Pasangan</option>
+							<option value="child">Anak</option>
 						</select>
-						<label for="relationship<%=index%>">Relasi</label>
+						<label for="relationship[<%=index%>]">Relasi</label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<input name="relation_name_<%=index%>" id="relation_name_<%=index%>" class="form-control getName">											
-						<label for="relation_name_<%=index%>">Nama</label>
+						<input name="relation_id[<%=index%>]" id="relation_id[<%=index%>]" class="form-control getName">											
+						<label for="relation_id[<%=index%>]">Nama</label>
 					</div>
 					</div>
 			</div>
@@ -236,36 +233,36 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="prefix_title_relation_<%=index%>" name="prefix_title_relation_<%=index%>">
-											<label for="prefix_title_relation_<%=index%>">Gelar Depan</label>
+											<input type="text" class="form-control" id="prefix_title_relation[<%=index%>]" name="prefix_title_relation[<%=index%>]">
+											<label for="prefix_title_relation[<%=index%>]">Gelar Depan</label>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group">
-											<input type="text" class="form-control" id="first_name_relation_<%=index%>" name="first_name_relation_<%=index%>">
-											<label for="first_name_relation_<%=index%>">Nama Depan</label>
+											<input type="text" class="form-control" id="first_name_relation[<%=index%>]" name="first_name_relation[<%=index%>]">
+											<label for="first_name_relation[<%=index%>]">Nama Depan</label>
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<input type="text" class="form-control" id="midle_name_relation_<%=index%>" name="midle_name_relation_<%=index%>">
-												<label for="midle_name_relation_<%=index%>">Nama Tengah</label>
+											<input type="text" class="form-control" id="midle_name_relation[<%=index%>]" name="midle_name_relation[<%=index%>]">
+												<label for="midle_name_relation[<%=index%>]">Nama Tengah</label>
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<input type="text" class="form-control" id="last_name_relation_<%=index%>" name="last_name_relation_<%=index%>">
-											<label for="last_name_relation_<%=index%>">Nama Belakang</label>
+											<input type="text" class="form-control" id="last_name_relation[<%=index%>]" name="last_name_relation[<%=index%>]">
+											<label for="last_name_relation[<%=index%>]">Nama Belakang</label>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="suffix_title_relation_<%=index%>" name="suffix_title_relation_<%=index%>">
-											<label for="suffix_title_relation_<%=index%>">Gelar Belakang</label>
+											<input type="text" class="form-control" id="suffix_title_relation[<%=index%>]" name="suffix_title_relation[<%=index%>]">
+											<label for="suffix_title_relation[<%=index%>]">Gelar Belakang</label>
 										</div>
 									</div>
 								</div>
@@ -281,8 +278,8 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<input type="text" class="form-control" id="nick_name_relation_<%=index%>" name="nick_name_relation_<%=index%>">
-											<label for="nick_name_relation_<%=index%>">Nama Panggilan</label>
+											<input type="text" class="form-control" id="nick_name_relation[<%=index%>]" name="nick_name_relation[<%=index%>]">
+											<label for="nick_name_relation[<%=index%>]">Nama Panggilan</label>
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -295,7 +292,7 @@
 									<div class="col-md-2">
 										<div class="radio radio-styled">
 											<label>
-												<input name="gender_relation_<%=index%>" type="radio" value="male">
+												<input name="gender_relation[<%=index%>]" type="radio" value="male">
 												<span>Laki-laki</span>
 											</label>
 										</div>
@@ -303,7 +300,7 @@
 									<div class="col-md-2">
 										<div class="radio radio-styled">
 											<label>
-												<input name="gender_relation_<%=index%>" type="radio" value="female">
+												<input name="gender_relation[<%=index%>]" type="radio" value="female">
 												<span>Perempuan</span>
 											</label>
 										</div>
@@ -312,15 +309,15 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<input type="text" class="form-control" id="place_of_birth_relation_<%=index%>" name="place_of_birth_relation_<%=index%>">
-											<label for="place_of_birth_relation_<%=index%>">Tempat Lahir</label>
+											<input type="text" class="form-control" id="place_of_birth_relation[<%=index%>]" name="place_of_birth_relation[<%=index%>]">
+											<label for="place_of_birth_relation[<%=index%>]">Tempat Lahir</label>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<div class="input-daterange input-group" id="date_of_birth_relation_<%=index%>" style="width:100%; text-align:left;">
+											<div class="input-daterange input-group" id="date_of_birth_relation[<%=index%>]" style="width:100%; text-align:left;">
 												<div class="input-group-content">
-													<input type="text" class="form-control" name="date_of_birth_relation_<%=index%>" />
+													<input type="text" class="form-control" name="date_of_birth_relation[<%=index%>]" />
 													<label>Tanggal Lahir</label>
 												</div>
 											</div>
@@ -355,7 +352,7 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<input name="work_company[<%=index%>]" id="work_company[<%=index%>]" class="form-control getCompany" data-comp="">											
-						<label for="work_company[<%=index%>]">Perusahaan</label>
+						<label for="work_company[<%=index%>]">Posisi</label>
 					</div>
 				</div>
 			</div>

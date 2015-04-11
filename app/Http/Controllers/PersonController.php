@@ -110,6 +110,37 @@ class PersonController extends AdminController {
 			}
 		}
 
+		if(Input::has('relationship'))
+		{
+			foreach (Input::get('relationship') as $key => $value) 
+			{
+				$address 							= $value;
+				if(Input::get('relationship')[$key]!='')
+				{
+					if(Input::get('relation_id')[$key]!='')
+					{
+						$relate['id'] 					= Input::get('relation_id')[$key];
+						$relate['relationship'] 		= Input::get('relationship')[$key];
+						$input['relatives'][] 			= $relate;
+					}
+					else
+					{
+						$relate['prefix_title'] 		= Input::get('prefix_title_relation')[$key];
+						$relate['first_name'] 			= Input::get('first_name_relation')[$key];
+						$relate['middle_name'] 			= Input::get('midle_name_relation')[$key];
+						$relate['last_name'] 			= Input::get('last_name_relation')[$key];
+						$relate['suffix_title'] 		= Input::get('suffix_title_relation')[$key];
+						$relate['nick_name'] 			= Input::get('nick_name_relation')[$key];
+						$relate['gender'] 				= Input::get('gender_relation')[$key];
+						$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth_relation')[$key]));
+						$relate['place_of_birth'] 		= Input::get('place_of_birth_relation')[$key];
+						$relate['relationship'] 		= Input::get('relationship')[$key];
+						$input['relatives'][] 			= $relate;
+					}
+				}
+			}
+		}
+
 		if(Input::has('address_address'))
 		{
 			foreach (Input::get('address_address') as $key => $value) 
@@ -211,7 +242,7 @@ class PersonController extends AdminController {
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.branches.index');
+			return Redirect::route('hr.persons.index');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
