@@ -141,7 +141,7 @@
 				<div class="tab-pane" id="relation">
 					<ul class="list-unstyled" id="relationList"></ul>
 					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="relationTmpl" data-target="#relationList">TAMBAHKAN RELASI</a>
+						<a class="btn btn-raised btn-default-bright relation-add" data-duplicate="relationTmpl" data-target="#relationList">TAMBAHKAN RELASI</a>
 					</div><!--end .form-group -->
 				</div><!--end .tab-pane -->
 				<div class="tab-pane" id="work">
@@ -550,8 +550,6 @@
 	            }
 	        });
 
-			var n = 1;
-
 			$('.getCompany').select2({
 	            minimumInputLength: 3,
 	            placeholder: '',
@@ -576,6 +574,52 @@
 	                }
 	            }
 	        });
-		});
+
+			$('.relation-add').click(function(){
+				$('.getName').select2({
+		            minimumInputLength: 3,
+		            placeholder: '',
+		            ajax: {
+		                url: "{{route('hr.ajax.name')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               data: function (term) {},
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id,
+		                            }			                        
+		                        })
+		                    };
+		                }
+		            }
+		        });	
+	        });	
+
+			$('.work-add').click(function(){
+				$('.getCompany').select2({
+		            minimumInputLength: 3,
+		            placeholder: '',
+		            ajax: {
+		                url: "{{route('hr.ajax.company')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               data: function (term) {},
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id,
+		                            }			                        
+		                        })
+		                    };
+		                }
+		            }
+		        });	
+	        });		        
+        });	
 	</script>
 @stop
