@@ -124,6 +124,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisations.update'						=> ['developer'],
 							'hr.organisations.delete'						=> ['developer'],
 							'hr.organisations.show'							=> ['developer'],
+							'hr.organisations.documents.store'				=> ['developer', 'CEO', 'manager', 'staff'],
 
 							'hr.organisations.apis.create'					=> ['developer', 'CEO'],
 							'hr.organisations.apis.store'					=> ['developer', 'CEO'],

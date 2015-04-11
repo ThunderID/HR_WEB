@@ -68,6 +68,13 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);	
 
+		Route::post('documents/store/', 
+						[
+							'uses' 	=> 'OrganisationController@postDocumentsStore', 
+							'as' 	=> 'hr.organisations.documents.store'
+						]
+					);
+
 	});
 
 	//api key
