@@ -61,7 +61,7 @@
 						</dl>	
 						<div class="card-actionbar">
 							<div class="card-actionbar-row">
-								<a class="btn btn-flat" href="{{route('hr.organisation.branches.edit')}}">EDIT</a>
+								<a class="btn btn-flat" href="{{route('hr.organisation.branches.edit', ['id' => $data['id']]) }}">EDIT</a>
 							</div>
 						</div>												
 					</div>
