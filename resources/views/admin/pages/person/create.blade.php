@@ -172,7 +172,7 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="#">BATAL</a>
+					<a class="btn btn-flat" href="{{route('hr.persons.index')}}">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->

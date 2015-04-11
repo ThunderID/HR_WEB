@@ -111,7 +111,55 @@
 
 									<!-- BEGIN CONTACTS DETAILS -->
 									<div class="tab-pane" id="details">
-										<h3 class="opacity-50">Experience</h3>
+										<div class="tab-pane" id="work">
+											<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
+												<ul class="list-unstyled" id="workList">
+													<li class="clearfix">
+														<div class="page-header no-border holder">
+															<h4 class="text-accent">Tambahkan Pekerjaan </h4>
+															<br/>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<input name="work_company" id="work_company" class="form-control getCompany" data-comp="">											
+																	<label for="work_company">Posisi</label>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<input type="text" class="form-control" id="work_status" name="work_status">
+																	<label for="work_status">Status Pegawai (contract, trial, permanent, internship)</label>
+																</div>
+															</div>
+															<div class="col-md-12">
+																<div class="form-group">
+																	<input type="text" class="form-control" id="work_start[]" name="work_start">
+																	<label for="work_start">Mulai Bekerja</label>
+																</div>
+															</div>
+															<div class="col-md-12">
+																<div class="form-group">
+																	<input type="text" class="form-control" id="work_end" name="work_end">
+																	<label for="work_end">Berhenti Bekerja</label>
+																</div>
+															</div>
+														</div>
+														<div class="form-group">
+															<textarea name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3"></textarea>
+															<label for="work_quit_reason">Alasan Berhenti</label>
+														</div>
+
+														<div class="form-group text-right">
+															<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+														</div><!--end .card-actionbar -->
+													</li>
+												</ul>
+											</form>
+										</div><!--end .tab-pane -->
+										<br/>
 										<ul class="timeline collapse-lg timeline-hairline no-shadow">
 											@foreach($data['experiences'] as $key => $value)
 												@if($key==0)
@@ -137,6 +185,7 @@
 												</li>
 											@endforeach
 										</ul><!--end .timeline -->
+										
 									</div><!--end #details -->
 									<!-- END CONTACTS DETAILS -->
 
@@ -212,5 +261,31 @@
 @stop
 
 @section('js')
+	<script type="text/javascript">
+		$('.getCompany').select2({
+            minimumInputLength: 3,
+            placeholder: '',
+            ajax: {
+                url: "{{route('hr.ajax.company')}}",
+                dataType: 'json',
+                quietMillis: 500,
+               	data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name +' of '+ item.branch.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
+    </script>
 	{!! HTML::script('js/dropzone.min.js')!!}
 @stop
