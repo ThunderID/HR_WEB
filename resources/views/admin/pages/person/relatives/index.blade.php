@@ -12,7 +12,7 @@
 				<div class="card-head card-head-sm style-primary">
 					<header style="padding-top:5px;padding-bottom:5px">
 						<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction">
-							<i class="md md-reply"></i> Back
+							<i class="md md-reply"></i> Kembali
 						</a>
 					</header>
 				</div>
