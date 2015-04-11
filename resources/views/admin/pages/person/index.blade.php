@@ -31,20 +31,23 @@
 				<!-- BEGIN SEARCH NAV -->
 				<div class="col-sm-4 col-md-3 col-lg-2">
 					<ul class="nav nav-pills nav-stacked">
-						<li><small>Cari</small></li>
-						<li class="active"><a href="../../../html/pages/contacts/search.html">All contacts <small class="pull-right text-bold opacity-75">153</small></a></li>
-						<li><a href="../../../html/pages/contacts/search.html">Family <small class="pull-right text-bold opacity-75">16</small></a></li>
-						<li><a href="../../../html/pages/contacts/search.html">Friends <small class="pull-right text-bold opacity-75">76</small></a></li>
-						<li class="hidden-xs"><small>LAST VIEWED</small></li>
-						<li class="hidden-xs">
-							<a href="../../../html/pages/contacts/details.html">
-								<img class="img-circle img-responsive pull-left width-1" src="../../../assets/img/avatar7.jpg?1404026721" alt="" />
-								<span class="text-medium" >Philip Ericsson</span><br/>
-								<span class="opacity-50">
-									<span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;123-123-3210
-								</span>
-							</a>
-						</li>
+						<form class="form" action="#">
+							<li><small>Cari</small></li>
+							<li>
+								<input class="form-control input-sm" id="small4" type="text" placeholder="ketik yang dicari">
+							</li>
+							<li class="active">
+								<input type="text" class="form-control select2-list" id="work_department" name="work_department" data-placeholder="Department">
+								<label for="work_department">Department</label>
+							</li>
+							<li>
+								<input type="text" class="form-control select2-list" id="work_position" name="work_position" data-placeholder="Jabatan">
+								<label for="work_position">Jabatan</label>
+							</li>
+							<li>
+								<input type="submit" class="btn btn-primary btn-sm ink-reaction pull-right" value="Cari">
+							</li>
+						</form>
 					</ul>
 				</div><!--end .col -->
 				<!-- END SEARCH NAV -->
@@ -114,4 +117,51 @@
 			</div>
 		</div>
 	@endif
+@stop
+
+@section('js')
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#work_department').select2({
+				minimumInputLength: 3,
+				placeholder: '',
+				ajax: {
+					url: "{{route('hr.ajax.department')}}",
+					dataType: 'json',
+					quietMillis: 500,
+					data: function (term) {},
+					results: function (data) {
+						return {
+							results: $.map(data, function (item) {
+								return {
+									text: item.name,
+									id: item.id,
+								}
+							})
+						};
+					}
+				}	        
+			});
+			$('#work_position').select2({
+	            minimumInputLength: 3,
+	            placeholder: '',
+	            ajax: {
+	                url: "{{route('hr.ajax.position')}}",
+	                dataType: 'json',
+	                quietMillis: 500,
+	               	data: function (term) {},
+	                results: function (data) {
+	                    return {
+	                        results: $.map(data, function (item) {
+	                            return {
+	                                text: item.name,
+	                                id: item.id,
+	                            }
+	                        })
+	                    };
+	                }
+	            }
+	        });		
+		})
+	</script>
 @stop

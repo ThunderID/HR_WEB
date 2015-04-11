@@ -14,7 +14,7 @@
 							<input type='hidden' name='_token' value="{{csrf_token()}}">
 							@include('admin.widgets.alerts')
 							<div class="form-group">
-								<input type="text" class="form-control" id="username" name="username">
+								<input type="text" class="form-control" id="username" name="username" autofocus>
 								<label for="username">Username</label>
 							</div>
 							<div class="form-group">

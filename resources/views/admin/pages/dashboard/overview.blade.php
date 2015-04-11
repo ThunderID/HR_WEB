@@ -1,16 +1,12 @@
 @section('content')
 	<div class="row">
-<<<<<<< HEAD
-		@for($i=0; $i<2; $i++)
-			@include('admin.widgets.panel_list', [
-					'mode'	=> 'person',
-					'title'	=> 1,
-					'route'	=> '',
-					'data'	=> ['field' => '', 'row' => '']
-					
-			])
-		@endfor
-=======
+		<div class="col-sm-12 text-right mb-20">
+			<a href="" class="btn btn-floating-action btn-primary">
+				<i class="fa fa-plus"></i>
+			</a>
+		</div>
+	</div>
+	<div class="row">
 		<?php $color = ['warning', 'danger', 'success', 'info']; $x= 0;?>
 		@foreach ($dashboard as $key => $db)
 			@if ($db == 'stats')
@@ -37,6 +33,5 @@
 											$data])
 			@endif
 		@endforeach
->>>>>>> origin/master
 	</div>
 @stop
