@@ -8,16 +8,16 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-head card-head-sm style-primary">
-					<div class="row">
-						<div class="col-sm-6 pt-5 text-left">
-							<a href="{{route('hr.organisation.branches.index')}}" class="btn btn-flat ink-reaction">
-								<i class="md md-reply"></i> Kembali
-							</a>
-						</div>
-						<div class="col-sm-6 pt-5 text-right">
-							<a href="{{route('hr.organisation.branches.delete', [$data['id']])}}" class="btn btn-red ink-reaction">
-								<i class="fa fa-trash"></i> Hapus
-							</a>
+					<div class="col-md-12 pt-5 ">
+						<div class="col-md-12">
+							<div class="row">
+								<a href="{{route('hr.organisation.branches.index')}}" class="btn btn-flat ink-reaction pull-left">
+									<i class="md md-reply"></i> Kembali
+								</a>
+								<a href="{{route('hr.organisation.branches.delete', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+									<i class="fa fa-trash"></i> Hapus
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -27,73 +27,73 @@
 							<div class="margin-bottom-xxl row">
 								<div class="col-sm-10 col-md-10 ml-20">
 									<h1 class="text-light no-margin">{{$data['name']}}</h1>
-									<div class="form-horizontal">
-										<div class="row pt-10 no-margin">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-medium">Ijin Perusahaan</label>
-											</div>
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light">{{$data['license']}}</label>
-											</div>
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">NPWP</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">{{$data['npwp']}}</label>
-											</div>
-										</div>
-										<div class="row no-margin">
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Kegiatan Bisnis</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">{{$data['business_activities']}}</label>
-											</div>
-											<div class="col-sm-3 col-md-3">
-												<label class="text-lg text-light text-medium">Bidang Bisnis</label>
-											</div>
-											<div class="col-sm-3 col-md-3 pr-0">
-												<label class="text-lg text-light">{{$data['business_fields']}}</label>
-											</div>
-										</div>
-										<a id="detail" class="pull-right" data-toggle="collapse" href="#detail-company" aria-expanded="false" aria-controls="collapseExample" style="margin-right:-95px">
-											<i class="fa fa-plus-circle fa-lg"></i> lihat detail
-										</a>
-										<hr class="ruler-xl"></hr>
-										<div id="detail-company" class="collapse">
-											@foreach($data['contacts'] as $key => $value)
-												<div class="row no-margin pt-20" >
-													<div class="col-sm-4">
-														<label class="text-lg text-light text-medium">{{$value['item']}}</label>
-													</div>
-													<div class="col-sm-8 pr-0">
-														<label class="text-lg text-light">{{$value['value']}}</label>
-													</div>
-												</div>
-											@endforeach
-										</div>
-									</div>
 								</div>
 							</div>
-						</div>				
+						</div>
 					</div>
-				</div>
-			</div>	
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-12 col-md-12">
-			<div class="card">
-				<div class="card-head">
-					<header class="mt-10">
-						Struktur Perusahaan
-					</header>
-				</div>
-				<div class="card-body pt-10 pb-0">
-					<div id="orgchart"></div>
 				</div>
 			</div>
 		</div>
+					<!-- BEGIN LAYOUT LEFT SIDEBAR -->
+		<div class="col-md-12">
+			<div class="card tabs-left style-default-light">
+				<ul class="card-head nav nav-tabs" data-toggle="tabs">
+					<li class="active"><a href="#detaile">Detail</a></li>
+					<li><a href="#contact">Kontak</a></li>
+					<li><a class="oc" href="#structure">Struktur</a></li>
+					<li><a href="#Document">Dokumen</a></li>
+				</ul>
+				<div class="card-body tab-content style-default-bright">
+					<div class="tab-pane active" id="detaile">
+						<h3 class="text-light">Detail  Perusahaan</h3>
+						<dl class="dl-horizontal">
+							<dt>NPWP</dt>
+							<dd>{{$data['npwp']}}</dd>
+
+							<dt>Ijin Perusahaan</dt>
+							<dd>{{$data['license']}}</dd>
+
+							<dt>Bidang Bisnis</dt>
+							<dd>{{$data['business_fields']}}</dd>	
+
+							<dt>Kegiatan Bisnis</dt>
+							<dd>{{$data['business_activities']}}</dd>
+						</dl>						
+					</div>
+					<div class="tab-pane" id="contact">
+						<h3 class="text-light">Kontak  Perusahaan</h3>
+						<dl class="dl-horizontal">
+							@foreach($data['contacts'] as $key => $value)
+								<dt>{{$value['item']}}</dt>
+								<dd>{{$value['value']}}</dd>
+							@endforeach
+						</dl>
+						<div class="card-actionbar">
+							<div class="card-actionbar-row">
+								<a class="btn btn-flat" href="{{route('hr.organisation.branches.index')}}">EDIT</a>
+							</div>
+						</div>					
+					</div>					
+					<div class="tab-pane" id="structure">
+						<h3 class="text-light">Struktur Perusahaan</h3>
+						<div class="row">
+							<div class="card-body pt-10 pb-0" id="orgc">
+							</div>
+						</div>
+						<div class="card-actionbar">
+							<div class="card-actionbar-row">
+								<a class="btn btn-flat" href="{{route('hr.organisation.branches.index')}}">EDIT</a>
+							</div>
+						</div>							
+					</div>
+					<div class="tab-pane" id="Document">
+						<h3 class="text-light">Dokumen Perusahaan</h3>
+						<p>Quod option numquam vel in, et fuisset delicatissimi duo, qui ut animal noluisse erroribus. Ea eum veniam audire. Per at postea mediocritatem, vim numquam aliquid eu, in nam sale gubergren. Dicant vituperata consequuntur at sea, mazim commodo</p>
+					</div>
+				</div><!--end .card-body -->
+			</div><!--end .card -->
+		</div><!--end .col -->
+		<!-- END LAYOUT LEFT SIDEBAR -->	
 	</div>
 @stop
 
@@ -107,12 +107,9 @@
 	@include('admin.pages.organisation.company.orgchart')
 	<script type="text/javascript">
 		$(document).ready(function () {
-			$('#detail').click(function () {
-				if ($('#detail > i').hasClass('fa fa-plus-circle')){
-					$('#detail').html('<i class="fa fa-minus-circle"></i> Tutup detail');
-				} else {
-					$('#detail').html('<i class="fa fa-plus-circle"></i> Lihat detail');
-				}
+			$('.oc').click(function () {
+				document.getElementById('orgc').innerHTML = '<div id="orgchart"></div>';
+				init();
 			})
 		});
 	</script>
