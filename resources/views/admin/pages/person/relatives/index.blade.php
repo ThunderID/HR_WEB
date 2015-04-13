@@ -40,156 +40,164 @@
 
 								<!-- BEGIN CONTACTS MAIN CONTENT -->
 								<div class="col-sm-7 col-md-8 col-lg-9">
-									<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
-										<ul class="list-unstyled" id="workList">
-											<li class="clearfix">
-												<div class="page-header no-border holder">
- 													<h4 class="text-accent">Tambahkan Relasi</h4>
-												</div>
-												<div class="row">
-													<div class="col-md-12">
-														<div class="form-group">
-															<select  id="relationship" name="relationship" class="form-control">
-																<option value=""></option>
-																<option value="parent">Orang Tua</option>
-																<option value="spouse">Pasangan</option>
-																<option value="child">Anak</option>
-															</select>
-															<label for="relationship">Relasi</label>
+									<div class="row">
+										<button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Tambah Data</button>
+									</div>
+									<div id="demo" class="row collapse out">
+										<div class="col-md-12">
+											<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
+												<ul class="list-unstyled" id="workList">
+													<li class="clearfix">
+														<div class="page-header no-border holder">
+		 													<h4 class="text-accent">Profil Relasi</h4>
 														</div>
-													</div>
-												</div>
-
-												<div class="row">
-													<div class="card">
-														<!-- BEGIN RELASI DETAIL -->			
-														<div class="card-head style-primary-dark">
-															<header>Nama</header>
-														</div>
-														<div class="card-head">
-															<ul class="nav nav-tabs" data-toggle="tabs">
-																<li class="active"><a href="#first1">Data yang sudah ada</a></li>
-																<li><a href="#second1">Data baru</a></li>
-															</ul>
-														</div>
-
-														<div class="card-body tab-content">
-															<div class="tab-pane active" id="first1">
-																<div class="row">
-																	<div class="col-md-12">
-																		<div class="form-group">
-																			<input name="relation" id="relation" class="form-control getName">											
-																			<label for="relation">Nama</label>
-																		</div>
-																	</div>
-																</div>							
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<select  id="relationship" name="relationship" class="form-control">
+																		<option value=""></option>
+																		<option value="parent">Orang Tua</option>
+																		<option value="spouse">Pasangan</option>
+																		<option value="child">Anak</option>
+																	</select>
+																	<label for="relationship">Relasi</label>
+																</div>
 															</div>
+														</div>
 
-															<div class="tab-pane" id="second1">														
-																<div class="row">
-																	<div class="col-xs-12">
+														<div class="row">
+															<div class="card">
+																<!-- BEGIN RELASI DETAIL -->			
+																<div class="card-head style-primary-dark">
+																	<header>Nama</header>
+																</div>
+																<div class="card-head">
+																	<ul class="nav nav-tabs" data-toggle="tabs">
+																		<li class="active"><a href="#first1">Data yang sudah ada</a></li>
+																		<li><a href="#second1">Data baru</a></li>
+																	</ul>
+																</div>
+
+																<div class="card-body tab-content">
+																	<div class="tab-pane active" id="first1">
 																		<div class="row">
 																			<div class="col-md-12">
 																				<div class="form-group">
-																					<input type="text" class="form-control" id="prefix_title_relation" name="prefix_title_relation">
-																					<label for="prefix_title_relation">Gelar Depan</label>
+																					<input name="relation" id="relation" class="form-control getName">											
+																					<label for="relation">Nama</label>
+																				</div>
+																			</div>
+																		</div>							
+																	</div>
+
+																	<div class="tab-pane" id="second1">														
+																		<div class="row">
+																			<div class="col-xs-12">
+																				<div class="row">
+																					<div class="col-md-12">
+																						<div class="form-group">
+																							<input type="text" class="form-control" id="prefix_title_relation" name="prefix_title_relation">
+																							<label for="prefix_title_relation">Gelar Depan</label>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="row">
+																					<div class="col-md-4">
+																						<div class="form-group">
+																							<input type="text" class="form-control" id="first_name_relation" name="first_name_relation">
+																							<label for="first_name_relation">Nama Depan</label>
+																						</div>
+																					</div>
+																					<div class="col-md-4">
+																						<div class="form-group">
+																							<input type="text" class="form-control" id="midle_name_relation" name="midle_name_relation">
+																								<label for="midle_name_relation">Nama Tengah</label>
+																						</div>
+																					</div>
+																					<div class="col-md-4">
+																						<div class="form-group">
+																							<input type="text" class="form-control" id="last_name_relation" name="last_name_relation">
+																							<label for="last_name_relation">Nama Belakang</label>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="row">
+																					<div class="col-md-12">
+																						<div class="form-group">
+																							<input type="text" class="form-control" id="suffix_title_relation" name="suffix_title_relation">
+																							<label for="suffix_title_relation">Gelar Belakang</label>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<header class="card-head">Profil Relasi</header>
+																		<div class="row">
+																			<div class="col-md-6">
+																				<div class="form-group">
+																					<input type="text" class="form-control" id="nick_name_relation" name="nick_name_relation">
+																					<label for="nick_name_relation">Nama Panggilan</label>
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="form-group">
+																					<label>
+																						Jenis Kelamin
+																					</label>
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="radio radio-styled">
+																					<label>
+																						<input name="gender_relation" type="radio" value="male">
+																						<span>Laki-laki</span>
+																					</label>
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="radio radio-styled">
+																					<label>
+																						<input name="gender_relation" type="radio" value="female">
+																						<span>Perempuan</span>
+																					</label>
 																				</div>
 																			</div>
 																		</div>
 																		<div class="row">
-																			<div class="col-md-4">
+																			<div class="col-md-6">
 																				<div class="form-group">
-																					<input type="text" class="form-control" id="first_name_relation" name="first_name_relation">
-																					<label for="first_name_relation">Nama Depan</label>
+																					<input type="text" class="form-control" id="place_of_birth_relation" name="place_of_birth_relation">
+																					<label for="place_of_birth_relation">Tempat Lahir</label>
 																				</div>
 																			</div>
-																			<div class="col-md-4">
+																			<div class="col-md-6">
 																				<div class="form-group">
-																					<input type="text" class="form-control" id="midle_name_relation" name="midle_name_relation">
-																						<label for="midle_name_relation">Nama Tengah</label>
-																				</div>
-																			</div>
-																			<div class="col-md-4">
-																				<div class="form-group">
-																					<input type="text" class="form-control" id="last_name_relation" name="last_name_relation">
-																					<label for="last_name_relation">Nama Belakang</label>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="row">
-																			<div class="col-md-12">
-																				<div class="form-group">
-																					<input type="text" class="form-control" id="suffix_title_relation" name="suffix_title_relation">
-																					<label for="suffix_title_relation">Gelar Belakang</label>
+																					<div class="input-daterange input-group" id="date_of_birth_relation" style="width:100%; text-align:left;">
+																						<div class="input-group-content">
+																							<input type="text" class="form-control" name="date_of_birth_relation" />
+																							<label>Tanggal Lahir</label>
+																						</div>
+																					</div>
 																				</div>
 																			</div>
 																		</div>
 																	</div>
-																</div>
-																<header class="card-head">Profil Relasi</header>
-																<div class="row">
-																	<div class="col-md-6">
-																		<div class="form-group">
-																			<input type="text" class="form-control" id="nick_name_relation" name="nick_name_relation">
-																			<label for="nick_name_relation">Nama Panggilan</label>
-																		</div>
-																	</div>
-																	<div class="col-md-2">
-																		<div class="form-group">
-																			<label>
-																				Jenis Kelamin
-																			</label>
-																		</div>
-																	</div>
-																	<div class="col-md-2">
-																		<div class="radio radio-styled">
-																			<label>
-																				<input name="gender_relation" type="radio" value="male">
-																				<span>Laki-laki</span>
-																			</label>
-																		</div>
-																	</div>
-																	<div class="col-md-2">
-																		<div class="radio radio-styled">
-																			<label>
-																				<input name="gender_relation" type="radio" value="female">
-																				<span>Perempuan</span>
-																			</label>
-																		</div>
-																	</div>
-																</div>
-																<div class="row">
-																	<div class="col-md-6">
-																		<div class="form-group">
-																			<input type="text" class="form-control" id="place_of_birth_relation" name="place_of_birth_relation">
-																			<label for="place_of_birth_relation">Tempat Lahir</label>
-																		</div>
-																	</div>
-																	<div class="col-md-6">
-																		<div class="form-group">
-																			<div class="input-daterange input-group" id="date_of_birth_relation" style="width:100%; text-align:left;">
-																				<div class="input-group-content">
-																					<input type="text" class="form-control" name="date_of_birth_relation" />
-																					<label>Tanggal Lahir</label>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
+																	<!-- END RELASI DETAIL -->
+																</div><!--end .card-body -->														
 															</div>
-															<!-- END RELASI DETAIL -->
-														</div><!--end .card-body -->														
-													</div>
-												</div>
-											</li>
-										</ul>
-										<div class="card-actionbar">
-											<div class="card-actionbar-row">
-												<a class="btn btn-flat" href="{{route('hr.persons.index')}}">BATAL</a>
-												<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-											</div><!--end .card-actionbar-row -->
-										</div><!--end .card-actionbar -->
-									</form>
+														</div>
+													</li>
+												</ul>
+												<div class="card-actionbar">
+													<div class="card-actionbar-row">
+														<a class="btn btn-flat" href="{{route('hr.persons.index')}}">BATAL</a>
+														<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+													</div><!--end .card-actionbar-row -->
+												</div><!--end .card-actionbar -->
+											</form>
+										</div>
+									</div>
+
 									<div class="page-header no-border holder">
 											<h4 class="text-accent">Daftar Relasi</h4>
 									</div>									
