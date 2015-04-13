@@ -81,11 +81,15 @@
 													</div>
 													<div class="card card-body no-padding">
 														<div class ="col-md-12">
-															<form action="../../html/forms/advanced.html" class="dropzone dz-clickable" id="my-awesome-dropzone">
-																<div class="dz-message">
-																	<h3>Klik atau Drag sebuah file untuk di unggah</h3>
+															<div class="form-group">
+																<div class="dropzone document dz-clickable" id="document_upload">
+																	<div class="dz-message">
+																		<h3>Klik atau Drag sebuah file untuk di unggah</h3>
+																	</div>
+																	<input type="hidden" name="link" id="gallery_file_url">
 																</div>
-															</form>
+																<label for="input_text">DropZone Uploaded</label>
+															</div>	
 														</div>
 													</div><!--end .card-body -->
 													<em class="text-caption">* untuk menambahkan file, klik area diatas atau drag file pada area tersebut</em>
@@ -276,6 +280,7 @@
 @stop
 
 @section('js')
+	{!! HTML::script('js/dropzone.min.js')!!}
 	<script type="text/javascript">
 		$('.getCompany').select2({
             minimumInputLength: 3,
@@ -301,6 +306,28 @@
                 }
             }
         });
+
+        $("#document_upload").dropzone({ 
+			url: '{{ route("hr.images.upload") }}' ,
+			maxFilesize: 1,
+			addRemoveLinks: true,
+			init: function(){
+				this.on('success', function(file){
+					var accepted_files = this.getAcceptedFiles();
+					var uploaded_files = [];
+					var gallery_json;
+
+					if (accepted_files.length > 0)
+					{
+						accepted_files.forEach(function(cur_value, index, array){
+							var response = $.parseJSON(cur_value.xhr.response);
+							uploaded_files.push(response.file.url);
+						});
+					}
+
+					$('#gallery_file_url').val(JSON.stringify(uploaded_files));
+				});
+			}
+		});	
     </script>
-	{!! HTML::script('js/dropzone.min.js')!!}
 @stop
