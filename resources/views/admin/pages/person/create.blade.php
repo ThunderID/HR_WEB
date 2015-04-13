@@ -215,126 +215,139 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<input name="relation_id[<%=index%>]" id="relation_id[<%=index%>]" class="form-control getName">											
-						<label for="relation_id[<%=index%>]">Nama</label>
-					</div>
-					</div>
-			</div>
-			<div class="row">
-				<div class="card style-primary-dark">
+				<div class="card">
 					<!-- BEGIN RELASI DETAIL -->			
 					<div class="card-head style-primary-dark">
 						<header>Nama</header>
 					</div>
-					<div class="card-body style-primary-dark form-inverse">
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="prefix_title_relation[<%=index%>]" name="prefix_title_relation[<%=index%>]">
-											<label for="prefix_title_relation[<%=index%>]">Gelar Depan</label>
+
+					<div class="card-head">
+						<ul class="nav nav-tabs" data-toggle="tabs">
+							<li id="title_panel1_<%=index%>"><a href="javascript:;" onClick="show_panel1(this.id);" id="panel1_<%=index%>">Data yang sudah ada</a></li>
+							<li id="title_panel2_<%=index%>"><a href="javascript:;" onClick="show_panel2(this.id);" id="panel2_<%=index%>">Data baru</a></li>
+						</ul>
+					</div>
+
+					<div class="card-body tab-content">
+						<div class="tab-pane" id="tmpl_panel1_<%=index%>">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input name="relation_id[<%=index%>]" id="relation_id[<%=index%>]" class="form-control getName">											
+												<label for="relation_id[<%=index%>]">Nama</label>
+											</div>
+										</div>
+									</div>							
+								</div>	
+							</div>							
+						</div>
+
+						<div class="tab-pane" id="tmpl_panel2_<%=index%>">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="prefix_title_relation[<%=index%>]" name="prefix_title_relation[<%=index%>]">
+												<label for="prefix_title_relation[<%=index%>]">Gelar Depan</label>
+											</div>
+										</div>
+									</div>						
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="first_name_relation[<%=index%>]" name="first_name_relation[<%=index%>]">
+												<label for="first_name_relation[<%=index%>]">Nama Depan</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="midle_name_relation[<%=index%>]" name="midle_name_relation[<%=index%>]">
+													<label for="midle_name_relation[<%=index%>]">Nama Tengah</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="last_name_relation[<%=index%>]" name="last_name_relation[<%=index%>]">
+												<label for="last_name_relation[<%=index%>]">Nama Belakang</label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="suffix_title_relation[<%=index%>]" name="suffix_title_relation[<%=index%>]">
+												<label for="suffix_title_relation[<%=index%>]">Gelar Belakang</label>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="first_name_relation[<%=index%>]" name="first_name_relation[<%=index%>]">
-											<label for="first_name_relation[<%=index%>]">Nama Depan</label>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="midle_name_relation[<%=index%>]" name="midle_name_relation[<%=index%>]">
-												<label for="midle_name_relation[<%=index%>]">Nama Tengah</label>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="last_name_relation[<%=index%>]" name="last_name_relation[<%=index%>]">
-											<label for="last_name_relation[<%=index%>]">Nama Belakang</label>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="suffix_title_relation[<%=index%>]" name="suffix_title_relation[<%=index%>]">
-											<label for="suffix_title_relation[<%=index%>]">Gelar Belakang</label>
-										</div>
-									</div>
+							</div>	
+							<div class="row">
+								<div class="card-head">
+									<header>Profil Relasi</header>
 								</div>
 							</div>
-						</div>
-					</div><!--end .card-body -->
-					<div class="card-head style-primary-dark">
-						<header>Profil Relasi</header>
-					</div>
-					<div class="card-body style-primary-dark form-inverse">
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type="text" class="form-control" id="nick_name_relation[<%=index%>]" name="nick_name_relation[<%=index%>]">
-											<label for="nick_name_relation[<%=index%>]">Nama Panggilan</label>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="text" class="form-control" id="nick_name_relation[<%=index%>]" name="nick_name_relation[<%=index%>]">
+												<label for="nick_name_relation[<%=index%>]">Nama Panggilan</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="form-group">
+												<label>
+													Jenis Kelamin
+												</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="radio radio-styled">
+												<label>
+													<input name="gender_relation[<%=index%>]" type="radio" value="male">
+													<span>Laki-laki</span>
+												</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="radio radio-styled">
+												<label>
+													<input name="gender_relation[<%=index%>]" type="radio" value="female">
+													<span>Perempuan</span>
+												</label>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-2">
-										<div class="form-group">
-											<label>
-												Jenis Kelamin
-											</label>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="text" class="form-control" id="place_of_birth_relation[<%=index%>]" name="place_of_birth_relation[<%=index%>]">
+												<label for="place_of_birth_relation[<%=index%>]">Tempat Lahir</label>
+											</div>
 										</div>
-									</div>
-									<div class="col-md-2">
-										<div class="radio radio-styled">
-											<label>
-												<input name="gender_relation[<%=index%>]" type="radio" value="male">
-												<span>Laki-laki</span>
-											</label>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<div class="radio radio-styled">
-											<label>
-												<input name="gender_relation[<%=index%>]" type="radio" value="female">
-												<span>Perempuan</span>
-											</label>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type="text" class="form-control" id="place_of_birth_relation[<%=index%>]" name="place_of_birth_relation[<%=index%>]">
-											<label for="place_of_birth_relation[<%=index%>]">Tempat Lahir</label>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<div class="input-daterange input-group" id="date_of_birth_relation[<%=index%>]" style="width:100%; text-align:left;">
-												<div class="input-group-content">
-													<input type="text" class="form-control" name="date_of_birth_relation[<%=index%>]" />
-													<label>Tanggal Lahir</label>
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="input-daterange input-group" id="date_of_birth_relation[<%=index%>]" style="width:100%; text-align:left;">
+													<div class="input-group-content">
+														<input type="text" class="form-control" name="date_of_birth_relation[<%=index%>]" />
+														<label>Tanggal Lahir</label>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>																	
 						</div>
-					</div>
-					<div class="card-actionbar">
-						<div class="card-actionbar-row">
-							<a class="btn btn-flat" href="#">BATAL</a>
-							<button type="button" class="btn btn-flat">SIMPAN DATA</button>
-						</div>
-					</div>
+					</div><!--end .card-body -->
+
 					<!-- END RELASI DETAIL -->
 				</div>
 			</div>
@@ -530,7 +543,25 @@
 	</script>
 
 	<script type="text/javascript">
+		function show_panel1(n) {
+			document.getElementById('title_' + n).className = "active";
+			document.getElementById('title_panel2_' + n.slice(-1)).className = "";
+
+			document.getElementById('tmpl_' + n).className = "tab-pane active";
+			document.getElementById('tmpl_panel2_' + n.slice(-1)).className = "tab-pane";
+		}
+
+		function show_panel2(n) {
+			document.getElementById('title_panel1_' + n.slice(-1)).className = "";
+			document.getElementById('title_' + n).className = "active";
+
+			document.getElementById('tmpl_panel1_' + n.slice(-1)).className = "tab-pane";
+			document.getElementById('tmpl_' + n).className = "tab-pane active";
+		}		
+
 		$(document).ready(function () {
+
+
 			$('.getName').select2({
 	            minimumInputLength: 3,
 	            placeholder: '',
