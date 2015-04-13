@@ -141,7 +141,7 @@
 				<div class="tab-pane" id="relation">
 					<ul class="list-unstyled" id="relationList"></ul>
 					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="relationTmpl" data-target="#relationList">TAMBAHKAN RELASI</a>
+						<a class="btn btn-raised btn-default-bright relation-add" data-duplicate="relationTmpl" data-target="#relationList">TAMBAHKAN RELASI</a>
 					</div><!--end .form-group -->
 				</div><!--end .tab-pane -->
 				<div class="tab-pane" id="work">
@@ -162,8 +162,8 @@
 				</div><!--end .tab-pane -->
 				<div class="tab-pane " id="document">
 					<ul class="list-unstyled" id="documentList"></ul>
-					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="skillTmpl" data-target="#documentList">TAMBAH DOKUMEN</a>
+					<div class="form-group" data-duplicate="skillTmpl" data-target="#documentList">
+						
 					</div><!--end .form-group -->
 				</div><!--end .tab-pane -->
 			</div><!--end .card-body.tab-content -->
@@ -184,7 +184,8 @@
 
 @section('css')
 	{!! HTML::style('css/datepicker3.css')!!}
-	{!! HTML::style('css/summernote.css')!!}	
+	{!! HTML::style('css/summernote.css')!!}
+	{!! HTML::style('css/dropzone.css')!!}	
 @stop
 
 @section('js')
@@ -192,6 +193,7 @@
 	{!! HTML::script('js/summernote.min.js')!!}
 	{!! HTML::script('js/microtemplating.min.js')!!}
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
+	{!! HTML::script('js/dropzone.min.js')!!}
 
 	<!-- BEGIN RELATION TEMPLATES -->
 	<script type="text/html" id="relationTmpl">
@@ -213,126 +215,139 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<input name="relation_id[<%=index%>]" id="relation_id[<%=index%>]" class="form-control getName">											
-						<label for="relation_id[<%=index%>]">Nama</label>
-					</div>
-					</div>
-			</div>
-			<div class="row">
-				<div class="card style-primary-dark">
+				<div class="card">
 					<!-- BEGIN RELASI DETAIL -->			
 					<div class="card-head style-primary-dark">
 						<header>Nama</header>
 					</div>
-					<div class="card-body style-primary-dark form-inverse">
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="prefix_title_relation[<%=index%>]" name="prefix_title_relation[<%=index%>]">
-											<label for="prefix_title_relation[<%=index%>]">Gelar Depan</label>
+
+					<div class="card-head">
+						<ul class="nav nav-tabs" data-toggle="tabs">
+							<li id="title_panel1_<%=index%>"><a href="javascript:;" onClick="show_panel1(this.id);" id="panel1_<%=index%>">Data yang sudah ada</a></li>
+							<li id="title_panel2_<%=index%>"><a href="javascript:;" onClick="show_panel2(this.id);" id="panel2_<%=index%>">Data baru</a></li>
+						</ul>
+					</div>
+
+					<div class="card-body tab-content">
+						<div class="tab-pane" id="tmpl_panel1_<%=index%>">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input name="relation_id[<%=index%>]" id="relation_id[<%=index%>]" class="form-control getName">											
+												<label for="relation_id[<%=index%>]">Nama</label>
+											</div>
+										</div>
+									</div>							
+								</div>	
+							</div>							
+						</div>
+
+						<div class="tab-pane" id="tmpl_panel2_<%=index%>">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="prefix_title_relation[<%=index%>]" name="prefix_title_relation[<%=index%>]">
+												<label for="prefix_title_relation[<%=index%>]">Gelar Depan</label>
+											</div>
+										</div>
+									</div>						
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="first_name_relation[<%=index%>]" name="first_name_relation[<%=index%>]">
+												<label for="first_name_relation[<%=index%>]">Nama Depan</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="midle_name_relation[<%=index%>]" name="midle_name_relation[<%=index%>]">
+													<label for="midle_name_relation[<%=index%>]">Nama Tengah</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="last_name_relation[<%=index%>]" name="last_name_relation[<%=index%>]">
+												<label for="last_name_relation[<%=index%>]">Nama Belakang</label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="suffix_title_relation[<%=index%>]" name="suffix_title_relation[<%=index%>]">
+												<label for="suffix_title_relation[<%=index%>]">Gelar Belakang</label>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="first_name_relation[<%=index%>]" name="first_name_relation[<%=index%>]">
-											<label for="first_name_relation[<%=index%>]">Nama Depan</label>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="midle_name_relation[<%=index%>]" name="midle_name_relation[<%=index%>]">
-												<label for="midle_name_relation[<%=index%>]">Nama Tengah</label>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<input type="text" class="form-control" id="last_name_relation[<%=index%>]" name="last_name_relation[<%=index%>]">
-											<label for="last_name_relation[<%=index%>]">Nama Belakang</label>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="suffix_title_relation[<%=index%>]" name="suffix_title_relation[<%=index%>]">
-											<label for="suffix_title_relation[<%=index%>]">Gelar Belakang</label>
-										</div>
-									</div>
+							</div>	
+							<div class="row">
+								<div class="card-head">
+									<header>Profil Relasi</header>
 								</div>
 							</div>
-						</div>
-					</div><!--end .card-body -->
-					<div class="card-head style-primary-dark">
-						<header>Profil Relasi</header>
-					</div>
-					<div class="card-body style-primary-dark form-inverse">
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type="text" class="form-control" id="nick_name_relation[<%=index%>]" name="nick_name_relation[<%=index%>]">
-											<label for="nick_name_relation[<%=index%>]">Nama Panggilan</label>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="text" class="form-control" id="nick_name_relation[<%=index%>]" name="nick_name_relation[<%=index%>]">
+												<label for="nick_name_relation[<%=index%>]">Nama Panggilan</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="form-group">
+												<label>
+													Jenis Kelamin
+												</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="radio radio-styled">
+												<label>
+													<input name="gender_relation[<%=index%>]" type="radio" value="male">
+													<span>Laki-laki</span>
+												</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="radio radio-styled">
+												<label>
+													<input name="gender_relation[<%=index%>]" type="radio" value="female">
+													<span>Perempuan</span>
+												</label>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-2">
-										<div class="form-group">
-											<label>
-												Jenis Kelamin
-											</label>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="text" class="form-control" id="place_of_birth_relation[<%=index%>]" name="place_of_birth_relation[<%=index%>]">
+												<label for="place_of_birth_relation[<%=index%>]">Tempat Lahir</label>
+											</div>
 										</div>
-									</div>
-									<div class="col-md-2">
-										<div class="radio radio-styled">
-											<label>
-												<input name="gender_relation[<%=index%>]" type="radio" value="male">
-												<span>Laki-laki</span>
-											</label>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<div class="radio radio-styled">
-											<label>
-												<input name="gender_relation[<%=index%>]" type="radio" value="female">
-												<span>Perempuan</span>
-											</label>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type="text" class="form-control" id="place_of_birth_relation[<%=index%>]" name="place_of_birth_relation[<%=index%>]">
-											<label for="place_of_birth_relation[<%=index%>]">Tempat Lahir</label>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<div class="input-daterange input-group" id="date_of_birth_relation[<%=index%>]" style="width:100%; text-align:left;">
-												<div class="input-group-content">
-													<input type="text" class="form-control" name="date_of_birth_relation[<%=index%>]" />
-													<label>Tanggal Lahir</label>
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="input-daterange input-group" id="date_of_birth_relation[<%=index%>]" style="width:100%; text-align:left;">
+													<div class="input-group-content">
+														<input type="text" class="form-control" name="date_of_birth_relation[<%=index%>]" />
+														<label>Tanggal Lahir</label>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>																	
 						</div>
-					</div>
-					<div class="card-actionbar">
-						<div class="card-actionbar-row">
-							<a class="btn btn-flat" href="#">BATAL</a>
-							<button type="button" class="btn btn-flat">SIMPAN DATA</button>
-						</div>
-					</div>
+					</div><!--end .card-body -->
+
 					<!-- END RELASI DETAIL -->
 				</div>
 			</div>
@@ -504,16 +519,20 @@
 	<script type="text/html" id="skillTmpl">
 		<li class="clearfix">
 			<div class="page-header no-border holder">
-				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Dokumen <%=index%></h4>
+				<h4 class="text-accent">Dokumen</h4>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<textarea name="input_text<%=index%>" id="input_text<%=index%>" class="form-control" rows="3"></textarea>
-								<label for="input_text<%=index%>">DropZone Uploaded</label>
+								<form action="{{ route('hr.images.upload') }}" class="dropzone dz-clickable" id="my-awesome-dropzone"  enctype="multipart/form-data">
+									<div class="dz-message">
+										<h3>Klik atau Drag sebuah file untuk di unggah</h3>
+									</div>
+									<input type="hidden" name="link" id="link">
+								</form>
+								<label for="input_text">DropZone Uploaded</label>
 							</div>	
 						</div>	
 					</div>	
@@ -524,7 +543,25 @@
 	</script>
 
 	<script type="text/javascript">
+		function show_panel1(n) {
+			document.getElementById('title_' + n).className = "active";
+			document.getElementById('title_panel2_' + n.slice(-1)).className = "";
+
+			document.getElementById('tmpl_' + n).className = "tab-pane active";
+			document.getElementById('tmpl_panel2_' + n.slice(-1)).className = "tab-pane";
+		}
+
+		function show_panel2(n) {
+			document.getElementById('title_panel1_' + n.slice(-1)).className = "";
+			document.getElementById('title_' + n).className = "active";
+
+			document.getElementById('tmpl_panel1_' + n.slice(-1)).className = "tab-pane";
+			document.getElementById('tmpl_' + n).className = "tab-pane active";
+		}		
+
 		$(document).ready(function () {
+
+
 			$('.getName').select2({
 	            minimumInputLength: 3,
 	            placeholder: '',
@@ -550,8 +587,6 @@
 	            }
 	        });
 
-			var n = 1;
-
 			$('.getCompany').select2({
 	            minimumInputLength: 3,
 	            placeholder: '',
@@ -576,6 +611,52 @@
 	                }
 	            }
 	        });
-		});
+
+			$('.relation-add').click(function(){
+				$('.getName').select2({
+		            minimumInputLength: 3,
+		            placeholder: '',
+		            ajax: {
+		                url: "{{route('hr.ajax.name')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               data: function (term) {},
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id,
+		                            }			                        
+		                        })
+		                    };
+		                }
+		            }
+		        });	
+	        });	
+
+			$('.work-add').click(function(){
+				$('.getCompany').select2({
+		            minimumInputLength: 3,
+		            placeholder: '',
+		            ajax: {
+		                url: "{{route('hr.ajax.company')}}",
+		                dataType: 'json',
+		                quietMillis: 500,
+		               data: function (term) {},
+		                results: function (data) {
+		                    return {
+		                        results: $.map(data, function (item) {
+		                            return {
+		                                text: item.name,
+		                                id: item.id,
+		                            }			                        
+		                        })
+		                    };
+		                }
+		            }
+		        });	
+	        });		        
+        });	
 	</script>
 @stop
