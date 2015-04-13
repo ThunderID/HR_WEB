@@ -70,23 +70,29 @@
 											<br/>
 											<div class="row">
 												<div class="col-lg-12">
-													<div class="card">
-														<div class="card-head style-primary">
-															<header>Tambah Dokumen</header>
+													<button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Tambah Data</button>
+												</div>
+											</div>
+											<br/>
+											<div id="demo" class="row collapse out">
+												<div class="col-lg-12">
+													<div class="card-head style-primary">
+														<header>Tambah Dokumen</header>
+													</div>
+													<div class="card card-body no-padding">
+														<div class ="col-md-12">
+															<form action="../../html/forms/advanced.html" class="dropzone dz-clickable" id="my-awesome-dropzone">
+																<div class="dz-message">
+																	<h3>Klik atau Drag sebuah file untuk di unggah</h3>
+																</div>
+															</form>
 														</div>
-														<div class="card-body no-padding">
-															<div class ="col-md-12">
-																<form action="../../html/forms/advanced.html" class="dropzone dz-clickable" id="my-awesome-dropzone">
-																	<div class="dz-message">
-																		<h3>Klik atau Drag sebuah file untuk di unggah</h3>
-																	</div>
-																</form>
-															</div>
-														</div><!--end .card-body -->
-													</div><!--end .card -->
+													</div><!--end .card-body -->
 													<em class="text-caption">* untuk menambahkan file, klik area diatas atau drag file pada area tersebut</em>
-													<button type="submit" class="btn btn-raised btn-default-light pull-right">Tambahkan dokumen</button>
-												</div><!--end .col -->
+													<div class="form-group text-right">
+														<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+													</div><!--end .card-actionbar -->
+												</div>
 											</div>
 											<br/>
 											<div class="list-results list-results-underlined">
@@ -116,13 +122,18 @@
 									<!-- BEGIN CONTACTS DETAILS -->
 									<div class="tab-pane" id="details">
 										<div class="tab-pane" id="work">
-											<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
-												<ul class="list-unstyled" id="workList">
-													<li class="clearfix">
-														<div class="page-header no-border holder">
-															<h4 class="text-accent">Tambahkan Pekerjaan </h4>
-															<br/>
-														</div>
+											<br/>
+											<div class="row">
+												<div class="col-lg-12">
+													<button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo2">Tambah Data</button>
+												</div>
+											</div>
+											<br/>
+											<div id="demo2" class="row collapse out">
+												<div class="col-md-12">
+													<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
+														<h4 class="text-accent">Data Pekerjaan </h4>
+														<br/>
 														<div class="row">
 															<div class="col-md-12">
 																<div class="form-group">
@@ -159,9 +170,9 @@
 														<div class="form-group text-right">
 															<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 														</div><!--end .card-actionbar -->
-													</li>
-												</ul>
-											</form>
+													</form>
+												</div>
+											</div>
 										</div><!--end .tab-pane -->
 										<br/>
 										<ul class="timeline collapse-lg timeline-hairline no-shadow">
