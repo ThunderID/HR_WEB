@@ -31,12 +31,14 @@
 			</div>
 			<div id="content">
 				<section>
-					<div class="section-header">
-						<ol class="breadcrumb">
-							@yield('breadcrumb')
-						</ol>
-					</div><!--end .section-header -->
-					<div class="section-body contain-lg">
+					@if (Route::currentRouteName() != 'hr.dashboard.overview')
+						<div class="section-header">
+							<ol class="breadcrumb">
+								@yield('breadcrumb')
+							</ol>
+						</div><!--end .section-header -->
+					@endif
+					<div class="section-body contain-md">
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 								@if(isset($page_title))
