@@ -54,5 +54,26 @@ class GalleryController extends AdminController {
 			
 		}
 	}
+	
+	private function copyAndResizeImage($image_path, $width, $height)
+	{
+		if (!is_integer($width))
+		{
+			throw new InvalidArgumentException("Width must be type of integer", 1);
+		}
+
+		if (!is_integer($height))
+		{
+			throw new InvalidArgumentException("Height must be type of integer", 1);
+		}
+
+		//
+		$path 			= pathinfo($image_path);
+		$new_file_name 	= $path['filename'] . '_' . $width . 'x' . $height . '.' . $path['extension'];
+		// process
+		$image = Image::make(public_path() . '/' . $image_path)->resize($width, $height)->save(public_path($path['dirname'] . '/' . $new_file_name));
+
+		return $path['dirname'] . '/' . $new_file_name;
+	}
 
 }
