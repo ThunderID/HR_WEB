@@ -136,6 +136,14 @@
 								</div>
 							</div><!--end .row -->
 						</div><!--end .col -->
+						<div class="col-md-4">
+							<div class="height-6 border-gray border-lg m-0auto style-gray-bright dropzone profile dz-clickable p-0" id="profile_picture" style="height:270px;width:204px;background-color:#E5E6E6;border:2px solid #333">
+								<div class="dz-message">
+									<h4 class="text" style="line-height:200px">Unggah Foto</h4>
+								</div>
+								<input type="hidden" name="link_profile_picture" id="profile_picture_url">
+							</div>
+						</div>
 					</div><!--end .row -->
 				</div><!--end .tab-pane -->
 				<div class="tab-pane" id="relation">
@@ -526,12 +534,12 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<form action="{{ route('hr.images.upload') }}" class="dropzone dz-clickable" id="my-awesome-dropzone"  enctype="multipart/form-data">
+								<div class="dropzone document dz-clickable" id="document_upload">
 									<div class="dz-message">
 										<h3>Klik atau Drag sebuah file untuk di unggah</h3>
 									</div>
-									<input type="hidden" name="link" id="link">
-								</form>
+									<input type="hidden" name="link" id="gallery_file_url">
+								</div>
 								<label for="input_text">DropZone Uploaded</label>
 							</div>	
 						</div>	
@@ -656,7 +664,53 @@
 		                }
 		            }
 		        });	
-	        });		        
+	        });	
+
+	        $("#document_upload").dropzone({ 
+    			url: '{{ route("hr.images.upload") }}' ,
+    			maxFilesize: 1,
+    			addRemoveLinks: true,
+    			init: function(){
+    				this.on('success', function(file){
+    					var accepted_files = this.getAcceptedFiles();
+    					var uploaded_files = [];
+    					var gallery_json;
+
+    					if (accepted_files.length > 0)
+    					{
+    						accepted_files.forEach(function(cur_value, index, array){
+    							var response = $.parseJSON(cur_value.xhr.response);
+    							uploaded_files.push(response.file.url);
+    						});
+    					}
+
+    					$('#gallery_file_url').val(JSON.stringify(uploaded_files));
+    				});
+    			}
+    		});	
+
+	        $("#profile_picture").dropzone({ 
+    			url: '{{ route("hr.images.upload") }}' ,
+    			maxFilesize: 1,
+    			addRemoveLinks: true,
+    			init: function(){
+    				this.on('success', function(file){
+    					var accepted_files = this.getAcceptedFiles();
+    					var uploaded_files = [];
+    					var gallery_json;
+
+    					if (accepted_files.length > 0)
+    					{
+    						accepted_files.forEach(function(cur_value, index, array){
+    							var response = $.parseJSON(cur_value.xhr.response);
+    							uploaded_files.push(response.file.url);
+    						});
+    					}
+
+    					$('#profile_picture_url').val(JSON.stringify(uploaded_files));
+    				});
+    			}
+    		});	        
         });	
 	</script>
 @stop
