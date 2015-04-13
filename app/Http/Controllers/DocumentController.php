@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Session, App, Redirect;
+use Input, Session, App, Redirect, Paginator;
 use App\APIConnector\API;
 
 class DocumentController extends AdminController {
 
-	protected $controller_name = 'document';
+	protected $controller_name = 'dokumen';
 
 	function __construct() 
 	{
@@ -16,6 +16,10 @@ class DocumentController extends AdminController {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['WithAttributes' => ['persons'], 'organisation' => Session::get('user.organisation')];
+		if(Input::has('q'))
+		{
+			$search 								= ['name' => Input::get('q'),'WithAttributes' => ['persons'], 'organisation' => Session::get('user.organisation')];
+		}
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::document()->index($page, $search, $sort);
@@ -28,13 +32,15 @@ class DocumentController extends AdminController {
 		}
 		
 		$data 										= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper(str_plural($this->controller_name));
+		$this->layout->page_title 					= strtoupper(($this->controller_name));
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.index');
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->paginator 			= $paginator;
 
 		return $this->layout;
 	}
@@ -42,9 +48,9 @@ class DocumentController extends AdminController {
 	function getCreate($id = null)
 	{
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($this->controller_name);
+		$this->layout->page_title 					= 'Tambah '.ucwords($this->controller_name). ' Baru';
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.create');
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= null;
 
@@ -53,16 +59,32 @@ class DocumentController extends AdminController {
 
 	function postStore($id = null)
 	{
-		// ---------------------- LOAD DATA ----------------------
-				// ---------------------- HANDLE INPUT ----------------------
-		$input['id'] 								= $id;
+		// ---------------------- HANDLE INPUT ----------------------
 		$input['document'] 							= Input::only('name','required');
+		$input['document']['is_required']			= false;
+
+		if(Input::has('required'))
+		{
+			$input['document']['is_required']		= true;
+		}
+
+		$input['document']['id'] 					= $id;
 
 		if(Input::has('field'))
 		{
 			foreach (Input::get('field') as $key => $value) 
 			{
-				$input['templates'][] 				= ['field' => $value, 'type' => Input::get('type')[$key]];
+				if($value!='' && isset(Input::get('type')[$key]) && Input::get('type')[$key]!='')
+				{
+					if(isset(Input::get('id_template')[$key]))
+					{
+						$input['templates'][] 		= ['field' => $value, 'type' => Input::get('type')[$key], 'id' => Input::get('id_template')[$key]];
+					}
+					else
+					{
+						$input['templates'][] 		= ['field' => $value, 'type' => Input::get('type')[$key]];
+					}
+				}
 			}
 		}
 
@@ -94,9 +116,9 @@ class DocumentController extends AdminController {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($this->controller_name);
+		$this->layout->page_title 					= ucwords($contents->data->name);
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show');
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 
@@ -120,7 +142,7 @@ class DocumentController extends AdminController {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($this->controller_name);
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.create');
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 
@@ -169,11 +191,26 @@ class DocumentController extends AdminController {
 
 			$this->layout->page_title 					= strtoupper($this->controller_name);
 
-			$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.destroy');
+			$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.destroy');
 			$this->layout->content->controller_name 	= $this->controller_name;
 			$this->layout->content->data 				= $data;
 
 			return $this->layout;
+		}
+	}
+
+	function anyTemplateDelete($id)
+	{
+		$results 									= API::document()->destroytemplate($id);
+		$contents 									= json_decode($results);
+
+		if (!$contents->meta->success)
+		{
+			return Redirect::back()->withErrors($contents->meta->errors);
+		}
+		else
+		{
+			return Redirect::route('hr.documents.index')->with('alert_success', 'Template Dokumen "' . $contents->data->field. '" sudah dihapus');
 		}
 	}
 }

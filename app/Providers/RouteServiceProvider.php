@@ -44,6 +44,7 @@ class RouteServiceProvider extends ServiceProvider {
 			{
 				//check user logged in 
 				$results 									= API::person()->check(Session::get('loggedUser'));
+
 				$contents 									= json_decode($results);
 
 				if(!$contents->meta->success || !count($contents->data->works))
@@ -128,6 +129,8 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.documents.update'							=> 'document-is_update',
 							'hr.documents.edit'								=> 'document-is_update',
 							'hr.documents.delete'							=> 'document-is_delete',
+
+							'hr.document.templates.delete'					=> 'document-is_delete',
 
 							// 'hr.person.work.show'							=> ['developer', 'CEO', 'manager', 'staff'],
 							// 'hr.person.work.edit'							=> ['developer', 'CEO', 'manager', 'staff'],

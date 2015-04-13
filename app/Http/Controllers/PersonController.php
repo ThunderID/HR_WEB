@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Session, App, Config, Paginator, Redirect;
+use Input, Session, App, Config, Paginator, Redirect, Validator;
 use App\APIConnector\API;
 
 class PersonController extends AdminController {
 
-	protected $controller_name = 'person';
+	protected $controller_name = 'karyawan';
 
 	function __construct() 
 	{
@@ -57,14 +57,14 @@ class PersonController extends AdminController {
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper(str_plural($this->controller_name));
+		$this->layout->page_title 					= strtoupper(($this->controller_name));
 
 		if(Input::has('q'))
 		{
 			$this->layout->page_title 				= 'Hasil Pencarian "'.Input::get('q').'"';
 		}
 
-		$this->layout->content 						= view('admin.pages.person.index');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
@@ -75,13 +75,28 @@ class PersonController extends AdminController {
 	function getCreate($id = null)
 	{
 
-		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($this->controller_name);
+		// ---------------------- LOAD DATA ----------------------
+		$search 									= ['organisation' => Session::get('user.organisation'), 'isrequired' => true, 'WithAttributes' => ['templates']];
 
-		$this->layout->content 						= view('admin.pages.person.create');
-		$this->layout->content->controller_name 	= $this->controller_name;
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::document()->index(1, $search, $sort, $all = true);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= 'Tambah '.ucwords($this->controller_name).' Baru';
+
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.create');
+		$this->layout->content->controller_name 	= ($this->controller_name);
 
 		$this->layout->content->data 				= null;
+		$this->layout->content->docs				= json_decode(json_encode($contents->data), true);
 
 		return $this->layout;
 	}
@@ -89,10 +104,21 @@ class PersonController extends AdminController {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['id'] 								= $id;
-		$input['person'] 							= Input::only('prefix_title', 'first_name', 'middle_name', 'last_name', 'suffix_title', 'nick_name', 'gender', 'place_of_birth');
+		$input['person'] 							= Input::only('prefix_title', 'first_name', 'middle_name', 'last_name', 'suffix_title', 'nick_name', 'gender', 'place_of_birth', 'username');
 		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
-		
+		$input['person']['id']						= $id;
+		$input['person']['avatar']					= Input::get('link_profile_picture');
+		if(Input::get('passowrd')!='')
+		{
+			$validator 					= Validator::make(['password' => Input::get('password')], ['password' => 'required|confirmed|min:8']);
+
+			if (!$validator->passes())
+			{
+				return Redirect::back()->withErrors($validator->errors())->withInput();
+			}
+			$input['person']['passowrd']			= Input::get('password');
+		}
+
 		if(Input::has('work_company'))
 		{
 			foreach (Input::get('work_company') as $key => $value) 
@@ -104,6 +130,10 @@ class PersonController extends AdminController {
 					$chart['status'] 				= Input::get('work_status')[$key];
 					$chart['start'] 				= date("Y-m-d", strtotime(Input::get('work_start')[$key]));
 					$chart['end'] 					= date("Y-m-d", strtotime(Input::get('work_end')[$key]));
+					if(Input::get('work_end')[$key]=='')
+					{
+						$chart['end'] 				= null;
+					}
 					$chart['reason_end_job'] 		= Input::get('work_quit_reason')[$key];
 					$input['works'][] 				= $chart;
 				}
@@ -237,6 +267,22 @@ class PersonController extends AdminController {
 			}
 		}
 
+		if(Input::has('documents'))
+		{
+			foreach (Input::get('documents') as $key => $value) 
+			{
+				$document['document']['id'] 			= $value;
+				foreach (Input::get('template_value')[$key] as $key2 => $value2) 
+				{
+					if($value2!='')
+					{
+						$document['details'][] 			= ['value' => $value2, 'document_template_id' => Input::get('template_id')[$key][$key2]];
+					}
+				}
+				$input['documents'][] 					= $document;
+			}
+		}
+
 		$results 										= API::person()->store($id, $input);
 
 		$content 										= json_decode($results);
@@ -252,6 +298,7 @@ class PersonController extends AdminController {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$results 									= API::person()->show($id);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -264,7 +311,7 @@ class PersonController extends AdminController {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
 
-		$this->layout->content 						= view('admin.pages.person.show');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 
@@ -274,7 +321,12 @@ class PersonController extends AdminController {
 	function getEdit($id = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::person()->show($id);
+		$search 									= ['organisation' => Session::get('user.organisation'), 'isrequired' => true, 'WithAttributes' => ['templates']];
+
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::document()->index(1, $search, $sort, $all = true);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -282,14 +334,23 @@ class PersonController extends AdminController {
 			App::abort(404);
 		}
 
-		$data 										= json_decode(json_encode($contents->data), true);
+		$results 									= API::person()->show($id);
+		$content 									= json_decode($results);
+
+		if(!$content->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($content->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper("edit ".$contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper('Edit "'.$content->data->nick_name.'"');
 
-		$this->layout->content 						= view('admin.pages.person.create');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->docs				= json_decode(json_encode($contents->data), true);
 
 		return $this->layout;
 	}
@@ -337,7 +398,7 @@ class PersonController extends AdminController {
 
 			$this->layout->page_title 					= strtoupper($this->controller_name);
 
-			$this->layout->content 						= view('admin.pages.person.destroy');
+			$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.destroy');
 			$this->layout->content->controller_name 	= $this->controller_name;
 			$this->layout->content->data 				= $data;
 
@@ -375,7 +436,7 @@ class PersonController extends AdminController {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= 'Kerabat '.strtoupper($contents->data->nick_name);
 
-		$this->layout->content 						= view('admin.pages.person.relatives.index');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.relatives.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->relatives 			= $relatives;

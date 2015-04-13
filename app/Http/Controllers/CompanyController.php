@@ -5,7 +5,7 @@ use App\APIConnector\API;
 
 class CompanyController extends AdminController {
 
-	protected $controller_name = 'company';
+	protected $controller_name = 'kantor';
 
 	function __construct() 
 	{
@@ -18,7 +18,16 @@ class CompanyController extends AdminController {
 		$search['ParentOrganisation']				= Session::get('user.organisation');
 		if(Input::has('q'))
 		{
-			$search['name']							= Input::get('q');			
+			if(Input::has('field'))
+			{
+				$search[Input::get('field')]		= Input::get('q');			
+			}
+			else
+			{
+				$search['name']						= Input::get('q');			
+				$search['orbusinessactivities']		= Input::get('q');			
+				$search['orbusinessfields']			= Input::get('q');			
+			}
 		}
 
 		if(Input::has('sort_name'))
@@ -35,6 +44,7 @@ class CompanyController extends AdminController {
 		}
 
 		$results 									= API::organisationbranch()->index($page, $search, $sort);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -46,7 +56,7 @@ class CompanyController extends AdminController {
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper(str_plural($this->controller_name));
+		$this->layout->page_title 					= 'Kantor';
 
 		if(Input::has('q'))
 		{
@@ -64,7 +74,7 @@ class CompanyController extends AdminController {
 	function getCreate($id = null)
 	{
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($this->controller_name);
+		$this->layout->page_title 					= 'Tambah '.$this->controller_name.' baru';;
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
@@ -76,46 +86,53 @@ class CompanyController extends AdminController {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['id'] 								= $id;
-		$input['organisation'] 						= Input::only('name','license','npwp','business_activities','business_fields');
+		$input['branch'] 							= Input::only('name','license','npwp','business_activities','business_fields');
+		$input['branch']['id'] 						= $id;
 		if(Input::has('address_address'))
 		{
 			foreach (Input::get('address_address') as $key => $value) 
 			{
-				$address 							= $value;
-				if(Input::get('address_RT')[$key]!='')
+				$address['value'] 					= $value;
+				if(isset(Input::get('address_RT')[$key]) && Input::get('address_RT')[$key]!='')
 				{
-					$address 						= $address.' RT. '.Input::get('address_RT')[$key];
+					$address['value'] 				= $address['value'].' RT. '.Input::get('address_RT')[$key];
 				}
-				if(Input::get('address_RW')[$key]!='')
+				if(isset(Input::get('address_RW')[$key]) && Input::get('address_RW')[$key]!='')
 				{
-					$address 						= $address.' RW. '.Input::get('address_RW')[$key];
+					$address['value'] 				= $address['value'].' RW. '.Input::get('address_RW')[$key];
 				}
-				if(Input::get('address_kecamatan')[$key]!='')
+				if(isset(Input::get('address_kecamatan')[$key]) && Input::get('address_kecamatan')[$key]!='')
 				{
-					$address 						= $address.' Kec. '.Input::get('address_kecamatan')[$key];
+					$address['value'] 				= $address['value'].' Kec. '.Input::get('address_kecamatan')[$key];
 				}
-				if(Input::get('address_kelurahan')[$key]!='')
+				if(isset(Input::get('address_kelurahan')[$key]) && Input::get('address_kelurahan')[$key]!='')
 				{
-					$address 						= $address.' Kel. '.Input::get('address_kelurahan')[$key];
+					$address['value'] 				= $address['value'].' Kel. '.Input::get('address_kelurahan')[$key];
 				}
-				if(Input::get('address_kota')[$key]!='')
+				if(isset(Input::get('address_kota')[$key]) && Input::get('address_kota')[$key]!='')
 				{
-					$address 						= $address.' Kota/Kab '.Input::get('address_kota')[$key];
+					$address['value'] 				= $address['value'].' Kota/Kab '.Input::get('address_kota')[$key];
 				}
-				if(Input::get('address_provinsi')[$key]!='')
+				if(isset(Input::get('address_provinsi')[$key]) && Input::get('address_provinsi')[$key]!='')
 				{
-					$address 						= $address.' - '.Input::get('address_provinsi')[$key];
+					$address['value'] 				= $address['value'].' - '.Input::get('address_provinsi')[$key];
 				}
-				if(Input::get('address_negara')[$key]!='')
+				if(isset(Input::get('address_negara')[$key]) && Input::get('address_negara')[$key]!='')
 				{
-					$address 						= $address.' - '.Input::get('address_negara')[$key];
+					$address['value'] 				= $address['value'].' - '.Input::get('address_negara')[$key];
 				}
-				if(Input::get('address_kode_pos')[$key]!='')
+				if(isset(Input::get('address_kode_pos')[$key]) && Input::get('address_kode_pos')[$key]!='')
 				{
-					$address 						= $address.' Kode pos '.Input::get('address_kode_pos')[$key];
+					$address['value'] 				= $address['value'].' Kode pos '.Input::get('address_kode_pos')[$key];
 				}
-				$input['contact']['address'][] 		= $address;
+				if(isset(Input::get('id_address')[$key]) && Input::get('id_address')[$key]!='')
+				{
+					$address['id'] 					= Input::get('id_address')[$key];
+				}
+				if($address['value']!='')
+				{
+					$input['contact']['address'][] 	= $address;
+				}
 			}
 		}
 
@@ -125,7 +142,14 @@ class CompanyController extends AdminController {
 			{
 				if($value!='')
 				{
-					$input['contact']['phone_number'][] = $value;
+					if(isset(Input::get('id_phone')[$key]))
+					{
+						$input['contact']['phone_number'][] = ['value' => $value, 'id' => Input::get('id_phone')[$key]];
+					}
+					else
+					{
+						$input['contact']['phone_number'][] = ['value' => $value];
+					}
 				}
 			}
 		}
@@ -136,49 +160,24 @@ class CompanyController extends AdminController {
 			{
 				if($value!='')
 				{
-					$input['contact']['email'][] 		= $value;
+					if(isset(Input::get('id_phone')[$key]))
+					{
+						$input['contact']['email'][] = ['value' => $value, 'id' => Input::get('id_email')[$key]];
+					}
+					else
+					{
+						$input['contact']['email'][] = ['value' => $value];
+					}
 				}
 			}
 		}
 
-		if(Input::has('contact_BBM'))
-		{
-			foreach (Input::get('contact_BBM') as $key => $value) 
-			{
-				if($value!='')
-				{
-					$input['contact']['bbm'][] 			= $value;
-				}
-			}
-		}
-
-		if(Input::has('contact_LINE'))
-		{
-			foreach (Input::get('contact_LINE') as $key => $value) 
-			{
-				if($value!='')
-				{
-					$input['contact']['line'][]		 	= $value;
-				}
-			}
-		}
-
-		if(Input::has('contact_WhatsApp'))
-		{
-			foreach (Input::get('contact_WhatsApp') as $key => $value) 
-			{
-				if($value!='')
-				{
-					$input['contact']['whatsapp'][] 	= $value;
-				}
-			}
-		}
-
-		$input['organisation_id']						= Session::get('user.organisation');
+		$input['organisation']['id']					= Session::get('user.organisation');
 
 		$results 										= API::organisationbranch()->store($id, $input);
 
 		$content 										= json_decode($results);
+		
 		if($content->meta->success)
 		{
 			return Redirect::route('hr.organisation.branches.index');
@@ -202,6 +201,7 @@ class CompanyController extends AdminController {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= $contents->data->name;
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
@@ -224,7 +224,7 @@ class CompanyController extends AdminController {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($this->controller_name);
+		$this->layout->page_title 					= 'Edit "'.$contents->data->name.'"';
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
@@ -273,7 +273,7 @@ class CompanyController extends AdminController {
 
 			$data 										= json_decode(json_encode($contents->data), true);
 
-			$this->layout->page_title 					= strtoupper($this->controller_name);
+			$this->layout->page_title 					= 'Kantor';
 
 			$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.destroy');
 			$this->layout->content->controller_name 	= $this->controller_name;

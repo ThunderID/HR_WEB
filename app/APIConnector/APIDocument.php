@@ -6,9 +6,9 @@ class APIDocument {
 
 	use APITrait;
 
-	function index($page, $search, $sort)
+	function index($page, $search, $sort, $all = false)
 	{
-		return self::runPost(self::$basic_url . '/documents/'.$page, ['search' => $search, 'sort' => $sort]);
+		return self::runPost(self::$basic_url . '/documents/'.$page, ['search' => $search, 'sort' => $sort, 'all' => $all]);
 	}
 
 	function show($id)
@@ -24,5 +24,10 @@ class APIDocument {
 	function destroy($id)
 	{
 		return self::runGet(self::$basic_url . 'documents/delete/'.Session::get('user.organisation').'/'.$id, ['id' => $id]);
+	}
+
+	function destroytemplate($id)
+	{
+		return self::runGet(self::$basic_url . 'documents/templates/delete/'.Session::get('user.organisation').'/'.$id, ['id' => $id]);
 	}
 }

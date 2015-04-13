@@ -1,13 +1,10 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(str_plural($controller_name))}}</li>
+	<li class='active'>{{ucwords(($controller_name))}}</li>
 @stop
 
 @section('content')
 	<div class="card">
-		<div class="card-head style-primary">
-			<header>Tambah data orang</header>
-		</div>
 		@if($data['id'])
 			<form class="form" role="form" action="{{route('hr.persons.update', $data['id'])}}" method="post">
 		@else
@@ -61,10 +58,12 @@
 			<div class="card-head style-primary">
 				<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
 					<li class="active"><a href="#profil">PROFIL</a></li>
-					<li><a href="#relation">RELASI</a></li>
-					<li><a href="#work">PEKERJAAN</a></li>
 					<li><a href="#contact">KONTAK</a></li>
 					<li><a href="#document">DOKUMEN</a></li>
+					@if(!$data['id'])
+						<li><a href="#relation">KERABAT</a></li>
+						<li><a href="#work">PEKERJAAN</a></li>
+					@endif
 				</ul>
 			</div><!--end .card-head -->
 			<!-- END FORM TABS -->
@@ -135,6 +134,20 @@
 									</div>
 								</div>
 							</div><!--end .row -->
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="text" class="form-control" id="username" name="username" value="{{ $data['username'] }}">
+										<label for="username">Username</label>
+									</div>
+								</div><!--end .col -->
+								<div class="col-md-6">
+									<div class="form-group">
+										<input type="password" class="form-control" id="password" name="password" placeholder="(isi untuk mengubah password)">
+										<label for="password">Password</label>
+									</div>
+								</div>
+							</div><!--end .row -->
 						</div><!--end .col -->
 						<div class="col-md-4">
 							<div class="height-6 border-gray border-lg m-0auto style-gray-bright dropzone profile dz-clickable p-0" id="profile_picture" style="height:270px;width:204px;background-color:#E5E6E6;border:2px solid #333">
@@ -159,6 +172,86 @@
 					</div><!--end .form-group -->					
 				</div><!--end .tab-pane -->
 				<div class="tab-pane " id="contact">
+					@if($data['id'])
+						<ul class="list-unstyled">
+							<li class="clearfix">
+								<div class="page-header no-border holder">
+									<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"></a>
+									<h4 class="text-accent">Alamat [Sekarang] </h4>
+								</div>
+								@foreach($data['contacts'] as $key => $value)
+									@if($value['item']=='address')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_address[0]" name="id_address[0]" value="{{$value['id']}}">
+													<textarea type="text" class="form-control" name="address_address[0]">{{$value['value']}}</textarea>
+													<label for="address_address[0]">Alamat Lengkap</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_address = true;?>
+									@elseif($value['item']=='phone_number')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_phone[0]" name="id_phone[0]" value="{{$value['id']}}">
+													<input type="text" class="form-control" id="contact_phone[0]" name="contact_phone[0]" value="{{$value['value']}}">
+													<label for="contact_phone[0]">Nomor Telepon</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_phone_number = true;?>
+									@elseif($value['item']=='email')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_email[0]" name="id_email[0]" value="{{$value['id']}}">
+													<input type="text" class="form-control" id="contact_email[0]" name="contact_email[0]" value="{{$value['value']}}">
+													<label for="contact_email[0]">Alamat Email</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_email = true;?>
+									@endif
+									@if($value['item']=='bbm')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_bbm[0]" name="id_bbm[0]" value="{{$value['id']}}">
+													<input type="text" class="form-control" name="contact_bbm[0]" value="{{$value['value']}}">
+													<label for="contact_bbm[0]">Pin BBM</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_address = true;?>
+									@elseif($value['item']=='line')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_line[0]" name="id_line[0]" value="{{$value['id']}}">
+													<input type="text" class="form-control" id="contact_line[0]" name="contact_line[0]" value="{{$value['value']}}">
+													<label for="contact_line[0]">Line</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_phone_number = true;?>
+									@elseif($value['item']=='whatsapp')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_whatsapp[0]" name="id_whatsapp[0]" value="{{$value['id']}}">
+													<input type="text" class="form-control" id="contact_whatsapp[0]" name="contact_whatsapp[0]" value="{{$value['value']}}">
+													<label for="contact_whatsapp[0]">WhastApp</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_email = true;?>
+									@endif
+								@endforeach
+							</li>
+						</ul>
+					@endif
 					<ul class="list-unstyled" id="addressList"></ul>
 					<div class="form-group">
 						<a class="btn btn-raised btn-default-bright" data-duplicate="addressTmpl" data-target="#addressList">TAMBAHKAN ALAMAT</a>
@@ -169,10 +262,37 @@
 					</div><!--end .form-group -->											
 				</div><!--end .tab-pane -->
 				<div class="tab-pane " id="document">
-					<ul class="list-unstyled" id="documentList"></ul>
-					<div class="form-group" data-duplicate="skillTmpl" data-target="#documentList">
-						
-					</div><!--end .form-group -->
+					@foreach($docs as $key => $value)
+						<div class="page-header no-border holder">
+							<h4 class="text-accent">{{$value['name']}}</h4>
+						</div>
+						<input name="documents[{{$key}}]"type="hidden" value="{{$value['id']}}">											
+						@foreach($value['templates'] as $key2 => $value2)
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										@if($value2['type']=='numeric' || $value2['type']=='string')
+											<input name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control">											
+											<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+											<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+										@elseif($value2['type']=='date')
+											<div class="input-daterange input-group" id="template_value[{{$key}}][{{$key2}}]" style="width:100%;">
+												<div class="input-group-content">
+													<input type="text" class="form-control" name="template_value[{{$key}}][{{$key2}}]">
+												</div>
+											</div>
+											<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+											<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+										@elseif($value2['type']=='text')
+											<textarea name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control"></textarea>										
+											<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+											<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+										@endif
+									</div>
+								</div>
+							</div>
+						@endforeach
+					@endforeach
 				</div><!--end .tab-pane -->
 			</div><!--end .card-body.tab-content -->
 			<!-- END FORM TAB PANES -->
@@ -208,7 +328,7 @@
 		<li class="clearfix">
 			<div class="page-header no-border holder">
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Relasi <%=index%></h4>
+				<h4 class="text-accent">Kerabat <%=index%></h4>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -218,19 +338,11 @@
 							<option value="parent">Orang Tua</option>
 							<option value="spouse">Pasangan</option>
 							<option value="child">Anak</option>
+							<option value="partner">Partner</option>
 						</select>
-						<label for="relationship[<%=index%>]">Relasi</label>
+						<label for="relationship[<%=index%>]">Hubungan</label>
 					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="card">
 					<!-- BEGIN RELASI DETAIL -->			
-					<div class="card-head style-primary-dark">
-						<header>Nama</header>
-					</div>
-
 					<div class="card-head">
 						<ul class="nav nav-tabs" data-toggle="tabs">
 							<li id="title_panel1_<%=index%>"><a href="javascript:;" onClick="show_panel1(this.id);" id="panel1_<%=index%>">Data yang sudah ada</a></li>
@@ -295,11 +407,6 @@
 									</div>
 								</div>
 							</div>	
-							<div class="row">
-								<div class="card-head">
-									<header>Profil Relasi</header>
-								</div>
-							</div>
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="row">
@@ -388,13 +495,21 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="work_start[<%=index%>]" name="work_start[<%=index%>]">
+						<div class="input-daterange input-group" id="work_start_cal[<%=index%>]" style="width:100%;">
+							<div class="input-group-content">
+								<input type="text" class="form-control" id="work_start[<%=index%>]" name="work_start[<%=index%>]">
+							</div>
+						</div>
 						<label for="work_start[<%=index%>]">Mulai Bekerja</label>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<input type="text" class="form-control" id="work_end[<%=index%>]" name="work_end[<%=index%>]">
+						<div class="input-daterange input-group" id="work_end_cal[<%=index%>]" style="width:100%;">
+							<div class="input-group-content">
+								<input type="text" class="form-control" id="work_end[<%=index%>]" name="work_end[<%=index%>]">
+							</div>
+						</div>
 						<label for="work_end[<%=index%>]">Berhenti Bekerja</label>
 					</div>
 				</div>
@@ -412,7 +527,7 @@
 		<li class="clearfix">
 			<div class="page-header no-border holder">
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Alamat[<%=index%>]</h4>
+				<h4 class="text-accent">Alamat <%=index%></h4>
 			</div>
 			<div class="row">
 				<div class="col-md-8">

@@ -1,13 +1,10 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(str_plural($controller_name))}}</li>
+	<li class='active'>{{ucwords(($controller_name))}}</li>
 @stop
 
 @section('content')
 	<div class="card">
-		<div class="card-head style-primary">
-			<header>Tambah data perusahaan</header>
-		</div>
 		@if($data['id'])
 			<form class="form" role="form" action="{{route('hr.organisation.branches.update', $data['id'])}}" method="post">
 		@else
@@ -80,6 +77,52 @@
 					</div><!--end .row -->
 				</div><!--end .tab-pane -->
 				<div class="tab-pane " id="contact">
+					@if($data['id'])
+						<ul class="list-unstyled">
+							<li class="clearfix">
+								<div class="page-header no-border holder">
+									<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"></a>
+									<h4 class="text-accent">Alamat [Sekarang] </h4>
+								</div>
+								@foreach($data['contacts'] as $key => $value)
+									@if($value['item']=='address')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_address[0]" name="id_address[0]" value="{{$value['id']}}">
+													<textarea type="text" class="form-control" name="address_address[0]">{{$value['value']}}</textarea>
+													<label for="address_address[0]">Alamat Lengkap</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_address = true;?>
+									@elseif($value['item']=='phone_number')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_phone[0]" name="id_phone[0]" value="{{$value['id']}}">
+													<input type="text" class="form-control" id="contact_phone[0]" name="contact_phone[0]" value="{{$value['value']}}">
+													<label for="contact_phone[0]">Nomor Telepon</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_phone_number = true;?>
+									@elseif($value['item']=='email')
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="hidden" class="form-control" id="id_email[0]" name="id_email[0]" value="{{$value['id']}}">
+													<input type="text" class="form-control" id="contact_email[0]" name="contact_email[0]" value="{{$value['value']}}">
+													<label for="contact_email[0]">Alamat Email</label>
+												</div>
+											</div>
+										</div>
+										<?php $is_email = true;?>
+									@endif
+								@endforeach
+							</li>
+						</ul>
+					@endif
 					<ul class="list-unstyled" id="addressList"></ul>
 					<div class="form-group">
 						<a class="btn btn-raised btn-default-bright" data-duplicate="addressTmpl" data-target="#addressList">TAMBAHKAN ALAMAT</a>
@@ -87,7 +130,7 @@
 					<ul class="list-unstyled" id="contactList"></ul>
 					<div class="form-group">
 						<a class="btn btn-raised btn-default-bright" data-duplicate="contactTmpl" data-target="#contactList">TAMBAHKAN KONTAK</a>
-					</div><!--end .form-group -->											
+					</div><!--end .form-group -->
 				</div><!--end .tab-pane -->
 			</div><!--end .card-body.tab-content -->
 			<!-- END FORM TAB PANES -->
@@ -114,7 +157,7 @@
 		<li class="clearfix">
 			<div class="page-header no-border holder">
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Alamat[<%=index%>]</h4>
+				<h4 class="text-accent">Alamat <%=index%> </h4>
 			</div>
 			<div class="row">
 				<div class="col-md-8">
@@ -185,39 +228,19 @@
 		<li class="clearfix">
 			<div class="page-header no-border holder">
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Kontak[<%=index%>]</h4>
+				<h4 class="text-accent">Kontak <%=index%></h4>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="form-group">
 						<input type="text" class="form-control" id="contact_phone[<%=index%>]" name="contact_phone[<%=index%>]">
 						<label for="contact_phone[<%=index%>]">Nomor Telepon</label>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="form-group">
 						<input type="text" class="form-control" id="contact_email[<%=index%>]" name="contact_email[<%=index%>]">
 						<label for="contact_email[<%=index%>]">Alamat Email</label>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="contact_BBM[<%=index%>]" name="contact_BBM[<%=index%>]">
-						<label for="contact_BBM[<%=index%>]">Akun BBM</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="contact_LINE[<%=index%>]" name="contact_LINE[<%=index%>]">
-						<label for="contact_LINE[<%=index%>]">Akun LINE</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="contact_WhatsApp[<%=index%>]" name="contact_WhatsApp[<%=index%>]">
-						<label for="contact_WhatsApp[<%=index%>]">Akun WhatsApp</label>
 					</div>
 				</div>
 			</div>

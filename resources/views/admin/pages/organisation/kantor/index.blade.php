@@ -1,6 +1,6 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(str_plural($controller_name))}}</li>
+	<li class='active'>{{ucwords(($controller_name))}}</li>
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
 						<form class="navbar-search" role="search">
 							{!! Form::open(['route' => 'hr.organisation.branches.index', 'method' => 'get']) !!}
 							<div class="form-group">
-								<input type="text" class="form-control" name="q" placeholder="Enter your keyword">
+								<input type="text" class="form-control" name="q" placeholder="Ketik Kata Kunci">
 							</div>
 							<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
 							{!! Form::close() !!}
@@ -28,7 +28,11 @@
 
 				<!-- BEGIN TAB RESULTS -->
 				<ul class="card-head nav nav-tabs tabs-accent" data-toggle="tabs">
-					<li class="active"><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua</a></li>
+					<li><small>Cari</small></li>
+					<li @if(!Input::has('field')) class="active"@endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua</a></li>
+					<li @if(Input::get('field')=='name') class="active"@endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'name'])}}">Nama Kantor</a></li>
+					<li @if(Input::get('field')=='activities') class="active"@endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'businessactivities'])}}">Kegiatan Usaha</a></li>
+					<li @if(Input::get('field')=='fields') class="active"@endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'businessfields'])}}">Bidang Usaha</a></li>
 				</ul>
 				<!-- END TAB RESULTS -->
 
@@ -40,16 +44,16 @@
 
 								<!-- BEGIN PAGE HEADER -->
 								<div class="margin-bottom-xxl">
-									<span class="text-light text-lg">Results <strong>{{$paginator->total_item}}</strong></span>
+									<span class="text-light text-lg">Total <strong>{{$paginator->total_item}}</strong></span>
 									<div class="btn-group btn-group-sm pull-right">
 										<button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
-											<span class="glyphicon glyphicon-arrow-down"></span> Sort
+											<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 										</button>
 										<ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
-											<li @if(Input::get('sort_date')=='asc' || (!Input::get('sort_date') && !Input::get('sort_name')))class="active" @endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'sort_date' => 'asc'])}}">Date asc</a></li>
-											<li @if(Input::get('sort_date')=='desc')class="active" @endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'sort_date' => 'desc'])}}">Date desc</a></li>
-											<li @if(Input::get('sort_name')=='asc')class="active" @endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'sort_name' => 'asc'])}}">Name asc</a></li>
-											<li @if(Input::get('sort_name')=='desc')class="active" @endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'sort_name' => 'desc'])}}">Name desc</a></li>
+											<li @if(Input::get('sort_date')=='asc' || (!Input::get('sort_date') && !Input::get('sort_name')))class="active" @endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'sort_date' => 'asc'])}}">Tanggal (A-Z)</a></li>
+											<li @if(Input::get('sort_date')=='desc')class="active" @endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'sort_date' => 'desc'])}}">Tanggal (Z-A)</a></li>
+											<li @if(Input::get('sort_name')=='asc')class="active" @endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'sort_name' => 'asc'])}}">Nama (A-Z)</a></li>
+											<li @if(Input::get('sort_name')=='desc')class="active" @endif><a href="{{route('hr.organisation.branches.index', ['page' => 1, 'sort_name' => 'desc'])}}">Nama (Z-A)</a></li>
 										</ul>
 									</div>
 								</div><!--end .margin-bottom-xxl -->
@@ -69,7 +73,7 @@
 												</div>
 											</div><!--end .col -->
 										</div>
-										@endforeach
+									@endforeach
 									@if(count($data))
 										@include('admin.helpers.pagination')
 									@else

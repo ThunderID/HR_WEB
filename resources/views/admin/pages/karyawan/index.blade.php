@@ -1,6 +1,6 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(str_plural($controller_name))}}</li>
+	<li class='active'>{{ucwords(($controller_name))}}</li>
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
 				<form class="navbar-search" role="search">
 					{!! Form::open(['route' => ('hr.persons.index'), 'method' => 'get']) !!}
 					<div class="form-group">
-						<input type="text" class="form-control" name="q" placeholder="Enter your keyword">
+						<input type="text" class="form-control" name="q" placeholder="Ketik kata kunci">
 					</div>
 					<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
 					{!! Form::close() !!}
@@ -33,10 +33,10 @@
 					<ul class="nav nav-pills nav-stacked">
 						<li><small>Cari</small></li>
 						<li @if(!Input::has('field')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::get('field')=='firstname') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'firstname'])}}">First Name <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::get('field')=='lastname') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'lastname'])}}">Last Name <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::get('field')=='prefixtitle') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'prefixtitle'])}}">Prefix Title <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::get('field')=='suffixtitle') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'suffixtitle'])}}">Suffix Title <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(Input::get('field')=='firstname') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'firstname'])}}">Nama Depan <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(Input::get('field')=='lastname') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'lastname'])}}">Nama Akhir <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(Input::get('field')=='prefixtitle') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'prefixtitle'])}}">Gelar Depan <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(Input::get('field')=='suffixtitle') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'suffixtitle'])}}">Gelar Belakang <small class="pull-right text-bold opacity-75"></small></a></li>
 					</ul>
 				</div><!--end .col -->
 				<!-- END SEARCH NAV -->
@@ -45,16 +45,16 @@
 
 					<!-- BEGIN SEARCH RESULTS LIST -->
 					<div class="margin-bottom-xxl">
-						<span class="text-light text-lg">Filtered results <strong>{{$paginator->total_item}}</strong></span>
+						<span class="text-light text-lg">Total data <strong>{{$paginator->total_item}}</strong></span>
 						<div class="btn-group btn-group-sm pull-right">
 							<button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
-								<span class="glyphicon glyphicon-arrow-down"></span> Sort
+								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
-								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc'])}}">First name asc</a></li>
-								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc'])}}">First name desc</a></li>
-								<li @if(Input::get('sort_lastname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'asc'])}}">Last name asc</a></li>
-								<li @if(Input::get('sort_lastname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'desc'])}}">Last name desc</a></li>
+								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc'])}}">Nama Depan [A-Z]</a></li>
+								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc'])}}">Nama Depan Z-A</a></li>
+								<li @if(Input::get('sort_lastname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'asc'])}}">Nama Belakang [A-Z]</a></li>
+								<li @if(Input::get('sort_lastname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'desc'])}}">Nama Belakang Z-A</a></li>
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->

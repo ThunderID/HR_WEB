@@ -32,7 +32,7 @@
 			<div id="content">
 				<section>
 					@if (Route::currentRouteName() != 'hr.dashboard.overview')
-						<div class="section-header">
+						<div class="section-header ml-5">
 							<ol class="breadcrumb">
 								@yield('breadcrumb')
 							</ol>
