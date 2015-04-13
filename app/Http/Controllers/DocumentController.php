@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Session, App;
+use Input, Session, App, Redirect;
 use App\APIConnector\API;
 
 class DocumentController extends AdminController {
@@ -15,10 +15,11 @@ class DocumentController extends AdminController {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['persons']];
+		$search 									= ['WithAttributes' => ['persons'], 'organisation' => Session::get('user.organisation')];
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::document()->index($page, $search, $sort);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -40,35 +41,12 @@ class DocumentController extends AdminController {
 
 	function getCreate($id = null)
 	{
-		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
-		// {
-		// 	$data = $this->model->findorfail($id);
-		// }
-		// else
-		// {
-		// 	$data = $this->model->newInstance();
-		// }
-
-		// // Load country list
-		// $filename = base_path('/resources/data/countries.json');
-		// $fd = fopen($filename, 'r');
-		// $json = json_decode(fread($fd, filesize($filename)));
-		// fclose($fd);
-
-		// $country_list = [];
-		// foreach ($json as $country)
-		// {
-		// 	$tmp = json_decode($country);
-		// 	$country_list[$country] = $country;
-		// }
-	
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title = strtoupper($this->controller_name);
+		$this->layout->page_title 					= strtoupper($this->controller_name);
 
-		$this->layout->content = view('admin.pages.'.$this->controller_name.'.add');
-		$this->layout->content->controller_name = $this->controller_name;
-		// $this->layout->content->country_list = $country_list;
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.create');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= null;
 
 		return $this->layout;
 	}
@@ -76,46 +54,36 @@ class DocumentController extends AdminController {
 	function postStore($id = null)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
-		// {
-		// 	$data = $this->model->findorfail($id);
-		// }
-		// else
-		// {
-		// 	$data = $this->model->newInstance();
-		// }
+				// ---------------------- HANDLE INPUT ----------------------
+		$input['id'] 								= $id;
+		$input['document'] 							= Input::only('name','required');
 
-		// // ---------------------- HANDLE INPUT ----------------------
-		// $input = Input::all();
-		// $input['contact_person']['name'] = Input::get('contact_person_name');
-		// $input['contact_person']['phone'] = Input::get('contact_person_phone');
-		// $input['contact_person']['email'] = Input::get('contact_person_email');
+		if(Input::has('field'))
+		{
+			foreach (Input::get('field') as $key => $value) 
+			{
+				$input['templates'][] 				= ['field' => $value, 'type' => Input::get('type')[$key]];
+			}
+		}
 
-		// $input['address']['street'] = Input::get('address_street');
-		// $input['address']['city'] = Input::get('address_city');
-		// $input['address']['province'] = Input::get('address_province');
-		// $input['address']['country'] = Input::get('address_country');
+		$input['organisation']['id']				= Session::get('user.organisation');
 
-		// if ($logo_path = $this->dispatch(new UploadFile('logo', 'uploaded/vendors/logo/'.date('Y/m/d/H'))))
-		// {
-		// 	$input['logo'] = $logo_path;
-		// }
-		// $data->fill($input);
+		$results 									= API::document()->store($id, $input);
 
-		// if ($data->save())
-		// {
-		// 	return redirect()->route('admin.' . $this->controller_name . '.index')->with('alert_success', ucwords($this->controller_name) . ' "' . $data->name . '" has been saved');
-		// }
-		// else
-		// {
-		// 	return redirect()->back()->withInput()->withErrors($data->getErrors());
-		// }
+		$content 									= json_decode($results);
+		if($content->meta->success)
+		{
+			return Redirect::route('hr.documents.index');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 
 	function getShow($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$results 									= API::document()->show($id);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -135,32 +103,77 @@ class DocumentController extends AdminController {
 		return $this->layout;
 	}
 
-	function getDelete($id)
+	function getEdit($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		// if (!is_null($id))
-		// {
-		// 	$data = $this->model->findorfail($id);
-		// }
-		// else
-		// {
-		// 	App::abort(404);
-		// }
-		
-		// if (str_is('Delete', Input::get('type2confirm')))
-		// {
-		// 	if ($data->delete())
-		// 	{
-		// 		return redirect()->route('admin.'.$this->controller_name.'.index')->with('alert_success', 'Data "' . $data->name . '" has been deleted');
-		// 	}
-		// 	else
-		// 	{
-		// 		return redirect()->back()->withErrors($data->getErrors());
-		// 	}
-		// }
-		// else
-		// {
-		// 	return redirect()->back()->with('alert_danger', 'Invalid delete confirmation text');
-		// }
+		$results 									= API::document()->show($id);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= strtoupper($this->controller_name);
+
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.create');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+
+		return $this->layout;
+	}
+
+	function postUpdate($id)
+	{
+		return $this->postStore($id);
+	}
+
+	function anyDelete($id)
+	{
+		if (Input::has('from_confirm_form'))
+		{
+			if (Input::get('from_confirm_form')=='Yes')
+			{
+				$results 									= API::document()->destroy($id);
+				$contents 									= json_decode($results);
+
+				if (!$contents->meta->success)
+				{
+					return Redirect::route('hr.documents.show', ['id' => $id])->withErrors($contents->meta->errors);
+				}
+				else
+				{
+					return Redirect::route('hr.documents.index')->with('alert_success', 'Dokumen "' . $contents->data->name. '" sudah dihapus');
+				}
+			}
+			else
+			{
+				return Redirect::route('hr.documents.show', ['id' => $id])->withErrors(['Batal Menghapus']);
+			}
+		}
+		else
+		{
+			$results 									= API::document()->show($id);
+			$contents 									= json_decode($results);
+
+			if(!$contents->meta->success)
+			{
+				App::abort(404);
+			}
+
+			$data 										= json_decode(json_encode($contents->data), true);
+
+			$this->layout->page_title 					= strtoupper($this->controller_name);
+
+			$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.destroy');
+			$this->layout->content->controller_name 	= $this->controller_name;
+			$this->layout->content->data 				= $data;
+
+			return $this->layout;
+		}
 	}
 }

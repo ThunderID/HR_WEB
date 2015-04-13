@@ -191,6 +191,7 @@ class CompanyController extends AdminController {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$results 									= API::organisationbranch()->show($id);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)

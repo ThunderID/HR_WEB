@@ -162,6 +162,61 @@ Route::group(['prefix' => 'cms'], function(){
 
 	});
 
+	//Document
+	Route::group(['prefix' => 'documents', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'DocumentController@getIndex', 
+							'as' 	=> 'hr.documents.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'DocumentController@getCreate', 
+							'as' 	=> 'hr.documents.create'
+						]
+					);
+
+		Route::post('store', 
+						[
+							'uses' 	=> 'DocumentController@postStore', 
+							'as' 	=> 'hr.documents.store'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'DocumentController@getShow', 
+							'as' 	=> 'hr.documents.show'
+						]
+					);
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'DocumentController@getEdit', 
+							'as' 	=> 'hr.documents.edit'
+						]
+					);
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'DocumentController@postUpdate', 
+							'as' 	=> 'hr.documents.update'
+						]
+					);
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'DocumentController@anyDelete', 
+							'as' 	=> 'hr.documents.delete'
+						]
+					);
+		Route::get('shows/{person_id}/documents/{id}', 
+					[
+						'uses' 	=> 'DocumentController@getShow', 
+						'as' 	=> 'hr.person.document.show'
+					]
+				);
+	});
+
 	///BEGIN PERSON///
 	Route::group(['prefix' => 'persons', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
@@ -227,36 +282,6 @@ Route::group(['prefix' => 'cms'], function(){
 	///END PERSON///
 	
 
-	///BEGIN DOCUMENT///
-	Route::group(['prefix' => 'documents', 'before' => 'hr_acl'], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'DocumentController@getIndex', 
-							'as' 	=> 'hr.documents.index'
-						]
-					);
-
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'DocumentController@getCreate', 
-							'as' 	=> 'hr.documents.create'
-						]
-					);
-
-		Route::get('show/{id}', 
-						[
-							'uses' 	=> 'DocumentController@getShow', 
-							'as' 	=> 'hr.documents.show'
-						]
-					);
-		Route::get('shows/{person_id}/documents/{id}', 
-					[
-						'uses' 	=> 'DocumentController@getShow', 
-						'as' 	=> 'hr.person.document.show'
-					]
-				);
-	});
-	///END DOCUMENT///
 
 	///BEGIN CONTACTS///
 	Route::group(['prefix' => 'contacts', 'before' => 'hr_acl'], function(){

@@ -34,14 +34,13 @@
 				</div>
 			</div>
 		</div>
-					<!-- BEGIN LAYOUT LEFT SIDEBAR -->
+		<!-- BEGIN LAYOUT LEFT SIDEBAR -->
 		<div class="col-md-12">
 			<div class="card tabs-left style-default-light">
 				<ul class="card-head nav nav-tabs" data-toggle="tabs">
 					<li class="active"><a href="#detaile">Detail</a></li>
 					<li><a href="#contact">Kontak</a></li>
 					<li><a class="oc" href="#structure">Struktur</a></li>
-					<li><a href="#Document">Dokumen</a></li>
 				</ul>
 				<div class="card-body tab-content style-default-bright">
 					<div class="tab-pane active" id="detaile">
@@ -90,54 +89,6 @@
 								<a class="btn btn-flat" href="{{route('hr.organisation.branches.index')}}">EDIT</a>
 							</div>
 						</div>							
-					</div>
-						<div class="col-md-12 tab-pane" id="Document">
-							<ul class="card-head nav nav-tabs text-center" data-toggle="tabs">
-								<li class="active">
-									<a href="#data_document">
-										<i class="fa fa-lg fa-file-text-o"></i>
-										<br/>
-										<h4>
-											Data<br/>
-										</h4>
-									</a>
-								</li>
-								<li>
-									<a href="#add_document">
-										<i class="fa fa-lg fa-plus"></i>
-										<br/>
-										<h4>
-											Tambah<br/>
-										</h4>
-									</a>
-								</li>
-							</ul>
-							<div class="card-body tab-content style-default-bright">
-
-								<div class="tab-pane" id="add_document">
-									<form class="form" role="form" action="{{route('hr.organisations.documents.store')}}" method="post">
-										<div class="col-md-12">
-											<br>
-											<div class="form-group floating-label">
-												<input type="text" class="form-control" id="docs_name" name="docs_name">
-												<label for="docs_name">Nama Dokumen</label>
-											</div>
-										</div><!--end .col -->	
-
-										<div class="card-actionbar-row">
-											<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-										</div><!--end .card-actionbar-row -->
-									</form>
-								</div>
-								<div class="tab-pane active" id="data_document">
-									<h3 class="text-light">Dokumen Perusahaan</h3>
-									<br>
-									@foreach($data['organisation']['documents'] as $key => $value)
-										<h5>{{$value['name']}}</h5>
-									@endforeach
-								</div>
-							</div>				
-						</div><!--end .card -->
 					</div>
 				</div><!--end .card-body -->
 			</div><!--end .card -->

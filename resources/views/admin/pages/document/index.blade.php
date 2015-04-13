@@ -29,7 +29,7 @@
 								<th>No</th>
 								<th>Jenis Dokumen</th>
 								<th>Jumlah</th>
-								<th></th>
+								<th colspan="2"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -38,6 +38,11 @@
 									<td>{{$key+1}}</td>
 									<td>{{$value['name']}}</td>
 									<td>{{count($value['persons'])}}</td>
+									<td>
+										<a href="{{route('hr.documents.edit', $value['id']) }}">
+											Edit
+										</a>
+									</td>
 									<td>
 										<a href="{{route('hr.documents.show', $value['id']) }}">
 											Detail
