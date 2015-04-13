@@ -55,9 +55,29 @@ class RouteServiceProvider extends ServiceProvider {
 				Session::put('user.role', $contents->data->works[0]->name);
 				Session::put('user.name', $contents->data->username);
 				Session::put('user.gender', $contents->data->gender);
+				Session::put('user.access', json_decode(json_encode($contents->data->works[0]->applications),true));
 				
 				//check access
-				if (!in_array(Session::get('user.role'), app('hr_acl')[Route::currentRouteName()]))
+				foreach(Session::get('user.access') as $key => $value)
+				{
+					if($value['pivot']['is_create']==true)
+					{
+						$acl[] 						= $value['menu'].'-'.'is_create';
+					}
+					if($value['pivot']['is_read']==true)
+					{
+						$acl[] 						= $value['menu'].'-'.'is_read';
+					}
+					if($value['pivot']['is_update']==true)
+					{
+						$acl[] 						= $value['menu'].'-'.'is_update';
+					}
+					if($value['pivot']['is_delete']==true)
+					{
+						$acl[] 						= $value['menu'].'-'.'is_delete';
+					}
+				}
+				if (!isset($acl) || (!in_array(app('hr_acl')[Route::currentRouteName()], $acl)))
 				{
 					Session::flush();
 					return Redirect::guest(route('hr.login.get'));
@@ -77,60 +97,61 @@ class RouteServiceProvider extends ServiceProvider {
 		App::singleton('hr_acl', function()
 		{
 			$routes_acl = [
-							'hr.getLogout'									=> ['administrator', 'editor', 'writer', 'contributor'],
-							'hr.gallery.upload'								=> ['administrator', 'editor', 'writer', 'contributor'],
-							'hr.search'										=> ['administrator', 'editor', 'writer', 'contributor'],
-							'hr.dashboard.overview'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.password.get'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.password.post'								=> ['developer', 'CEO', 'manager', 'staff'],
+							// 'hr.getLogout'									=> ['administrator', 'editor', 'writer', 'contributor'],
+							// 'hr.gallery.upload'								=> ['administrator', 'editor', 'writer', 'contributor'],
+							// 'hr.search'										=> ['administrator', 'editor', 'writer', 'contributor'],
+							'hr.dashboard.overview'							=> 'dashboard-is_read',
+							'hr.password.get'								=> 'password-is_update',
+							'hr.password.post'								=> 'password-is_update',
 							
-							'hr.persons.index'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.persons.show'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.persons.edit'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.persons.create'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.persons.store'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.persons.update'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.persons.delete'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.persons.relatives.index'					=> ['developer', 'CEO', 'manager', 'staff'],
+							'hr.organisation.branches.index'				=> 'branch-is_read',
+							'hr.organisation.branches.show'					=> 'branch-is_read',
+							'hr.organisation.branches.create'				=> 'branch-is_create',
+							'hr.organisation.branches.store'				=> 'branch-is_create',
+							'hr.organisation.branches.update'				=> 'branch-is_update',
+							'hr.organisation.branches.edit'					=> 'branch-is_update',
+							'hr.organisation.branches.delete'				=> 'branch-is_delete',
+
+							'hr.persons.index'								=> 'person-is_read',
+							'hr.persons.show'								=> 'person-is_read',
+							'hr.persons.create'								=> 'person-is_create',
+							'hr.persons.store'								=> 'person-is_create',
+							'hr.persons.edit'								=> 'person-is_update',
+							'hr.persons.update'								=> 'person-is_update',
+							'hr.persons.delete'								=> 'person-is_delete',
+							'hr.persons.relatives.index'					=> 'person-is_read',
 							
-							'hr.documents.index'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.documents.show'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.documents.edit'								=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.documents.create'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.documents.store'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.documents.update'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.documents.delete'							=> ['developer', 'CEO', 'manager', 'staff'],
+							'hr.documents.index'							=> 'document-is_read',
+							'hr.documents.show'								=> 'document-is_read',
+							'hr.documents.create'							=> 'document-is_create',
+							'hr.documents.store'							=> 'document-is_create',
+							'hr.documents.update'							=> 'document-is_update',
+							'hr.documents.edit'								=> 'document-is_update',
+							'hr.documents.delete'							=> 'document-is_delete',
 
-							'hr.person.work.show'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.person.work.edit'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.person.work.create'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.persons.works.store'						=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.person.work.update'							=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.person.work.delete'							=> ['developer', 'CEO', 'manager', 'staff'],
+							// 'hr.person.work.show'							=> ['developer', 'CEO', 'manager', 'staff'],
+							// 'hr.person.work.edit'							=> ['developer', 'CEO', 'manager', 'staff'],
+							// 'hr.person.work.create'							=> ['developer', 'CEO', 'manager', 'staff'],
+							// 'hr.persons.works.store'						=> ['developer', 'CEO', 'manager', 'staff'],
+							// 'hr.person.work.update'							=> ['developer', 'CEO', 'manager', 'staff'],
+							// 'hr.person.work.delete'							=> ['developer', 'CEO', 'manager', 'staff'],
 
-							'hr.organisation.branches.index'				=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.organisation.branches.show'					=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.organisation.branches.edit'					=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.organisation.branches.create'				=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.organisation.branches.store'				=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.organisation.branches.update'				=> ['developer', 'CEO', 'manager', 'staff'],
-							'hr.organisation.branches.delete'				=> ['developer', 'CEO', 'manager', 'staff'],
 							
-							//developer area
-							'hr.organisations.index'						=> ['developer'],
-							'hr.organisations.create'						=> ['developer'],
-							'hr.organisations.store'						=> ['developer'],
-							'hr.organisations.edit'							=> ['developer'],
-							'hr.organisations.update'						=> ['developer'],
-							'hr.organisations.delete'						=> ['developer'],
-							'hr.organisations.show'							=> ['developer'],
-							'hr.organisations.documents.store'				=> ['developer', 'CEO', 'manager', 'staff'],
+							// //developer area
+							// 'hr.organisations.index'						=> ['developer'],
+							// 'hr.organisations.create'						=> ['developer'],
+							// 'hr.organisations.store'						=> ['developer'],
+							// 'hr.organisations.edit'							=> ['developer'],
+							// 'hr.organisations.update'						=> ['developer'],
+							// 'hr.organisations.delete'						=> ['developer'],
+							// 'hr.organisations.show'							=> ['developer'],
+							// 'hr.organisations.documents.store'				=> ['developer', 'CEO', 'manager', 'staff'],
 
-							'hr.organisations.apis.create'					=> ['developer', 'CEO'],
-							'hr.organisations.apis.store'					=> ['developer', 'CEO'],
-							'hr.organisations.apis.edit'					=> ['developer', 'CEO'],
-							'hr.organisations.apis.update'					=> ['developer', 'CEO'],
-							'hr.organisations.apis.delete'					=> ['developer', 'CEO'],
+							// 'hr.organisations.apis.create'					=> ['developer', 'CEO'],
+							// 'hr.organisations.apis.store'					=> ['developer', 'CEO'],
+							// 'hr.organisations.apis.edit'					=> ['developer', 'CEO'],
+							// 'hr.organisations.apis.update'					=> ['developer', 'CEO'],
+							// 'hr.organisations.apis.delete'					=> ['developer', 'CEO'],
 						];
 			return $routes_acl;
 		});

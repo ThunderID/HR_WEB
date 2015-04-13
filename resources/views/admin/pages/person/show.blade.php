@@ -95,7 +95,7 @@
 														<div class="row">
 															<div class="col-xs-6">
 																<p class="clearfix">
-																	<img class="img-responsive" style ="padding-left:5%; max-width:95%" alt="" src="{{url($value['pivot']['uploaded_file'])}}"></img>
+																	<img class="img-responsive" style ="padding-left:5%; max-width:95%" alt="" src=""></img>
 																</p>
 															</div>
 															<div class="col-xs-6">
