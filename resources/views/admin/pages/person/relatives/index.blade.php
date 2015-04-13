@@ -51,6 +51,7 @@
 														<div class="page-header no-border holder">
 		 													<h4 class="text-accent">Profil Relasi</h4>
 														</div>
+														<br/>
 														<div class="row">
 															<div class="col-md-12">
 																<div class="form-group">
@@ -60,7 +61,7 @@
 																		<option value="spouse">Pasangan</option>
 																		<option value="child">Anak</option>
 																	</select>
-																	<label for="relationship">Relasi</label>
+																	<label for="relationship">Hubungan/Relasi</label>
 																</div>
 															</div>
 														</div>
