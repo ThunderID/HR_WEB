@@ -7,7 +7,7 @@
 	 */
 ?>
 <?php $title = str_replace('_', ' ', $title); ?>
-@if ($mode == 'person')
+@if (str_is('*employee*', strtolower($title)))
 	<div class="col-md-6">
 		<div class="card ">
 			<div class="card-head">
@@ -20,7 +20,7 @@
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
-					@foreach($data['field'] as $value)
+					@foreach($data['data'] as $value)
 						<li class="tile">
 							<div class="tile-content">
 								<div class="tile-icon">
@@ -31,7 +31,7 @@
 									@endif
 								</div>
 								<div class="tile-text">
-									<a class="btn-link" href="{{ $route }}">
+									<a class="btn-link" href="{{ route('hr.persons.show', [$value['id']]) }}">
 										{{ $value['first_name']. ' '. $value['middle_name'] . ' ' . $value['last_name'] }}
 									</a>
 									
@@ -56,15 +56,15 @@
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
-					@foreach($branches as $value2)
+					@foreach($data['data'] as $value)
 						<li class="tile">
 							<div class="tile-content">
 								<div class="tile-icon pt-0">
 									<i class="fa fa-building fa-lg pb-10"></i>
 								</div>
 								<div class="tile-text">
-									<a class="btn-link" href="{{ $route }}">
-										{{ $value2['name'] }}
+									<a class="btn-link" href="{{ route('hr.organisation.branches.show', [$value['id']]) }}">
+										{{ $value['name'] }}
 									</a>
 								</div>
 							</div>

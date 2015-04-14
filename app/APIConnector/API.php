@@ -31,6 +31,11 @@ class API {
 		return new APIOrganisationChart();
 	}
 
+	static function widget()
+	{
+		return new APIWidget();
+	}	
+
 	static function work()
 	{
 		return new APIWork();

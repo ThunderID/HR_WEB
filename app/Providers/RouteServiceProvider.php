@@ -83,6 +83,8 @@ class RouteServiceProvider extends ServiceProvider {
 					Session::flush();
 					return Redirect::guest(route('hr.login.get'));
 				}
+
+				Session::put('dashboard', json_decode(json_encode($contents->data->widgets),true));
 			}
 		});
 	}
@@ -99,6 +101,8 @@ class RouteServiceProvider extends ServiceProvider {
 		{
 			$routes_acl = [
 							'hr.dashboard.overview'							=> 'dashboard-is_read',
+							'hr.dashboard.widgets.delete'					=> 'dashboard-is_create',
+							'hr.dashboard.widgets.store'					=> 'dashboard-is_create',
 							'hr.password.get'								=> 'password-is_update',
 							'hr.password.post'								=> 'password-is_update',
 							

@@ -348,12 +348,18 @@ Route::group(['prefix' => 'cms'], function(){
 	});
 	/* ---------------------------------------------------------------------------- END PERSON ----------------------------------------------------------------------------*/
 
-	Route::get('dashboard/overview', [
-						'uses' 	=> 'DashboardController@getOverview', 
-						'as' 	=> 'hr.dashboard.overview',
-						'before'=> 'hr_acl'
-					]);
+	/* ---------------------------------------------------------------------------- BEGIN DASHBOARD ----------------------------------------------------------------------------*/
+	Route::group(['prefix' => 'dashboard', 'before' => 'hr_acl'], function(){
 
+		Route::get('/overview', 							[	'as' 	=> 'hr.dashboard.overview', 		'uses' 	=> 'DashboardController@getOverview']);
+
+		Route::any('/overview/widgets/delete/{id}', 		[	'as' 	=> 'hr.dashboard.widgets.delete', 	'uses' 	=> 'DashboardController@destroyWidget']);
+		
+		Route::post('/overview/widgets/store', 				[	'as' 	=> 'hr.dashboard.widgets.store', 	'uses' 	=> 'DashboardController@storeWidget']);
+	});
+
+	/* ---------------------------------------------------------------------------- END DASHBOARD ----------------------------------------------------------------------------*/
+	
 	/* ---------------------------------------------------------------------------- AJAX ----------------------------------------------------------------------------*/
 	
 	Route::get('names/earch', array('as'		=> 'hr.ajax.name', 		'uses' => 'AjaxController@searchName'));
@@ -365,4 +371,8 @@ Route::group(['prefix' => 'cms'], function(){
 	/* ---------------------------------------------------------------------------- END AJAX ----------------------------------------------------------------------------*/
 });
 
+Route::get('/tes', function(){
+	$days 			= (new DateTime('- 3 days'));
+ print_r($days->format('Y-m-d'));
+});
 

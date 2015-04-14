@@ -7,50 +7,26 @@
 	<div class="row">
 		<?php $color = ['warning', 'danger', 'success', 'info']; $x= 0;?>
 		@foreach ($dashboard as $key => $db)
-			@if ($db == 'stats')
+			@if ($db['type'] == 'stat')
 				<?php 
-
-					if ($key == 'total_branches') {
-						$data['number'] = count($branches); 
-					}
-					else if ($key == 'total_workers') {
-						$data['number']	= count($person);
-					}
-					else if ($key == 'total_documents') {
-						$data['number']	= count($branches);	
-					}
-					else {
-						$data['number']	= count($person);
-					}
-
-					$data['title'] = ucwords($key); 
-					$data['style'] = $color[$x];
+					$data['number']		= $db['data']['number'];
+					$data['title'] 		= ucwords($db['title']); 
+					$data['function'] 	= $db['function']; 
+					$data['style'] 		= $color[$x];
 					$x++;
 				?>
 			@else
-				<?php $data['row'] = $key; ?>
-			@endif 
-			
-			@if ($key == 'new_person')
-				<?php $data['field'] =  $person; ?>
-
-				@include('admin.widgets.'.$db, ['title'	=> $key, 
-												'route' => '',
-												'mode'  => 'person',
-												$data])
-			@elseif ($key == 'new_branch')
-				<?php $data['field'] =  $branches; ?>
-
-				@include('admin.widgets.'.$db, ['title'	=> $key, 
-												'route' => '',
-												'mode'  => '',
-												$data])
-			@else
-				@include('admin.widgets.'.$db, ['title' => $key, 
+				<?php
+					$data['data']		= $db['data']['data'];
+					$data['title'] 		= ucwords($db['title']); 
+					$data['function'] 	= $db['function']; 
+					$x++;
+				?>
+			@endif
+				@include('admin.widgets.'.$db['type'], ['title' => $db['title'], 
 												'mode' => '', 
 												'route' => '', 
 												$data])
-			@endif
 		@endforeach
 	</div>
 	<!-- BEGIN FORM MODAL MARKUP -->
@@ -65,30 +41,16 @@
 					<div class="modal-body">
 						<a class="btn btn-primary ink-reaction pull-right" data-toggle="modal" href="#addwidgetmodal">Tambah Widget</a>
 						<ul class="list pt-20">
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#2">
-									<div class="tile-text">Total Letters</div>
-								</a>
-								<a class="btn btn-flat ink-reaction">
-									<i class="fa fa-trash"></i>
-								</a>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction">
-									<div class="tile-text">Total Branches</div>
-								</a>
-								<a class="btn btn-flat ink-reaction">
-									<i class="fa fa-trash"></i>
-								</a>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction">
-									<div class="tile-text">Total Workers</div>
-								</a>
-								<a class="btn btn-flat ink-reaction">
-									<i class="fa fa-trash"></i>
-								</a>
-							</li>
+							@foreach($dashboard as $key => $value)
+								<li class="tile">
+									<a class="tile-content ink-reaction" href="#2">
+										<div class="tile-text">{{ucwords($value['title'])}}</div>
+									</a>
+									<a class="btn btn-flat ink-reaction" href="{{route('hr.dashboard.widgets.delete', [$value['id']])}}">
+										<i class="fa fa-trash"></i>
+									</a>
+								</li>
+							@endforeach
 						</ul>
 					</div>
 					<div class="modal-footer">
@@ -105,7 +67,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Widget</h4>
 				</div>
-				<form class="form" role="form">
+				<form class="form" role="form" action="{{route('hr.dashboard.widgets.store')}}" method="post">
 					<div class="modal-body">
 						<div class="form-group">
 							<input class="form-control" id="title" type="text" name="title">
@@ -115,8 +77,8 @@
 							<select id="type_widgets" name="type" class="form-control" data-old="">
 								<option value="">&nbsp;</option>
 								<option value="table">Table</option>
-								<option value="panel_list">Panel List</option>
-								<option value="stats">Stats</option>
+								<option value="panel">Panel List</option>
+								<option value="stat">Stats</option>
 							</select>
 							<label for="select1">Type</label>
 						</div>
@@ -125,32 +87,34 @@
 							<div class="form-group">
 								<select name="data_table" class="form-control select2-list" data-placeholder="Data Field">
 									<option value="">&nbsp;</option>
-									<option value="person_new">Karyawan Terbaru</option>
-									<option value="letter_new">Document Terbaru</option>
+									<option value="new_employees_3_days">Karyawan Terbaru Dalam 3 Hari</option>
+									<option value="new_employees_7_days">Karyawan Terbaru Dalam 7 Hari</option>
+									<option value="new_branches_1_year">Perusahaan Terdaftar Dalam 1 Tahun</option>
 								</select>
 								<label>Data Field</label>
 							</div>
 						</div>
 
-						<div class="" id="panel_list" style="display:none">
+						<div class="" id="panel" style="display:none">
 							<div class="form-group">
-								<select name="data_panel_list" class="form-control select2-list" data-placeholder="Data Field">
+								<select name="data_panel" class="form-control select2-list" data-placeholder="Data Field">
 									<option value="">&nbsp;</option>
-									<option value="person_new">Karyawan Terbaru</option>
-									<option value="letter_new">Document Terbaru</option>
+									<option value="new_employees_3_days">Karyawan Terbaru Dalam 3 Hari</option>
+									<option value="new_employees_7_days">Karyawan Terbaru Dalam 7 Hari</option>
+									<option value="new_branches_1_year">Perusahaan Terdaftar Dalam 1 Tahun</option>
 								</select>
 								<label>Data Field</label>
 							</div>
 						</div>
 
-						<div class="" id="stats" style="display:none">
+						<div class="" id="stat" style="display:none">
 							<div class="form-group">
-								<select id="data_stats" name="data_stats" class="form-control">
+								<select id="data_stat" name="data_stat" class="form-control">
 									<option value="">&nbsp;</option>
-									{{-- <option value="letters">Letters</option> --}}
-									<option value="branches">Branches</option>
-									<option value="workers">Workers</option>
-									<option value="documents">Documents</option>
+									<option value="total_documents">Letters</option>
+									<option value="total_letters">Branches</option>
+									<option value="total_employees">Workers</option>
+									<option value="total_branches">Documents</option>
 								</select>
 								<label for="data">Data Field</label>
 							</div>
@@ -158,10 +122,9 @@
 
 						<div class="form-group">
 							<select id="select1" name="order" class="form-control">
-								<option value="">&nbsp;</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
+								@for($i=count($dashboard)+1;$i<=6;$i++)
+									<option value="{{$i}}">{{$i}}</option>
+								@endfor
 							</select>
 							<label for="select1">Urutan</label>
 						</div>
@@ -169,7 +132,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-						<button type="button" class="btn btn-primary">Simpan</button>
+						<button type="submit" class="btn btn-primary">Simpan</button>
 					</div>
 				</form>
 			</div><!-- /.modal-content -->

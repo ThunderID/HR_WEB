@@ -2,7 +2,7 @@
 
 use Illuminate\Contracts\View\View;
 use App\APIConnector\API;
-use Input, Session;
+use Input, Session, DateTime;
 
 class DashboardComposer {
 
@@ -21,8 +21,7 @@ class DashboardComposer {
 	 */
 	public function __construct()
 	{
-		// Dependencies automatically resolved by service container...
-		// $this->users = $users;
+		//
 	}
 
 	/**
@@ -33,112 +32,121 @@ class DashboardComposer {
 	 */
 	public function compose(View $view)
 	{
-		$person 	= $this->person(1);
-		$branches 	= $this->branches(1);
-		$document 	= $this->document(1);
+		$methods = Session::get('dashboard');
+		foreach ($methods as $method)
+		{
+			$dashboard[]	= ['data' => call_user_func([$this, $method['function']], $this), 'type' => $method['type'], 'title' => $method['title'], 'function' => $method['function'], 'id' => $method['id']];
+		}
 
+		$view = $view->with('dashboard', $dashboard);
+	}
+
+	public function total_documents()
+	{
+		$search										= ['isrequired' => true];
 		
-		$view->with('person', $person)
-			->with('branches', $branches)
-			->with('document', $document);
-	}
+		$sort 										= ['created_at' => 'asc'];
 
-	public function person($page)
-	{
-		$search                                     = ['WithAttributes' => ['contacts']];
-		if(Input::has('q'))
-		{
-			if(Input::has('field'))
-			{
-				$search[Input::get('field')]        = Input::get('q');          
-			}
-			else
-			{
-				$search['firstname']                = Input::get('q');          
-				$search['orlastname']               = Input::get('q');          
-				$search['orprefixtitle']            = Input::get('q');          
-				$search['orsuffixtitle']            = Input::get('q');          
-			}
-		}
+		$results 									= API::document()->index(1, $search, $sort);
 
-		if(Input::has('sort_firstname'))
-		{
-			$sort['first_name']                     = Input::get('sort_firstname');         
-		}
-		elseif(Input::has('sort_lastname'))
-		{
-			$sort['last_name']                      = Input::get('sort_lastname');          
-		}
-		else
-		{
-			$sort                                   = ['created_at' => 'asc'];
-		}
-
-		$results                                    = API::person()->index($page, $search, $sort);
-
-		$contents                                   = json_decode($results);
-
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}
-
-		$data                                       = json_decode(json_encode($contents->data), true);
-
-		return $data;
-	}
-
-	public function branches($page)
-	{
-		$search['ParentOrganisation']				= Session::get('user.organisation');
-		if(Input::has('q'))
-		{
-			$search['name']							= Input::get('q');			
-		}
-
-		if(Input::has('sort_name'))
-		{
-			$sort['name']							= Input::get('sort_name');			
-		}
-		elseif(Input::has('sort_date'))
-		{
-			$sort['created_at']						= Input::get('sort_date');			
-		}
-		else
-		{
-			$sort 									= ['created_at' => 'asc'];
-		}
-
-		$results 									= API::organisationbranch()->index($page, $search, $sort);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
 		}
-		
-		$data 										= json_decode(json_encode($contents->data), true);
 
-		return $data;
+		return ['number' => $contents->pagination->total_data];
 	}
 
-	public function document($page)
+	public function total_letters()
 	{
-		$search                                     = ['WithAttributes' => ['persons']];
-		$sort                                       = ['created_at' => 'asc'];
-
-		$results                                    = API::document()->index($page, $search, $sort);
+		$search										= ['isrequired' => false];
 		
-		$contents                                   = json_decode($results);
+		$sort 										= ['created_at' => 'asc'];
 
-		// if(!$contents->meta->success)
-		// {
-		// 	App::abort(404);
-		// }
-		
-		// $data                                       = json_decode(json_encode($contents->data), true);
+		$results 									= API::document()->index(1, $search, $sort);
 
-		return $contents;
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		return ['number' => $contents->pagination->total_data];
 	}
 
+	public function total_employees()
+	{
+		$search										= ['checkwork' => 'active'];
+		
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::person()->index(1, $search, $sort);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		return ['number' => $contents->pagination->total_data];
+	}
+
+	public function total_branches()
+	{
+		$search['ParentOrganisation']				= Session::get('user.organisation');
+		
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::organisationbranch()->index(1, $search, $sort);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+		return ['number' => $contents->pagination->total_data];
+	}
+
+	public function new_employees_3_days()
+	{
+		$days 										= new DateTime('- 3 days');
+
+		$search										= ['checkCreate' => $days->format('Y-m-d'), 'checkwork' => 'active'];
+		
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::person()->index(1, $search, $sort);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+		return ['data' => json_decode(json_encode($contents->data),true)];
+	}
+
+	public function new_branches_1_year()
+	{
+		$days 										= new DateTime('- 1 year');
+
+		$search										= ['checkCreate' => $days->format('Y-m-d'), 'ParentOrganisation' => Session::get('user.organisation')];
+		
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::organisationbranch()->index(1, $search, $sort);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+		return ['data' => json_decode(json_encode($contents->data),true)];
+	}
 }

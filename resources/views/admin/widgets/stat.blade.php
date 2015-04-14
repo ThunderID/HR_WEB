@@ -9,16 +9,15 @@
 
 */
 
-	$icon = ['total_letters' => 'fa-envelope', 'total_branches' => 'fa-building', 'total_workers' => 'fa-users', 'total_documents' => 'fa-suitcase']; 
+	$icon = ['total_letters' => 'fa-envelope', 'total_branches' => 'fa-building', 'total_employees' => 'fa-users', 'total_documents' => 'fa-suitcase']; 
 
 ?>
-<?php $data['title'] = str_replace('_', ' ', $data['title']); ?>
 @if ($mode == 'animation')
 	<div class="col-md-3 col-sm-6">
 		<div class="card">
 			<div class="card-body no-padding">
 				<div class="alert alert-callout alert-{{ $data['style'] }} no-margin">
-					<strong class="pull-right text-{{ $data['style'] }} text-lg"><i class="fa {{ $icon[$title] }} fa-2x"></i></strong>
+					<strong class="pull-right text-{{ $data['style'] }} text-lg"><i class="fa {{ $icon[$data['function']] }} fa-2x"></i></strong>
 					<strong class="text-xl">{{ $data['number'] }}</strong><br/>
 					<span class="opacity-50">{{ $data['title'] }}</span>
 					<div class="stick-bottom-left-right">
@@ -35,7 +34,7 @@
 		<div class="card">
 			<div class="card-body no-padding">
 				<div class="alert alert-callout alert-{{ $data['style'] }} no-margin">
-					<strong class="pull-right text-{{ $data['style'] }} text-lg"><i class="fa {{ $icon[$title] }} fa-2x"></i></strong>
+					<strong class="pull-right text-{{ $data['style'] }} text-lg"><i class="fa {{ $icon[$data['function']] }} fa-2x"></i></strong>
 					<strong class="text-xl">{{ $data['number'] }}</strong><br/>
 					<span class="opacity-50">{{ $data['title'] }}</span>
 				</div>
