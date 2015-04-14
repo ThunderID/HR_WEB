@@ -1,9 +1,10 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Branch;
 
 use Input, Session, App, Paginator, Redirect;
 use App\APIConnector\API;
+use App\Http\Controllers\Controller;
 
-class CompanyController extends AdminController {
+class CompanyController extends Controller {
 
 	protected $controller_name = 'kantor';
 
@@ -160,7 +161,7 @@ class CompanyController extends AdminController {
 			{
 				if($value!='')
 				{
-					if(isset(Input::get('id_phone')[$key]))
+					if(isset(Input::get('id_email')[$key]))
 					{
 						$input['contact']['email'][] = ['value' => $value, 'id' => Input::get('id_email')[$key]];
 					}

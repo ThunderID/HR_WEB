@@ -6,17 +6,18 @@ Route::get('/', function(){
 Route::group(['prefix' => 'cms'], function(){
 
 
-	Route::get('/login', 				['as' => 'hr.login.get', 	'uses' => 'AuthController@getLogin']);
-	Route::post('/login', 				['as' => 'hr.login.post', 	'uses' => 'AuthController@postLogin']);
+	Route::get('/login', 				['as' => 'hr.login.get', 		'uses' => 'Auth\AuthController@getLogin']);
 
-	Route::get('/logout',				['as' => 'hr.logout.get', 	'uses' => 'AuthController@getLogout']);
+	Route::post('/login', 				['as' => 'hr.login.post', 		'uses' => 'Auth\AuthController@postLogin']);
 
-	Route::any('/upload', 				['as' => 'hr.images.upload',	'uses' => 'GalleryController@upload']);
+	Route::get('/logout',				['as' => 'hr.logout.get', 		'uses' => 'Auth\AuthController@getLogout']);
+
 	/* ---------------------------------------------------------------------------- PRIVATE AREA ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'password', 'before' => 'hr_acl'], function(){
-		Route::get('/', 				['as' => 'hr.password.get', 	'uses' => 'AuthController@getPassword']);
+	
+		Route::get('/', 				['as' => 'hr.password.get', 	'uses' => 'Auth\PasswordController@getPassword']);
 
-		Route::post('/', 				['as' => 'hr.password.post', 	'uses' => 'AuthController@postPassword']);
+		Route::post('/', 				['as' => 'hr.password.post', 	'uses' => 'Auth\PasswordController@postPassword']);
 	});
 	/* ---------------------------------------------------------------------------- END OF PRIVATE AREA ----------------------------------------------------------------------------*/
 	
@@ -25,88 +26,60 @@ Route::group(['prefix' => 'cms'], function(){
 	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
 						[
-							'uses' 	=> 'OrganisationController@getIndex', 
+							'uses' 	=> 'Organisation\OrganisationController@getIndex', 
 							'as' 	=> 'hr.organisations.index'
 						]
 					);
 
 		Route::get('create/new', 
 						[
-							'uses' 	=> 'OrganisationController@getCreate', 
+							'uses' 	=> 'Organisation\OrganisationController@getCreate', 
 							'as' 	=> 'hr.organisations.create'
 						]
 					);
 
 		Route::post('store', 
 						[
-							'uses' 	=> 'OrganisationController@postStore', 
+							'uses' 	=> 'Organisation\OrganisationController@postStore', 
 							'as' 	=> 'hr.organisations.store'
 						]
 					);
 
 		Route::get('show/{id}', 
 						[
-							'uses' 	=> 'OrganisationController@getShow', 
+							'uses' 	=> 'Organisation\OrganisationController@getShow', 
 							'as' 	=> 'hr.organisations.show'
 						]
 					);
 		Route::get('edit/{id}', 
 						[
-							'uses' 	=> 'OrganisationController@getEdit', 
+							'uses' 	=> 'Organisation\OrganisationController@getEdit', 
 							'as' 	=> 'hr.organisations.edit'
 						]
 					);		
 		Route::post('update/{id}', 
 						[
-							'uses' 	=> 'OrganisationController@postUpdate', 
+							'uses' 	=> 'Organisation\OrganisationController@postUpdate', 
 							'as' 	=> 'hr.organisations.update'
 						]
 					);	
 		Route::any('delete/{id}', 
 						[
-							'uses' 	=> 'OrganisationController@anyDelete', 
+							'uses' 	=> 'Organisation\OrganisationController@anyDelete', 
 							'as' 	=> 'hr.organisations.delete'
 						]
 					);	
-
-		Route::post('documents/store/', 
-						[
-							'uses' 	=> 'OrganisationController@postDocumentsStore', 
-							'as' 	=> 'hr.organisations.documents.store'
-						]
-					);
-
 	});
 
 	//api key
 	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
 		Route::get('{id}/create/new', 
 						[
-							'uses' 	=> 'APIKeyController@getCreate', 
+							'uses' 	=> 'Organisation\APIKeyController@getCreate', 
 							'as' 	=> 'hr.organisations.apis.create'
 						]
 					);
-		// Route::get('edit/{id}', 
-		// 				[
-		// 					'uses' 	=> 'OrganisationController@getEdit', 
-		// 					'as' 	=> 'hr.organisations.edit'
-		// 				]
-		// 			);		
-		// Route::post('update/{id}', 
-		// 				[
-		// 					'uses' 	=> 'OrganisationController@postUpdate', 
-		// 					'as' 	=> 'hr.organisations.update'
-		// 				]
-		// 			);	
-		// Route::any('delete/{id}', 
-		// 				[
-		// 					'uses' 	=> 'OrganisationController@anyDelete', 
-		// 					'as' 	=> 'hr.organisations.delete'
-		// 				]
-		// 			);	
-
 	});
-	//superadmin
 
 	/* ---------------------------------------------------------------------------- END OF DEVELOPER AREA ----------------------------------------------------------------------------*/
 
@@ -116,46 +89,46 @@ Route::group(['prefix' => 'cms'], function(){
 	Route::group(['prefix' => 'companies', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
 						[
-							'uses' 	=> 'CompanyController@getIndex', 
+							'uses' 	=> 'Branch\CompanyController@getIndex', 
 							'as' 	=> 'hr.organisation.branches.index'
 						]
 					);
 
 		Route::get('create/new', 
 						[
-							'uses' 	=> 'CompanyController@getCreate', 
+							'uses' 	=> 'Branch\CompanyController@getCreate', 
 							'as' 	=> 'hr.organisation.branches.create'
 						]
 					);
 
 		Route::post('store', 
 						[
-							'uses' 	=> 'CompanyController@postStore', 
+							'uses' 	=> 'Branch\CompanyController@postStore', 
 							'as' 	=> 'hr.organisation.branches.store'
 						]
 					);
 
 		Route::get('show/{id}', 
 						[
-							'uses' 	=> 'CompanyController@getShow', 
+							'uses' 	=> 'Branch\CompanyController@getShow', 
 							'as' 	=> 'hr.organisation.branches.show'
 						]
 					);
 		Route::get('edit/{id}', 
 						[
-							'uses' 	=> 'CompanyController@getEdit', 
+							'uses' 	=> 'Branch\CompanyController@getEdit', 
 							'as' 	=> 'hr.organisation.branches.edit'
 						]
 					);
 		Route::post('update/{id}', 
 						[
-							'uses' 	=> 'CompanyController@postUpdate', 
+							'uses' 	=> 'Branch\CompanyController@postUpdate', 
 							'as' 	=> 'hr.organisation.branches.update'
 						]
 					);	
 		Route::any('delete/{id}', 
 						[
-							'uses' 	=> 'CompanyController@anyDelete', 
+							'uses' 	=> 'Branch\CompanyController@anyDelete', 
 							'as' 	=> 'hr.organisation.branches.delete'
 						]
 					);	
@@ -168,61 +141,55 @@ Route::group(['prefix' => 'cms'], function(){
 	Route::group(['prefix' => 'documents', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
 						[
-							'uses' 	=> 'DocumentController@getIndex', 
+							'uses' 	=> 'Branch\DocumentController@getIndex', 
 							'as' 	=> 'hr.documents.index'
 						]
 					);
 
 		Route::get('create/new', 
 						[
-							'uses' 	=> 'DocumentController@getCreate', 
+							'uses' 	=> 'Branch\DocumentController@getCreate', 
 							'as' 	=> 'hr.documents.create'
 						]
 					);
 
 		Route::post('store', 
 						[
-							'uses' 	=> 'DocumentController@postStore', 
+							'uses' 	=> 'Branch\DocumentController@postStore', 
 							'as' 	=> 'hr.documents.store'
 						]
 					);
 
 		Route::get('show/{id}', 
 						[
-							'uses' 	=> 'DocumentController@getShow', 
+							'uses' 	=> 'Branch\DocumentController@getShow', 
 							'as' 	=> 'hr.documents.show'
 						]
 					);
 		Route::get('edit/{id}', 
 						[
-							'uses' 	=> 'DocumentController@getEdit', 
+							'uses' 	=> 'Branch\DocumentController@getEdit', 
 							'as' 	=> 'hr.documents.edit'
 						]
 					);
 		Route::post('update/{id}', 
 						[
-							'uses' 	=> 'DocumentController@postUpdate', 
+							'uses' 	=> 'Branch\DocumentController@postUpdate', 
 							'as' 	=> 'hr.documents.update'
 						]
 					);
 		Route::any('delete/{id}', 
 						[
-							'uses' 	=> 'DocumentController@anyDelete', 
+							'uses' 	=> 'Branch\DocumentController@anyDelete', 
 							'as' 	=> 'hr.documents.delete'
 						]
 					);
-		Route::get('shows/{person_id}/documents/{id}', 
-					[
-						'uses' 	=> 'DocumentController@getShow', 
-						'as' 	=> 'hr.person.document.show'
-					]
-				);
 	});
 
 	Route::group(['prefix' => 'documents/templates', 'before' => 'hr_acl'], function(){
 		Route::any('delete/{id}', 
 						[
-							'uses' 	=> 'DocumentController@anyTemplateDelete', 
+							'uses' 	=> 'Branch\DocumentController@anyTemplateDelete', 
 							'as' 	=> 'hr.document.templates.delete'
 						]
 					);
@@ -234,48 +201,48 @@ Route::group(['prefix' => 'cms'], function(){
 	Route::group(['prefix' => 'persons', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
 						[
-							'uses' 	=> 'PersonController@getIndex', 
+							'uses' 	=> 'Person\PersonController@getIndex', 
 							'as' 	=> 'hr.persons.index'
 						]
 					);
 
 		Route::get('create/new', 
 						[
-							'uses' 	=> 'PersonController@getCreate', 
+							'uses' 	=> 'Person\PersonController@getCreate', 
 							'as' 	=> 'hr.persons.create'
 						]
 					);
 
 		Route::post('store', 
 						[
-							'uses' 	=> 'PersonController@postStore', 
+							'uses' 	=> 'Person\PersonController@postStore', 
 							'as' 	=> 'hr.persons.store'
 						]
 					);
 
 		Route::get('show/{id}', 
 						[
-							'uses' 	=> 'PersonController@getShow', 
+							'uses' 	=> 'Person\PersonController@getShow', 
 							'as' 	=> 'hr.persons.show'
 						]
 					);
 		Route::get('edit/{id}', 
 						[
-							'uses' 	=> 'PersonController@getEdit', 
+							'uses' 	=> 'Person\PersonController@getEdit', 
 							'as' 	=> 'hr.persons.edit'
 						]
 					);		
 
 		Route::post('update/{id}', 
 						[
-							'uses' 	=> 'PersonController@postUpdate', 
+							'uses' 	=> 'Person\PersonController@postUpdate', 
 							'as' 	=> 'hr.persons.update'
 						]
 					);	
 
 		Route::any('delete/{id}', 
 						[
-							'uses' 	=> 'PersonController@anyDelete', 
+							'uses' 	=> 'Person\PersonController@anyDelete', 
 							'as' 	=> 'hr.persons.delete'
 						]
 					);	
@@ -369,48 +336,22 @@ Route::group(['prefix' => 'cms'], function(){
 		/* ---------------------------------------------------------------------------- END PERSON WORKS----------------------------------------------------------------------------*/
 	});
 	/* ---------------------------------------------------------------------------- END PERSON ----------------------------------------------------------------------------*/
-	
-
-	///BEGIN CONTACTS///
-	Route::group(['prefix' => 'contacts', 'before' => 'hr_acl'], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'contacts@getIndex', 
-							'as' 	=> 'hr.contacts.index'
-						]
-					);
-
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'contacts@getCreate', 
-							'as' 	=> 'hr.contacts.create'
-						]
-					);
-
-		Route::get('show/{id}', 
-						[
-							'uses' 	=> 'contacts@getShow', 
-							'as' 	=> 'hr.contacts.show'
-						]
-					);
-		Route::get('shows/{person_id}/contacts/{id}', 
-					[
-						'uses' 	=> 'contacts@getShow', 
-						'as' 	=> 'hr.person.contacts.show'
-					]
-				);
-	});
-	///END CONTACTS///	
-
 
 	Route::get('dashboard/overview', [
-						'uses' 	=> 'AdminDashboardController@getOverview', 
+						'uses' 	=> 'DashboardController@getOverview', 
 						'as' 	=> 'hr.dashboard.overview',
 						'before'=> 'hr_acl'
 					]);
+
+	/* ---------------------------------------------------------------------------- AJAX ----------------------------------------------------------------------------*/
+	
+	Route::get('names/earch', array('as'		=> 'hr.ajax.name', 		'uses' => 'AjaxController@searchName'));
+
+	Route::get('company/search', array('as' 	=> 'hr.ajax.company', 	'uses' => 'AjaxController@searchCompany'));
+	
+	Route::any('/image/upload', 		['as' 	=> 'hr.images.upload',	'uses' => 'GalleryController@upload']);
+	
+	/* ---------------------------------------------------------------------------- END AJAX ----------------------------------------------------------------------------*/
 });
 
-Route::get('namesearch', array('as' => 'hr.ajax.name', 'uses' => 'AjaxController@search_name'));
-Route::get('companysearch', array('as' => 'hr.ajax.company', 'uses' => 'AjaxController@search_company'));
-Route::get('departmentsearch', array('as' => 'hr.ajax.department', 'uses' => 'AjaxController@search_department'));
-Route::get('positionsearch', array('as' => 'hr.ajax.position', 'uses' => 'AjaxController@search_position'));
+

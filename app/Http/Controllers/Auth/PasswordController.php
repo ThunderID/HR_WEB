@@ -1,38 +1,68 @@
 <?php namespace App\Http\Controllers\Auth;
 
+use Input, Auth, \Illuminate\Support\MessageBag, Redirect, Config, Session, Validator;
+use App\APIConnector\API;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\PasswordBroker;
-use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Password Reset Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller is responsible for handling password reset requests
-	| and uses a simple trait to include this behavior. You're free to
-	| explore this trait and override any methods you wish to tweak.
-	|
-	*/
-
-	use ResetsPasswords;
+	protected $controller_name 		= 'password';
 
 	/**
-	 * Create a new password controller instance.
+	 * handle logout
 	 *
-	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
-	 * @param  \Illuminate\Contracts\Auth\PasswordBroker  $passwords
 	 * @return void
-	 */
-	public function __construct(Guard $auth, PasswordBroker $passwords)
-	{
-		$this->auth = $auth;
-		$this->passwords = $passwords;
+	 * @author 
+	 **/
 
-		$this->middleware('guest');
+	function getPassword()
+	{
+		$this->layout->page_title 	= '';
+
+		$this->layout->content 		= view('admin.pages.password.form');
+
+		return $this->layout;
 	}
 
+	/**
+	 * handle login
+	 *
+	 * @return void
+	 * @author 
+	 **/
+
+	function postPassword()
+	{
+		$username 					= Session::get('user.name');
+		$password 					= Input::get('old_password');
+		$input						= Input::only('password', 'password_confirmation');
+		$validator 					= Validator::make($input, ['password' => 'required|confirmed|min:8']);
+
+		if (!$validator->passes())
+		{
+			return Redirect::back()->withErrors($validator->errors())->withInput();
+		}
+
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+
+			$results 				= API::person()->store(Session::get('loggedUser'), $input);
+
+			$content 				= json_decode($results);
+
+			if($content->meta->success)
+			{
+				return Redirect::route('hr.persons.index')->with('alert_success', 'Password telah diubah');
+			}
+			
+			return Redirect::back()->withErrors($content->meta->errors)->withInput();
+		}
+
+
+		return Redirect::back()->withInput()->withError($content->meta->errors);
+	}
 }

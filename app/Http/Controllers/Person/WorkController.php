@@ -2,9 +2,9 @@
 
 use Input, Session, App, Config, Paginator, Redirect, Validator;
 use App\APIConnector\API;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 
-class WorkController extends AdminController {
+class WorkController extends Controller {
 
 	protected $controller_name = 'karyawan';
 
@@ -54,7 +54,7 @@ class WorkController extends AdminController {
 		return $this->layout;
 	}
 
-	function postStore($person_id)
+	function postStore($person_id, $id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
 		if(Input::has('work_company'))
@@ -62,7 +62,8 @@ class WorkController extends AdminController {
 			if(Input::get('work_company')!='')
 			{
 				$input['person']['id'] 				= $person_id;
-
+				
+				$chart['id'] 						= $id;
 				$chart['organisation_chart_id'] 	= Input::get('work_company');
 				$chart['status'] 					= Input::get('work_status');
 				$chart['start'] 					= date("Y-m-d", strtotime(Input::get('work_start')));
@@ -137,19 +138,8 @@ class WorkController extends AdminController {
 		return $this->layout;
 	}
 
-	function anyDelete($personid, $id)
+	function postUpdate($personid, $id)
 	{
-		$results 									= API::person()->documentdestroy($personid, $id);
-
-		$contents 									= json_decode($results);
-
-		if (!$contents->meta->success)
-		{
-			return Redirect::back()->withErrors($contents->meta->errors);
-		}
-		else
-		{
-			return Redirect::route('hr.persons.documents.index', [$personid])->with('alert_success', 'Dokumen "' . $contents->data->name. '" sudah dihapus');
-		}
+		return $this->postStore($personid, $id);
 	}
 }

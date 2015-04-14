@@ -98,9 +98,6 @@ class RouteServiceProvider extends ServiceProvider {
 		App::singleton('hr_acl', function()
 		{
 			$routes_acl = [
-							// 'hr.getLogout'									=> ['administrator', 'editor', 'writer', 'contributor'],
-							// 'hr.gallery.upload'								=> ['administrator', 'editor', 'writer', 'contributor'],
-							// 'hr.search'										=> ['administrator', 'editor', 'writer', 'contributor'],
 							'hr.dashboard.overview'							=> 'dashboard-is_read',
 							'hr.password.get'								=> 'password-is_update',
 							'hr.password.post'								=> 'password-is_update',
@@ -112,6 +109,16 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisation.branches.update'				=> 'branch-is_update',
 							'hr.organisation.branches.edit'					=> 'branch-is_update',
 							'hr.organisation.branches.delete'				=> 'branch-is_delete',
+							
+							'hr.documents.index'							=> 'document-is_read',
+							'hr.documents.show'								=> 'document-is_read',
+							'hr.documents.create'							=> 'document-is_create',
+							'hr.documents.store'							=> 'document-is_create',
+							'hr.documents.update'							=> 'document-is_update',
+							'hr.documents.edit'								=> 'document-is_update',
+							'hr.documents.delete'							=> 'document-is_delete',
+
+							'hr.document.templates.delete'					=> 'document-is_delete',
 
 							'hr.persons.index'								=> 'person-is_read',
 							'hr.persons.show'								=> 'person-is_read',
@@ -136,39 +143,21 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.persons.works.edit'							=> 'person-is_create',
 							'hr.persons.works.update'						=> 'person-is_create',
 							
-							'hr.documents.index'							=> 'document-is_read',
-							'hr.documents.show'								=> 'document-is_read',
-							'hr.documents.create'							=> 'document-is_create',
-							'hr.documents.store'							=> 'document-is_create',
-							'hr.documents.update'							=> 'document-is_update',
-							'hr.documents.edit'								=> 'document-is_update',
-							'hr.documents.delete'							=> 'document-is_delete',
-
-							'hr.document.templates.delete'					=> 'document-is_delete',
-
-							// 'hr.person.work.show'							=> ['developer', 'CEO', 'manager', 'staff'],
-							// 'hr.person.work.edit'							=> ['developer', 'CEO', 'manager', 'staff'],
-							// 'hr.person.work.create'							=> ['developer', 'CEO', 'manager', 'staff'],
-							// 'hr.persons.works.store'						=> ['developer', 'CEO', 'manager', 'staff'],
-							// 'hr.person.work.update'							=> ['developer', 'CEO', 'manager', 'staff'],
-							// 'hr.person.work.delete'							=> ['developer', 'CEO', 'manager', 'staff'],
-
+							'hr.images.upload'								=> 'person-is_create',
 							
-							// //developer area
-							// 'hr.organisations.index'						=> ['developer'],
-							// 'hr.organisations.create'						=> ['developer'],
-							// 'hr.organisations.store'						=> ['developer'],
-							// 'hr.organisations.edit'							=> ['developer'],
-							// 'hr.organisations.update'						=> ['developer'],
-							// 'hr.organisations.delete'						=> ['developer'],
-							// 'hr.organisations.show'							=> ['developer'],
-							// 'hr.organisations.documents.store'				=> ['developer', 'CEO', 'manager', 'staff'],
+							'hr.organisations.index'						=> ['organisation-is_read'],
+							'hr.organisations.show'							=> ['organisation-is_read'],
+							'hr.organisations.create'						=> ['organisation-is_create'],
+							'hr.organisations.store'						=> ['organisation-is_create'],
+							'hr.organisations.edit'							=> ['organisation-is_update'],
+							'hr.organisations.update'						=> ['organisation-is_update'],
+							'hr.organisations.delete'						=> ['organisation-is_delete'],
 
-							// 'hr.organisations.apis.create'					=> ['developer', 'CEO'],
-							// 'hr.organisations.apis.store'					=> ['developer', 'CEO'],
-							// 'hr.organisations.apis.edit'					=> ['developer', 'CEO'],
-							// 'hr.organisations.apis.update'					=> ['developer', 'CEO'],
-							// 'hr.organisations.apis.delete'					=> ['developer', 'CEO'],
+							// 'hr.organisations.apis.create'					=> ['organisation-is_read', 'CEO'],
+							// 'hr.organisations.apis.store'					=> ['organisation-is_read', 'CEO'],
+							// 'hr.organisations.apis.edit'					=> ['organisation-is_read', 'CEO'],
+							// 'hr.organisations.apis.update'					=> ['organisation-is_read', 'CEO'],
+							// 'hr.organisations.apis.delete'					=> ['organisation-is_read', 'CEO'],
 						];
 			return $routes_acl;
 		});

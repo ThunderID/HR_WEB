@@ -2,9 +2,9 @@
 
 use Input, Session, App, Config, Paginator, Redirect, Validator;
 use App\APIConnector\API;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 
-class DocumentController extends AdminController {
+class DocumentController extends Controller {
 
 	protected $controller_name = 'karyawan';
 

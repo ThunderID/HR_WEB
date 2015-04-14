@@ -1,38 +1,67 @@
 <?php namespace App\Http\Controllers\Auth;
 
+use Input, Auth, \Illuminate\Support\MessageBag, Redirect, Config, Session, Validator;
+use App\APIConnector\API;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\Registrar;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Registration & Login Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller handles the registration of new users, as well as the
-	| authentication of existing users. By default, this controller uses
-	| a simple trait to add these behaviors. Why don't you explore it?
-	|
-	*/
-
-	use AuthenticatesAndRegistersUsers;
+	protected $controller_name 		= 'login';
 
 	/**
-	 * Create a new authentication controller instance.
+	 * login form
 	 *
-	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
-	 * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
 	 * @return void
-	 */
-	public function __construct(Guard $auth, Registrar $registrar)
+	 * @author 
+	 **/
+	function getLogin()
 	{
-		$this->auth = $auth;
-		$this->registrar = $registrar;
+		$this->layout->page_title 	= '';
 
-		$this->middleware('guest', ['except' => 'getLogout']);
+		$this->layout->content 		= view('admin.pages.login.form');
+
+		return $this->layout;
+	}
+
+	/**
+	 * handle login
+	 *
+	 * @return void
+	 * @author 
+	 **/
+
+	function postLogin()
+	{
+		$username 					= Input::get('username');
+		$password 					= Input::get('password');
+
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+			Session::put('loggedUser', $content->data->id);
+
+			return Redirect::intended(route('hr.dashboard.overview'));
+		}
+
+
+		return Redirect::back()->withInput()->withError(json_decode(json_encode($content->meta->errors), true));
+	}
+
+	/**
+	 * handle logout
+	 *
+	 * @return void
+	 * @author 
+	 **/
+
+	function getLogout()
+	{
+		Session::flush();
+
+		return Redirect::route('hr.login.get');
 	}
 
 }

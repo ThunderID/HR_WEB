@@ -2,8 +2,7 @@
 
 use Input, Response, Image, Validator, Str;
 
-
-class GalleryController extends AdminController {
+class GalleryController extends Controller {
 
 	function __construct() 
 	{

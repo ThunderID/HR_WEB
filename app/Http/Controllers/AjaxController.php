@@ -1,11 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-// use \App\DAL\Models\PersonBasicInformation;
 use \Input, Session, \Response, \DateTime;
 use App\APIConnector\API;
-// use Illuminate\Pagination\LengthAwarePaginator;
 
-class AjaxController extends AdminController {
+class AjaxController extends Controller {
 
 	protected $controller_name = 'ajax';
 
@@ -15,14 +13,15 @@ class AjaxController extends AdminController {
 
 	}
 
-	function search_name()
+	function searchName()
 	{
 		$search 									= [];
 		if(Input::has('term'))
 		{
 			$search['firstname']					= Input::get('term');	
-			// $search['middlename']					= Input::get('term');
-			// $search['lastname']						= Input::get('term');		
+			$search['orlastname']					= Input::get('term');		
+			$search['orprefixtitle']				= Input::get('term');		
+			$search['orsuffixtitle']				= Input::get('term');		
 		}
 
 		$sort 										= ['created_at' => 'asc'];
@@ -39,7 +38,7 @@ class AjaxController extends AdminController {
 	}
 
 
-	function search_company()
+	function searchCompany()
 	{
 		$search 									= [];
 		if(Input::has('term'))
@@ -59,48 +58,5 @@ class AjaxController extends AdminController {
 		}
 
 		return Response::json($contents->data);
-	}
-
-	function search_department()
-	{
-		$search 									= [];
-		if(Input::has('term'))
-		{
-			$search['id']							= Input::get('term');			
-		}
-
-		$sort 										= ['created_at' => 'asc'];
-
-		$results 									= API::organisationbranch()->index(1, $search, $sort);
-		$contents 									= json_decode($results);
-
-		if(!$contents->meta->success)
-		{
-			return Response::json(NULL,500);
-		}
-
-		return Response::json($contents->data);
 	}	
-
-	function search_position()
-	{
-		$search 									= [];
-		if(Input::has('term'))
-		{
-			$search['id']							= Input::get('term');			
-		}
-
-		$sort 										= ['created_at' => 'asc'];
-
-		$results 									= API::organisationbranch()->index(1, $search, $sort);
-		$contents 									= json_decode($results);
-
-		if(!$contents->meta->success)
-		{
-			return Response::json(NULL,500);
-		}
-
-		return Response::json($contents->data);
-	}	 
-		
 }

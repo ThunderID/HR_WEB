@@ -2,16 +2,48 @@
 
 use Input, Session, App, Paginator, Redirect;
 use App\APIConnector\API;
+use App\Http\Controllers\Controller;
 
-class APIKeyController extends AdminController {
+class OrganisationController extends Controller {
 
-	protected $controller_name = 'api-key';
+	protected $controller_name = 'organisation';
 
 	function __construct() 
 	{
 		parent::__construct();
 	}
 	
+	function getIndex($page = 1)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$search 									= [];
+		if(Input::has('q'))
+		{
+			$search['name']							= Input::get('q');			
+		}
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::organisation()->index($page, $search, $sort);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$data 										= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title					= strtoupper(str_plural($this->controller_name));
+
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->paginator 			= $paginator;
+
+		return $this->layout;
+	}
 
 	function getCreate($id = null)
 	{
@@ -28,7 +60,7 @@ class APIKeyController extends AdminController {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['name'] 								= Input::get('name');
+		$input['organisation']['name'] 				= Input::get('name');
 
 		$results 									= API::organisation()->store($id, $input);
 
@@ -36,7 +68,7 @@ class APIKeyController extends AdminController {
 
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisations.index');
+			return Redirect::route('hr.organisations.index')->with('alert_success', 'organisasi "' . $content->data->name. '" sudah disimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -137,5 +169,32 @@ class APIKeyController extends AdminController {
 
 			return $this->layout;
 		}
+	}
+
+	function postDocumentsStore($id = null)
+	{
+		// ---------------------- HANDLE INPUT ----------------------
+		$results 										= API::organisation()->show(Session::get('user.organisation'));
+		$contents 										= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$input['organisation']							= [];
+		$input['document'][]['name'] 					= Input::get('docs_name');
+
+		$results 										= API::organisation()->store(Session::get('user.organisation'), $input);
+
+		$content 										= json_decode($results);
+
+
+		if($content->meta->success)
+		{
+			return Redirect::back()->with('alert_success', 'dokumen "' . $contents->data->name. '" sudah disimpan');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 }

@@ -1,9 +1,10 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Branch;
 
 use Input, Session, App, Redirect, Paginator;
 use App\APIConnector\API;
+use App\Http\Controllers\Controller;
 
-class DocumentController extends AdminController {
+class DocumentController extends Controller {
 
 	protected $controller_name = 'dokumen';
 

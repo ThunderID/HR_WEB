@@ -2,7 +2,7 @@
 
 use Config;
 
-class AdminDashboardController extends AdminController {
+class DashboardController extends Controller {
 
 	/**
 	 * login form

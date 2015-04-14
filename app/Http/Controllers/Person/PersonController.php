@@ -1,9 +1,10 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Person;
 
 use Input, Session, App, Config, Paginator, Redirect, Validator;
 use App\APIConnector\API;
+use App\Http\Controllers\Controller;
 
-class PersonController extends AdminController {
+class PersonController extends Controller {
 
 	protected $controller_name = 'karyawan';
 
@@ -175,40 +176,47 @@ class PersonController extends AdminController {
 		{
 			foreach (Input::get('address_address') as $key => $value) 
 			{
-				$address 							= $value;
-				if(Input::get('address_RT')[$key]!='')
+				$address['value'] 					= $value;
+				if(isset(Input::get('address_RT')[$key]) && Input::get('address_RT')[$key]!='')
 				{
-					$address 						= $address.' RT. '.Input::get('address_RT')[$key];
+					$address['value'] 				= $address['value'].' RT. '.Input::get('address_RT')[$key];
 				}
-				if(Input::get('address_RW')[$key]!='')
+				if(isset(Input::get('address_RW')[$key]) && Input::get('address_RW')[$key]!='')
 				{
-					$address 						= $address.' RW. '.Input::get('address_RW')[$key];
+					$address['value'] 				= $address['value'].' RW. '.Input::get('address_RW')[$key];
 				}
-				if(Input::get('address_kecamatan')[$key]!='')
+				if(isset(Input::get('address_kecamatan')[$key]) && Input::get('address_kecamatan')[$key]!='')
 				{
-					$address 						= $address.' Kec. '.Input::get('address_kecamatan')[$key];
+					$address['value'] 				= $address['value'].' Kec. '.Input::get('address_kecamatan')[$key];
 				}
-				if(Input::get('address_kelurahan')[$key]!='')
+				if(isset(Input::get('address_kelurahan')[$key]) && Input::get('address_kelurahan')[$key]!='')
 				{
-					$address 						= $address.' Kel. '.Input::get('address_kelurahan')[$key];
+					$address['value'] 				= $address['value'].' Kel. '.Input::get('address_kelurahan')[$key];
 				}
-				if(Input::get('address_kota')[$key]!='')
+				if(isset(Input::get('address_kota')[$key]) && Input::get('address_kota')[$key]!='')
 				{
-					$address 						= $address.' Kota/Kab '.Input::get('address_kota')[$key];
+					$address['value'] 				= $address['value'].' Kota/Kab '.Input::get('address_kota')[$key];
 				}
-				if(Input::get('address_provinsi')[$key]!='')
+				if(isset(Input::get('address_provinsi')[$key]) && Input::get('address_provinsi')[$key]!='')
 				{
-					$address 						= $address.' - '.Input::get('address_provinsi')[$key];
+					$address['value'] 				= $address['value'].' - '.Input::get('address_provinsi')[$key];
 				}
-				if(Input::get('address_negara')[$key]!='')
+				if(isset(Input::get('address_negara')[$key]) && Input::get('address_negara')[$key]!='')
 				{
-					$address 						= $address.' - '.Input::get('address_negara')[$key];
+					$address['value'] 				= $address['value'].' - '.Input::get('address_negara')[$key];
 				}
-				if(Input::get('address_kode_pos')[$key]!='')
+				if(isset(Input::get('address_kode_pos')[$key]) && Input::get('address_kode_pos')[$key]!='')
 				{
-					$address 						= $address.' Kode pos '.Input::get('address_kode_pos')[$key];
+					$address['value'] 				= $address['value'].' Kode pos '.Input::get('address_kode_pos')[$key];
 				}
-				$input['contact']['address'][] 		= $address;
+				if(isset(Input::get('id_address')[$key]) && Input::get('id_address')[$key]!='')
+				{
+					$address['id'] 					= Input::get('id_address')[$key];
+				}
+				if($address['value']!='')
+				{
+					$input['contact']['address'][] 	= $address;
+				}
 			}
 		}
 
@@ -218,7 +226,14 @@ class PersonController extends AdminController {
 			{
 				if($value!='')
 				{
-					$input['contact']['phone_number'][] = $value;
+					if(isset(Input::get('id_phone')[$key]))
+					{
+						$input['contact']['phone_number'][] = ['value' => $value, 'id' => Input::get('id_phone')[$key]];
+					}
+					else
+					{
+						$input['contact']['phone_number'][] = ['value' => $value];
+					}
 				}
 			}
 		}
@@ -229,7 +244,14 @@ class PersonController extends AdminController {
 			{
 				if($value!='')
 				{
-					$input['contact']['email'][] 		= $value;
+					if(isset(Input::get('id_email')[$key]))
+					{
+						$input['contact']['email'][] = ['value' => $value, 'id' => Input::get('id_email')[$key]];
+					}
+					else
+					{
+						$input['contact']['email'][] = ['value' => $value];
+					}
 				}
 			}
 		}
@@ -240,7 +262,14 @@ class PersonController extends AdminController {
 			{
 				if($value!='')
 				{
-					$input['contact']['bbm'][] 			= $value;
+					if(isset(Input::get('id_bbm')[$key]))
+					{
+						$input['contact']['bbm'][] = ['value' => $value, 'id' => Input::get('id_bbm')[$key]];
+					}
+					else
+					{
+						$input['contact']['bbm'][] = ['value' => $value];
+					}
 				}
 			}
 		}
@@ -251,7 +280,14 @@ class PersonController extends AdminController {
 			{
 				if($value!='')
 				{
-					$input['contact']['line'][]		 	= $value;
+					if(isset(Input::get('id_line')[$key]))
+					{
+						$input['contact']['line'][] = ['value' => $value, 'id' => Input::get('id_line')[$key]];
+					}
+					else
+					{
+						$input['contact']['line'][] = ['value' => $value];
+					}
 				}
 			}
 		}
@@ -262,7 +298,14 @@ class PersonController extends AdminController {
 			{
 				if($value!='')
 				{
-					$input['contact']['whatsapp'][] 	= $value;
+					if(isset(Input::get('id_whatsapp')[$key]))
+					{
+						$input['contact']['whatsapp'][] = ['value' => $value, 'id' => Input::get('id_whatsapp')[$key]];
+					}
+					else
+					{
+						$input['contact']['whatsapp'][] = ['value' => $value];
+					}
 				}
 			}
 		}
