@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OrgChart Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+
+    <link href="jquery.orgchart.css" media="all" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+#orgChart{
+    width: auto;
+    height: auto;
+}
+
+#orgChartContainer{
+    width: 1000px;
+    height: 500px;
+    overflow: auto;
+    background: #eeeeee;
+}
+
+    </style>
+</head>
+<body>
+    <div id="orgChartContainer">
+        <div id="orgChart"></div>
+    </div>
+    <div>
+        name  : <input id ="name" type="text"><br/>
+        min   : <input id ="min"  type="text"><br/>
+        ideal : <input id ="ideal"  type="text"><br/>
+        max   : <input id ="max"  type="text">
+    </div>
+
+    <button type="button" onClick="save_node();">SIMPAN DATA</button>
+    <button type="button" onClick="edit_node();">EDIT DATA</button>
+    <button type="button" onClick="show_node();">SHOW DATA</button>
+
+    <div id="consoleOutput">
+    </div>
+    <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="jquery.orgchart.js"></script>
+    <script type="text/javascript">
+    var testData = [
+        {id: 1, name: 'Acme Organization', parent: 0}
+    ];
+
+    var dt = [];
+    var tmp_node_id = 0;
+
+    $(function(){
+        org_chart = $('#orgChart').orgChart({
+            data: testData,
+            showControls: true,
+            allowEdit: false,
+            onAddNode: function(node){ 
+                tmp_node_id = node.data.id;
+            },
+            onDeleteNode: function(node){
+                log('Deleted node '+node.data.id);
+                org_chart.deleteNode(node.data.id); 
+            },
+            onClickNode: function(node){
+                // document.getElementById("name").value = dt[node.data.id][0];
+                // document.getElementById("min").value = dt[node.data.id][1];
+                // document.getElementById("ideal").value = dt[node.data.id][2];
+                // document.getElementById("max").value = dt[node.data.id][3];
+                // tmp_node_id = node.data.id;
+            }
+        });
+    });
+
+    function save_node(){
+        var node_ctr = org_chart.newNode(tmp_node_id); 
+
+        var nama = document.getElementById("name").value;
+        var min = document.getElementById("min").value;
+        var ideal = document.getElementById("ideal").value;
+        var max = document.getElementById("max").value;
+
+        org_chart.startEdit(node_ctr, nama);
+        dt[node_ctr] = [nama, min, ideal, max];
+
+        
+        // testData[node_ctr-1].name = document.getElementById("name").value;
+    };    
+
+    function edit_node(){
+        var nama = document.getElementById("name").value;
+        var min = document.getElementById("min").value;
+        var ideal = document.getElementById("ideal").value;
+        var max = document.getElementById("max").value;
+
+        alert(tmp_node_id);
+        org_chart.startEdit(tmp_node_id, nama);
+        dt[tmp_node_id] = [nama, min, ideal, max];
+    };
+
+    function show_node(){
+        console.log(org_chart.getData());
+    };
+    
+    // just for example purpose
+    function log(text){
+        $('#consoleOutput').append('<p>'+text+'</p>')
+    }
+    
+    function logs(updt){
+        dt = dt + updt;
+    }
+
+
+    </script>
+
+</body>
+</html>
