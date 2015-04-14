@@ -52,7 +52,7 @@
 							<div class="card-actionbar-row">
 								<a class="btn btn-flat" href="{{route('hr.organisation.branches.edit', ['id' => $data['id']]) }}">EDIT</a>
 							</div>
-						</div>												
+						</div>
 					</div>
 					<div class="tab-pane" id="contact">
 						@foreach($data['contacts'] as $key => $value)

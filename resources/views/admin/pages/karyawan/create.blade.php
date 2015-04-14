@@ -598,7 +598,7 @@
 		<li class="clearfix">
 			<div class="page-header no-border holder">
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Kontak[<%=index%>]</h4>
+				<h4 class="text-accent">Kontak <%=index%></h4>
 			</div>
 			<div class="row">
 				<div class="col-md-6">

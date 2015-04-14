@@ -37,6 +37,8 @@
 										<li><small>CATEGORIES</small></li>
 										<li class="active"><a href="{{route('hr.persons.show', [$data['id']])}}">Informasi Umum </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 										<li><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+										<li><a href="{{route('hr.persons.documents.index', [$data['id']])}}">Dokumen </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+										<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 									</ul>
 								</div><!--end .col -->
 								<!-- END CONTACTS NAV -->
@@ -60,7 +62,7 @@
 										&nbsp;&nbsp;
 									</div><!--end .margin-bottom-xxl -->
 									<ul class="nav nav-tabs" data-toggle="tabs">
-										<li class="active"><a href="#notes">Dokumen</a></li>
+										<li class="active"><a href="#notes">Dokumen Wajib</a></li>
 										<li><a href="#details">Karir</a></li>
 									</ul>
 									<div class="tab-content">
@@ -68,150 +70,58 @@
 										<!-- BEGIN CONTACTS NOTES -->
 										<div class="tab-pane active" id="notes">
 											<br/>
-											<div class="row">
-												<div class="col-lg-12">
-													<button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Tambah Data</button>
-												</div>
-											</div>
-											<br/>
-											<div id="demo" class="row collapse out">
-												<div class="col-lg-12">
-													<div class="card-head style-primary">
-														<header>Tambah Dokumen</header>
-													</div>
-													<div class="card card-body no-padding">
-														<div class ="col-md-12">
-															<div class="form-group">
-																<div class="dropzone document dz-clickable" id="document_upload">
-																	<div class="dz-message">
-																		<h3>Klik atau Drag sebuah file untuk di unggah</h3>
-																	</div>
-																	<input type="hidden" name="link" id="gallery_file_url">
-																</div>
-																<label for="input_text">DropZone Uploaded</label>
-															</div>	
-														</div>
-													</div><!--end .card-body -->
-													<em class="text-caption">* untuk menambahkan file, klik area diatas atau drag file pada area tersebut</em>
-													<div class="form-group text-right">
-														<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-													</div><!--end .card-actionbar -->
-												</div>
-											</div>
-											<br/>
-											<div class="list-results list-results-underlined">
-												<div class="col-xs-12">
-													@foreach($data['documents'] as $key => $value)
-														<div class="row">
-															<div class="col-xs-6">
+											<div class="list-results pl-10" style="margin-bottom:0px;">
+												@foreach($data['documents'] as $key => $value)	
+													<div class="row">
+														<div class="col-xs-12">
+															<a href="{{route('hr.persons.documents.show', [$data['id'], $value['id']])}}">
 																<p class="clearfix">
-																	<img class="img-responsive" style ="padding-left:5%; max-width:95%" alt="" src=""></img>
-																</p>
-															</div>
-															<div class="col-xs-6">
-																<p class="clearfix">
+																	<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
 																	<span class="pull-left">
-																		<span class="text-bold">{{date("l, d F Y", strtotime($value['created_at']))}}</span><br/>
+																		<span class="text-bold">{{date("l, d F Y", strtotime($value['pivot']['created_at']))}}</span><br/>
 																		<span class="opacity-50">{{$value['name']}}</span><br/>
 																	</span>
 																</p>
-															</div><!--end .col -->
-														</div><!--end .row -->
-													@endforeach
-												</div><!--end .col -->
-											</div><!--end .list-results -->
+															</a>
+														</div>
+													</div><!--end .row -->
+												@endforeach
+											</div><!--end .hbox-md -->
 										</div><!--end #notes -->
 										<!-- END CONTACTS NOTES -->
 
-									<!-- BEGIN CONTACTS DETAILS -->
-									<div class="tab-pane" id="details">
-										<div class="tab-pane" id="work">
+										<!-- BEGIN CONTACTS DETAILS -->
+										<div class="tab-pane" id="details">
 											<br/>
-											<div class="row">
-												<div class="col-lg-12">
-													<button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo2">Tambah Data</button>
-												</div>
-											</div>
-											<br/>
-											<div id="demo2" class="row collapse out">
-												<div class="col-md-12">
-													<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
-														<h4 class="text-accent">Data Pekerjaan </h4>
-														<br/>
-														<div class="row">
-															<div class="col-md-12">
-																<div class="form-group">
-																	<input name="work_company" id="work_company" class="form-control getCompany" data-comp="">											
-																	<label for="work_company">Posisi</label>
+											<ul class="timeline collapse-lg timeline-hairline no-shadow">
+												@foreach($data['experiences'] as $key => $value)
+													@if($key==0)
+														<li class="timeline-inverted">
+													@else
+														<li>
+													@endif
+														<div class="timeline-circ style-accent"></div>
+														<div class="timeline-entry">
+															<div class="card style-default-bright">
+																<div class="card-body small-padding">
+																	<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['pivot']['start']))}} - @if($value['pivot']['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['pivot']['end']))}} @endif</small>
+																	<p>
+																		<span class="text-lg text-medium">{{$value['name']}} ({{$value['pivot']['status']}})</span><br/>
+																		<span class="text-lg text-light">{{$value['branch']['name']}}</span>
+																	</p>
+																	<p>
+																		{{$value['pivot']['reason_end_job']}}
+																	</p>
 																</div>
 															</div>
 														</div>
-														<div class="row">
-															<div class="col-md-12">
-																<div class="form-group">
-																	<input type="text" class="form-control" id="work_status" name="work_status">
-																	<label for="work_status">Status Pegawai (contract, trial, permanent, internship)</label>
-																</div>
-															</div>
-															<div class="col-md-12">
-																<div class="form-group">
-																	<input type="text" class="form-control" id="work_start[]" name="work_start">
-																	<label for="work_start">Mulai Bekerja</label>
-																</div>
-															</div>
-															<div class="col-md-12">
-																<div class="form-group">
-																	<input type="text" class="form-control" id="work_end" name="work_end">
-																	<label for="work_end">Berhenti Bekerja</label>
-																</div>
-															</div>
-														</div>
-														<div class="form-group">
-															<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3"></textarea>
-															<label for="work_quit_reason">Alasan Berhenti</label>
-														</div>
-
-														<div class="form-group text-right">
-															<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-														</div><!--end .card-actionbar -->
-													</form>
-												</div>
-											</div>
-										</div><!--end .tab-pane -->
-										<br/>
-										<ul class="timeline collapse-lg timeline-hairline no-shadow">
-											@foreach($data['experiences'] as $key => $value)
-												@if($key==0)
-													<li class="timeline-inverted">
-												@else
-													<li>
-												@endif
-													<div class="timeline-circ style-accent"></div>
-													<div class="timeline-entry">
-														<div class="card style-default-bright">
-															<div class="card-body small-padding">
-																<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['pivot']['start']))}} - @if($value['pivot']['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['pivot']['end']))}} @endif</small>
-																<p>
-																	<span class="text-lg text-medium">{{$value['name']}} ({{$value['pivot']['status']}})</span><br/>
-																	<span class="text-lg text-light">{{$value['branch']['name']}}</span>
-																</p>
-																<p>
-																	{{$value['pivot']['reason_end_job']}}
-																</p>
-															</div>
-														</div>
-													</div>
-												</li>
-											@endforeach
-										</ul><!--end .timeline -->
-										
-									</div><!--end #details -->
-									<!-- END CONTACTS DETAILS -->
-
-								</div><!--end .tab-content -->
+													</li>
+												@endforeach
+											</ul><!--end .timeline -->
+										</div><!--end #details -->
+									</div><!--end .tab-content -->
+								</div><!--end .col -->
 							</div><!--end .col -->
-							<!-- END CONTACTS MAIN CONTENT -->
-
 						</div><!--end .row -->
 					</div><!--end .hbox-column -->
 
@@ -282,31 +192,6 @@
 @section('js')
 	{!! HTML::script('js/dropzone.min.js')!!}
 	<script type="text/javascript">
-		$('.getCompany').select2({
-            minimumInputLength: 3,
-            placeholder: '',
-            ajax: {
-                url: "{{route('hr.ajax.company')}}",
-                dataType: 'json',
-                quietMillis: 500,
-               	data: function (term) {
-                    return {
-                        term: term
-                    };
-                },
-                results: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {
-                                text: item.name +' of '+ item.branch.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
         $("#document_upload").dropzone({ 
 			url: '{{ route("hr.images.upload") }}' ,
 			maxFilesize: 1,

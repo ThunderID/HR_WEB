@@ -113,7 +113,7 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
-	Route::group(['prefix' => 'companies/contacts', 'before' => 'hr_acl'], function(){
+	Route::group(['prefix' => 'companies', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
 						[
 							'uses' 	=> 'CompanyController@getIndex', 
@@ -273,24 +273,100 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);	
 
-		Route::get('show/{person_id}/relatives/{page?}', 
-						[
-							'uses' 	=> 'PersonController@getRelativesIndex', 
-							'as' 	=> 'hr.persons.relatives.index'
-						]
-					);		
-		Route::post('{person_id}/works/store/', 
-						[
-							'uses' 	=> 'PersonController@postWorksStore', 
-							'as' 	=> 'hr.persons.works.store'
-						]
-					);
 		Route::any('delete/{id}', 
 						[
 							'uses' 	=> 'PersonController@anyDelete', 
 							'as' 	=> 'hr.persons.delete'
 						]
 					);	
+
+		/* ---------------------------------------------------------------------------- PERSON RELATIVES----------------------------------------------------------------------------*/
+
+		Route::get('show/{person_id}/relatives/{page?}', 
+						[
+							'uses' 	=> 'Person\RelativeController@getIndex', 
+							'as' 	=> 'hr.persons.relatives.index'
+						]
+					);
+		Route::get('show/{person_id}/relatives/show/{id}', 
+						[
+							'uses' 	=> 'Person\RelativeController@getShow', 
+							'as' 	=> 'hr.persons.relatives.show'
+						]
+					);
+		Route::post('show/{person_id}/relatives/store', 
+						[
+							'uses' 	=> 'Person\RelativeController@postStore', 
+							'as' 	=> 'hr.persons.relatives.store'
+						]
+					);
+
+		Route::any('show/{person_id}/relatives/delete/{id}', 
+					[
+						'uses' 	=> 'Person\RelativeController@anyDelete', 
+						'as' 	=> 'hr.persons.relatives.delete'
+					]
+				);
+
+		/* ---------------------------------------------------------------------------- END PERSON RELATIVES----------------------------------------------------------------------------*/
+	
+		/* ---------------------------------------------------------------------------- PERSON DOCUMENTS----------------------------------------------------------------------------*/
+		Route::get('show/{person_id}/documents/{page?}', 
+						[
+							'uses' 	=> 'Person\DocumentController@getIndex', 
+							'as' 	=> 'hr.persons.documents.index'
+						]
+					);
+		Route::get('show/{person_id}/documents/show/{id}', 
+						[
+							'uses' 	=> 'Person\DocumentController@getShow', 
+							'as' 	=> 'hr.persons.documents.show'
+						]
+					);
+		Route::post('show/{person_id}/documents/store', 
+						[
+							'uses' 	=> 'Person\DocumentController@postStore', 
+							'as' 	=> 'hr.persons.documents.store'
+						]
+					);
+
+		Route::any('show/{person_id}/documents/delete/{id}', 
+					[
+						'uses' 	=> 'Person\DocumentController@anyDelete', 
+						'as' 	=> 'hr.persons.documents.delete'
+					]
+				);
+		/* ---------------------------------------------------------------------------- END PERSON DOCUMENTS----------------------------------------------------------------------------*/
+	
+		/* ---------------------------------------------------------------------------- PERSON WORKS----------------------------------------------------------------------------*/
+		Route::get('show/{person_id}/works/{page?}', 
+						[
+							'uses' 	=> 'Person\WorkController@getIndex', 
+							'as' 	=> 'hr.persons.works.index'
+						]
+					);
+
+		Route::post('{person_id}/works/store/', 
+						[
+							'uses' 	=> 'Person\WorkController@postStore', 
+							'as' 	=> 'hr.persons.works.store'
+						]
+					);
+
+		Route::get('show/{person_id}/works/edit/{id}', 
+						[
+							'uses' 	=> 'Person\WorkController@getEdit', 
+							'as' 	=> 'hr.persons.works.edit'
+						]
+					);
+		
+		Route::post('show/{person_id}/works/update/{id}', 
+						[
+							'uses' 	=> 'Person\WorkController@postUpdate', 
+							'as' 	=> 'hr.persons.works.update'
+						]
+					);
+		/* ---------------------------------------------------------------------------- END PERSON WORKS----------------------------------------------------------------------------*/
 	});
 	/* ---------------------------------------------------------------------------- END PERSON ----------------------------------------------------------------------------*/
 	

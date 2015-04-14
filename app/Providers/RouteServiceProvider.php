@@ -120,7 +120,21 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.persons.edit'								=> 'person-is_update',
 							'hr.persons.update'								=> 'person-is_update',
 							'hr.persons.delete'								=> 'person-is_delete',
+							
 							'hr.persons.relatives.index'					=> 'person-is_read',
+							'hr.persons.relatives.show'						=> 'person-is_read',
+							'hr.persons.relatives.store'					=> 'person-is_create',
+							'hr.persons.relatives.delete'					=> 'person-is_delete',
+
+							'hr.persons.documents.index'					=> 'person-is_read',
+							'hr.persons.documents.show'						=> 'person-is_read',
+							'hr.persons.documents.store'					=> 'person-is_create',
+							'hr.persons.documents.delete'					=> 'person-is_delete',
+
+							'hr.persons.works.index'						=> 'person-is_read',
+							'hr.persons.works.store'						=> 'person-is_create',
+							'hr.persons.works.edit'							=> 'person-is_create',
+							'hr.persons.works.update'						=> 'person-is_create',
 							
 							'hr.documents.index'							=> 'document-is_read',
 							'hr.documents.show'								=> 'document-is_read',
