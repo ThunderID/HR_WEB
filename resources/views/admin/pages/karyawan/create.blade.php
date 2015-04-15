@@ -262,37 +262,79 @@
 					</div><!--end .form-group -->											
 				</div><!--end .tab-pane -->
 				<div class="tab-pane " id="document">
-					@foreach($docs as $key => $value)
-						<div class="page-header no-border holder">
-							<h4 class="text-accent">{{$value['name']}}</h4>
-						</div>
-						<input name="documents[{{$key}}]"type="hidden" value="{{$value['id']}}">											
-						@foreach($value['templates'] as $key2 => $value2)
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										@if($value2['type']=='numeric' || $value2['type']=='string')
-											<input name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control">											
-											<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-											<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-										@elseif($value2['type']=='date')
-											<div class="input-daterange input-group" id="template_value[{{$key}}][{{$key2}}]" style="width:100%;">
-												<div class="input-group-content">
-													<input type="text" class="form-control" name="template_value[{{$key}}][{{$key2}}]">
+					@if($data['id'])
+						<ul class="list-unstyled">
+							<li class="clearfix">
+								<div class="page-header no-border holder">
+									<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"></a>
+									<h4 class="text-accent">Dokumen </h4>
+								</div>
+								@foreach($docs as $key => $value)
+									<div class="page-header no-border holder">
+										<h4 class="text-accent">{{$value['document']['name']}}</h4>
+									</div>
+									<input name="documents[{{$key}}]"type="hidden" value="{{$value['id']}}">											
+									@foreach($value['details'] as $key2 => $value2)
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													@if($value2['template']['type']=='numeric' || $value2['template']['type']=='string')
+														<input name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control" value="{{$value2['value']}}">											
+														<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['template']['field']}}</label>
+														<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+													@elseif($value2['template']['type']=='date')
+														<div class="input-daterange input-group" id="template_value[{{$key}}][{{$key2}}]" style="width:100%;">
+															<div class="input-group-content">
+																<input type="text" class="form-control" name="template_value[{{$key}}][{{$key2}}]" value="{{$value2['value']}}">
+															</div>
+														</div>
+														<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['template']['field']}}</label>
+														<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+													@elseif($value2['template']['type']=='text')
+														<textarea name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control"></textarea>										
+														<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['template']['field']}}</label>
+														<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}" value="{{$value2['value']}}">											
+													@endif
 												</div>
 											</div>
-											<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-											<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-										@elseif($value2['type']=='text')
-											<textarea name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control"></textarea>										
-											<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-											<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-										@endif
+										</div>
+									@endforeach
+								@endforeach
+							</li>
+						</ul>
+					@else
+						@foreach($docs as $key => $value)
+							<div class="page-header no-border holder">
+								<h4 class="text-accent">{{$value['name']}}</h4>
+							</div>
+							<input name="documents[{{$key}}]"type="hidden" value="{{$value['id']}}">											
+							@foreach($value['templates'] as $key2 => $value2)
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											@if($value2['type']=='numeric' || $value2['type']=='string')
+												<input name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control">											
+												<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+												<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+											@elseif($value2['type']=='date')
+												<div class="input-daterange input-group" id="template_value[{{$key}}][{{$key2}}]" style="width:100%;">
+													<div class="input-group-content">
+														<input type="text" class="form-control" name="template_value[{{$key}}][{{$key2}}]">
+													</div>
+												</div>
+												<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+												<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+											@elseif($value2['type']=='text')
+												<textarea name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control"></textarea>										
+												<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+												<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+											@endif
+										</div>
 									</div>
 								</div>
-							</div>
+							@endforeach
 						@endforeach
-					@endforeach
+					@endif
 				</div><!--end .tab-pane -->
 			</div><!--end .card-body.tab-content -->
 			<!-- END FORM TAB PANES -->

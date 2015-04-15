@@ -109,9 +109,9 @@ class PersonController extends Controller {
 		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
 		$input['person']['id']						= $id;
 		$input['person']['avatar']					= Input::get('link_profile_picture');
-		if(Input::get('password')!='')
+		if(Input::get('password')!='' && !is_null($id))
 		{
-			$validator 					= Validator::make(['password' => Input::get('password')], ['password' => 'required|confirmed|min:8']);
+			$validator 								= Validator::make(['password' => Input::get('password')], ['password' => 'required|min:8']);
 
 			if (!$validator->passes())
 			{
@@ -175,6 +175,7 @@ class PersonController extends Controller {
 		{
 			foreach (Input::get('address_address') as $key => $value) 
 			{
+				$address							= [];
 				$address['value'] 					= $value;
 				if(isset(Input::get('address_RT')[$key]) && Input::get('address_RT')[$key]!='')
 				{
@@ -363,20 +364,19 @@ class PersonController extends Controller {
 	function getEdit($id = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['organisation' => Session::get('user.organisation'), 'isrequired' => true, 'WithAttributes' => ['templates']];
-
+		$search 									= ['WithAttributes' => ['document', 'details', 'details.template']];
 		$sort 										= ['created_at' => 'asc'];
 
-		$results 									= API::document()->index(1, $search, $sort, $all = true);
+		$results 									= API::person()->documentIndex($id, 1, $search, $sort);
 
 		$contents 									= json_decode($results);
-
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
 		}
 
 		$results 									= API::person()->show($id);
+
 		$content 									= json_decode($results);
 
 		if(!$content->meta->success)
