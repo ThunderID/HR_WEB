@@ -4,8 +4,8 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<div class="col-md-12">
+	<div class="card">
+		<form class="form" role="form" action="#" method="post">
 			<div class="card-head card-head-sm style-primary">
 				<div class="col-md-12 pt-5 ">
 					<div class="col-md-12">
@@ -19,62 +19,55 @@
 						</div>
 					</div>
 				</div>
-			</div>			
-			<div class="card style-default-light" style="padding-top:0px;">
-				<div class="card-body style-default-bright" style="padding-top:0px;">
-					<div class="row ">
-					    <div class="card-body style-default-bright" style="padding-top:0px;">
-							<div class="row">
+			</div>		
+
+			<div class="card-body style-bright">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="col-md-6">
 								<div class="form-group">
-									<div class="page-header no-border holder">
-										<h4 id="add_title" class="text-accent">Informasi</h4>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="text" class="form-control" id="name" name="name">
-												<label for="name">Nama</label>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<div class="form-group">
-												<input type="text" class="form-control" id="min" name="min">
-												<label for="min">Jumlah Minimum</label>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<div class="form-group">
-												<input type="text" class="form-control" id="ideal" name="ideal">
-												<label for="ideal">Jumlah Ideal</label>
-											</div>
-										</div>	
-										<div class="col-md-2">
-											<div class="form-group">
-												<input type="text" class="form-control" id="max" name="max">
-												<label for="max">Jumlah Maksimum</label>
-											</div>
-										</div>			 					
-									</div>								
-								</div>	
-								<div class="card-actionbar pb-0">
-									<div class="card-actionbar-row">
-										<button type="button" onClick="save_node();" class="btn btn-flat btn-primary ink-reaction">Tambah</button>
-										<button type="button" onClick="edit_node();" class="btn btn-flat btn-primary ink-reaction">Edit</button>
-										<button type="button"  onClick="show_node();" class="btn btn-flat btn-primary ink-reaction">Show</button>					
-									</div>
+									<input type="text" class="form-control" id="name" name="name">
+									<label for="name">Nama</label>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div><!--end .card-body -->
-				<div class="col-md-12" style="padding-left:0px;padding-right:0px;">
-					<div id="orgChartContainer">
-					    <div id="orgChart" style="overflow:scroll;"></div>
-					</div>
-				</div>
-			</div><!--end .col -->
-		</div><!--end .row -->
-		<!-- END LAYOUT LEFT SIDEBAR -->	
+							<div class="col-md-2">
+								<div class="form-group">
+									<input type="text" class="form-control" id="min" name="min">
+									<label for="min">Jumlah Minimum</label>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<input type="text" class="form-control" id="ideal" name="ideal">
+									<label for="ideal">Jumlah Ideal</label>
+								</div>
+							</div>	
+							<div class="col-md-2">
+								<div class="form-group">
+									<input type="text" class="form-control" id="max" name="max">
+									<label for="max">Jumlah Maksimum</label>
+								</div>
+							</div>	
+						</div><!--end .row -->
+					</div><!--end .col -->
+				</div><!--end .row -->
+			</div><!--end .card-body -->
+			<!-- END DEFAULT FORM ITEMS -->
+
+			<div class="card-actionbar">
+				<div class="card-actionbar-row">
+					<button type="button" onClick="save_node();" class="btn btn-flat btn-primary ink-reaction">Tambah</button>
+					<button type="button" onClick="edit_node();" class="btn btn-flat btn-primary ink-reaction">Edit</button>
+					<button type="button"  onClick="show_node();" class="btn btn-flat btn-primary ink-reaction">Show</button>					
+				</div><!--end .card-actionbar-row -->
+			</div><!--end .card-actionbar -->
+		</form>
+		<div class="col-md-12" style="padding-left:0px;padding-right:0px;">
+			<div id="orgChartContainer">
+			    <div id="orgChart" style="overflow:scroll;"></div>
+			</div>
+		</div>
 	</div>
 @stop
 
