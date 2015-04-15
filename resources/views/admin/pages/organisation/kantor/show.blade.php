@@ -75,7 +75,7 @@
 						</div>
 						<div class="card-actionbar">
 							<div class="card-actionbar-row">
-								<a class="btn btn-flat" href="#">EDIT</a>
+								<a class="btn btn-flat" href="{{route('hr.organisation.charts.create', ['org_id' => $data['organisation_id']]) }}">EDIT</a>
 							</div>
 						</div>
 					</div>
