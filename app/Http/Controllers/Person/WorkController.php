@@ -67,8 +67,11 @@ class WorkController extends Controller {
 				$chart['organisation_chart_id'] 	= Input::get('work_company');
 				$chart['status'] 					= Input::get('work_status');
 				$chart['start'] 					= date("Y-m-d", strtotime(Input::get('work_start')));
-				$chart['end'] 						= date("Y-m-d", strtotime(Input::get('work_end')));
-				$chart['reason_end_job'] 			= Input::get('work_quit_reason');
+				if(Input::get('work_end'))
+				{
+					$chart['end'] 						= date("Y-m-d", strtotime(Input::get('work_end')));
+					$chart['reason_end_job'] 			= Input::get('work_quit_reason');
+				}
 				$input['works'][] 					= $chart;
 
 				$results 							= API::person()->store($person_id, $input);

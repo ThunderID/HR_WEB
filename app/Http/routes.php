@@ -136,16 +136,16 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- ORGANISATION CHART ----------------------------------------------------------------------------*/
 
-		Route::get('show/{org_id}/create/new', 
-						[
-							'uses' 	=> 'Branch\ChartController@getCreate', 
-							'as' 	=> 'hr.organisation.charts.create'
-						]
-					);
 		Route::post('show/{org_id?}/store/', 
 						[
 							'uses' 	=> 'Branch\ChartController@postStore', 
 							'as' 	=> 'hr.organisation.charts.store'
+						]
+					);
+		Route::any('show/{org_id}/destroy', 
+						[
+							'uses' 	=> 'Branch\ChartController@anyDelete', 
+							'as' 	=> 'hr.organisation.charts.delete'
 						]
 					);
 	});

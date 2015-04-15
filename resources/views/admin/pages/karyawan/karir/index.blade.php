@@ -33,7 +33,7 @@
 				<button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo2">Tambah Data</button>
 				<div id="demo2" class="row collapse @if($work['id']) in @else out @endif">
 					<div class="col-md-12">
-						@if($data['id'])
+						@if($work['id'])
 							<form class="form" role="form" action="{{route('hr.persons.works.update', [$data['id'], $work['id']])}}" method="post">
 						@else
 							<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">

@@ -109,7 +109,7 @@ class PersonController extends Controller {
 		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
 		$input['person']['id']						= $id;
 		$input['person']['avatar']					= Input::get('link_profile_picture');
-		if(Input::get('passowrd')!='')
+		if(Input::get('password')!='')
 		{
 			$validator 					= Validator::make(['password' => Input::get('password')], ['password' => 'required|confirmed|min:8']);
 
@@ -130,12 +130,11 @@ class PersonController extends Controller {
 					$chart['organisation_chart_id'] = Input::get('work_company')[$key];
 					$chart['status'] 				= Input::get('work_status')[$key];
 					$chart['start'] 				= date("Y-m-d", strtotime(Input::get('work_start')[$key]));
-					$chart['end'] 					= date("Y-m-d", strtotime(Input::get('work_end')[$key]));
-					if(Input::get('work_end')[$key]=='')
+					if(Input::get('work_end')[$key]!='')
 					{
-						$chart['end'] 				= null;
+						$chart['end'] 				= date("Y-m-d", strtotime(Input::get('work_end')[$key]));
+						$chart['reason_end_job'] 	= Input::get('work_quit_reason')[$key];
 					}
-					$chart['reason_end_job'] 		= Input::get('work_quit_reason')[$key];
 					$input['works'][] 				= $chart;
 				}
 			}

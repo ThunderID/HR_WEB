@@ -96,14 +96,33 @@
 	                tmp_node_id = node.data.id;
 	                $('h4#add_title').html('Tambah Informasi Struktur Cabang ' + node.data.name);
 	            },
-	            onDeleteNode: function(node){
-	                log('Deleted node '+node.data.id);
-	                org_chart.deleteNode(node.data.id); 
+	            onDeleteNode: function(node)
+	            {
+	                deletedata 	= {id : dt[node.data.id-1]['chart_id']};
+	                $.ajax({
+						url : "{!!route('hr.organisation.charts.delete', [$data['id']])!!}", 
+						type: "post", //form method
+						data: deletedata,
+						dataType:"json", //misal kita ingin format datanya brupa json
+						beforeSend:function(){
+							 $(".loading").html("Please wait....");
+						},
+						success:function(result)
+						{
+							if(result.is_delete)
+							{
+								log('Deleted node '+node.data.id);
+								org_chart.deleteNode(node.data.id); 
+							}
+							alert(result.message);
+						},
+						error: function(xhr, Status, err) 
+						{
+							alert('Data Tidak Terhapus !');
+						}
+					});
 	            },
 	            onClickNode: function(node){
-	            	console.log(node.data.id);
-	            	console.log(dt[node.data.id-1]);
-
 	                document.getElementById("chart_id").value 	= dt[node.data.id -1]['chart_id'];
 	                document.getElementById("name").value 		= dt[node.data.id -1]['name'];
 	                document.getElementById("min").value 		= dt[node.data.id -1]['min'];
@@ -124,7 +143,6 @@
 			var min 		= document.getElementById("min").value;
 			var ideal 		= document.getElementById("ideal").value;
 			var max 		= document.getElementById("max").value;
-	        dt[tmp_node_id] = [nama, min, ideal, max];
 
 			savedata 		= {id: null, name: nama, graph:node_ctr, graph_parent: tmp_node_id, min_employee : min, ideal_employee : ideal, max_employee : max};
 			$.ajax({
@@ -139,6 +157,8 @@
 				success:function(result)
 				{
 					org_chart.startEdit(node_ctr, result.name);
+			        dt[tmp_node_id] = {name : nama, min : min, ideal : ideal, max : max, chart_id : result.id};
+					alert(result.message);
 				},
 				error: function(xhr, Status, err, result) 
 				{
