@@ -132,17 +132,26 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.organisation.branches.delete'
 						]
 					);	
+	});
 
+	/* ---------------------------------------------------------------------------- END ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ORGANISATION CHART ----------------------------------------------------------------------------*/
 
-		Route::post('show/{org_id?}/store/', 
+	Route::group(['prefix' => 'charts', 'before' => 'hr_acl'], function(){
+		Route::post('branch/{branch_id}/store/', 
 						[
 							'uses' 	=> 'Branch\ChartController@postStore', 
 							'as' 	=> 'hr.organisation.charts.store'
 						]
 					);
-		Route::any('show/{org_id}/destroy', 
+		Route::get('branch/{branch_id}/show/{id}', 
+						[
+							'uses' 	=> 'Branch\ChartController@getShow', 
+							'as' 	=> 'hr.organisation.charts.create'
+						]
+					);
+		Route::any('branch/{branch_id}/destroy', 
 						[
 							'uses' 	=> 'Branch\ChartController@anyDelete', 
 							'as' 	=> 'hr.organisation.charts.delete'
@@ -152,7 +161,6 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- END ORGANISATION CHART ----------------------------------------------------------------------------*/
 
-	/* ---------------------------------------------------------------------------- END ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- DOCUMENT ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'documents', 'before' => 'hr_acl'], function(){

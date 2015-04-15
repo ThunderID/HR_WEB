@@ -13,6 +13,30 @@ class ChartController extends Controller {
 		parent::__construct();
 	}
 
+	function getShow($branch_id, $id)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$results 									= API::organisationchart()->show($branch_id, $id);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= $contents->data->name;
+		$this->layout->content 						= view('admin.pages.organisation.kantor.'.$this->controller_name.'.show');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->structure 			= json_encode($structure);
+
+		return $this->layout;
+	}
+
 	function postStore($id = null)
 	{
 		$input['chart']								= Input::only('id', 'name', 'graph', 'graph_parent', 'min_employee', 'max_employee', 'ideal_employee');
