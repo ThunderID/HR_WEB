@@ -6,9 +6,9 @@ class APIOrganisationChart{
 
 	use APITrait;
 
-	function index($page, $search, $sort)
-	{
-		return self::runPost(self::$basic_url . 'organisations/charts/'.$page, ['search' => $search, 'sort' => $sort]);
+	function store($id, $attributes)
+	{		
+		return self::runPost(self::$basic_url . '/organisations/branches/'.$id.'/charts/store/data', ['id' => $id, 'attributes' => $attributes]);
 	}
 
 	// function show($id)

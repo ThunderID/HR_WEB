@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Branch;
 
-use Input, Session, App, Paginator, Redirect;
+use Input, Session, App, Paginator, Redirect, Response;
 use App\APIConnector\API;
 use App\Http\Controllers\Controller;
 
@@ -12,22 +12,20 @@ class ChartController extends Controller {
 	{
 		parent::__construct();
 	}
-	
-	function getCreate($id = null)
-	{
-		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= 'Tambah '.$this->controller_name.' baru';;
-
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
-		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= null;
-		$this->layout->content->app 				= null;
-
-		return $this->layout;
-	}
 
 	function postStore($id = null)
 	{
-		print_r(Input::all());exit;
+		$input['chart']								= Input::only('id', 'name', 'graph', 'graph_parent', 'min_employee', 'max_employee', 'ideal_employee');
+		
+		$results 									= API::organisationchart()->store($id, $input);
+
+		$content 									= json_decode($results);
+		
+		if(!$content->meta->success)
+		{
+			return Response::json(['message' => 'Tidak dapat menyimpan data'], 500);
+		}
+
+		return Response::json(['id' => $content->data->id, 'name' => $content->data->name], 200);
 	}
 }

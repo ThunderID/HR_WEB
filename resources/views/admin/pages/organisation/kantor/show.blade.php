@@ -66,40 +66,11 @@
 								<a class="btn btn-flat" href="{{route('hr.organisation.branches.edit', ['id' => $data['id']]) }}">EDIT</a>
 							</div>
 						</div>
-					</div>					
-					<div class="tab-pane" id="structure">
-						<h3 class="text-light">Struktur Perusahaan</h3>
-						<div class="row">
-							<div class="card-body pt-10 pb-0" id="orgc">
-							</div>
-						</div>
-						<div class="card-actionbar">
-							<div class="card-actionbar-row">
-								<a class="btn btn-flat" href="{{route('hr.organisation.charts.create', ['org_id' => $data['organisation_id']]) }}">EDIT</a>
-							</div>
-						</div>
 					</div>
+					@include('admin.pages.organisation.'.$controller_name.'.struktur.create')
 				</div><!--end .card-body -->
 			</div><!--end .col -->
 		</div><!--end .row -->
 		<!-- END LAYOUT LEFT SIDEBAR -->	
 	</div>
-@stop
-
-@section('css')
-	{!! HTML::style('css/base.css')!!}
-	{!! HTML::style('css/spacetree.css')!!}
-@stop
-
-@section('js')
-	{!! HTML::script('js/jit.min.js')!!}
-	@include('admin.pages.organisation.'.$controller_name.'.orgchart')
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('.oc').click(function () {
-				document.getElementById('orgc').innerHTML = '<div id="orgchart"></div>';
-				init();
-			})
-		});
-	</script>
 @stop
