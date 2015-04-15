@@ -162,6 +162,7 @@
 				},
 				error: function(xhr, Status, err, result) 
 				{
+					org_chart.deleteNode(node_ctr); 
 					alert(result.message);
 				}
 				

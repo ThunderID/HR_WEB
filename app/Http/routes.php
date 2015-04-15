@@ -148,7 +148,7 @@ Route::group(['prefix' => 'cms'], function(){
 		Route::get('branch/{branch_id}/show/{id}', 
 						[
 							'uses' 	=> 'Branch\ChartController@getShow', 
-							'as' 	=> 'hr.organisation.charts.create'
+							'as' 	=> 'hr.organisation.charts.show'
 						]
 					);
 		Route::any('branch/{branch_id}/destroy', 
