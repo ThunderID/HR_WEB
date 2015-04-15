@@ -10,10 +10,6 @@ div.orgChart h2 {
     min-height: 20px;
 }
 
-div.orgChart h2:hover {
-
-}
-
 div.orgChart ul {
     list-style            : none;
     margin                : 4px;
@@ -60,7 +56,7 @@ div.orgChart td {
 }
 
 div.orgChart div.node {
-    cursor                : default;
+    cursor                : pointer;
     border                : 1px solid #e7e7e7;
     display               : inline-block;
     padding               : 5px;
@@ -81,30 +77,53 @@ div.orgChart div.node {
     box-shadow: 1px 1px 0px #ddd;
 }
 
-.org-add-button, .org-del-button, .org-confirm-del-button{
+.org-add-button, .org-del-button, .org-confirm-del-button, .org-config-button{
     position: absolute;
     font-size: 12px;
 }
 
 .org-add-button{
-    bottom: 3px;
-    left: 5px;
-    padding-left: 13px;
-    background: url(./add.png) no-repeat 0 3px;
-
-}
-
-.org-add-button:hover, .org-del-button:hover{
-    background-color: #eef;
-    border-radius: 2px;
-    cursor: pointer;
-}
-
-.org-del-button{
-    background: url(./delete.png) no-repeat;
     width: 12px;
     height: 12px;
     bottom: 7px;
+    right: 25px;
+}
+
+.org-add-button-1st{
+    width: 12px;
+    height: 12px;
+    bottom: 7px;
+    right: 5px;
+}
+
+.org-config-button{
+    bottom: 3px;
+    left: 5px;
+}
+
+.org-add-button:hover, .org-add-button-1st:hover{
+    color: green;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.org-del-button:hover{
+    color: red;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.org-config-button:hover{
+    color: orange;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.org-del-button{
+    width: 12px;
+    height: 12px;
+    bottom: 7px;
+    float: right;
     right: 5px;
 }
 

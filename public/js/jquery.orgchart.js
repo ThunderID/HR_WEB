@@ -11,7 +11,7 @@
         onAddNode: null,
         onDeleteNode: null,
         onClickNode: null,
-        newNodeText: 'Add Child'
+        newNodeText: 'Tambah'
     };
 
     function OrgChart($container, opts){
@@ -204,7 +204,12 @@
                 descString = '<p>'+self.data.description+'</p>';
             }
             if(opts.showControls){
-                var buttonsHtml = "<div class='org-add-button'>"+opts.newNodeText+"</div><div class='org-del-button'></div>";
+                var buttonsHtml = "<div class='org-config-button'><i class='fa fa-lock fa-lg'></i></div>"
+                if(this.data.id > 1){
+                    buttonsHtml = buttonsHtml + "<div class='org-add-button'><i class='fa fa-plus-circle fa-lg'></i></div><div class='org-del-button danger'><i class='fa fa-trash-o fa-lg'></i></div>";
+                }else{
+                    buttonsHtml = buttonsHtml + "<div class='org-add-button org-add-button-1st'><i class='fa fa-plus-circle fa-lg'></i></div>";
+                }
             }
             else{
                 buttonsHtml = '';
