@@ -13,65 +13,82 @@
 							<a href="{{route('hr.organisation.branches.index')}}" class="btn btn-flat ink-reaction pull-left">
 								<i class="md md-reply"></i> Kembali
 							</a>
-							<a href="{{route('hr.organisation.branches.delete', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
-								<i class="fa fa-save"></i> Simpan
-							</a>
 						</div>
 					</div>
 				</div>
 			</div>		
-			<div class="card-body style-bright">
-				<div class="row">
-					<div class="col-xs-12">
-						<h4  style="text-primary"id="add_title">Informasi</h4>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" id="name" name="name">
-									<label for="name">Nama</label>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<input type="text" class="form-control" id="min" name="min">
-									<label for="min">Jumlah Minimum</label>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<input type="text" class="form-control" id="ideal" name="ideal">
-									<label for="ideal">Jumlah Ideal</label>
-								</div>
-							</div>	
-							<div class="col-md-2">
-								<div class="form-group">
-									<input type="text" class="form-control" id="max" name="max">
-									<label for="max">Jumlah Maksimum</label>
-								</div>
-							</div>	
-						</div><!--end .row -->
-					</div><!--end .col -->
-				</div><!--end .row -->
-				<div class="row">
-					<div class="col-xs-12">
-						<h4 style="text-primary">Hak Akses</h4>
-						<div class="row">
 
-						</div>
-					</div>
-				</div>
-			</div><!--end .card-body -->
-			<div class="card-actionbar">
-				<div class="card-actionbar-row">
-					<button type="button" onClick="save_node();" class="btn btn-flat btn-primary ink-reaction">Tambah</button>
-					<button type="button" onClick="edit_node();" class="btn btn-flat btn-primary ink-reaction">Edit</button>
-					<button type="button"  onClick="show_node();" class="btn btn-flat btn-primary ink-reaction">Show</button>					
-				</div><!--end .card-actionbar-row -->
-			</div><!--end .card-actionbar -->
 		</form>
 		<div class="col-md-12" style="padding-left:0px;padding-right:0px;">
 			<div id="orgChartContainer">
 			    <div id="orgChart" style="overflow:scroll;"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="add_title"></h4>
+				</div>
+				<form class="form-horizontal" role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="name" class="control-label">Nama</label>
+							</div>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="name" name="name" placeholder="Nama">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="min" class="control-label">Jumlah Minimum</label>
+							</div>
+							<div class="col-sm-9">
+								<input name="min" id="min" class="form-control" placeholder="Minimum">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="ideal" class="control-label">Jumlah Ideal</label>
+							</div>
+							<div class="col-sm-9">
+								<input name="ideal" id="ideal" class="form-control" placeholder="Ideal">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="max" class="control-label">Jumlah Maksimum</label>
+							</div>
+							<div class="col-sm-9">
+								<input name="max" id="max" class="form-control" placeholder="Maksimum">
+							</div>
+						</div>					
+					</div>
+					<div class="modal-footer" id="generated_button">
+					</div>
+				</form>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+
+	<div class="modal fade" id="simpleModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="simpleModalLabel">Hapus Data</h4>
+				</div>
+				<div class="modal-body">
+					<h4 class="modal-title" id="add_title"></h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" onClick="delete_node();">Hapus</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -90,7 +107,7 @@
 	    #orgChartContainer{
 	        height: 500px;
 	        overflow: auto;
-	        background: #eee;
+	        background: #fff;
 	    }
     </style>    
 @stop
@@ -107,7 +124,7 @@
 		});
 
 	    var testData = [
-	        {id: 1, name: 'Acme Organization', parent: 0}
+	        {id: 1, name: 'Acme Organization', parent: 0, aa : 'a'}
 	    ];
 
 	    var dt = [];
@@ -122,10 +139,13 @@
 	            	clear_fields();
 	                tmp_node_id = node.data.id;
 	                $('h4#add_title').html('Tambah Informasi Struktur Cabang ' + node.data.name);
+	                generate_button('add');
+	                $('#formModal').modal('show');
 	            },
 	            onDeleteNode: function(node){
-	                log('Deleted node '+node.data.id);
-	                org_chart.deleteNode(node.data.id); 
+	                $('h4#add_title').html('Apakah Anda yakin akan menghapus data ' + node.data.name);
+	                $('#simpleModal').modal('show');
+	                tmp_node_id = node.data.id;
 	            },
 	            onClickNode: function(node){
 	                document.getElementById("name").value = dt[node.data.id][0];
@@ -134,6 +154,8 @@
 	                document.getElementById("max").value = dt[node.data.id][3];                
 	                $('h4#add_title').html('Informasi Struktur Cabang ' + dt[node.data.id][0]);
 	                tmp_node_id = node.data.id;
+	                generate_button('edit');
+	                $('#formModal').modal('show');
 	            }
 	        });
 	    });
@@ -163,6 +185,18 @@
 	        dt[tmp_node_id] = [nama, min, ideal, max];
 			clear_fields();
 	    };
+
+	    function delete_node(){
+	        org_chart.deleteNode(tmp_node_id); 
+	    }
+
+	    function generate_button(src){
+	    	if(src == 'add'){
+		    	document.getElementById('generated_button').innerHTML = '<button type="button" class="btn btn-primary" onClick="save_node();" data-dismiss="modal">Tambah</button>';
+	    	}else if(src == 'edit'){
+		    	document.getElementById('generated_button').innerHTML = '<button type="button" class="btn btn-primary" onClick="edit_node();" data-dismiss="modal">Edit</button>';
+	    	}
+	    }
 
 	    function show_node(){
 	        var asd = org_chart.getData();
