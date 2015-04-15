@@ -20,10 +20,10 @@
 					</div>
 				</div>
 			</div>		
-
 			<div class="card-body style-bright">
 				<div class="row">
 					<div class="col-xs-12">
+						<h4  style="text-primary"id="add_title">Informasi</h4>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
@@ -52,9 +52,15 @@
 						</div><!--end .row -->
 					</div><!--end .col -->
 				</div><!--end .row -->
-			</div><!--end .card-body -->
-			<!-- END DEFAULT FORM ITEMS -->
+				<div class="row">
+					<div class="col-xs-12">
+						<h4 style="text-primary">Hak Akses</h4>
+						<div class="row">
 
+						</div>
+					</div>
+				</div>
+			</div><!--end .card-body -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
 					<button type="button" onClick="save_node();" class="btn btn-flat btn-primary ink-reaction">Tambah</button>
@@ -115,7 +121,7 @@
 	            onAddNode: function(node){ 
 	            	clear_fields();
 	                tmp_node_id = node.data.id;
-	                $('h4#add_title').html('Tambah Struktur Cabang ' + node.data.name);
+	                $('h4#add_title').html('Tambah Informasi Struktur Cabang ' + node.data.name);
 	            },
 	            onDeleteNode: function(node){
 	                log('Deleted node '+node.data.id);
@@ -126,7 +132,7 @@
 	                document.getElementById("min").value = dt[node.data.id][1];
 	                document.getElementById("ideal").value = dt[node.data.id][2];
 	                document.getElementById("max").value = dt[node.data.id][3];                
-	                $('h4#add_title').html('Edit Struktur Cabang ' + dt[node.data.id][0]);
+	                $('h4#add_title').html('Informasi Struktur Cabang ' + dt[node.data.id][0]);
 	                tmp_node_id = node.data.id;
 	            }
 	        });
@@ -161,6 +167,7 @@
 	    function show_node(){
 	        var asd = org_chart.getData();
 	        console.log(asd);
+	        console.log(dt);
 	    };
 
 	    function clear_fields(){
