@@ -11,8 +11,7 @@ div.orgChart h2 {
 }
 
 div.orgChart h2:hover {
-    background: #fcfaca;
-    cursor: text;
+
 }
 
 div.orgChart ul {
@@ -65,15 +64,15 @@ div.orgChart div.node {
     border                : 1px solid #e7e7e7;
     display               : inline-block;
     padding               : 5px;
-    width                 : 96px;
-    height                : 60px;
-    background: #ffffff; /* Old browsers */
-    background: -moz-linear-gradient(top, #ffffff 0%, #fbfbfb 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#fbfbfb)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #ffffff 0%,#fbfbfb 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #ffffff 0%,#fbfbfb 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #ffffff 0%,#fbfbfb 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #ffffff 0%,#fbfbfb 100%); /* W3C */
+    width                 : 150px;
+    height                : 100px;
+    background: #eee; /* Old browsers */
+    background: -moz-linear-gradient(top, #eee 0%, #fbfbfb 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eee), color-stop(100%,#fbfbfb)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #eee 0%,#fbfbfb 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #eee 0%,#fbfbfb 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #eee 0%,#fbfbfb 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #eee 0%,#fbfbfb 100%); /* W3C */
     line-height           : 1.3em;
     border-radius         : 4px;
     -moz-border-radius    : 4px;
