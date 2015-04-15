@@ -200,10 +200,10 @@ class CompanyController extends Controller {
 		}
 
 		$data 										= json_decode(json_encode($contents->data), true);
-
+		$i 											= 1;
 		foreach ($data['charts'] as $key => $value) 
 		{
-			$structure[]							=  [
+			$structure[$i]							=  [
 														'chart_id' 	=> $value['id'], 
 														'id' 		=> $value['graph'], 
 														'name' 		=> $value['name'], 
@@ -212,6 +212,7 @@ class CompanyController extends Controller {
 														'ideal' 	=> $value['ideal_employee'],
 														'max' 		=> $value['max_employee'],
 														];
+			$i++;
 		}
 
 		// ---------------------- GENERATE CONTENT ----------------------

@@ -118,16 +118,16 @@
 	            onDeleteNode: function(node){
 	                $('h4#add_title').html('Apakah Anda yakin akan menghapus data ' + node.data.name);
 	                $('#simpleModal').modal('show');
-	                tmp_node_id = node.data.id-1;
+	                tmp_node_id = node.data.id;
 	            },
 	            onClickNode: function(node){
-	                document.getElementById("chart_id").value 	= dt[node.data.id -1]['chart_id'];
-	                document.getElementById("name").value 		= dt[node.data.id -1]['name'];
-	                document.getElementById("min").value 		= dt[node.data.id -1]['min'];
-	                document.getElementById("ideal").value 		= dt[node.data.id -1]['ideal'];
-	                document.getElementById("max").value 		= dt[node.data.id -1]['max'];                
-	                $('h4#add_title').html('Informasi Struktur Cabang ' + dt[node.data.id-1]['nama']);
-	                tmp_node_id = node.data.id-1;
+	                document.getElementById("chart_id").value 	= dt[node.data.id]['chart_id'];
+	                document.getElementById("name").value 		= dt[node.data.id]['name'];
+	                document.getElementById("min").value 		= dt[node.data.id]['min'];
+	                document.getElementById("ideal").value 		= dt[node.data.id]['ideal'];
+	                document.getElementById("max").value 		= dt[node.data.id]['max'];                
+	                $('h4#add_title').html('Informasi Struktur Cabang ' + dt[node.data.id]['name']);
+	                tmp_node_id = node.data.id;
 	                parent_node = node.data.parent;
 	                generate_button('edit');
 	                $('#formModal').modal('show');
@@ -176,9 +176,9 @@
 			var min 		= document.getElementById("min").value;
 			var ideal 		= document.getElementById("ideal").value;
 			var max 		= document.getElementById("max").value;
-	        dt[tmp_node_id] = [nama, min, ideal, max];
+			dt[tmp_node_id]	= {name : nama, min : min, ideal : ideal, max : max, chart_id : id};
 
-			editdt 			= {id: id, name: nama, graph:tmp_node_id+1, graph_parent: parent_node, min_employee : min, ideal_employee : ideal, max_employee : max};
+			editdt 			= {id: id, name: nama, graph:tmp_node_id, graph_parent: parent_node, min_employee : min, ideal_employee : ideal, max_employee : max};
 			$.ajax({
 
 				url : "{!!route('hr.organisation.charts.store', $data['id'])!!}", 
@@ -190,7 +190,7 @@
 				},
 				success:function(result)
 				{
-			        org_chart.startEdit(tmp_node_id+1, result.name);
+			        org_chart.startEdit(tmp_node_id, result.name);
 				},
 				error: function(xhr, Status, err, result) 
 				{
