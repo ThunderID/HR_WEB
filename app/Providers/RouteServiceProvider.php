@@ -125,6 +125,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.document.templates.delete'					=> 'document-is_delete',
 
 							'hr.organisation.charts.create'					=> 'branch-is_create',
+							'hr.organisation.charts.store'					=> 'branch-is_read',
 
 							'hr.persons.index'								=> 'person-is_read',
 							'hr.persons.show'								=> 'person-is_read',

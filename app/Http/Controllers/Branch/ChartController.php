@@ -21,7 +21,13 @@ class ChartController extends Controller {
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= null;
+		$this->layout->content->app 				= null;
 
 		return $this->layout;
+	}
+
+	function postStore($id = null)
+	{
+		print_r(Input::all());exit;
 	}
 }

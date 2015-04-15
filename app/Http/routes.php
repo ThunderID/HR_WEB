@@ -142,6 +142,12 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.organisation.charts.create'
 						]
 					);
+		Route::post('show/{org_id?}/store/', 
+						[
+							'uses' 	=> 'Branch\ChartController@postStore', 
+							'as' 	=> 'hr.organisation.charts.store'
+						]
+					);
 	});
 
 	/* ---------------------------------------------------------------------------- END ORGANISATION CHART ----------------------------------------------------------------------------*/
