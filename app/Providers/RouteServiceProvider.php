@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider {
 			{
 				//check user logged in 
 				$results 									= API::person()->check(Session::get('loggedUser'));
-
+// print_r($results);exit;
 				$contents 									= json_decode($results);
 
 				if(!$contents->meta->success || !count($contents->data->works))
@@ -125,8 +125,11 @@ class RouteServiceProvider extends ServiceProvider {
 
 							'hr.document.templates.delete'					=> 'document-is_delete',
 
+							'hr.organisation.charts.create'					=> 'branch-is_create',
 							'hr.organisation.charts.show'					=> 'branch-is_create',
 							'hr.organisation.charts.store'					=> 'branch-is_create',
+							'hr.organisation.charts.edit'					=> 'branch-is_create',
+							'hr.organisation.charts.update'					=> 'branch-is_create',
 							'hr.organisation.charts.delete'					=> 'branch-is_create',
 
 							'hr.persons.index'								=> 'person-is_read',

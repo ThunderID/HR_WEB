@@ -1,336 +1,127 @@
-<div class="tab-pane" id="structure">
-	<h3 class="text-light">Struktur Perusahaan</h3>
-	<div class="col-md-12" style="padding-left:0px;padding-right:0px;">
-		<!-- <div id="orgChartContainer">
-		    <div id="orgChart" style="overflow:scroll;"></div>
-		</div> -->
-		<table class="table no-margin">
-			<thead>
-				<tr>
-					<th style="width:50px;">#</th>
-					<th>Name</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Mark</td>
-					<td class="text-right">
-						<a href="#">
-							Edit
-						</a>				
-						<a href="#">
-							Detail
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Mark</td>
-					<td class="text-right">
-						<a href="#">
-							Edit
-						</a>				
-						<a href="#">
-							Detail
-						</a>
-					</td>
-				</tr>	
-				<tr>
-					<td>3</td>
-					<td style="padding-left:13px;">Mark</td>
-					<td class="text-right">
-						<a href="#">
-							Edit
-						</a>				
-						<a href="#">
-							Detail
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td style="padding-left:18px;">Mark</td>
-					<td class="text-right">
-						<a href="#">
-							Edit
-						</a>				
-						<a href="#">
-							Detail
-						</a>
-					</td>
-				</tr>											
-			</tbody>
-		</table>
-	</div>
-</div>
+@section('breadcrumb')
+	<li>Home</li>
+	<li class='active'>{{ucwords(($controller_name))}}</li>
+@stop
 
-	<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="add_title"></h4>
-				</div>
-				<form class="form-horizontal" role="form">
-					<div class="modal-body">
-						<div class="form-group">
-							<div class="col-sm-3">
-								<label for="name" class="control-label">Nama</label>
-							</div>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Nama">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-3">
-								<label for="min" class="control-label">Jumlah Minimum</label>
-							</div>
-							<div class="col-sm-9">
-								<input name="min" id="min" class="form-control" placeholder="Minimum">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-3">
-								<label for="ideal" class="control-label">Jumlah Ideal</label>
-							</div>
-							<div class="col-sm-9">
-								<input name="ideal" id="ideal" class="form-control" placeholder="Ideal">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-3">
-								<label for="max" class="control-label">Jumlah Maksimum</label>
-							</div>
-							<div class="col-sm-9">
-								<input name="max" id="max" class="form-control" placeholder="Maksimum">
-							</div>
-						</div>	
-						<div class="form-group">
-							<input type="hidden" class="form-control" id="chart_id" name="chart_id">
-						</div>
-					</div>
-					<div class="modal-footer" id="generated_button">
-					</div>
-				</form>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div>
-
-	<div class="modal fade" id="simpleModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="simpleModalLabel">Hapus Data</h4>
-				</div>
-				<div class="modal-body">
-					<h4 class="modal-title" id="add_title"></h4>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal" onClick="delete_node();">Hapus</button>
-				</div>
+@section('content')
+	<div class="card">
+		<div class="card-head card-head-sm style-primary">
+			<div class="col-md-12 pt-5 ">
+				<a href="{{route('hr.organisation.branches.show', $branch_id)}}" class="btn btn-flat ink-reaction pull-left">
+					<i class="md md-reply"></i> Kembali
+				</a>
 			</div>
 		</div>
+		<div class="card-body">
+			@if($data['id'])
+				<form class="form" role="form" action="{{route('hr.organisation.charts.update', [$branch_id, $data['id']])}}" method="post">
+			@else
+				<form class="form" role="form" action="{{route('hr.organisation.charts.store', [$branch_id])}}" method="post">
+			@endif
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="text" class="form-control input-lg" id="path" name="path" value="{{$data['chart']['path']}}">
+							<label for="path">Parent</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="text" class="form-control input-lg" id="name" name="name" value="{{$data['name']}}">
+							<label for="name">Nama</label>
+						</div>
+					</div>
+				</div><!--end .row -->
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="min_employee" name="min_employee" value="{{$data['min_employee']}}">
+							<label for="min_employee">Jumlah Minimum Pegawai</label>
+						</div>
+					</div><!--end .col -->
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="ideal_employee" name="ideal_employee" value="{{$data['ideal_employee']}}">
+							<label for="ideal_employee">Jumlah Ideal Pegawai</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="max_employee" name="max_employee" value="{{$data['max_employee']}}">
+							<label for="max_employee">Jumlah Maksimum Pegawai</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="grade" name="grade" value="{{$data['grade']}}" Placehoder="(Biarkan kosong untuk departemen)">
+							<label for="grade">Grade</label>
+						</div>
+					</div>
+				</div>
+				<div class="card-actionbar">
+					<div class="card-actionbar-row">
+						<a class="btn btn-flat" href="{{route('hr.organisation.branches.index')}}">BATAL</a>
+						<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+					</div><!--end .card-actionbar-row -->
+				</div><!--end .card-actionbar -->				
+			</form>
+		</div>
 	</div>
-
-@section('css')
-	{!! HTML::style('css/base.css')!!}
-	{!! HTML::style('css/spacetree.css')!!}
-    {!! HTML::style('css/org-chart/jquery.orgchart.css')!!}
-	{!! HTML::style('css/toastr.css')!!}
-
-    <style type="text/css">
-	    #orgChart{
-	        width: auto;
-	        height: 500px;
-	    }
-
-	    #orgChartContainer{
-	        height: 500px;
-	        overflow: auto;
-	        background: #eee;
-	    }
-    </style>    
 @stop
 
 @section('js')
-	{!! HTML::script('js/jit.min.js')!!}
-    @include('admin.helpers.org-chart-jquery')
-	{!! HTML::script('js/toastr.js')!!}
-
-	<script type ="text/javascript">
-	    var testData 	= {!!$structure!!};
-	    var dt 			= testData;
-	    var tmp_node_id = 1;
-
-	    $(function(){
-	        org_chart = $('#orgChart').orgChart({
-	            data: testData,
-	            showControls: true,
-	            allowEdit: false,
-	            onAddNode: function(node){ 
-	            	clear_fields();
-	                tmp_node_id = node.data.id;
-	                $('h4#add_title').html('Tambah Informasi Struktur Cabang ' + node.data.name);
-	                generate_button('add');
-	                $('#formModal').modal('show');
-	            },
-	            onDeleteNode: function(node){
-	                $('h4#add_title').html('Apakah Anda yakin akan menghapus data ' + node.data.name);
-	                $('#simpleModal').modal('show');
-	                tmp_node_id = node.data.id;
-	            },
-	            onClickNode: function(node){
-	            	show_msg();
-	                document.getElementById("chart_id").value 	= dt[node.data.id]['chart_id'];
-	                document.getElementById("name").value 		= dt[node.data.id]['name'];
-	                document.getElementById("min").value 		= dt[node.data.id]['min'];
-	                document.getElementById("ideal").value 		= dt[node.data.id]['ideal'];
-	                document.getElementById("max").value 		= dt[node.data.id]['max'];                
-	                $('h4#add_title').html('Informasi Struktur Cabang ' + dt[node.data.id]['name']);
-	                tmp_node_id = node.data.id;
-	                parent_node = node.data.parent;
-	                generate_button('edit');
-	                $('#formModal').modal('show');
-	            }
-	        });
-	    });
-
-	    function save_node()
-	    {
-			var node_ctr 	= org_chart.newNode(tmp_node_id); 
-
-			var nama 		= document.getElementById("name").value;
-			var min 		= document.getElementById("min").value;
-			var ideal 		= document.getElementById("ideal").value;
-			var max 		= document.getElementById("max").value;
-
-			savedata 		= {id: null, name: nama, graph:node_ctr, graph_parent: tmp_node_id, min_employee : min, ideal_employee : ideal, max_employee : max};
-			$.ajax({
-
-				url : "{!!route('hr.organisation.charts.store', $data['id'])!!}", 
-				type: "post", //form method
-				data: savedata,
-				dataType:"json", //misal kita ingin format datanya brupa json
-				beforeSend:function(){
-					 $(".loading").html("Please wait....");
+	<script type="text/javascript">
+		@if ($data['id'])
+			var preload_data = [];
+			var id = "{{$data['chart']['path']}}";
+			var text ="{{$data['chart']['name']}}";
+			preload_data.push({ id: id, text: text});
+			<?php $neighbor = $data['path'];?>
+		@else
+			var preload_data = [];
+			<?php $neighbor = null;?>
+		@endif
+		$('#path').select2({
+		    tokenSeparators: [",", " "],
+			tags: [],
+			minimumInputLength: 3,
+			placeholder: "",
+			maximumSelectionSize: 1,
+			selectOnBlur: true,
+		    ajax: {
+		        url: "{{route('hr.ajax.chart',[$branch_id, $neighbor])}}",
+		        dataType: 'json',
+		        quietMillis: 500,
+				data: function (term) {
+				return {
+				        term: term
+				    };
 				},
-				success:function(result)
-				{
-					org_chart.startEdit(node_ctr, result.name);
-			        dt[node_ctr] = {name : nama, min : min, ideal : ideal, max : max, chart_id : result.id};
-					var tp = 3;
-					if(result.message == 'Data Tersimpan !'){
-						tp = 1;
-					}
-					show_msg(result.message, 1);
-				},
-				error:function(xhr, Status, err, result) 
-				{
-					org_chart.deleteNode(node_ctr); 
-					show_msg(result.message, 3);
-				}
-			});
-			clear_fields();
-		}
+		        results: function (data) {
+		            return {
+		                results: $.map(data, function (item) {
+		                    return {
+		                        text: item.name,
+		                        id: item.path,
+		                    }			                        
+		                })
+		            };
+		        },
+		        query: function (query){
+			    var data = {results: []};
+			     
+			    $.each(preload_data, function(){
+			        if(query.term.length == 0 || this.text.toUpperCase().indexOf(query.term.toUpperCase()) >= 0 ){
+			            data.results.push({id: this.id, text: this.text });
+			        }
+			    });
 
-	    function edit_node()
-	    {
-			var id 			= document.getElementById("chart_id").value;
-			var nama 		= document.getElementById("name").value;
-			var min 		= document.getElementById("min").value;
-			var ideal 		= document.getElementById("ideal").value;
-			var max 		= document.getElementById("max").value;
-			dt[tmp_node_id]	= {name : nama, min : min, ideal : ideal, max : max, chart_id : id};
-
-			editdt 			= {id: id, name: nama, graph:tmp_node_id, graph_parent: parent_node, min_employee : min, ideal_employee : ideal, max_employee : max};
-			$.ajax({
-
-				url : "{!!route('hr.organisation.charts.store', $data['id'])!!}", 
-				type: "post", //form method
-				data: editdt,
-				dataType:"json", //misal kita ingin format datanya brupa json
-				beforeSend:function(){
-					 $(".loading").html("Please wait....");
-				},
-				success:function(result)
-				{
-			        org_chart.startEdit(tmp_node_id, result.name);
-				},
-				error: function(xhr, Status, err, result) 
-				{
-					show_msg(result.message, 3);
-				}
-				
-			});
-			clear_fields();
-	    };
-
-	    function delete_node(){
-			deletedata 	= {id : dt[tmp_node_id]['chart_id']};
-            $.ajax({
-				url : "{!!route('hr.organisation.charts.delete', [$data['id']])!!}", 
-				type: "post", //form method
-				data: deletedata,
-				dataType:"json", //misal kita ingin format datanya brupa json
-				beforeSend:function(){
-					 $(".loading").html("Please wait....");
-				},
-				success:function(result)
-				{
-					if(result.is_delete)
-					{
-						org_chart.deleteNode(tmp_node_id); 
-					}
-					if(result.message == 'Data Terhapus !'){
-						tp = 1;
-					}
-					show_msg(result.message, 1);
-
-				},
-				error: function(xhr, Status, err) 
-				{
-					show_msg('Data Tidak Terhapus !', 3);
-				}
-			});
-	    }
-
-	    function generate_button(src){
-	    	if(src == 'add'){
-		    	document.getElementById('generated_button').innerHTML = '<button type="button" class="btn btn-primary" onClick="save_node();" data-dismiss="modal">Tambah</button>';
-	    	}else if(src == 'edit'){
-		    	document.getElementById('generated_button').innerHTML = '<button type="button" class="btn btn-primary" onClick="edit_node();" data-dismiss="modal">Edit</button>';
-	    	}
-	    }
-
-	    function clear_fields(){
-	        document.getElementById("name").value = '';
-	        document.getElementById("min").value = '';
-	        document.getElementById("ideal").value = '';
-	        document.getElementById("max").value = '';     
-	        $('h4#add_title').html('');
-	    };
-	    
-	    // just for example purpose
-	    function log(text){
-	        $('#consoleOutput').append('<p>'+text+'</p>')
-	    }
-	    
-	    function logs(updt){
-	        dt = dt + updt;
-	    }
-
-	    function show_msg(msg, tipe){
-	    	if(tipe == 1){
-		    	toastr.success(msg, '');
-	    	}else if(tipe == 1){
-		    	toastr.info(msg, '');
-	    	}else{
-		    	toastr.error(msg, '');
-	    	}
-	    }
-	</script>
+			    query.callback(data);
+		        }
+		    }
+		});
+        $('#path').select2('data', preload_data );
+   </script>
 @stop

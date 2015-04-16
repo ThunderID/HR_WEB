@@ -138,9 +138,9 @@
 			var id = {{$work['organisation_chart_id']}};
 			var text ="{{$work['organisationchart']['name'].' of '.$work['organisationchart']['branch']['name']}}";
 			preload_data.push({ id: id, text: text});
-        @else
-            var preload_data = [];
-        @endif
+		@else
+		    var preload_data = [];
+		@endif
 
 		$('.getCompany').select2({
 			tokenSeparators: [",", " "],

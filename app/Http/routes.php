@@ -157,6 +157,18 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.organisation.charts.show'
 						]
 					);
+		Route::get('branch/{branch_id}/edit/{id}', 
+						[
+							'uses' 	=> 'Branch\ChartController@getEdit', 
+							'as' 	=> 'hr.organisation.charts.edit'
+						]
+					);
+		Route::post('branch/{branch_id}/update/{id}', 
+						[
+							'uses' 	=> 'Branch\ChartController@postUpdate', 
+							'as' 	=> 'hr.organisation.charts.update'
+						]
+					);
 		Route::any('branch/{branch_id}/destroy', 
 						[
 							'uses' 	=> 'Branch\ChartController@anyDelete', 
@@ -388,7 +400,7 @@ Route::group(['prefix' => 'cms'], function(){
 	
 	Route::any('/image/upload', 		['as' 	=> 'hr.images.upload',	'uses' => 'GalleryController@upload']);
 
-	Route::get('chart/search/tes/{id}', array('as' 	=> 'hr.ajax.chart',	'uses' => 'AjaxController@searchChart'));
+	Route::get('chart/search/{id}/{parent?}', array('as' 	=> 'hr.ajax.chart',	'uses' => 'AjaxController@searchChart'));
 
 	
 	/* ---------------------------------------------------------------------------- END AJAX ----------------------------------------------------------------------------*/

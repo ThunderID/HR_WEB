@@ -60,14 +60,17 @@ class AjaxController extends Controller {
 		return Response::json($contents->data);
 	}
 
-	function searchChart($id)
+	function searchChart($id, $path=null)
 	{
 		$search 									= [];
 		if(Input::has('term'))
 		{
-			$search									= ['name' => Input::get('term'), 'parentbranch'=>$id];			
+			$search									= ['name' => Input::get('term'), 'parentbranch' => $id];
 		}
-
+		if(!is_null($path))
+		{
+			$search['neighbor'] 					= $path;
+		}
 
 		$sort 										= ['created_at' => 'asc'];
 

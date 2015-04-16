@@ -36,96 +36,105 @@ class ChartController extends Controller {
 		return $this->layout;
 	}
 
-	function getCreate()
+	function getCreate($branch_id, $id = null)
 	{
-		// ---------------------- LOAD DATA ----------------------
-		// $results 									= API::organisationchart()->show($branch_id, $id);
-
-		// $contents 									= json_decode($results);
-
-		// if(!$contents->meta->success)
-		// {
-		// 	App::abort(404);
-		// }
-
-		// $data 										= json_decode(json_encode($contents->data), true);
-
 		// ---------------------- GENERATE CONTENT ----------------------
-		// $this->layout->page_title 					= $contents->data->name;
-		$this->layout->content 						= view('admin.pages.organisation.kantor.'.$this->controller_name.'.add');
+
+		$this->layout->page_title 					= 'Tambah '.$this->controller_name.' baru';
+		$this->layout->content 						= view('admin.pages.organisation.kantor.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
-		// $this->layout->content->data 				= $data;
+		$this->layout->content->data 				= null;
+		$this->layout->content->branch_id 			= $branch_id;
 
 		return $this->layout;
 	}	
 
-	function postStore($id = null)
+	function postStore($branch_id, $id = null)
 	{
-		if (Request::ajax())
+		$input['chart']									= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade');
+		$input['chart']['id']							= $id;
+		
+		if(Input::has('application_id'))
 		{
-			$input['chart']							= Input::only('id', 'name', 'graph', 'graph_parent', 'min_employee', 'max_employee', 'ideal_employee');
-			
-			$results 								= API::organisationchart()->store($id, $input);
-
-			$content 								= json_decode($results);
-			
-			if(!$content->meta->success)
+			foreach (Input::get('id') as $key => $value) 
 			{
-				return Response::json(['message' => 'Tidak dapat menyimpan data. Silahkan cek data yang di entry'], 200);
+				$application['id']						= $value;
+				$application['application_id']			= Input::get('application_id')[$key];
+				if(isset(Input::get('is_create')[$key]))
+				{
+					$application['is_create']			= true;
+				}
+				else
+				{
+					$application['is_create']			= false;
+				}
+				if(isset(Input::get('is_read')[$key]))
+				{
+					$application['is_read']				= true;
+				}
+				else
+				{
+					$application['is_read']				= false;
+				}
+				if(isset(Input::get('is_update')[$key]))
+				{
+					$application['is_update']			= true;
+				}
+				else
+				{
+					$application['is_update']			= false;
+				}
+				if(isset(Input::get('is_delete')[$key]))
+				{
+					$application['is_delete']			= true;
+				}
+				else
+				{
+					$application['is_delete']			= false;
+				}
+				$input['application'][]					= $application;
 			}
-
-			return Response::json(['message' => 'Data Tersimpan !', 'id' => $content->data->id, 'name' => $content->data->name], 200);
 		}
 
-		$input['chart']['id']						= Input::get('chart_id');
-		foreach (Input::get('id') as $key => $value) 
-		{
-			$application['id']						= $value;
-			$application['application_id']			= Input::get('application_id')[$key];
-			if(isset(Input::get('is_create')[$key]))
-			{
-				$application['is_create']			= true;
-			}
-			else
-			{
-				$application['is_create']			= false;
-			}
-			if(isset(Input::get('is_read')[$key]))
-			{
-				$application['is_read']				= true;
-			}
-			else
-			{
-				$application['is_read']				= false;
-			}
-			if(isset(Input::get('is_update')[$key]))
-			{
-				$application['is_update']			= true;
-			}
-			else
-			{
-				$application['is_update']			= false;
-			}
-			if(isset(Input::get('is_delete')[$key]))
-			{
-				$application['is_delete']			= true;
-			}
-			else
-			{
-				$application['is_delete']			= false;
-			}
-			$input['application'][]					= $application;
-		}
-		$results 									= API::organisationchart()->store($id, $input);
+		$results 									= API::organisationchart()->store($branch_id, $input);
 
 		$content 									= json_decode($results);
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.charts.show', [$id, $input['chart']['id']]);
+			return Redirect::route('hr.organisation.charts.show', [$branch_id, $content->data->id]);
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+	}
+
+
+	function getEdit($branch_id, $id)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$results 									= API::organisationchart()->show($branch_id, $id);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		$this->layout->page_title 					= 'Edit "'.$data['name'].' "';
+		$this->layout->content 						= view('admin.pages.organisation.kantor.'.$this->controller_name.'.create');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->branch_id 			= $branch_id;
+
+		return $this->layout;
+	}
+
+	function postUpdate($branch_id, $id)
+	{
+		return $this->postStore($branch_id, $id);
 	}
 
 	function anyDelete($id = null)

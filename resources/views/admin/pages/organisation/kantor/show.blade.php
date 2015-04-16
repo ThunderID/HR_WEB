@@ -67,7 +67,9 @@
 							</div>
 						</div>
 					</div>
-					@include('admin.pages.organisation.'.$controller_name.'.struktur.create')
+					<div class="tab-pane" id="structure">
+						@include('admin.pages.organisation.kantor.struktur.index')
+					</div>
 				</div><!--end .card-body -->
 			</div><!--end .col -->
 		</div><!--end .row -->
