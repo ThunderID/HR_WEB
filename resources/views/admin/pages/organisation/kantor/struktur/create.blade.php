@@ -1,9 +1,68 @@
 <div class="tab-pane" id="structure">
 	<h3 class="text-light">Struktur Perusahaan</h3>
 	<div class="col-md-12" style="padding-left:0px;padding-right:0px;">
-		<div id="orgChartContainer">
+		<!-- <div id="orgChartContainer">
 		    <div id="orgChart" style="overflow:scroll;"></div>
-		</div>
+		</div> -->
+		<table class="table no-margin">
+			<thead>
+				<tr>
+					<th style="width:50px;">#</th>
+					<th>Name</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Mark</td>
+					<td class="text-right">
+						<a href="#">
+							Edit
+						</a>				
+						<a href="#">
+							Detail
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Mark</td>
+					<td class="text-right">
+						<a href="#">
+							Edit
+						</a>				
+						<a href="#">
+							Detail
+						</a>
+					</td>
+				</tr>	
+				<tr>
+					<td>3</td>
+					<td style="padding-left:13px;">Mark</td>
+					<td class="text-right">
+						<a href="#">
+							Edit
+						</a>				
+						<a href="#">
+							Detail
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td style="padding-left:18px;">Mark</td>
+					<td class="text-right">
+						<a href="#">
+							Edit
+						</a>				
+						<a href="#">
+							Detail
+						</a>
+					</td>
+				</tr>											
+			</tbody>
+		</table>
 	</div>
 </div>
 
@@ -81,6 +140,8 @@
 	{!! HTML::style('css/base.css')!!}
 	{!! HTML::style('css/spacetree.css')!!}
     {!! HTML::style('css/org-chart/jquery.orgchart.css')!!}
+	{!! HTML::style('css/toastr.css')!!}
+
     <style type="text/css">
 	    #orgChart{
 	        width: auto;
@@ -97,7 +158,9 @@
 
 @section('js')
 	{!! HTML::script('js/jit.min.js')!!}
-    {!! HTML::script('js/jquery.orgchart.js')!!}
+    @include('admin.helpers.org-chart-jquery')
+	{!! HTML::script('js/toastr.js')!!}
+
 	<script type ="text/javascript">
 	    var testData 	= {!!$structure!!};
 	    var dt 			= testData;
@@ -121,6 +184,7 @@
 	                tmp_node_id = node.data.id;
 	            },
 	            onClickNode: function(node){
+	            	show_msg();
 	                document.getElementById("chart_id").value 	= dt[node.data.id]['chart_id'];
 	                document.getElementById("name").value 		= dt[node.data.id]['name'];
 	                document.getElementById("min").value 		= dt[node.data.id]['min'];
@@ -158,14 +222,17 @@
 				{
 					org_chart.startEdit(node_ctr, result.name);
 			        dt[node_ctr] = {name : nama, min : min, ideal : ideal, max : max, chart_id : result.id};
-					alert(result.message);
+					var tp = 3;
+					if(result.message == 'Data Tersimpan !'){
+						tp = 1;
+					}
+					show_msg(result.message, 1);
 				},
-				error: function(xhr, Status, err, result) 
+				error:function(xhr, Status, err, result) 
 				{
 					org_chart.deleteNode(node_ctr); 
-					alert(result.message);
+					show_msg(result.message, 3);
 				}
-				
 			});
 			clear_fields();
 		}
@@ -195,7 +262,7 @@
 				},
 				error: function(xhr, Status, err, result) 
 				{
-					alert(result.message);
+					show_msg(result.message, 3);
 				}
 				
 			});
@@ -218,11 +285,15 @@
 					{
 						org_chart.deleteNode(tmp_node_id); 
 					}
-					alert(result.message);
+					if(result.message == 'Data Terhapus !'){
+						tp = 1;
+					}
+					show_msg(result.message, 1);
+
 				},
 				error: function(xhr, Status, err) 
 				{
-					alert('Data Tidak Terhapus !');
+					show_msg('Data Tidak Terhapus !', 3);
 				}
 			});
 	    }
@@ -250,6 +321,16 @@
 	    
 	    function logs(updt){
 	        dt = dt + updt;
+	    }
+
+	    function show_msg(msg, tipe){
+	    	if(tipe == 1){
+		    	toastr.success(msg, '');
+	    	}else if(tipe == 1){
+		    	toastr.info(msg, '');
+	    	}else{
+		    	toastr.error(msg, '');
+	    	}
 	    }
 	</script>
 @stop
