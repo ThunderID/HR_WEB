@@ -58,5 +58,28 @@ class AjaxController extends Controller {
 		}
 
 		return Response::json($contents->data);
-	}	
+	}
+
+	function searchChart($id)
+	{
+		$search 									= [];
+		if(Input::has('term'))
+		{
+			$search									= ['name' => Input::get('term'), 'parentbranch'=>$id];			
+		}
+
+
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::organisationchart()->index(1, $search, $sort);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			return Response::json(NULL,500);
+		}
+
+		return Response::json($contents->data);
+	}		
 }

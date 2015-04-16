@@ -139,6 +139,12 @@ Route::group(['prefix' => 'cms'], function(){
 	/* ---------------------------------------------------------------------------- ORGANISATION CHART ----------------------------------------------------------------------------*/
 
 	Route::group(['prefix' => 'charts', 'before' => 'hr_acl'], function(){
+		Route::get('branch/{branch_id}/create/', 
+						[
+							'uses' 	=> 'Branch\ChartController@getCreate', 
+							'as' 	=> 'hr.organisation.charts.create'
+						]
+					);	
 		Route::post('branch/{branch_id}/store/', 
 						[
 							'uses' 	=> 'Branch\ChartController@postStore', 
@@ -376,11 +382,14 @@ Route::group(['prefix' => 'cms'], function(){
 	
 	/* ---------------------------------------------------------------------------- AJAX ----------------------------------------------------------------------------*/
 	
-	Route::get('names/earch', array('as'		=> 'hr.ajax.name', 		'uses' => 'AjaxController@searchName'));
+	Route::get('names/search', array('as'		=> 'hr.ajax.name', 		'uses' => 'AjaxController@searchName'));
 
 	Route::get('company/search', array('as' 	=> 'hr.ajax.company', 	'uses' => 'AjaxController@searchCompany'));
 	
 	Route::any('/image/upload', 		['as' 	=> 'hr.images.upload',	'uses' => 'GalleryController@upload']);
+
+	Route::get('chart/search/tes/{id}', array('as' 	=> 'hr.ajax.chart',	'uses' => 'AjaxController@searchChart'));
+
 	
 	/* ---------------------------------------------------------------------------- END AJAX ----------------------------------------------------------------------------*/
 });
