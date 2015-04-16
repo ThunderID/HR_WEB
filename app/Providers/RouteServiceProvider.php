@@ -78,6 +78,7 @@ class RouteServiceProvider extends ServiceProvider {
 						$acl[] 						= $value['menu'].'-'.'is_delete';
 					}
 				}
+
 				if (!isset($acl) || (!in_array(app('hr_acl')[Route::currentRouteName()], $acl)))
 				{
 					Session::flush();

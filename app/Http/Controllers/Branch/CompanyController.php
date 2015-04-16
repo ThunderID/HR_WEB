@@ -200,27 +200,12 @@ class CompanyController extends Controller {
 		}
 
 		$data 										= json_decode(json_encode($contents->data), true);
-		$i 											= 1;
-		foreach ($data['charts'] as $key => $value) 
-		{
-			$structure[$i]							=  [
-														'chart_id' 	=> $value['id'], 
-														'id' 		=> $value['graph'], 
-														'name' 		=> $value['name'], 
-														'parent' 	=> $value['graph_parent'],
-														'min' 		=> $value['min_employee'],
-														'ideal' 	=> $value['ideal_employee'],
-														'max' 		=> $value['max_employee'],
-														];
-			$i++;
-		}
 
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= $contents->data->name;
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
-		$this->layout->content->structure 			= json_encode($structure);
 
 		return $this->layout;
 	}

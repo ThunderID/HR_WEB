@@ -14,7 +14,7 @@ abstract class Controller extends BaseController {
 
 	function __construct() 
 	{
-		if (Session::has('loggedUser'))
+		if (Session::has('user.access'))
 		{
 
 			$this->layout 					= view('admin.layouts.template');
