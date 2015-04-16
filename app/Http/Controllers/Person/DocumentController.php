@@ -73,6 +73,7 @@ class DocumentController extends Controller {
 			foreach (Input::get('documents') as $key => $value) 
 			{
 				$document['document']['id'] 			= $value;
+				$document['document']['document_id'] 	= Input::get('documents_id')[$key];
 				foreach (Input::get('template_value')[$key] as $key2 => $value2) 
 				{
 					if($value2!='')

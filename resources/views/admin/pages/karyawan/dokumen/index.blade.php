@@ -46,7 +46,8 @@
 										<div class="card-body tab-content">
 											@foreach($docs as $key => $value)
 												<div class="tab-pane  @if($key==0) active @endif" id="#docs[{{$key}}]">
-													<input name="documents[{{$key}}]"type="hidden" value="{{$value['id']}}">											
+													<input name="documents_id[{{$key}}]"type="hidden" value="{{$value['id']}}">											
+													<input name="documents[{{$key}}]"type="hidden" value="">
 													@foreach($value['templates'] as $key2 => $value2)
 														<div class="form-group">
 															@if($value2['type']=='numeric' || $value2['type']=='string')

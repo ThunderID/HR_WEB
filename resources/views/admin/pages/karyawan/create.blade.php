@@ -267,6 +267,7 @@
 							<div class="page-header no-border holder">
 								<h4 class="text-accent">{{$value['document']['name']}}</h4>
 							</div>
+							<input name="documents_id[{{$key}}]"type="hidden" value="{{$value['document_id']}}">											
 							<input name="documents[{{$key}}]"type="hidden" value="{{$value['id']}}">											
 							@foreach($docs[$key]['details'] as $key2 => $value2)
 								<div class="row">
@@ -302,7 +303,8 @@
 							<div class="page-header no-border holder">
 								<h4 class="text-accent">{{$value['name']}}</h4>
 							</div>
-							<input name="documents[{{$key}}]"type="hidden" value="{{$value['id']}}">											
+							<input name="documents_id[{{$key}}]"type="hidden" value="{{$value['id']}}">											
+							<input name="documents[{{$key}}]"type="hidden" value="">											
 							@foreach($value['templates'] as $key2 => $value2)
 								<div class="row">
 									<div class="col-md-12">
