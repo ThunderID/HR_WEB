@@ -12,7 +12,6 @@
         onAddNode: null,
         onDeleteNode: null,
         onClickNode: null,
-        onConfigNode: null,
         newNodeText: 'Tambah'
     };
 
@@ -51,12 +50,7 @@
                     self.newNode(thisId);
                 }
                 e.stopPropagation();
-            });
-
-            $container.find('.org-config-button').click(function(e){
-                var thisId = $(this).parent().attr('node-id');
-                alert(thisId);
-            });                       
+            });                    
 
             $container.find('.org-del-button').click(function(e){
                 var thisId = $(this).parent().attr('node-id');

@@ -163,6 +163,10 @@
 				{
 					org_chart.startEdit(node_ctr, result.name);
 			        dt[node_ctr] = {name : nama, min : min, ideal : ideal, max : max, chart_id : result.id};
+					var tp = 3;
+					if(result.message == 'Data Tersimpan !'){
+						tp = 1;
+					}
 					show_msg(result.message, 1);
 				},
 				error:function(xhr, Status, err, result) 
@@ -221,6 +225,9 @@
 					if(result.is_delete)
 					{
 						org_chart.deleteNode(tmp_node_id); 
+					}
+					if(result.message == 'Data Terhapus !'){
+						tp = 1;
 					}
 					show_msg(result.message, 1);
 
