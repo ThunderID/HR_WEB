@@ -317,7 +317,11 @@ class PersonController extends Controller {
 				$document['document']['id'] 			= $value;
 				foreach (Input::get('template_value')[$key] as $key2 => $value2) 
 				{
-					if($value2!='')
+					if($value2!='' && isset(Input::get('detail_id')[$key][$key2]))
+					{
+						$document['details'][] 			= ['value' => $value2, 'document_template_id' => Input::get('template_id')[$key][$key2], 'id' => Input::get('detail_id')[$key][$key2]];
+					}
+					elseif($value2!='')
 					{
 						$document['details'][] 			= ['value' => $value2, 'document_template_id' => Input::get('template_id')[$key][$key2]];
 					}
