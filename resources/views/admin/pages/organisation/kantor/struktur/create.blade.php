@@ -1,9 +1,68 @@
 <div class="tab-pane" id="structure">
 	<h3 class="text-light">Struktur Perusahaan</h3>
 	<div class="col-md-12" style="padding-left:0px;padding-right:0px;">
-		<div id="orgChartContainer">
+		<!-- <div id="orgChartContainer">
 		    <div id="orgChart" style="overflow:scroll;"></div>
-		</div>
+		</div> -->
+		<table class="table no-margin">
+			<thead>
+				<tr>
+					<th style="width:50px;">#</th>
+					<th>Name</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Mark</td>
+					<td class="text-right">
+						<a href="#">
+							Edit
+						</a>				
+						<a href="#">
+							Detail
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Mark</td>
+					<td class="text-right">
+						<a href="#">
+							Edit
+						</a>				
+						<a href="#">
+							Detail
+						</a>
+					</td>
+				</tr>	
+				<tr>
+					<td>3</td>
+					<td style="padding-left:13px;">Mark</td>
+					<td class="text-right">
+						<a href="#">
+							Edit
+						</a>				
+						<a href="#">
+							Detail
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td style="padding-left:18px;">Mark</td>
+					<td class="text-right">
+						<a href="#">
+							Edit
+						</a>				
+						<a href="#">
+							Detail
+						</a>
+					</td>
+				</tr>											
+			</tbody>
+		</table>
 	</div>
 </div>
 
