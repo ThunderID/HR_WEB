@@ -51,7 +51,10 @@ class ChartController extends Controller {
 
 	function postStore($branch_id, $id = null)
 	{
-		$input['chart']									= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade');
+		if(Input::has('name'))
+		{
+			$input['chart']								= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade');
+		}
 		$input['chart']['id']							= $id;
 		
 		if(Input::has('application_id'))
