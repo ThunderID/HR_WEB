@@ -16,6 +16,8 @@ class AuthController extends Controller {
 	 **/
 	function getLogin()
 	{
+		Session::flush();
+		
 		$this->layout->page_title 	= '';
 
 		$this->layout->content 		= view('admin.pages.login.form');
