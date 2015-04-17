@@ -7,20 +7,26 @@
 					<th>Posisi</th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($data['charts'] as $key => $value)
 					<tr>
-						<td class="col-sm-8">@for($i=1;$i<count(explode(',',$value['path']));$i++)&nbsp;&nbsp;&nbsp;@endfor <i class="fa fa-chevron-circle-right"></i>&nbsp;&nbsp;{{$value['name']}}</td>
-						<td class="text-right col-sm-2">
-							<a href="{{route('hr.organisation.charts.edit', [$data['id'], $value['id']])}}">
-								Edit
-							</a>				
+						<td class="col-sm-9">@for($i=1;$i<count(explode(',',$value['path']));$i++)&nbsp;&nbsp;&nbsp;@endfor <i class="fa fa-chevron-circle-right"></i>&nbsp;&nbsp;{{$value['name']}}</td>
+						<td class="text-right col-sm-1">
+							<a href="{{route('hr.organisation.charts.delete', [$data['id'], $value['id']])}}">
+								<i class="fa fa-trash"></i>
+							</a>
 						</td>
-						<td class="text-right col-sm-2">
+						<td class="text-right col-sm-1">
+							<a href="{{route('hr.organisation.charts.edit', [$data['id'], $value['id']])}}">
+								<i class="fa fa-pencil"></i>
+							</a>
+						</td>
+						<td class="text-right col-sm-1">
 							<a href="{{route('hr.organisation.charts.show', [$data['id'], $value['id']])}}">
-								Detail
+								<i class="fa fa-eye"></i>
 							</a>
 						</td>
 					</tr>

@@ -169,7 +169,7 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.organisation.charts.update'
 						]
 					);
-		Route::any('branch/{branch_id}/destroy', 
+		Route::any('branch/{branch_id}/destroy/{id}', 
 						[
 							'uses' 	=> 'Branch\ChartController@anyDelete', 
 							'as' 	=> 'hr.organisation.charts.delete'

@@ -137,17 +137,17 @@ class ChartController extends Controller {
 		return $this->postStore($branch_id, $id);
 	}
 
-	function anyDelete($id = null)
+	function anyDelete($branch_id, $id)
 	{
-		$results 									= API::organisationchart()->destroy($id, Input::get('id'));
+		$results 									= API::organisationchart()->destroy($branch_id, $id);
 
 		$content 									= json_decode($results);
 		
-		if(!$content->meta->success)
+		if($content->meta->success)
 		{
-			return Response::json(['message' => $content->meta->errors[0]], 200);
+			return Redirect::route('hr.organisation.branches.show', [$branch_id]);
 		}
 
-		return Response::json(['message' => 'Data Terhapus !', 'is_delete' => true], 200);
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 }
