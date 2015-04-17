@@ -89,19 +89,26 @@
 							@endif
 								<div class="timeline-circ style-accent"></div>
 								<div class="timeline-entry">
-									<div class="card style-default-bright">
+									<div class="card style-default-light">
 										<div class="card-body small-padding">
-											<a href="{{ route('hr.persons.works.edit' ,[ $data['id'],$value['id']]) }}" class="btn pull-right ink-reaction btn-floating-action btn-primary" type="button">
-												<i class="fa fa-pencil"></i>
-											</a>
 											<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
 											<p>
 												<span class="text-lg text-medium">{{$value['organisation_chart']['name']}} ({{$value['status']}})</span><br/>
 												<span class="text-lg text-light">{{$value['organisation_chart']['branch']['name']}}</span>
 											</p>
 											<p>
+												@if(empty ($value['reason_end_job']))
+													{{'Pegawai Aktif'}}
+												@else
+													{{'Pegawai Nonaktif'}}
+													<br/>
+												@endif
+
 												{{$value['reason_end_job']}}
 											</p>
+											<a href="{{ route('hr.persons.works.edit' ,[ $data['id'],$value['id']]) }}" class="btn pull-right ink-reaction btn-primary" type="button">
+												<i class="fa fa-pencil"></i>&nbsp;Edit
+											</a>											
 										</div>
 									</div>
 								</div>
