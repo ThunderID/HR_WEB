@@ -65,7 +65,7 @@
 			</div>
 			<div class="clearfix">&nbsp;</div>
 			<h3 class="text-light">AKSES</h3>
-			<form class="form" role="form" action="{{route('hr.organisation.charts.store', $data['branch']['id'])}}" method="post">
+			<form class="form" role="form" action="{{route('hr.organisation.charts.update', [$data['branch']['id'], $data['id']])}}" method="post">
 				<div class="row">
 					<div class="col-sm-12">
 						<table class="table no-margin">
