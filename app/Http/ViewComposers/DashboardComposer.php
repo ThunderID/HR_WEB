@@ -32,19 +32,22 @@ class DashboardComposer {
 	 */
 	public function compose(View $view)
 	{
-		$methods = Session::get('dashboard');
-		foreach ($methods as $method)
+		$dashboard 							= [];
+		foreach (Session::get('dashboard') as $key => $value) 
 		{
-			$dashboard[]	= ['data' => call_user_func([$this, $method['function']], $this), 'type' => $method['type'], 'title' => $method['title'], 'function' => $method['function'], 'id' => $method['id']];
+			$dashboard[]					= [
+												'title'		=> $value['title'],
+												'type'		=> $value['type'],
+												'field'		=> (array)json_decode($value['field']),
+												'data'		=> call_user_func([$this, $value['function']], (array)json_decode($value['query'])),
+												];
 		}
 
 		$view = $view->with('dashboard', $dashboard);
 	}
 
-	public function total_documents()
+	public function total_documents($search)
 	{
-		$search										= ['isrequired' => true];
-		
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::document()->index(1, $search, $sort);
@@ -59,28 +62,8 @@ class DashboardComposer {
 		return ['number' => $contents->pagination->total_data];
 	}
 
-	public function total_letters()
+	public function total_employees($search)
 	{
-		$search										= ['isrequired' => false];
-		
-		$sort 										= ['created_at' => 'asc'];
-
-		$results 									= API::document()->index(1, $search, $sort);
-
-		$contents 									= json_decode($results);
-
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}
-
-		return ['number' => $contents->pagination->total_data];
-	}
-
-	public function total_employees()
-	{
-		$search										= ['checkwork' => 'active'];
-		
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::person()->index(1, $search, $sort);
@@ -95,10 +78,8 @@ class DashboardComposer {
 		return ['number' => $contents->pagination->total_data];
 	}
 
-	public function total_branches()
+	public function total_branches($search)
 	{
-		$search['organisationid']					= Session::get('user.organisation');
-		
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::organisationbranch()->index(1, $search, $sort);
@@ -112,12 +93,8 @@ class DashboardComposer {
 		return ['number' => $contents->pagination->total_data];
 	}
 
-	public function new_employees_3_days()
+	public function index_employees($search)
 	{
-		$days 										= new DateTime('- 3 days');
-
-		$search										= ['checkCreate' => $days->format('Y-m-d'), 'checkwork' => 'active'];
-		
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::person()->index(1, $search, $sort);
@@ -131,12 +108,23 @@ class DashboardComposer {
 		return ['data' => json_decode(json_encode($contents->data),true)];
 	}
 
-	public function new_branches_1_year()
+	public function index_documents($search)
 	{
-		$days 										= new DateTime('- 1 year');
+		$sort 										= ['created_at' => 'asc'];
 
-		$search										= ['checkCreate' => $days->format('Y-m-d'), 'organisationid' => Session::get('user.organisation')];
-		
+		$results 									= API::document()->index(1, $search, $sort);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+		return ['data' => json_decode(json_encode($contents->data),true)];
+	}
+
+	public function index_branches($search)
+	{
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::organisationbranch()->index(1, $search, $sort);

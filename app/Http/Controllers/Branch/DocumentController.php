@@ -16,7 +16,7 @@ class DocumentController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['countperson' => '', 'organisation' => Session::get('user.organisation')];
+		$search 									= ['countperson' => '', 'organisationid' => Session::get('user.organisation')];
 		if(Input::has('q'))
 		{
 			$search 								= ['name' => Input::get('q'),'WithAttributes' => ['persons'], 'organisation' => Session::get('user.organisation')];
