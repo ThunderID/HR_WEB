@@ -1,7 +1,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-sm-12 text-right mb-20">
-			<button class="btn btn-primary btn-raised ink-reaction" data-toggle="modal" data-target="#widgetmodal">Custom Widget</button>
+			<button class="btn btn-primary btn-raised ink-reaction" data-toggle="modal" data-target="#widgetmodal">Tambah Widget</button>
 		</div>
 	</div>
 	<div class="row">
@@ -35,7 +35,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title text-xl" id="formModalLabel">Custom Widget</h4>
+					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Widget</h4>
 				</div>
 				<form class="form-horizontal" role="form">
 					<div class="modal-body">
@@ -141,7 +141,12 @@
 	<!-- END FORM MODAL MARKUP -->
 @stop
 
+@section('css')
+	{!! HTML::style('css/toastr.css')!!}	
+@stop
+
 @section('js')
+	{!! HTML::script('js/toastr.js')!!}
 	<script type="text/javascript">
 		$(document).ready(function (){
 			$('#type_widgets').change(function(){
@@ -152,6 +157,10 @@
 				$('#'+val).css('display', 'block');	
 
 				$(this).attr('data-old', val);
+			});
+
+			$('.card-widget').hover(function(){
+				$(this).find('.btn-group').toggleClass('show');
 			});
 		});
 	</script>

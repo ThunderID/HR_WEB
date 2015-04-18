@@ -9,12 +9,14 @@
 <?php $title = str_replace('_', ' ', $title); ?>
 @if (str_is('*employee*', strtolower($title)))
 	<div class="col-md-6">
-		<div class="card ">
+		<div class="card card-widget">
 			<div class="card-head">
 				<header class="mt-10">{{ ucwords($title) }}</header>
-				<div class="tools">
-					<div class="btn-group">
-						<a href="{{ route('hr.persons.index') }}" class="btn btn-primary btn-flat btn-sm">view all</a>
+				<div class="tools" style="padding-right:0">
+					<div class="btn-group mt-5 hide">
+						<a href="{{ route('hr.persons.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="lihat data semua"><i class="md md-visibility"></i></a>
+						<a href="{{ route('hr.persons.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
+						<a href="{{ route('hr.persons.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
 					</div>
 				</div>
 			</div><!--end .card-head -->
@@ -45,12 +47,14 @@
 	</div><!--end .col -->
 @else
 	<div class="col-md-6">
-		<div class="card ">
+		<div class="card card-widget">
 			<div class="card-head">
 				<header class="mt-10">{{ ucwords($title) }}</header>
-				<div class="tools">
-					<div class="btn-group">
-						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-primary btn-flat btn-sm">view all</a>
+				<div class="tools" style="padding-right:0">
+					<div class="btn-group mt-5 hide">
+						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="lihat data semua"><i class="md md-visibility"></i></a>
+						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
+						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
 					</div>
 				</div>
 			</div><!--end .card-head -->

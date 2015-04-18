@@ -167,7 +167,8 @@
 .pl-0 {
   padding-left: 0px;
 }
-.pr-0 {
+.pr-0,
+.tools.tools-no-pr {
   padding-right: 0px;
 }
 .pt-0 {
@@ -261,6 +262,22 @@
 }
 .pagination-hollow a i {
   line-height: 21px;
+}
+.border-left {
+  border-left: 4px solid;
+  margin-left: -1px;
+}
+.border-alert-danger {
+  border-color: #f44336;
+}
+.border-alert-warning {
+  border-color: #ff9800;
+}
+.border-alert-success {
+  border-color: #4caf50;
+}
+.border-alert-info {
+  border-color: #2196f3;
 }
 
 @-webkit-keyframes fadeIn {
@@ -15401,6 +15418,7 @@ sub.badge {
 .border-transparent {
   border-color: transparent;
 }
+
 .hidden-border {
   border-color: transparent !important;
 }
