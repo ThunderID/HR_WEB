@@ -127,7 +127,7 @@ class PersonController extends Controller {
 				$address 							= $value;
 				if(Input::get('work_company')[$key]!='')
 				{
-					$chart['organisation_chart_id'] = Input::get('work_company')[$key];
+					$chart['chart_id'] 				= Input::get('work_company')[$key];
 					$chart['status'] 				= Input::get('work_status')[$key];
 					$chart['start'] 				= date("Y-m-d", strtotime(Input::get('work_start')[$key]));
 					if(Input::get('work_end')[$key]!='')
@@ -320,11 +320,11 @@ class PersonController extends Controller {
 				{
 					if($value2!='' && isset(Input::get('detail_id')[$key][$key2]))
 					{
-						$document['details'][] 			= ['value' => $value2, 'document_template_id' => Input::get('template_id')[$key][$key2], 'id' => Input::get('detail_id')[$key][$key2]];
+						$document['details'][] 			= ['value' => $value2, 'template_id' => Input::get('template_id')[$key][$key2], 'id' => Input::get('detail_id')[$key][$key2]];
 					}
 					elseif($value2!='')
 					{
-						$document['details'][] 			= ['value' => $value2, 'document_template_id' => Input::get('template_id')[$key][$key2]];
+						$document['details'][] 			= ['value' => $value2, 'template_id' => Input::get('template_id')[$key][$key2]];
 					}
 				}
 				$input['documents'][] 					= $document;

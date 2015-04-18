@@ -19,7 +19,6 @@ class DashboardController extends Controller {
 		$this->layout->page_title			= 'Dashboard: Overview';
 
 		$this->layout->content->dashboard 	= Session::get('dashboard');
-
 		
 		return $this->layout;
 	}
