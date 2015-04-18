@@ -97,7 +97,7 @@ class DashboardComposer {
 
 	public function total_branches()
 	{
-		$search['ParentOrganisation']				= Session::get('user.organisation');
+		$search['organisationid']					= Session::get('user.organisation');
 		
 		$sort 										= ['created_at' => 'asc'];
 
@@ -135,7 +135,7 @@ class DashboardComposer {
 	{
 		$days 										= new DateTime('- 1 year');
 
-		$search										= ['checkCreate' => $days->format('Y-m-d'), 'ParentOrganisation' => Session::get('user.organisation')];
+		$search										= ['checkCreate' => $days->format('Y-m-d'), 'organisationid' => Session::get('user.organisation')];
 		
 		$sort 										= ['created_at' => 'asc'];
 

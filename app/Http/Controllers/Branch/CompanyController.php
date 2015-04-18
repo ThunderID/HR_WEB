@@ -16,7 +16,7 @@ class CompanyController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search['ParentOrganisation']				= Session::get('user.organisation');
+		$search['organisationid']				= Session::get('user.organisation');
 		if(Input::has('q'))
 		{
 			if(Input::has('field'))

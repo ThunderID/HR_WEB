@@ -78,7 +78,7 @@ class DocumentController extends Controller {
 				{
 					if($value2!='')
 					{
-						$document['details'][] 			= ['value' => $value2, 'document_template_id' => Input::get('template_id')[$key][$key2]];
+						$document['details'][] 			= ['text' => $value2, 'template_id' => Input::get('template_id')[$key][$key2]];
 					}
 				}
 				if(isset($document['details']))

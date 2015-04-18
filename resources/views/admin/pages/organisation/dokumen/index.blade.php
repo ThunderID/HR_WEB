@@ -38,7 +38,7 @@
 									<tr>
 										<td>{{$key+1}}</td>
 										<td>{{$value['name']}}</td>
-										<td>{{count($value['persons'])}}</td>
+										<td>{{($value['persons'][0]['count'])}}</td>
 										<td>
 											<a href="{{route('hr.documents.edit', $value['id']) }}">
 												Edit

@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider {
 			{
 				//check user logged in 
 				$results 									= API::person()->check(Session::get('loggedUser'));
-// print_r($results);exit;
+
 				$contents 									= json_decode($results);
 
 				if(!$contents->meta->success || !count($contents->data->works))

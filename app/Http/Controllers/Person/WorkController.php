@@ -16,7 +16,7 @@ class WorkController extends Controller {
 	function getIndex($personid, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['OrganisationChart', 'OrganisationChart.branch', 'person']];
+		$search 									= ['WithAttributes' => ['Chart', 'Chart.branch', 'person']];
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::person()->workIndex($personid, $page, $search, $sort);
@@ -64,7 +64,7 @@ class WorkController extends Controller {
 				$input['person']['id'] 				= $person_id;
 				
 				$chart['id'] 						= $id;
-				$chart['organisation_chart_id'] 	= Input::get('work_company');
+				$chart['chart_id'] 					= Input::get('work_company');
 				$chart['status'] 					= Input::get('work_status');
 				$chart['start'] 					= date("Y-m-d", strtotime(Input::get('work_start')));
 				if(Input::get('work_end'))
@@ -103,7 +103,7 @@ class WorkController extends Controller {
 
 		$work 										= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['WithAttributes' => ['OrganisationChart', 'OrganisationChart.branch', 'person']];
+		$search 									= ['WithAttributes' => ['Chart', 'Chart.branch', 'person']];
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::person()->workIndex($personid, 1, $search, $sort);

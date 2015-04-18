@@ -93,8 +93,8 @@
 										<div class="card-body small-padding">
 											<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
 											<p>
-												<span class="text-lg text-medium">{{$value['organisation_chart']['name']}} ({{$value['status']}})</span><br/>
-												<span class="text-lg text-light">{{$value['organisation_chart']['branch']['name']}}</span>
+												<span class="text-lg text-medium">{{$value['chart']['name']}} ({{$value['status']}})</span><br/>
+												<span class="text-lg text-light">{{$value['chart']['branch']['name']}}</span>
 											</p>
 											<p>
 												@if(empty ($value['reason_end_job']))
@@ -142,7 +142,7 @@
 	<script type="text/javascript">
 		@if ($work['id'])
 			var preload_data = [];
-			var id = {{$work['organisation_chart_id']}};
+			var id = {{$work['chart_id']}};
 			var text ="{{$work['organisationchart']['name'].' of '.$work['organisationchart']['branch']['name']}}";
 			preload_data.push({ id: id, text: text});
 		@else
