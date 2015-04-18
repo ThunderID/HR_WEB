@@ -15,12 +15,16 @@
 				<a href="{{route('hr.persons.delete', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-trash"></i> Hapus
 				</a>
+				<a href="{{route('hr.persons.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-pencil"></i> Edit
+				</a>				
 			</div>
 		</div>
 		<!-- END CARD HEADER -->
 
 		<!-- BEGIN CARD TILES -->
 		<div class="card-tiles">
+			<!-- BEGIN LEFTBAR -->
 			<div class="hbox-column col-md-2">
 				<ul class="nav nav-pills nav-stacked">
 					<li><small>CATEGORIES</small></li>
@@ -30,9 +34,8 @@
 					<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 			</div>
+			<!-- BEGIN MIDDLE -->					
 			<div class="hbox-column col-md-7">
-				<!-- BEGIN MIDDLE -->
-				<p><a href="{{route('hr.persons.edit', [$data['id']])}}" type="button" class="btn pull-right ink-reaction btn-floating-action btn-primary"><i class="fa fa-pencil"></i></a></p>						
 				<div class="margin-bottom-xxl">
 					<div class="pull-left width-3 clearfix hidden-xs">
 						<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
@@ -46,31 +49,10 @@
 					&nbsp;&nbsp;
 				</div>
 				<ul class="nav nav-tabs" data-toggle="tabs">
-					<li class="active"><a href="#notes">Dokumen Wajib</a></li>
-					<li><a href="#details">Karir</a></li>
+					<li class="active"><a href="#details">Karir</a></li>
 				</ul>
 				<div class="tab-content">
-					<div class="tab-pane active" id="notes">
-						<br/>
-						<div class="list-results pl-10" style="margin-bottom:0px;">
-							@foreach($data['documents'] as $key => $value)	
-								<div class="row">
-									<div class="col-xs-12">
-										<a href="{{route('hr.persons.documents.show', [$data['id'], $value['id']])}}">
-											<p class="clearfix">
-												<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
-												<span class="pull-left">
-													<span class="text-bold">{{date("l, d F Y", strtotime($value['pivot']['created_at']))}}</span><br/>
-													<span class="opacity-50">{{$value['name']}}</span><br/>
-												</span>
-											</p>
-										</a>
-									</div>
-								</div>
-							@endforeach
-						</div>
-					</div>
-					<div class="tab-pane" id="details">
+					<div class="tab-pane active" id="details">
 						<br/>
 						<ul class="timeline collapse-lg timeline-hairline no-shadow">
 							@foreach($data['experiences'] as $key => $value)
@@ -103,7 +85,7 @@
 			</div>
 			<!-- BEGIN RIGHTBAR -->
 			<div class="hbox-column col-md-3 style-default-light">
-				<div class="row">
+				<div class="row" style='height:100%;'>
 					<div class="col-xs-12">
 						<h4>Ringkas</h4>
 						<br/>
@@ -149,9 +131,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- BEGIN RIGHTBAR -->
 		</div>
-		<!-- BEGIN CARD TILES -->
 	</div>
 @stop
 
