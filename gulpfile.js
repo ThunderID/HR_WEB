@@ -42,23 +42,23 @@ elixir(function(mix) {
 				'core/source/AppNavSearch.js',
 				'core/source/AppVendor.js',
 				'thunder/thumbnail_image_upload/thumbnail-image-upload.jquery.js',
-				'thunder/bootstrap.type2confirm/bootstrap.type2confirm.jquery.js'
+				'thunder/bootstrap.type2confirm/bootstrap.type2confirm.jquery.js',
+				'app.js',
 				], 'public/js/admin.js')
 	// .version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
+	.copy('resources/css/theme-1/libs/summernote/summernote.css','public/css/summernote.css')
+	.copy('resources/css/theme-1/libs/bootstrap-datepicker/datepicker3.css', 'public/css/datepicker3.css')
+	.copy('resources/css/theme-1/libs/dropzone/dropzone-theme.css', 'public/css/dropzone.css')
+	.copy('resources/css/theme-1/libs/org-chart/', 'public/css/org-chart/')
+	.copy('resources/css/theme-1/libs/toastr/toastr.css', 'public/css/toastr.css')
+	.copy('resources/js/libs/bootstrap-datepicker/bootstrap-datepicker.js', 'public/js/bootstrap-datepicker.js')
+	.copy('resources/js/libs/dropzone/dropzone.min.js', 'public/js/dropzone.min.js')
 	.copy('resources/js/libs/utils/html5shiv.js', 'public/js/html5shiv.js')
 	.copy('resources/js/libs/utils/respond.min.js', 'public/js/respond.min.js')
-	.copy('resources/css/theme-1/libs/summernote/summernote.css','public/css/summernote.css')
-	.copy('resources/js/libs/summernote/summernote.min.js', 'public/js/summernote.min.js')
 	.copy('resources/js/libs/microtemplating/microtemplating.min.js', 'public/js/microtemplating.min.js')
-	.copy('resources/css/theme-1/libs/bootstrap-datepicker/datepicker3.css', 'public/css/datepicker3.css')
-	.copy('resources/js/libs/bootstrap-datepicker/bootstrap-datepicker.js', 'public/js/bootstrap-datepicker.js')
-	.copy('resources/css/theme-1/libs/jit/base.css', 'public/css/base.css')
-	.copy('resources/css/theme-1/libs/jit/spacetree.css', 'public/css/spacetree.css')
-	.copy('resources/js/libs/jit/jit.js', 'public/js/jit.min.js')
-	.copy('resources/css/theme-1/libs/dropzone/dropzone-theme.css', 'public/css/dropzone.css')
-	.copy('resources/js/libs/dropzone/dropzone.min.js', 'public/js/dropzone.min.js')
-	.copy('resources/css/theme-1/libs/org-chart/', 'public/css/org-chart/')
 	.copy('resources/js/libs/org-chart/jquery.orgchart.js', 'public/js/jquery.orgchart.js')
+	.copy('resources/js/libs/summernote/summernote.min.js', 'public/js/summernote.min.js')
+	.copy('resources/js/libs/toastr/toastr.min.js', 'public/js/toastr/toastr.min.js')
 	.copy('resources/js/core/demo/DemoPageContacts.js', 'public/js/pluginmicrotemplating.min.js')
 	.copy('resources/fonts/', 'public/build/fonts/')
 	.copy('resources/images/', 'public/images/');
