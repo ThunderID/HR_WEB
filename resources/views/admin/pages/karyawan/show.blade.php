@@ -25,7 +25,7 @@
 		<!-- BEGIN CARD TILES -->
 		<div class="card-tiles">
 			<!-- BEGIN LEFTBAR -->
-			<div class="hbox-column col-md-2">
+			<div class="hbox-column col-md-2" id="sidebar_left">
 				<ul class="nav nav-pills nav-stacked">
 					<li><small>CATEGORIES</small></li>
 					<li class="active"><a href="{{route('hr.persons.show', [$data['id']])}}">Profil </a> <small class="pull-right text-bold opacity-75"></small></a></li>
@@ -34,8 +34,9 @@
 					<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 			</div>
+
 			<!-- BEGIN MIDDLE -->					
-			<div class="hbox-column col-md-7">
+			<div class="hbox-column col-md-7" id="sidebar_mid">
 				<div class="margin-bottom-xxl">
 					<div class="pull-left width-3 clearfix hidden-xs">
 						<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
@@ -83,8 +84,9 @@
 				</div>
 				<!-- END MIDDLE -->
 			</div>
+
 			<!-- BEGIN RIGHTBAR -->
-			<div class="hbox-column col-md-3 style-default-light">
+			<div class="hbox-column col-md-3 style-default-light" id="sidebar_right">
 				<div class="row" style='height:100%;'>
 					<div class="col-xs-12">
 						<h4>Ringkas</h4>
@@ -142,6 +144,8 @@
 @section('js')
 	{!! HTML::script('js/dropzone.min.js')!!}
 	<script type="text/javascript">
+		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
+
         $("#document_upload").dropzone({ 
 			url: '{{ route("hr.images.upload") }}' ,
 			maxFilesize: 1,

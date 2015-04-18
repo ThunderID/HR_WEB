@@ -16,7 +16,8 @@
 		</div>				
 		<!-- END CARD HEADER -->
 		<div class="card-tiles">
-			<div class="hbox-column col-md-2">
+			<!-- BEGIN LEFTBAR -->
+			<div class="hbox-column col-md-2" id="sidebar_left">
 				<ul class="nav nav-pills nav-stacked">
 					<li><small>CATEGORIES</small></li>
 					<li><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
@@ -25,8 +26,9 @@
 					<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 			</div>
-
-			<div class="hbox-column col-md-7">
+			
+			<!-- BEGIN MIDDLE -->					
+			<div class="hbox-column col-md-7" id="sidebar_mid">
 				<div class="margin-bottom-xxl">
 					<div class="pull-left width-3 clearfix hidden-xs">
 						<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
@@ -40,7 +42,7 @@
 					&nbsp;&nbsp;
 				</div>
 				<ul class="nav nav-tabs" data-toggle="tabs">
-					<li class="active"><a href="#details">Karir</a></li>
+					<li class="active"><a href="#details">Kerabat</a></li>
 				</ul>
 				<div class="page-header no-border holder" style="margin-top:0px;">
 					<br/>
@@ -88,6 +90,7 @@
 									</div>
 								</div>
 							@endforeach
+
 						</div>
 						@if(count($relatives))
 							@include('admin.helpers.pagination')
@@ -103,7 +106,7 @@
 			</div>
 
 			<!-- BEGIN RIGHTBAR -->
-			<div class="hbox-column col-md-3 style-default-light">
+			<div class="hbox-column col-md-3 style-default-light" id="sidebar_right">
 				<div class="row" style='height:100%;'>
 					<div class="col-xs-12">
 						<h4>Ringkas</h4>
@@ -151,8 +154,6 @@
 				</div>			
 				<div class="clearfix"></div>
 			</div>	
-
-
 		</div>
 	</div>
 @stop
@@ -166,6 +167,8 @@
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
 
 	<script type="text/javascript">
+		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
+
 		$(document).ready(function () {
 			$('#relation').select2({
 	            minimumInputLength: 3,
