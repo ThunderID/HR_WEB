@@ -151,6 +151,7 @@ class PersonController extends Controller {
 					{
 						$relate['id'] 					= Input::get('relation_id')[$key];
 						$relate['relationship'] 		= Input::get('relationship')[$key];
+						$relate['organisation_id'] 		= Session::get('user.organisation');
 						$input['relatives'][] 			= $relate;
 					}
 					else
@@ -165,6 +166,7 @@ class PersonController extends Controller {
 						$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth_relation')[$key]));
 						$relate['place_of_birth'] 		= Input::get('place_of_birth_relation')[$key];
 						$relate['relationship'] 		= Input::get('relationship')[$key];
+						$relate['organisation_id'] 		= Session::get('user.organisation');
 						$input['relatives'][] 			= $relate;
 					}
 				}
