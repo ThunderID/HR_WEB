@@ -57,7 +57,7 @@ trait APITrait {
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
 
 		$results 		= curl_exec($curl);
-print_r($results);exit;
+
 		if(!json_decode($results))
 		{
 			print_r($results);
