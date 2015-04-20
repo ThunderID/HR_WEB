@@ -21,8 +21,12 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<input type="text" class="form-control input-lg" id="path" name="path" value="{{$data['chart']['path']}}">
-							<label for="path">Parent</label>
+							<select class="form-control" id="path" name="path" value="{{$data['chart']['path']}}">
+								@foreach($data_branch['data']['charts'] as $key => $value)
+									<option value="{{$value['path']}}">{{$value['name']}}</option>
+								@endforeach
+							</select>
+							<label for="path">Atasan</label>
 						</div>
 					</div>
 				</div>
