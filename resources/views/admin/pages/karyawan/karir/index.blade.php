@@ -29,6 +29,12 @@
 					<li><a href="{{route('hr.persons.documents.index', [$data['id']])}}">Dokumen </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li class="active"><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
+				<ul class="nav nav-pills nav-stacked">
+					<li><small>DOKUMEN</small></li>
+					@foreach($data['documents'] as $key => $value)
+						<li><a href="#">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
+					@endforeach
+				</ul>					
 			</div>
 
 			<!-- BEGIN MIDDLE -->	
@@ -51,109 +57,148 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="details">
 						<br/>	
-						<button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo2">Tambah Data</button>
+							<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#add_modal">Tambah Data</button>
 						<br/>	
-							<div class="tab-pane" id="details">
-								<br/>
-								<ul class="timeline collapse-lg timeline-hairline no-shadow">
-									@foreach($works as $key => $value)
-										@if($key==0)
-											<li class="timeline-inverted">
-										@else
-											<li>
-										@endif
-											<div class="timeline-circ style-accent"></div>
-											<div class="timeline-entry">
-												<div class="card style-default-light">
-													<div class="card-body small-padding">
-														<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
-														<p>
-															<span class="text-lg text-medium">{{$value['organisation_chart']['name']}} ({{$value['status']}})</span><br/>
-															<span class="text-lg text-light">{{$value['organisation_chart']['branch']['name']}}</span>
-														</p>
-														<p>
-															@if(empty ($value['reason_end_job']))
-																{{'Pegawai Aktif'}}
-															@else
-																{{'Pegawai Nonaktif'}}
-																<br/>
-															@endif
+						<div class="tab-pane" id="details">
+							<br/>
+							<ul class="timeline collapse-lg timeline-hairline no-shadow">
+								@foreach($works as $key => $value)
+									@if($key==0)
+										<li class="timeline-inverted">
+									@else
+										<li>
+									@endif
+										<div class="timeline-circ style-accent"></div>
+										<div class="timeline-entry">
+											<div class="card style-default-light">
+												<div class="card-body small-padding">
+													<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
+													<p>
+														<span class="text-lg text-medium">{{$value['chart']['name']}} ({{$value['status']}})</span><br/>
+														<span class="text-lg text-light">{{$value['chart']['branch']['name']}}</span>
+													</p>
+													<p>
+														@if(empty ($value['reason_end_job']))
+															{{'Pegawai Aktif'}}
+														@else
+															{{'Pegawai Nonaktif'}}
+															<br/>
+														@endif
 
-															{{$value['reason_end_job']}}
-														</p>
-														<a href="{{ route('hr.persons.works.edit' ,[ $data['id'],$value['id']]) }}" class="btn pull-right ink-reaction btn-primary" type="button">
-															<i class="fa fa-pencil"></i>&nbsp;Edit
-														</a>											
-													</div>
+														{{$value['reason_end_job']}}
+													</p>
+													<a href="{{ route('hr.persons.works.edit' ,[ $data['id'],$value['id']]) }}" class="btn pull-right ink-reaction btn-primary" type="button">
+														<i class="fa fa-pencil"></i>&nbsp;Edit
+													</a>											
 												</div>
 											</div>
-										</li>
-									@endforeach
-								</ul><!--end .timeline -->
-								@if(count($works))
-									@include('admin.helpers.pagination')
-								@else
-									<div class="row">
-										<div class="col-sm-12 text-center">
-											<p>Tidak ada data</p>
 										</div>
+									</li>
+								@endforeach
+							</ul><!--end .timeline -->
+							@if(count($works))
+								@include('admin.helpers.pagination')
+							@else
+								<div class="row">
+									<div class="col-sm-12 text-center">
+										<p>Tidak ada data</p>
 									</div>
-								@endif
-							</div>
+								</div>
+							@endif
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<!-- BEGIN RIGHTBAR -->
-			<div class="hbox-column col-md-3 style-default-light" id="sidebar_right">
-				<div class="row" style='height:100%;'>
-					<div class="col-xs-12">
-						<h4>Ringkas</h4>
-						<br/>
-						<dl class="dl-horizontal dl-icon">
-							@if(isset($data['works'][0]))
-								<dt><span class="fa fa-fw fa-graduation-cap fa-lg opacity-50"></span></dt>
-								<dd>
-									<span class="opacity-50">Karir</span><br/>
-									<span class="text-medium">{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}} </span>
-								</dd>
-							@endif
-							<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
-							<dd>
-								<span class="opacity-50">Ulang Tahun</span><br/>
-								<span class="text-medium">{{date("d F", strtotime($data['date_of_birth']))}}</span>
-							</dd>
-						</dl><!--end .dl-horizontal -->
-						<br/>
-						@if(isset($data['contacts']))
-							<h4>Kontak</h4>
-						@endif
-						<br/>
-						<dl class="dl-horizontal dl-icon">
-							@foreach($data['contacts'] as $key => $value)
-								@if($value['item']=='phone_number')
-									<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
-									<span class="opacity-50">{{$value['item']}}</span><br/>
-								@elseif($value['item']=='email')
-									<dt><span class="fa fa-fw fa-envelope-square fa-lg opacity-50"></span></dt>
-									<span class="opacity-50">{{$value['item']}}</span><br/>
-								@elseif($value['item']=='address')
-									<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
-									<span class="opacity-50">{{$value['item']}}</span><br/>
-								@else
-									<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
-									<span class="opacity-50">{{$value['item']}}</span>
-								@endif
-								<dd>
-									<span class="text-medium">{{$value['value']}}</span> &nbsp;<span class="opacity-50"></span><br/>
-								</dd>
-							@endforeach
-						</dl>
-					</div>
+			@include('admin.helpers.person-rightbar')
+		</div>
+	</div>
+
+	<!-- BEGIN MODAL -->
+	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Pekerjaan</h4>
 				</div>
+				<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4>Petunjuk</h4>
+								<article class="margin-bottom-xxl">
+									<p>
+										Isikan posisi pekerjaan, dan status pegawai. Pastikan data yang anda isikan adalah benar.<br/>
+										Untuk pegawai yang saat ini masih bekerja, inputan "Berhenti Bekerja" dan "Alasan Berhenti" dapat dikosongkan.
+									</p>
+								</article>
+							</div><!--end .col -->
+						</div><!--end .row -->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<input name="work_company" id="work_company" class="form-control getCompany" data-comp="">											
+									<label for="work_company">Posisi</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<select  id="work_status" name="work_status" class="form-control">
+										<option value=""></option>
+										<option value="contracts">Contracts</option>
+										<option value="trial">Trial</option>
+										<option value="permanent">Permanent</option>
+										<option value="internship">Internship</option>
+									</select>
+									<label for="work_status">Status Pegawai</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="input-group" id="work_start" style="width:100%;">
+										<div class="input-group-content">
+											<input type="text" class="form-control date-pick" id="work_start" name="work_start" value="{{date("d F Y", strtotime($work['start']))}}">
+										</div>
+									</div>
+									<label for="work_start">Mulai Bekerja</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="input-group" id="work_end" style="width:100%;">
+										<div class="input-group-content">
+											<input type="text" class="form-control date-pick" id="work_end" name="work_end" value="{{date("d F Y", strtotime($work['end']))}}">
+										</div>
+									</div>
+									<label for="work_end">Berhenti Bekerja</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3">{{$work['reason_end_job']}}</textarea>
+									<label for="work_quit_reason">Alasan Berhenti</label>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group text-right">
+									<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+								</div><!--end .card-actionbar -->
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
+
 @stop
 
 @section('css')
@@ -168,10 +213,17 @@
 	<script type="text/javascript">
 		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
 
+		$(document).ready(function () {
+			$('.date-pick').datepicker({
+				format:"dd MM yyyy"
+			});
+		});
+
+
 		@if ($work['id'])
 			var preload_data = [];
 			var id = {{$work['chart_id']}};
-			var text ="{{$work['organisationchart']['name'].' of '.$work['organisationchart']['branch']['name']}}";
+			var text ="{{$work['chart']['name'].' of '.$work['chart']['branch']['name']}}";
 			preload_data.push({ id: id, text: text});
 		@else
 		    var preload_data = [];

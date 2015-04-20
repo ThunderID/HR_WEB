@@ -25,7 +25,14 @@
 					<li><a href="{{route('hr.persons.documents.index', [$data['id']])}}">Dokumen </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
+				<ul class="nav nav-pills nav-stacked">
+					<li><small>DOKUMEN</small></li>
+					@foreach($data['documents'] as $key => $value)
+						<li><a href="#">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
+					@endforeach
+				</ul>					
 			</div>
+
 			
 			<!-- BEGIN MIDDLE -->					
 			<div class="hbox-column col-md-7" id="sidebar_mid">
@@ -46,7 +53,7 @@
 				</ul>
 				<div class="page-header no-border holder" style="margin-top:0px;">
 					<br/>
-					<button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Tambah Data</button>
+					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#add_modal">Tambah Data</button>
 				</div>
 				<div class="tab-content">
 					<div class="tab-pane active" id="details">
@@ -65,7 +72,7 @@
 									<div class="hbox-xs v-top height-4">
 										<div class="clearfix">
 											<div class="col-lg-12 margin-bottom-lg">
-												<a href="{{ route('hr.persons.relatives.delete' ,[ $data['id'],$value['relative_id']]) }}" class="btn pull-right ink-reaction btn-floating-action btn-danger" type="button">
+												<a class="btn pull-right ink-reaction btn-floating-action btn-danger del-modal" type="button" data-toggle="modal" data-target="#del_modal">
 													<i class="fa fa-trash"></i>
 												</a>
 												<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a>
@@ -106,56 +113,173 @@
 			</div>
 
 			<!-- BEGIN RIGHTBAR -->
-			<div class="hbox-column col-md-3 style-default-light" id="sidebar_right">
-				<div class="row" style='height:100%;'>
-					<div class="col-xs-12">
-						<h4>Ringkas</h4>
-						<br/>
-						<dl class="dl-horizontal dl-icon">
-							@if(isset($data['works'][0]))
-								<dt><span class="fa fa-fw fa-graduation-cap fa-lg opacity-50"></span></dt>
-								<dd>
-									<span class="opacity-50">Karir</span><br/>
-									<span class="text-medium">{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}} </span>
-								</dd>
-							@endif
-							<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
-							<dd>
-								<span class="opacity-50">Ulang Tahun</span><br/>
-								<span class="text-medium">{{date("d F", strtotime($data['date_of_birth']))}}</span>
-							</dd>
-						</dl><!--end .dl-horizontal -->
-						<br/>
-						@if(isset($data['contacts']))
-							<h4>Kontak</h4>
-						@endif
-						<br/>
-						<dl class="dl-horizontal dl-icon">
-							@foreach($data['contacts'] as $key => $value)
-								@if($value['item']=='phone_number')
-									<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
-									<span class="opacity-50">{{$value['item']}}</span><br/>
-								@elseif($value['item']=='email')
-									<dt><span class="fa fa-fw fa-envelope-square fa-lg opacity-50"></span></dt>
-									<span class="opacity-50">{{$value['item']}}</span><br/>
-								@elseif($value['item']=='address')
-									<dt><span class="fa fa-fw fa-location-arrow fa-lg opacity-50"></span></dt>
-									<span class="opacity-50">{{$value['item']}}</span><br/>
-								@else
-									<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
-									<span class="opacity-50">{{$value['item']}}</span>
-								@endif
-								<dd>
-									<span class="text-medium">{{$value['value']}}</span> &nbsp;<span class="opacity-50"></span><br/>
-								</dd>
-							@endforeach
-						</dl>
-					</div>
-				</div>			
-				<div class="clearfix"></div>
-			</div>	
+			@include('admin.helpers.person-rightbar')
 		</div>
 	</div>
+
+	<!-- BEGIN MODAL -->
+
+	<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="simpleModalLabel">Hapus Data Relasi</h4>
+				</div>
+				<div class="modal-body">
+					<p>Apakah Anda yakin akan menghapus data relasi?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<a href="{{ route('hr.persons.relatives.delete' ,[ $data['id'],$value['relative_id']]) }}" type="button" class="btn btn-danger">Hapus</a>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+
+	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Relasi</h4>
+				</div>
+				<form class="form" role="form" action="{{route('hr.persons.relatives.store', $data['id'])}}" method="post">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4>Petunjuk</h4>
+								<article class="margin-bottom-xxl">
+									<p>
+										Silahkan memilih hubungan/relasi terlebih dahulu. Bila data relasi sebelumnya telah di-inputkan, maka pilih "Data Lama" dan ketikkan nama relasi. Nila data relasi belum pernah di0input, pilih "Data Baru" dan masukkan informasi sesuai dengan inputan yang tersedia.
+									</p>
+								</article>
+							</div><!--end .col -->
+						</div><!--end .row -->
+						<div class="form-group">
+							<select  id="relationship" name="relationship" class="form-control">
+								<option value=""></option>
+								<option value="parent">Orang Tua</option>
+								<option value="spouse">Pasangan</option>
+								<option value="child">Anak</option>
+							</select>
+							<label for="relationship">Hubungan/Relasi</label>
+						</div>
+						<div class="tabs-left">
+							<ul class="card-head nav nav-tabs" data-toggle="tabs">
+								<li><a href="#first5">Data Lama</a></li>
+								<li class="active"><a href="#second5">Data Baru</a></li>
+							</ul>
+							<div class="card-body tab-content style-default-bright">
+								<!-- tab1 -->
+								<div class="tab-pane" id="first5">
+									<div class="form-group">
+										<input name="relation" id="relation" class="form-control getName">
+										<label for="relation">Nama</label>
+									</div>
+								</div>
+								<!-- tab2 -->
+								<div class="tab-pane active" id="second5">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="prefix_title_relation" name="prefix_title_relation">
+												<label for="prefix_title_relation">Gelar Depan</label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="first_name_relation" name="first_name_relation">
+												<label for="first_name_relation">Nama Depan</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="midle_name_relation" name="midle_name_relation">
+												<label for="midle_name_relation">Nama Tengah</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<input type="text" class="form-control" id="last_name_relation" name="last_name_relation">
+												<label for="last_name_relation">Nama Belakang</label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="suffix_title_relation" name="suffix_title_relation">
+												<label for="suffix_title_relation">Gelar Belakang</label>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="text" class="form-control" id="nick_name_relation" name="nick_name_relation">
+												<label for="nick_name_relation">Nama Panggilan</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="form-group">
+												<label>
+													Jenis Kelamin
+												</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="radio radio-styled">
+												<label>
+													<input name="gender_relation" type="radio" value="male">
+													<span>Laki-laki</span>
+												</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<div class="radio radio-styled">
+												<label>
+													<input name="gender_relation" type="radio" value="female">
+													<span>Perempuan</span>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="text" class="form-control" id="place_of_birth_relation" name="place_of_birth_relation">
+											<label for="place_of_birth_relation">Tempat Lahir</label>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<div class="input-group" style="width:100%; text-align:left;">
+												<div class="input-group-content">
+													<input type="text" class="form-control date-pick" name="date_of_birth_relation" />
+													<label>Tanggal Lahir</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-actionbar">
+						<div class="card-actionbar-row">
+							<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
+							<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+						</div><!--end .card-actionbar-row -->
+					</div><!--end .card-actionbar -->
+				</form>
+			</div>
+		</div>
+	</div>
+
 @stop
 
 @section('css')
@@ -170,6 +294,15 @@
 		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
 
 		$(document).ready(function () {
+			$('.date-pick').datepicker({
+				format:"dd MM yyyy"
+			});
+
+			$('.del-modal').click(function() {
+				$('#del-modal').modal('show');
+			});
+
+
 			$('#relation').select2({
 	            minimumInputLength: 3,
 	            placeholder: '',
