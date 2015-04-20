@@ -16,7 +16,7 @@ class PersonController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['CurrentContact' => 'updated_at' ,'checkwork' => 'active'];
+		$search 									= ['CurrentContact' => 'updated_at', 'CurrentWork' => 'updated_at' ,'checkwork' => 'active'];
 		if(Input::has('q'))
 		{
 			if(Input::has('field'))
