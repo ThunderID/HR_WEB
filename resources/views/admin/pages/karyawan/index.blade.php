@@ -75,6 +75,11 @@
 										<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a>
 									</div>
 								</div>
+								<div class="clearfix">
+									<div class="col-lg-12">
+										<span>CEO di PT ini</span>
+									</div>
+								</div>
 								@if(count($value['contacts']))
 									@foreach($value['contacts'] as $key2 => $value2)
 										<div class="clearfix">
@@ -83,8 +88,6 @@
 													<span class="opacity-75"><span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;{{$value2['value']}}</span>
 												@elseif($value2['item']=='email')
 													<span class="opacity-75"><span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;{{$value2['value']}}</span>
-												@elseif($value2['item']=='address')
-													<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;{{$value2['value']}}</span>
 												@endif
 											</div>
 										</div>
