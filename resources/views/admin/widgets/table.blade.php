@@ -5,8 +5,8 @@
 				<div class="tools" style="padding-right:0; margin-bottom:-50px">
 					<div class="btn-group mt-5 hide">
 						<a href="{{ route('hr.persons.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="lihat data semua"><i class="md md-visibility"></i></a>
-						<a href="{{ route('hr.persons.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
-						<a href="javascript:;" class="btn btn-icon-toggle btn-default btn-sm del_widget" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
+						<a href="javascript:;" data-content=" {{route('hr.dashboard.widgets.store')}}" class="btn btn-icon-toggle btn-default btn-sm edit_widget" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
+						<a href="javascript:;" data-content="{{ route('hr.dashboard.widgets.delete', ['id' => $data['id']]) }}" class="btn btn-icon-toggle btn-default btn-sm del_widget" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
 					</div>
 				</div>
 				<header class="mt-30 mb-5"> @replace_delimiter($title) </header>
@@ -52,13 +52,13 @@
 				<div class="tools" style="padding-right:0;margin-bottom:-50px;">
 					<div class="btn-group mt-5 hide">
 						<a href="{{ route('hr.persons.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="lihat data semua"><i class="md md-visibility"></i></a>
-						<a href="{{ route('hr.persons.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
-						<a href="javascript:;" class="btn btn-icon-toggle btn-default btn-sm del_widget" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
+						<a href="javascript:;" data-content=" {{route('hr.dashboard.widgets.store')}}" class="btn btn-icon-toggle btn-default btn-sm edit_widget" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
+						<a href="javascript:;" data-content="{{ route('hr.dashboard.widgets.delete', ['id' => $data['id']]) }}" class="btn btn-icon-toggle btn-default btn-sm del_widget" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
 					</div>
 				</div>
 				<header class="mt-30"> @replace_delimiter($title) </header>
 			</div><!--end .card-head -->
-			<div class="card-body">
+			<div class="card-body height-9 scroll" style="padding-top:10px">
 				<table class="table">
 					<thead>
 						<tr>

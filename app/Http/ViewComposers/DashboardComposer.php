@@ -82,7 +82,7 @@ class DashboardComposer {
 
 	public function total_branches($search)
 	{
-		$sort 										= ['created_at' => 'asc'];
+		$sort 										= ['branches.created_at' => 'asc'];
 
 		$results 									= API::organisationbranch()->index(1, $search, $sort);
 
@@ -128,7 +128,7 @@ class DashboardComposer {
 
 	public function index_branches($search)
 	{
-		$sort 										= ['created_at' => 'asc'];
+		$sort 										= ['branches.created_at' => 'asc'];
 
 		$results 									= API::organisationbranch()->index(1, $search, $sort);
 

@@ -1,7 +1,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-sm-12 text-right mb-20">
-			<button class="btn btn-primary btn-raised ink-reaction" data-toggle="modal" data-target="#widgetmodal">Tambah Widget</button>
+			<button class="btn btn-primary btn-raised ink-reaction add_widget">Tambah Widget</button>
 		</div>
 	</div>
 	<div class="row">
@@ -47,7 +47,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Widget</h4>
 				</div>
-				<form class="form" role="form" action="{{route('hr.dashboard.widgets.store')}}" method="post">
+				<form class="form form_store" role="form" action="{{route('hr.dashboard.widgets.store')}}" method="post">
 					<div class="modal-body">
 						<div class="form-group">
 							<input class="form-control" id="title" type="text" name="title">
@@ -287,6 +287,16 @@
 	{!! HTML::script('js/toastr.js')!!}
 	<script type="text/javascript">
 		$(document).ready(function (){
+			$('.add_widget').click(function(){
+				var action = "{{ route('hr.dashboard.widgets.store') }}";
+				$('.form_store').attr('action', action);
+				$('#widgetmodal').modal();
+			});
+			$('.edit_widget').click(function(){
+				var action = $(this).attr('data-content');
+				$('.form_store').attr('action', action);
+				$('#widgetmodal').modal();
+			});
 			$('.del_widget').click(function(){
 				var action = $(this).attr('data-content');
 				$('.form_delete_widget').attr('action', action);
@@ -314,6 +324,7 @@
 
 			$('#type_widget').change(function(){
 				var val_widget = $(this).val();
+
 				if (val_widget == 'table') {
 					$('.field_table').css('display', 'block');
 				} else {

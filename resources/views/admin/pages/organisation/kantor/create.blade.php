@@ -56,7 +56,7 @@
 				<div class="tab-pane active" id="profil">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="page-header no-border holder">
+							<div class="no-border holder">
 								<h4 class="text-accent">Profil Perusahaan</h4>
 							</div>
 							<div class="row">
