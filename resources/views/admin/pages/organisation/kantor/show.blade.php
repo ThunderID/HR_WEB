@@ -101,3 +101,9 @@
 		</div><!-- /.modal-dialog -->
 	</div>	
 @stop
+
+@section('js')
+	<script type="text/javascript">
+		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');	
+	</script>
+@stop
