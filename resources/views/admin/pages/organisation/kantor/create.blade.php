@@ -121,7 +121,18 @@
 									@endif
 								@endforeach
 							</li>
+							<li class="clearfix">
+								<div class="row">	
+									<div class="col-md-12">
+										<a class="btn btn-raised btn-default-bright relation-add" data-toggle="collapse" data-target="#demo">TAMBAHKAN KONTAK BARU</a>
+									</div>	
+									<br/>	
+								</div>		
+							</li>				
 						</ul>
+						<ul class="list-unstyled collapse" id="demo" aria-expanded="false">
+					@else
+						<ul class="list-unstyled" id="addressList">
 					@endif
 					<ul class="list-unstyled">
 						<li class="clearfix">

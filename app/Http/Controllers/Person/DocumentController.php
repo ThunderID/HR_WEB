@@ -16,9 +16,12 @@ class DocumentController extends Controller {
 	function getIndex($personid, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		if(input::has('tag')){
-			$search 								= ['WithAttributes' => ['document'], 'tag'=> input::get('tag')];
-		}else{
+		if(input::has('tag'))
+		{
+			$search 								= ['WithAttributes' => ['document', 'document.templates'], 'tag'=> input::get('tag')];
+		}
+		else
+		{
 			$search 								= ['WithAttributes' => ['document']];
 		}
 		$sort 										= ['created_at' => 'asc'];
@@ -31,10 +34,12 @@ class DocumentController extends Controller {
 			App::abort(404);
 		}
 
-		$documents 									= json_decode(json_encode($contents->data), true);
+		$person_documents 							= json_decode(json_encode($contents->data), true);
+
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$results 									= API::person()->show($personid);
+		
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -44,25 +49,29 @@ class DocumentController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['organisationid' => Session::get('user.organisation'), 'isrequired' => false, 'WithAttributes' => ['templates']];
-		$sort 										= ['created_at' => 'asc'];
-		$results2 									= API::document()->index(1, $search, $sort, $all = true);
-		$contents_2 								= json_decode($results2);
+		$search 									= ['organisationid' => Session::get('user.organisation'), 'grouptag' => ''];
+
+		$sort 										= ['tag' => 'asc'];
+
+		$results_2 									= API::document()->index(1, $search, $sort);
+
+		$contents_2 								= json_decode($results_2);
 
 		if(!$contents_2->meta->success)
 		{
 			App::abort(404);
 		}
-		$docs 										= json_decode(json_encode($contents_2->data), true);
+		
+		$documents 									= json_decode(json_encode($contents_2->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= 'Dokumen '.strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.dokumen.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->documents 			= $documents;
-		$this->layout->content->docs 				= $docs;
+		$this->layout->content->person_documents 	= $person_documents;
 		$this->layout->content->paginator 			= $paginator;
 		$this->layout->content->route 				= ['person_id' => $data['id']];
 

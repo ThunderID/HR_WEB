@@ -16,17 +16,14 @@ class PersonController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['CurrentContact' => 'updated_at', 'CurrentWork' => 'updated_at' ,'checkwork' => 'active'];
+		$search 									= ['CurrentContact' => 'updated_at', 'CurrentWork' => '' ,'checkwork' => 'active'];
+		if(Input::has('branch'))
+		{
+			$search['CurrentWorkOn']				= Input::get('branch');			
+		}
 		if(Input::has('q'))
 		{
-			if(Input::has('field'))
-			{
-				$search[Input::get('field')]		= Input::get('q');			
-			}
-			else
-			{
-				$search['fullname']					= Input::get('q');			
-			}
+			$search['fullname']						= Input::get('q');			
 		}
 
 		if(Input::has('sort_firstname'))
@@ -39,7 +36,7 @@ class PersonController extends Controller {
 		}
 		else
 		{
-			$sort 									= ['created_at' => 'asc'];
+			$sort 									= ['first_name' => 'asc'];
 		}
 
 		$results 									= API::person()->index($page, $search, $sort);
@@ -54,6 +51,22 @@ class PersonController extends Controller {
 		$data 										= json_decode(json_encode($contents->data), true);
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
+		$search										= ['organisationid' => Session::get('user.organisation')];
+	
+		
+		$sort 										= ['created_at' => 'asc'];			
+		
+		$results_2 									= API::organisationbranch()->index(1, $search, $sort);
+
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$branches 									= json_decode(json_encode($contents_2->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper(($this->controller_name));
 
@@ -65,6 +78,7 @@ class PersonController extends Controller {
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->branches 			= $branches;
 		$this->layout->content->paginator 			= $paginator;
 
 		return $this->layout;
@@ -74,7 +88,7 @@ class PersonController extends Controller {
 	{
 
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['organisation' => Session::get('user.organisation'), 'isrequired' => true, 'WithAttributes' => ['templates']];
+		$search 									= ['organisationid' => Session::get('user.organisation'), 'isrequired' => true, 'WithAttributes' => ['templates']];
 
 		$sort 										= ['created_at' => 'asc'];
 
@@ -103,9 +117,11 @@ class PersonController extends Controller {
 	{
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['person'] 							= Input::only('prefix_title', 'first_name', 'middle_name', 'last_name', 'suffix_title', 'nick_name', 'gender', 'place_of_birth', 'username');
+		$input['person']['full_name']				= Input::get('first_name').' '.Input::get('middle_name').' '.Input::get('last_name');
 		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
 		$input['person']['id']						= $id;
 		$input['person']['avatar']					= Input::get('link_profile_picture');
+
 		if(Input::get('password')!='' && !is_null($id))
 		{
 			$validator 								= Validator::make(['password' => Input::get('password')], ['password' => 'required|min:8']);
@@ -157,6 +173,7 @@ class PersonController extends Controller {
 						$relate['first_name'] 			= Input::get('first_name_relation')[$key];
 						$relate['middle_name'] 			= Input::get('midle_name_relation')[$key];
 						$relate['last_name'] 			= Input::get('last_name_relation')[$key];
+						$relate['full_name']			= $relate['first_name'].' '.$relate['middle_name'].' '.$relate['last_name'];
 						$relate['suffix_title'] 		= Input::get('suffix_title_relation')[$key];
 						$relate['nick_name'] 			= Input::get('nick_name_relation')[$key];
 						$relate['gender'] 				= Input::get('gender_relation')[$key];
@@ -164,6 +181,7 @@ class PersonController extends Controller {
 						$relate['place_of_birth'] 		= Input::get('place_of_birth_relation')[$key];
 						$relate['relationship'] 		= Input::get('relationship')[$key];
 						$relate['organisation_id'] 		= Session::get('user.organisation');
+						$relate['contacts'][]	 		= ['item' => 'phone_number', 'value' => Input::get('phone_relation')[$key]];
 						$input['relatives'][] 			= $relate;
 					}
 				}
@@ -214,7 +232,8 @@ class PersonController extends Controller {
 				}
 				if($address['value']!='')
 				{
-					$input['contact']['address'][] 	= $address;
+					$address['item']					= 'address';
+					$input['contacts']['address'][] 	= $address;
 				}
 			}
 		}
@@ -227,11 +246,11 @@ class PersonController extends Controller {
 				{
 					if(isset(Input::get('id_phone')[$key]))
 					{
-						$input['contact']['phone_number'][] = ['value' => $value, 'id' => Input::get('id_phone')[$key]];
+						$input['contacts']['phone_number'][] = ['value' => $value, 'id' => Input::get('id_phone')[$key], 'item' => 'phone_number'];
 					}
 					else
 					{
-						$input['contact']['phone_number'][] = ['value' => $value];
+						$input['contacts']['phone_number'][] = ['value' => $value, 'item' => 'phone_number'];
 					}
 				}
 			}
@@ -245,11 +264,11 @@ class PersonController extends Controller {
 				{
 					if(isset(Input::get('id_email')[$key]))
 					{
-						$input['contact']['email'][] = ['value' => $value, 'id' => Input::get('id_email')[$key]];
+						$input['contacts']['email'][] = ['value' => $value, 'id' => Input::get('id_email')[$key], 'item' => 'email'];
 					}
 					else
 					{
-						$input['contact']['email'][] = ['value' => $value];
+						$input['contacts']['email'][] = ['value' => $value, 'item' => 'email'];
 					}
 				}
 			}
@@ -263,11 +282,11 @@ class PersonController extends Controller {
 				{
 					if(isset(Input::get('id_bbm')[$key]))
 					{
-						$input['contact']['bbm'][] = ['value' => $value, 'id' => Input::get('id_bbm')[$key]];
+						$input['contacts']['bbm'][] = ['value' => $value, 'id' => Input::get('id_bbm')[$key], 'item' => 'bbm'];
 					}
 					else
 					{
-						$input['contact']['bbm'][] = ['value' => $value];
+						$input['contacts']['bbm'][] = ['value' => $value, 'item' => 'bbm'];
 					}
 				}
 			}
@@ -281,11 +300,11 @@ class PersonController extends Controller {
 				{
 					if(isset(Input::get('id_line')[$key]))
 					{
-						$input['contact']['line'][] = ['value' => $value, 'id' => Input::get('id_line')[$key]];
+						$input['contacts']['line'][] = ['value' => $value, 'id' => Input::get('id_line')[$key], 'item' => 'line'];
 					}
 					else
 					{
-						$input['contact']['line'][] = ['value' => $value];
+						$input['contacts']['line'][] = ['value' => $value, 'item' => 'line'];
 					}
 				}
 			}
@@ -299,11 +318,11 @@ class PersonController extends Controller {
 				{
 					if(isset(Input::get('id_whatsapp')[$key]))
 					{
-						$input['contact']['whatsapp'][] = ['value' => $value, 'id' => Input::get('id_whatsapp')[$key]];
+						$input['contacts']['whatsapp'][] = ['value' => $value, 'id' => Input::get('id_whatsapp')[$key], 'item' => 'whatsapp'];
 					}
 					else
 					{
-						$input['contact']['whatsapp'][] = ['value' => $value];
+						$input['contacts']['whatsapp'][] = ['value' => $value, 'item' => 'whatsapp'];
 					}
 				}
 			}
@@ -329,7 +348,6 @@ class PersonController extends Controller {
 				$input['documents'][] 					= $document;
 			}
 		}
-
 		$results 										= API::person()->store($id, $input);
 
 		$content 										= json_decode($results);
@@ -355,12 +373,28 @@ class PersonController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
+		$search 									= ['organisationid' => Session::get('user.organisation'), 'grouptag' => ''];
+
+		$sort 										= ['tag' => 'asc'];
+
+		$results_2 									= API::document()->index(1, $search, $sort);
+
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$documents 									= json_decode(json_encode($contents_2->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->documents 			= $documents;
 
 		return $this->layout;
 	}
