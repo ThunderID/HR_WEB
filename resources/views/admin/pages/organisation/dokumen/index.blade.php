@@ -18,7 +18,7 @@
 				</form>
 			</div>
 			<div class="tools">
-				<a class="btn btn-floating-action btn-default-light" href="{{route('hr.documents.create') }}"><i class="fa fa-plus"></i></a>
+				<a class="btn btn-floating-action btn-default-light btn-sm mt-10" href="{{route('hr.documents.create') }}"><i class="fa fa-plus"></i></a>
 			</div>
 		</div><!--end .card-head -->
 		<!-- END SEARCH HEADER -->

@@ -1,24 +1,15 @@
-<?php
-	/*
-		-------- GUIDE --------
-		$title 	 			= title widgets
-		$data['content'] 	= data widgets
-		$data['component']	= content component
-	 */
-?>
-<?php $title = str_replace('_', ' ', $title); ?>
 @if (str_is('*employee*', strtolower($data['function'])))
 	<div class="col-md-6">
 		<div class="card card-widget">
 			<div class="card-head">
-				<header class="mt-10">{{ ucwords($title) }}</header>
-				<div class="tools" style="padding-right:0">
+				<div class="tools" style="padding-right:0; margin-bottom:-50px">
 					<div class="btn-group mt-5 hide">
 						<a href="{{ route('hr.persons.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="lihat data semua"><i class="md md-visibility"></i></a>
-						<a href="javascript:;" data-id="{{ $data['id'] }}" class="btn btn-icon-toggle btn-default btn-sm edit_widget" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
+						<a href="javascript:;" data-content=" {{route('hr.dashboard.widgets.store')}}" class="btn btn-icon-toggle btn-default btn-sm edit_widget" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
 						<a href="javascript:;" data-content="{{ route('hr.dashboard.widgets.delete', ['id' => $data['id']]) }}" class="btn btn-icon-toggle btn-default btn-sm del_widget" data-toggle="tooltip" data-target="#delete_widget" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
 					</div>
 				</div>
+				<header class="mt-30 mb-5"> @replace_delimiter($title) </header>
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
@@ -55,14 +46,14 @@
 	<div class="col-md-6">
 		<div class="card card-widget">
 			<div class="card-head">
-				<header class="mt-10">{{ ucwords($title) }}</header>
-				<div class="tools" style="padding-right:0">
+				<div class="tools" style="padding-right:0; margin-bottom:-50px">
 					<div class="btn-group mt-5 hide">
 						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="lihat data semua"><i class="md md-visibility"></i></a>
-						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
-						<a href="javascript:;" class="btn btn-icon-toggle btn-default btn-sm del_widget" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
+						<a href="javascript:;" data-content=" {{route('hr.dashboard.widgets.store')}}" class="btn btn-icon-toggle btn-default btn-sm edit_widget" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
+						<a href="javascript:;" data-content="{{ route('hr.dashboard.widgets.delete', ['id' => $data['id']]) }}" class="btn btn-icon-toggle btn-default btn-sm del_widget" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
 					</div>
 				</div>
+				<header class="mt-30 mb-5"> @replace_delimiter($title) </header>
 			</div><!--end .card-head -->
 			<div class="card-body no-padding height-9 scroll">
 				<ul class="list divider-full-bleed">
