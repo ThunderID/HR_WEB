@@ -16,7 +16,7 @@ class CompanyController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search['organisationid']				= Session::get('user.organisation');
+		$search										= ['organisationid' => Session::get('user.organisation'), 'CurrentContact' => 'updated_at'];
 		if(Input::has('q'))
 		{
 			if(Input::has('field'))
@@ -41,7 +41,7 @@ class CompanyController extends Controller {
 		}
 		else
 		{
-			$sort 									= ['created_at' => 'asc'];
+			$sort 									= ['branches.created_at' => 'asc'];
 		}
 
 		$results 									= API::organisationbranch()->index($page, $search, $sort);
@@ -54,6 +54,7 @@ class CompanyController extends Controller {
 		}
 		
 		$data 										= json_decode(json_encode($contents->data), true);
+
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
@@ -89,6 +90,7 @@ class CompanyController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['branch'] 							= Input::only('name','license','npwp','business_activities','business_fields');
 		$input['branch']['id'] 						= $id;
+
 		if(Input::has('address_address'))
 		{
 			foreach (Input::get('address_address') as $key => $value) 
@@ -132,7 +134,8 @@ class CompanyController extends Controller {
 				}
 				if($address['value']!='')
 				{
-					$input['contact']['address'][] 	= $address;
+					$address['item']					= 'address';
+					$input['contacts']['address'][] 	= $address;
 				}
 			}
 		}
@@ -145,11 +148,11 @@ class CompanyController extends Controller {
 				{
 					if(isset(Input::get('id_phone')[$key]))
 					{
-						$input['contact']['phone_number'][] = ['value' => $value, 'id' => Input::get('id_phone')[$key]];
+						$input['contacts']['phone_number'][] = ['value' => $value, 'item' => 'phone_number', 'id' => Input::get('id_phone')[$key]];
 					}
 					else
 					{
-						$input['contact']['phone_number'][] = ['value' => $value];
+						$input['contacts']['phone_number'][] = ['value' => $value, 'item' => 'phone_number'];
 					}
 				}
 			}
@@ -163,11 +166,11 @@ class CompanyController extends Controller {
 				{
 					if(isset(Input::get('id_email')[$key]))
 					{
-						$input['contact']['email'][] = ['value' => $value, 'id' => Input::get('id_email')[$key]];
+						$input['contacts']['email'][] = ['value' => $value, 'item' => 'email', 'id' => Input::get('id_email')[$key]];
 					}
 					else
 					{
-						$input['contact']['email'][] = ['value' => $value];
+						$input['contacts']['email'][] = ['value' => $value, 'item' => 'email'];
 					}
 				}
 			}
@@ -190,7 +193,15 @@ class CompanyController extends Controller {
 	function getShow($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::organisationbranch()->show($id);
+		if(Input::has('tag'))
+		{
+			$department 							= Input::get('tag');
+		}
+		else
+		{
+			$department 							= null;
+		}
+		$results 									= API::organisationbranch()->show($id, $department);
 
 		$contents 									= json_decode($results);
 
@@ -241,46 +252,31 @@ class CompanyController extends Controller {
 
 	function anyDelete($id)
 	{
-		if (Input::has('from_confirm_form'))
-		{
-			if (Input::get('from_confirm_form')=='Yes')
-			{
-				$results 									= API::organisationbranch()->destroy($id);
-				$contents 									= json_decode($results);
+		// ---------------------- LOAD DATA ----------------------
+		$username 					= Session::get('user.name');
+		$password 					= Input::get('password');
 
-				if (!$contents->meta->success)
-				{
-					return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors($contents->meta->errors);
-				}
-				else
-				{
-					return Redirect::route('hr.organisation.branches.index')->with('alert_success', 'Organisasi "' . $contents->data->name. '" sudah dihapus');
-				}
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+			$results 									= API::organisationbranch()->destroy($id);
+			$contents 									= json_decode($results);
+
+			if (!$contents->meta->success)
+			{
+				return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors($contents->meta->errors);
 			}
 			else
 			{
-				return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors(['Batal Menghapus']);
+				return Redirect::route('hr.organisation.branches.index')->with('alert_success', 'Data Kantor "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else
 		{
-			$results 									= API::organisationbranch()->show($id);
-			$contents 									= json_decode($results);
-
-			if(!$contents->meta->success)
-			{
-				App::abort(404);
-			}
-
-			$data 										= json_decode(json_encode($contents->data), true);
-
-			$this->layout->page_title 					= 'Kantor';
-
-			$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.destroy');
-			$this->layout->content->controller_name 	= $this->controller_name;
-			$this->layout->content->data 				= $data;
-
-			return $this->layout;
+			return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 }

@@ -1,11 +1,16 @@
 @if ($paginator)
+	<div class="clearfix">&nbsp;</div>
 	<div class='row'>
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-			Menampilkan {{$paginator->from_page}} sampai {{$paginator->to_page}} dari {{$paginator->total_item}}
+			Menampilkan {{$paginator->from_page}} - {{$paginator->to_page}} dari {{$paginator->total_item}}
+		</div>
+	</div>
+	<div class='row'>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
 			@if(isset($route))
-				<p>{!! $paginator->links(Route::currentRouteName(), $route) !!}</p>
+				{!! $paginator->links(Route::currentRouteName(), $route) !!}
 			@else
-				<p>{!! $paginator->links(Route::currentRouteName(), Input::all()) !!}</p>
+				{!! $paginator->links(Route::currentRouteName(), Input::all()) !!}
 			@endif
 		</div>
 	</div>

@@ -11,9 +11,9 @@ class APIOrganisationBranch {
 		return self::runPost(self::$basic_url . 'organisations/branches/'.$page, ['search' => $search, 'sort' => $sort]);
 	}
 
-	function show($id)
+	function show($id, $department = null)
 	{
-		return self::runGet(self::$basic_url . 'organisations/branches/'.Session::get('user.organisation').'/show/'.$id, ['id' => $id]);
+		return self::runGet(self::$basic_url . 'organisations/branches/'.Session::get('user.organisation').'/show/'.$id.'/'.$department, ['id' => $id]);
 	}
 
 	function store($id, $attributes)

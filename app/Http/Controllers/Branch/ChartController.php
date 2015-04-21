@@ -38,13 +38,16 @@ class ChartController extends Controller {
 
 	function getCreate($branch_id, $id = null)
 	{
+		$results 									= json_decode(API::organisationbranch()->show($branch_id));
 		// ---------------------- GENERATE CONTENT ----------------------
 
 		$this->layout->page_title 					= 'Tambah '.$this->controller_name.' baru';
 		$this->layout->content 						= view('admin.pages.organisation.kantor.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= null;
+		$this->layout->content->data				= null;
+		$this->layout->content->data_branch			= json_decode(json_encode($results), true);
 		$this->layout->content->branch_id 			= $branch_id;
+
 
 		return $this->layout;
 	}	
@@ -53,10 +56,10 @@ class ChartController extends Controller {
 	{
 		if(Input::has('name'))
 		{
-			$input['chart']								= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade');
+			$input['chart']								= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade', 'tag');
 		}
 		$input['chart']['id']							= $id;
-		
+
 		if(Input::has('application_id'))
 		{
 			foreach (Input::get('id') as $key => $value) 
