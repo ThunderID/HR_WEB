@@ -44,7 +44,7 @@ class DocumentController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['organisation' => Session::get('user.organisation'), 'isrequired' => false, 'WithAttributes' => ['templates']];
+		$search 									= ['organisationid' => Session::get('user.organisation'), 'isrequired' => false, 'WithAttributes' => ['templates']];
 		$sort 										= ['created_at' => 'asc'];
 		$results2 									= API::document()->index(1, $search, $sort, $all = true);
 		$contents_2 								= json_decode($results2);

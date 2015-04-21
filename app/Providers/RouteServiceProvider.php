@@ -124,6 +124,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.documents.edit'								=> 'document-is_update',
 							'hr.documents.delete'							=> 'document-is_delete',
 
+							'hr.document.persons.index'						=> 'document-is_read',
 							'hr.document.templates.delete'					=> 'document-is_delete',
 
 							'hr.organisation.charts.create'					=> 'branch-is_create',

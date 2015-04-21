@@ -26,6 +26,11 @@ class APIDocument {
 		return self::runGet(self::$basic_url . 'documents/delete/'.Session::get('user.organisation').'/'.$id, ['id' => $id]);
 	}
 
+	function personindex($page, $search, $sort, $all = false)
+	{
+		return self::runPost(self::$basic_url . '/documents/show/person/'.$page, ['search' => $search, 'sort' => $sort, 'all' => $all]);
+	}
+
 	function destroytemplate($id)
 	{
 		return self::runGet(self::$basic_url . 'documents/templates/delete/'.Session::get('user.organisation').'/'.$id, ['id' => $id]);
