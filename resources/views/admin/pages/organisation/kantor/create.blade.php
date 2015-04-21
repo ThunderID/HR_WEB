@@ -123,14 +123,91 @@
 							</li>
 						</ul>
 					@endif
-					<ul class="list-unstyled" id="addressList"></ul>
-					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="addressTmpl" data-target="#addressList">TAMBAHKAN ALAMAT</a>
-					</div><!--end .form-group -->
-					<ul class="list-unstyled" id="contactList"></ul>
-					<div class="form-group">
-						<a class="btn btn-raised btn-default-bright" data-duplicate="contactTmpl" data-target="#contactList">TAMBAHKAN KONTAK</a>
-					</div><!--end .form-group -->
+					<ul class="list-unstyled">
+						<li class="clearfix">
+							<div class="row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<input type="text" class="form-control" id="address_address[<%=index%>]" name="address_address[<%=index%>]">
+										<label for="address_address[<%=index%>]">Alamat Lengkap</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="text" class="form-control" id="address_kode_pos[<%=index%>]" name="address_kode_pos[<%=index%>]">
+										<label for="address_kode_pos[<%=index%>]">Kode Pos</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-2">
+									<div class="form-group">
+										<input type="text" class="form-control" id="address_RT[<%=index%>]" name="address_RT[<%=index%>]">
+										<label for="address_RT[<%=index%>]">RT</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="form-group">
+										<input type="text" class="form-control" id="address_RW[<%=index%>]" name="address_RW[<%=index%>]">
+										<label for="address_RW[<%=index%>]">RW</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="text" class="form-control" id="address_kecamatan[<%=index%>]" name="address_kecamatan[<%=index%>]">
+										<label for="address_kecamatan[<%=index%>]">Kecamatan</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="text" class="form-control" id="address_kelurahan[<%=index%>]" name="address_kelurahan[<%=index%>]">
+										<label for="address_kelurahan[<%=index%>]">Kelurahan</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="text" class="form-control" id="address_kota[<%=index%>]" name="address_kota[<%=index%>]">
+										<label for="address_kota[<%=index%>]">Kota</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<input type="text" class="form-control" id="address_provinsi[<%=index%>]" name="address_provinsi[<%=index%>]">
+										<label for="address_provinsi[<%=index%>]">Provinsi</label>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<select  id="address_negara[<%=index%>]" name="address_negara[<%=index%>]" class="form-control">
+										@include('admin.helpers.country-dropdown')
+										<label for="address_negara[<%=index%>]">Negara</label>
+									</div>
+								</div>					
+							</div>
+						</li>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="" id="phoneList">
+								</div>							
+								<div class="form-group row" style="padding-top">
+									<div class="col-md-12">
+										<a class="btn btn-raised btn-default-bright pull-right" data-duplicate="phoneTmpl" data-target="#phoneList">TAMBAHKAN NOMOR TELEPON</a>
+									</div>	
+								</div>	
+							</div>													
+							<div class="col-md-6">
+								<div class="" id="emailList">
+								</div>
+								<div class="form-group row" style="padding-top">
+									<div class="col-md-12">
+										<a class="btn btn-raised btn-default-bright pull-right" data-duplicate="emailTmpl" data-target="#emailList">TAMBAHKAN EMAIL</a>
+									</div>	
+								</div>	
+							</div>		
+						</div>	
+					</ul>
 				</div><!--end .tab-pane -->
 			</div><!--end .card-body.tab-content -->
 			<!-- END FORM TAB PANES -->
@@ -152,98 +229,35 @@
 	{!! HTML::script('js/microtemplating.min.js')!!}
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
 
-	<!-- BEGIN ADDRESS TEMPLATES -->
-	<script type="text/html" id="addressTmpl">
-		<li class="clearfix">
+	<!-- BEGIN PHONE TEMPLATES -->
+	<script type="text/html" id="phoneTmpl">
+		<li>
 			<div class="page-header no-border holder">
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Alamat <%=index%> </h4>
-			</div>
-			<div class="row">
-				<div class="col-md-8">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_address[<%=index%>]" name="address_address[<%=index%>]">
-						<label for="address_address[<%=index%>]">Alamat Lengkap</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_kode_pos[<%=index%>]" name="address_kode_pos[<%=index%>]">
-						<label for="address_kode_pos[<%=index%>]">Kode Pos</label>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_RT[<%=index%>]" name="address_RT[<%=index%>]">
-						<label for="address_RT[<%=index%>]">RT</label>
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_RW[<%=index%>]" name="address_RW[<%=index%>]">
-						<label for="address_RW[<%=index%>]">RW</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_kecamatan[<%=index%>]" name="address_kecamatan[<%=index%>]">
-						<label for="address_kecamatan[<%=index%>]">Kecamatan</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_kelurahan[<%=index%>]" name="address_kelurahan[<%=index%>]">
-						<label for="address_kelurahan[<%=index%>]">Kelurahan</label>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_kota[<%=index%>]" name="address_kota[<%=index%>]">
-						<label for="address_kota[<%=index%>]">Kota</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_provinsi[<%=index%>]" name="address_provinsi[<%=index%>]">
-						<label for="address_provinsi[<%=index%>]">Provinsi</label>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<input type="text" class="form-control" id="address_negara[<%=index%>]" name="address_negara[<%=index%>]">
-						<label for="address_negara[<%=index%>]">Negara</label>
-					</div>
-				</div>					
-			</div>
-		</li>
-	</script>
-	<!-- END ADDRESS TEMPLATES -->
+				<h4 class="text-accent">&nbsp;</h4>
 
-	<!-- BEGIN CONTACT TEMPLATES -->
-	<script type="text/html" id="contactTmpl">
-		<li class="clearfix">
-			<div class="page-header no-border holder">
-				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
-				<h4 class="text-accent">Kontak <%=index%></h4>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<input type="text" class="form-control" id="contact_phone[<%=index%>]" name="contact_phone[<%=index%>]">
-						<label for="contact_phone[<%=index%>]">Nomor Telepon</label>
-					</div>
-				</div>
-				<div class="col-md-12">
-					<div class="form-group">
-						<input type="text" class="form-control" id="contact_email[<%=index%>]" name="contact_email[<%=index%>]">
-						<label for="contact_email[<%=index%>]">Alamat Email</label>
-					</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="contact_phone[<%=index%>]" name="contact_phone[<%=index%>]">
+					<label for="contact_phone[<%=index%>]">Nomor Telepon [<%=index%>]</label>
 				</div>
 			</div>
 		</li>
 	</script>
+	<!-- BEGIN PHONE TEMPLATES -->
+
+	<!-- BEGIN EMAIL TEMPLATES -->
+	<script type="text/html" id="emailTmpl">
+		<li>
+			<div class="page-header no-border holder">
+				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"><span class="md md-delete"></span></a>
+				<h4 class="text-accent">&nbsp;</h4>
+
+				<div class="form-group">
+					<input type="text" class="form-control" id="contact_email[<%=index%>]" name="contact_email[<%=index%>]">
+					<label for="contact_email[<%=index%>]">Alamat Email [<%=index%>]</label>
+				</div>
+			</div>
+		</li>
+	</script>
+	<!-- BEGIN EMAIL TEMPLATES -->	
 @stop

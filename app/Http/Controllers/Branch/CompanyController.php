@@ -90,6 +90,7 @@ class CompanyController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['branch'] 							= Input::only('name','license','npwp','business_activities','business_fields');
 		$input['branch']['id'] 						= $id;
+
 		if(Input::has('address_address'))
 		{
 			foreach (Input::get('address_address') as $key => $value) 
@@ -133,7 +134,8 @@ class CompanyController extends Controller {
 				}
 				if($address['value']!='')
 				{
-					$input['contact']['address'][] 	= $address;
+					$address['item']					= 'address';
+					$input['contacts']['address'][] 	= $address;
 				}
 			}
 		}
@@ -146,11 +148,11 @@ class CompanyController extends Controller {
 				{
 					if(isset(Input::get('id_phone')[$key]))
 					{
-						$input['contact']['phone_number'][] = ['value' => $value, 'id' => Input::get('id_phone')[$key]];
+						$input['contacts']['phone_number'][] = ['value' => $value, 'item' => 'phone_number', 'id' => Input::get('id_phone')[$key]];
 					}
 					else
 					{
-						$input['contact']['phone_number'][] = ['value' => $value];
+						$input['contacts']['phone_number'][] = ['value' => $value, 'item' => 'phone_number'];
 					}
 				}
 			}
@@ -164,11 +166,11 @@ class CompanyController extends Controller {
 				{
 					if(isset(Input::get('id_email')[$key]))
 					{
-						$input['contact']['email'][] = ['value' => $value, 'id' => Input::get('id_email')[$key]];
+						$input['contacts']['email'][] = ['value' => $value, 'item' => 'email', 'id' => Input::get('id_email')[$key]];
 					}
 					else
 					{
-						$input['contact']['email'][] = ['value' => $value];
+						$input['contacts']['email'][] = ['value' => $value, 'item' => 'email'];
 					}
 				}
 			}

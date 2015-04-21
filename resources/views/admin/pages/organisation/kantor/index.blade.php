@@ -19,7 +19,7 @@
 				</form>
 			</div>
 			<div class="tools">
-				<a class="btn btn-floating-action btn-default-light" href="{{route('hr.persons.create') }}"><i class="fa fa-plus"></i></a>
+				<a class="btn btn-floating-action btn-default-light" href="{{route('hr.organisation.branches.create') }}"><i class="fa fa-plus"></i></a>
 			</div>
 		</div><!--end .card-head -->
 		<!-- END SEARCH HEADER -->
