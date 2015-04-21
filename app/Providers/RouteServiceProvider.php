@@ -53,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider {
 				}
 
 				Session::put('user.organisation', $contents->data->works[0]->branch->organisation->id);
-				Session::put('user.organisation.name', $contents->data->works[0]->branch->organisation->name);
+				Session::put('user.org_name', $contents->data->works[0]->branch->organisation->name);
 				Session::put('user.role', $contents->data->works[0]->name);
 				Session::put('user.name', $contents->data->username);
 				Session::put('user.gender', $contents->data->gender);
