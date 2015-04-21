@@ -18,7 +18,7 @@ class DocumentController extends Controller {
 		// ---------------------- LOAD DATA ----------------------
 		if(input::has('tag'))
 		{
-			$search 								= ['WithAttributes' => ['document', 'document.templates'], 'tag'=> input::get('tag')];
+			$search 								= ['WithAttributes' => ['document'], 'tag'=> input::get('tag')];
 		}
 		else
 		{
@@ -49,7 +49,7 @@ class DocumentController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['organisationid' => Session::get('user.organisation'), 'grouptag' => ''];
+		$search 									= ['organisationid' => Session::get('user.organisation'), 'WithAttributes' => ['templates']];
 
 		$sort 										= ['tag' => 'asc'];
 
@@ -91,12 +91,12 @@ class DocumentController extends Controller {
 				{
 					if($value2!='')
 					{
-						$document['details'][] 			= ['text' => $value2, 'template_id' => Input::get('template_id')[$key][$key2]];
+						$document['details'][] 			= ['value' => $value2, 'template_id' => Input::get('template_id')[$key][$key2]];
 					}
 				}
 				if(isset($document['details']))
 				{
-					$input['documents'][] 					= $document;
+					$input['documents'][] 				= $document;
 				}
 			}
 		}
@@ -112,7 +112,7 @@ class DocumentController extends Controller {
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.persons.documents.index', [$content->data->id]);
+			return Redirect::route('hr.persons.show', [$content->data->id]);
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -130,14 +130,42 @@ class DocumentController extends Controller {
 			App::abort(404);
 		}
 
+		$person_document 							= json_decode(json_encode($contents->data), true);
+
+		$search 									= ['organisationid' => Session::get('user.organisation'), 'WithAttributes' => ['templates']];
+
+		$sort 										= ['tag' => 'asc'];
+
+		$results_2 									= API::document()->index(1, $search, $sort);
+
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$documents 									= json_decode(json_encode($contents_2->data), true);
+
+		$results 									= API::person()->show($personid);
+		
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= ucwords($contents->data->document->name.' '.$contents->data->person->first_name);
+		$this->layout->page_title 					= ucwords($contents->data->nick_name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.dokumen.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->person_document 	= $person_document;
+		$this->layout->content->documents 			= $documents;
 
 		return $this->layout;
 	}
@@ -154,7 +182,7 @@ class DocumentController extends Controller {
 		}
 		else
 		{
-			return Redirect::route('hr.persons.documents.index', [$personid])->with('alert_success', 'Dokumen "' . $contents->data->name. '" sudah dihapus');
+			return Redirect::route('hr.persons.documents.index', [$personid])->with('alert_success', 'Dokumen sudah dihapus');
 		}
 	}
 }

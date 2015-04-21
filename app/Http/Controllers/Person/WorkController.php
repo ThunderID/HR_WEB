@@ -91,7 +91,7 @@ class WorkController extends Controller {
 				$input['works'][] 					= $chart;
 
 				$results 							= API::person()->store($person_id, $input);
-print_r($results);exit;
+
 				$content 							= json_decode($results);
 				if($content->meta->success)
 				{

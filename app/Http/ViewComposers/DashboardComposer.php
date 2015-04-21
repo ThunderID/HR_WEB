@@ -44,7 +44,7 @@ class DashboardComposer {
 												'data'		=> call_user_func([$this, $value['function']], (array)json_decode($value['query'])),
 												];
 		}
-dd($dashboard[7]['data']);exit;
+
 		$view = $view->with('dashboard', $dashboard);
 	}
 
