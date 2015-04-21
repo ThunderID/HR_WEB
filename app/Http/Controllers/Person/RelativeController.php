@@ -40,12 +40,29 @@ class RelativeController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
+		$search 									= ['organisationid' => Session::get('user.organisation'), 'grouptag' => ''];
+
+		$sort 										= ['tag' => 'asc'];
+
+		$results_2 									= API::document()->index(1, $search, $sort);
+
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$documents 									= json_decode(json_encode($contents_2->data), true);
+
+
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= 'Kerabat '.strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.kerabat.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->documents 			= $documents;
 		$this->layout->content->relatives 			= $relatives;
 		$this->layout->content->paginator 			= $paginator;
 
@@ -56,13 +73,14 @@ class RelativeController extends Controller {
 	{
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['person']['id']						= $personid;
-
+		
 		if(Input::has('relationship'))
 		{
 			if(Input::get('relation')!='')
 			{
 				$relate['id'] 					= Input::get('relation');
 				$relate['relationship'] 		= Input::get('relationship');
+				$relate['organisation_id'] 		= Session::get('user.organisation');
 				$input['relatives'][] 			= $relate;
 			}
 			else
@@ -72,11 +90,15 @@ class RelativeController extends Controller {
 				$relate['middle_name'] 			= Input::get('midle_name_relation');
 				$relate['last_name'] 			= Input::get('last_name_relation');
 				$relate['suffix_title'] 		= Input::get('suffix_title_relation');
+				$relate['full_name']			= $relate['first_name'].' '.$relate['middle_name'].' '.$relate['last_name'];
 				$relate['nick_name'] 			= Input::get('nick_name_relation');
 				$relate['gender'] 				= Input::get('gender_relation');
 				$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth_relation')));
 				$relate['place_of_birth'] 		= Input::get('place_of_birth_relation');
 				$relate['relationship'] 		= Input::get('relationship');
+				$relate['relationship'] 		= Input::get('relationship');
+				$relate['organisation_id'] 		= Session::get('user.organisation');
+				$relate['contacts'][]	 		= ['item' => 'phone_number', 'value' => Input::get('phone_relation')];
 				$input['relatives'][] 			= $relate;
 			}
 		}

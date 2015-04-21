@@ -40,14 +40,30 @@ class WorkController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
+		$search 									= ['organisationid' => Session::get('user.organisation'), 'grouptag' => ''];
+
+		$sort 										= ['tag' => 'asc'];
+
+		$results_2 									= API::document()->index(1, $search, $sort);
+
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$documents 									= json_decode(json_encode($contents_2->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= 'Karir '.strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.karir.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->work 				= null;
 		$this->layout->content->works 				= $works;
+		$this->layout->content->documents 			= $documents;
 		$this->layout->content->paginator 			= $paginator;
 		$this->layout->content->route 				= ['person_id' => $data['id']];
 
@@ -75,7 +91,7 @@ class WorkController extends Controller {
 				$input['works'][] 					= $chart;
 
 				$results 							= API::person()->store($person_id, $input);
-
+print_r($results);exit;
 				$content 							= json_decode($results);
 				if($content->meta->success)
 				{

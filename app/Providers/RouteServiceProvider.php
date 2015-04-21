@@ -57,6 +57,7 @@ class RouteServiceProvider extends ServiceProvider {
 				Session::put('user.role', $contents->data->works[0]->name);
 				Session::put('user.name', $contents->data->username);
 				Session::put('user.gender', $contents->data->gender);
+				Session::put('user.avatar', $contents->data->avatar);
 				Session::put('user.access', json_decode(json_encode($contents->data->works[0]->applications),true));
 				
 				//check access

@@ -146,7 +146,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\ComposerServiceProvider',
-		// 'Intervention\Image\ImageServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 	],
 
 	/*
@@ -198,7 +198,7 @@ return [
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML' 		=> 'Illuminate\Html\HtmlFacade',
 		'Faker'		=> 'Faker\Factory',
-		// 'Image' 	=> 'Intervention\Image\Facades\Image',
+		'Image' 	=> 'Intervention\Image\Facades\Image',
 	],
 
 ];

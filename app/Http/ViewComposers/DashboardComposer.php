@@ -42,7 +42,7 @@ class DashboardComposer {
 												'data'		=> call_user_func([$this, $value['function']], (array)json_decode($value['query'])),
 												];
 		}
-
+dd($dashboard[7]['data']);exit;
 		$view = $view->with('dashboard', $dashboard);
 	}
 
@@ -80,7 +80,7 @@ class DashboardComposer {
 
 	public function total_branches($search)
 	{
-		$sort 										= ['created_at' => 'asc'];
+		$sort 										= ['branches.created_at' => 'asc'];
 
 		$results 									= API::organisationbranch()->index(1, $search, $sort);
 
@@ -125,7 +125,7 @@ class DashboardComposer {
 
 	public function index_branches($search)
 	{
-		$sort 										= ['created_at' => 'asc'];
+		$sort 										= ['branches.created_at' => 'asc'];
 
 		$results 									= API::organisationbranch()->index(1, $search, $sort);
 
