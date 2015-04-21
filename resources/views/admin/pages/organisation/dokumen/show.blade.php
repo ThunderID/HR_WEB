@@ -4,90 +4,141 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="card-head card-head-sm style-primary">
-				<div class="col-md-12 pt-5 ">
-					<div class="col-md-12">
-						<div class="row">
-							<a href="{{route('hr.documents.index')}}" class="btn btn-flat ink-reaction pull-left">
-								<i class="md md-reply"></i> Kembali
-							</a>
-							<a href="{{route('hr.documents.delete', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
-								<i class="fa fa-trash"></i> Hapus
-							</a>
-						</div>
+	<div class="card">
+
+		<!-- BEGIN CARD HEADER -->
+		<div class="card-head card-head-sm style-primary">
+			<div class="col-xs-12 pt-5 ">
+				<a href="{{route('hr.documents.index')}}" class="btn btn-flat ink-reaction pull-left">
+					<i class="md md-reply"></i> Kembali
+				</a>
+				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
+					<i class="fa fa-trash"></i> Hapus
+				</a>
+				<a href="{{route('hr.documents.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-pencil"></i> Edit
+				</a>				
+			</div>
+		</div>
+		<!-- END CARD HEADER -->
+
+		<!-- BEGIN CARD TILES -->
+		<div class="card-tiles">
+			<!-- BEGIN LEFTBAR -->
+			<div class="hbox-column col-md-2" id="sidebar_left">
+				<ul class="nav nav-pills nav-stacked">
+					<li><small>CATEGORIES</small></li>
+					<li @if(is_null($persons)) class="active" @endif><a href="{{route('hr.documents.show', [$data['id']])}}">Detail  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					<li @if(($persons)) class="active" @endif><a href="{{route('hr.document.persons.index', [$data['id'], 'page' => 1])}}">Karyawan </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
+				</ul>
+			</div>
+
+			<!-- BEGIN MIDDLE -->					
+			<div class="hbox-column col-md-9" id="sidebar_mid">
+				<div class="pull-left width-3 clearfix hidden-xs">
+				</div>
+				<h1 class="text-light no-margin">{{ucwords($data['name'])}}</h1>
+				<h5>
+					{{($data['persons'][0]['count'])}} Dokumen
+				</h5>
+				&nbsp;&nbsp;
+				@if(is_null($persons))
+				<ul class="nav nav-tabs" data-toggle="tabs">
+					<li class="active"><a href="#details">Struktur</a></li>
+				</ul>
+				<div class="tab-content height-8">
+					<div class="tab-pane active" id="details">
+						<br/>
+						@foreach($data['templates'] as $key => $value)
+							<div class="row">
+								<div class="col-sm-10">{{ucwords($value['field'])}} ({{$value['type']}})</div>
+								<div class="text-right col-sm-2">
+									<a href="{{route('hr.document.templates.delete', [$value['id']])}}">
+										<i class="fa fa-trash"></i>
+									</a>
+								</div>
+							</div>
+						@endforeach
 					</div>
 				</div>
-			</div>
-			<div class="card tabs-left style-default-light">
-				<ul class="card-head nav nav-tabs" data-toggle="tabs">
-					<li class="active"><a class="oc" href="#structure">Struktur</a></li>
-					<li><a class="oc" href="#person">Karyawan</a></li>
+				@else
+				<ul class="nav nav-tabs" data-toggle="tabs">
+					<li class="active"><a href="#details">Dokumen</a></li>
 				</ul>
-				<div class="card-body tab-content style-default-bright">
-					<div class="tab-pane active" id="structure">
-						<table class="table no-margin">
-							<thead>
-								<tr>
-									<th>No</th>
-									<th>Field</th>
-									<th>Type</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($data['templates'] as $key => $value)
-									<tr>
-										<td>{{$key+1}}</td>
-										<td>{{$value['field']}}</td>
-										<td>{{$value['type']}}</td>
-										<td class="text-right">
-											<a class="btn btn-flat" href="{{route('hr.document.templates.delete', [$value['id']])}}"><i class="fa fa-trash"></i></a>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
-						<div class="card-actionbar">
-							<div class="card-actionbar-row">
-								<a class="btn btn-flat" href="{{route('hr.documents.edit', [$data['id']])}}">EDIT</a>
+				<div class="page-header no-border holder" style="margin-top:0px;">
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane active" id="details">
+					<br/>
+					<br/>
+						<ul class="list-unstyled" id="workList">
+							<li class="clearfix">
+								<div class="list-results pl-10" style="margin-bottom:0px;">
+									@foreach($persons as $key => $value)	
+										<div class="row">
+											<div class="col-xs-12">
+												<a href="{{route('hr.persons.documents.show', [$value['person']['id'], $value['id']])}}">
+													<p>
+														<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
+														<span class="pull-left">
+															<span class="text-bold">{{$value['person']['full_name']}}</span><br/>
+															<span class="opacity-50">{{date("l, d F Y", strtotime($value['created_at']))}}</span><br/>
+														</span>
+													</p>
+												</a>
+											</div>
+										</div><!--end .row -->
+									@endforeach
+								</div><!--end .hbox-md -->
+								@if(count($persons))
+									@include('admin.helpers.pagination')
+								@else
+									<div class="row">
+										<div class="col-sm-12 text-center">
+											<p>Tidak ada data</p>
+										</div>
+									</div>
+								@endif			
+							</li>
+						</ul>
+					</div>
+				</div>
+				@endif
+				<!-- END MIDDLE -->
+			</div>
+
+			<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						{!! Form::open(array('route' => array('hr.documents.delete', $data['id']),'method' => 'POST')) !!}
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="simpleModalLabel">Hapus Data Dokumen</h4>
+						</div>
+						<div class="modal-body">
+							<p>Apakah Anda yakin akan menghapus data dokumen? Silahkan masukkan password Anda untuk konfirmasi.</p>
+							<div class="row">
+								<div class="form-group">
+									<div class="col-sm-3">
+										<label for="password1" class="control-label">Password</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="password" name="password" id="password" class="form-control" placeholder="Password">
+									</div>
+								</div>					
 							</div>
 						</div>
-					</div>
-					<div class="tab-pane" id="person">
-						@if(count($data['persons']))
-							<table class="table no-margin">
-								<thead>
-									<tr>
-										<th>No</th>
-										<th>Nama Pegawai</th>
-										<th>Tanggal (Created @)</th>								
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach($data['persons'] as $key => $value)
-										<tr>
-											<td>{{$key+1}}</td>
-											<td>{{$value['first_name'].' '.$value['last_name']}}</td>
-											<td>{{date("d F Y", strtotime($value['created_at']))}}</td>
-											<td>
-												<a href="{{route('hr.persons.show', ['person_id' => $data['id']])}}">
-													detail
-												</a>
-											</td>
-										</tr>
-									@endforeach
-								</tbody>
-							</table>
-						@else
-							<p>Tidak ada karyawan yang memiliki dokumen ini</p>
-						@endif
-					</div>
-				</div><!--end .card-body -->
-			</div><!--end .card -->
-		</div><!--end .col -->
+						<div class="modal-footer">
+							<p>{!! Form::hidden('from_confirm_form', 'Yes') !!}</p>
+							<a type="button" class="btn btn-default" data-dismiss="modal">Cancel</a>
+							<button type="submit" type="button" class="btn btn-danger">Hapus</button>
+						</div>
+						{!! Form::close() !!}
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div>	
+			<!-- BEGIN RIGHTBAR -->
+		</div>
 	</div>
 @stop
 

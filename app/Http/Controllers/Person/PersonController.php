@@ -25,10 +25,7 @@ class PersonController extends Controller {
 			}
 			else
 			{
-				$search['firstname']				= Input::get('q');			
-				$search['orlastname']				= Input::get('q');			
-				$search['orprefixtitle']			= Input::get('q');			
-				$search['orsuffixtitle']			= Input::get('q');			
+				$search['fullname']					= Input::get('q');			
 			}
 		}
 

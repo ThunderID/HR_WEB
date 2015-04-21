@@ -19,9 +19,15 @@ class DocumentController extends Controller {
 		$search 									= ['countperson' => '', 'organisationid' => Session::get('user.organisation')];
 		if(Input::has('q'))
 		{
-			$search 								= ['name' => Input::get('q'),'WithAttributes' => ['persons'], 'organisation' => Session::get('user.organisation')];
+			$search 								= ['name' => Input::get('q'),'countperson' => '', 'organisationid' => Session::get('user.organisation')];
 		}
-		$sort 										= ['created_at' => 'asc'];
+
+		if(Input::has('tag'))
+		{
+			$search['tag'] 							= Input::get('tag');
+		}
+
+		$sort 										= ['tag' => 'asc'];
 
 		$results 									= API::document()->index($page, $search, $sort);
 
@@ -102,7 +108,7 @@ class DocumentController extends Controller {
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 
-	function getShow($id)
+	function getShow($id, $page=null)
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$results 									= API::document()->show($id);
@@ -116,10 +122,47 @@ class DocumentController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
+		
+		if(!is_null($page))
+		{
+			// ---------------------- LOAD DATA ----------------------
+			$search 									= ['documentid' => $id, 'withattributes' => ['person']];
+			if(Input::has('q'))
+			{
+				$search 								= ['name' => Input::get('q'),'countperson' => '', 'organisationid' => Session::get('user.organisation')];
+			}
+
+			if(Input::has('tag'))
+			{
+				$search['tag'] 							= Input::get('tag');
+			}
+
+			$sort 										= ['created_at' => 'asc'];
+
+			$results 									= API::document()->personindex($page, $search, $sort);
+
+			$contents_2 								= json_decode($results);
+
+			if(!$contents_2->meta->success)
+			{
+				App::abort(404);
+			}
+			
+			$persons 									= json_decode(json_encode($contents_2->data), true);
+			$paginator 									= new Paginator($contents_2->pagination->total_data, (int)$contents_2->pagination->page, $contents_2->pagination->per_page, $contents_2->pagination->from, $contents_2->pagination->to);
+			$this->layout->content->persons 			= $persons;
+			$this->layout->content->paginator 			= $paginator;
+			$this->layout->content->route 				= ['id' => $id];
+		}
+		else
+		{
+			$this->layout->content->persons 			= null;
+		}
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= ucwords($contents->data->name);
 
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 
@@ -157,52 +200,38 @@ class DocumentController extends Controller {
 
 	function anyDelete($id)
 	{
-		if (Input::has('from_confirm_form'))
-		{
-			if (Input::get('from_confirm_form')=='Yes')
-			{
-				$results 									= API::document()->destroy($id);
-				$contents 									= json_decode($results);
+		// ---------------------- LOAD DATA ----------------------
+		$username 					= Session::get('user.name');
+		$password 					= Input::get('password');
 
-				if (!$contents->meta->success)
-				{
-					return Redirect::route('hr.documents.show', ['id' => $id])->withErrors($contents->meta->errors);
-				}
-				else
-				{
-					return Redirect::route('hr.documents.index')->with('alert_success', 'Dokumen "' . $contents->data->name. '" sudah dihapus');
-				}
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+			$results 									= API::document()->destroy($id);
+			$contents 									= json_decode($results);
+
+			if (!$contents->meta->success)
+			{
+				return Redirect::route('hr.documents.show', ['id' => $id])->withErrors($contents->meta->errors);
 			}
 			else
 			{
-				return Redirect::route('hr.documents.show', ['id' => $id])->withErrors(['Batal Menghapus']);
+				return Redirect::route('hr.documents.index')->with('alert_success', 'Dokumen "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else
 		{
-			$results 									= API::document()->show($id);
-			$contents 									= json_decode($results);
-
-			if(!$contents->meta->success)
-			{
-				App::abort(404);
-			}
-
-			$data 										= json_decode(json_encode($contents->data), true);
-
-			$this->layout->page_title 					= strtoupper($this->controller_name);
-
-			$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.destroy');
-			$this->layout->content->controller_name 	= $this->controller_name;
-			$this->layout->content->data 				= $data;
-
-			return $this->layout;
+			return Redirect::route('hr.documents.show', ['id' => $id])->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 
 	function anyTemplateDelete($id)
 	{
 		$results 									= API::document()->destroytemplate($id);
+
 		$contents 									= json_decode($results);
 
 		if (!$contents->meta->success)
@@ -214,4 +243,5 @@ class DocumentController extends Controller {
 			return Redirect::route('hr.documents.index')->with('alert_success', 'Template Dokumen "' . $contents->data->field. '" sudah dihapus');
 		}
 	}
+
 }
