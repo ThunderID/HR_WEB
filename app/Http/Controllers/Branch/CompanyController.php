@@ -16,7 +16,7 @@ class CompanyController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search['organisationid']				= Session::get('user.organisation');
+		$search										= ['organisationid' => Session::get('user.organisation'), 'CurrentContact' => 'updated_at'];
 		if(Input::has('q'))
 		{
 			if(Input::has('field'))
@@ -41,7 +41,7 @@ class CompanyController extends Controller {
 		}
 		else
 		{
-			$sort 									= ['created_at' => 'asc'];
+			$sort 									= ['branches.created_at' => 'asc'];
 		}
 
 		$results 									= API::organisationbranch()->index($page, $search, $sort);
@@ -54,6 +54,7 @@ class CompanyController extends Controller {
 		}
 		
 		$data 										= json_decode(json_encode($contents->data), true);
+
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
