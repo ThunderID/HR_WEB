@@ -19,16 +19,23 @@
 				<form class="form" role="form" action="{{route('hr.organisation.charts.store', [$branch_id])}}" method="post">
 			@endif
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="form-group">
 							<select class="form-control" id="path" name="path" value="{{$data['chart']['path']}}">
+								<option value=""></option>
 								@foreach($data_branch['data']['charts'] as $key => $value)
-									<option value="{{$value['path']}}">{{$value['name']}}</option>
+									<option value="{{$value['path']}}">{{$value['name']}} di {{$data_branch['data']['organisation']['name']}}</option>
 								@endforeach
 							</select>
 							<label for="path">Atasan</label>
 						</div>
 					</div>
+					<div class="col-md-6">
+						<div class="form-group">	
+							<input type="text" class="form-control" id="grade" name="tag" value="{{$data['tag']}}">
+							<label for="grade">Departemen</label>
+						</div>				
+					</div>				
 				</div>
 				<div class="row">
 					<div class="col-md-12">
