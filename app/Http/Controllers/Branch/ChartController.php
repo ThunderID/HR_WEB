@@ -56,10 +56,10 @@ class ChartController extends Controller {
 	{
 		if(Input::has('name'))
 		{
-			$input['chart']								= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade');
+			$input['chart']								= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade', 'tag');
 		}
 		$input['chart']['id']							= $id;
-		
+
 		if(Input::has('application_id'))
 		{
 			foreach (Input::get('id') as $key => $value) 

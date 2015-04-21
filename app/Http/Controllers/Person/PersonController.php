@@ -432,7 +432,9 @@ class PersonController extends Controller {
 			{
 				return Redirect::route('hr.persons.index')->with('alert_success', 'Data Orang "' . $contents->data->first_name. '" sudah dihapus');
 			}
-		}else{
+		}
+		else
+		{
 			return Redirect::route('hr.persons.show', ['id' => $id])->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}

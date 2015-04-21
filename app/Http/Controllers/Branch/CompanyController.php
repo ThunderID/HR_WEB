@@ -193,7 +193,15 @@ class CompanyController extends Controller {
 	function getShow($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::organisationbranch()->show($id);
+		if(Input::has('tag'))
+		{
+			$department 							= Input::get('tag');
+		}
+		else
+		{
+			$department 							= null;
+		}
+		$results 									= API::organisationbranch()->show($id, $department);
 
 		$contents 									= json_decode($results);
 
@@ -244,46 +252,31 @@ class CompanyController extends Controller {
 
 	function anyDelete($id)
 	{
-		if (Input::has('from_confirm_form'))
-		{
-			if (Input::get('from_confirm_form')=='Yes')
-			{
-				$results 									= API::organisationbranch()->destroy($id);
-				$contents 									= json_decode($results);
+		// ---------------------- LOAD DATA ----------------------
+		$username 					= Session::get('user.name');
+		$password 					= Input::get('password');
 
-				if (!$contents->meta->success)
-				{
-					return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors($contents->meta->errors);
-				}
-				else
-				{
-					return Redirect::route('hr.organisation.branches.index')->with('alert_success', 'Organisasi "' . $contents->data->name. '" sudah dihapus');
-				}
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+			$results 									= API::organisationbranch()->destroy($id);
+			$contents 									= json_decode($results);
+
+			if (!$contents->meta->success)
+			{
+				return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors($contents->meta->errors);
 			}
 			else
 			{
-				return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors(['Batal Menghapus']);
+				return Redirect::route('hr.organisation.branches.index')->with('alert_success', 'Data Kantor "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else
 		{
-			$results 									= API::organisationbranch()->show($id);
-			$contents 									= json_decode($results);
-
-			if(!$contents->meta->success)
-			{
-				App::abort(404);
-			}
-
-			$data 										= json_decode(json_encode($contents->data), true);
-
-			$this->layout->page_title 					= 'Kantor';
-
-			$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.destroy');
-			$this->layout->content->controller_name 	= $this->controller_name;
-			$this->layout->content->data 				= $data;
-
-			return $this->layout;
+			return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 }
