@@ -36,7 +36,7 @@
 				<ul class="nav nav-pills nav-stacked">
 					<li><small>DOKUMEN</small></li>
 					@foreach($data['documents'] as $key => $value)
-						<li><a href="#">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
+						<li><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
 					@endforeach
 				</ul>					
 			</div>

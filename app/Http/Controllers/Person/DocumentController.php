@@ -16,7 +16,11 @@ class DocumentController extends Controller {
 	function getIndex($personid, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['document']];
+		if(input::has('tag')){
+			$search 								= ['WithAttributes' => ['document'], 'tag'=> input::get('tag')];
+		}else{
+			$search 								= ['WithAttributes' => ['document']];
+		}
 		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::person()->documentIndex($personid, $page, $search, $sort);
