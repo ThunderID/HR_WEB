@@ -412,46 +412,28 @@ class PersonController extends Controller {
 	function anyDelete($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		if (Input::has('from_confirm_form'))
-		{
-			if (Input::get('from_confirm_form')=='Yes')
-			{
-				$results 									= API::person()->destroy($id);
-				$contents 									= json_decode($results);
+		$username 					= Session::get('user.name');
+		$password 					= Input::get('password');
 
-				if (!$contents->meta->success)
-				{
-					return Redirect::route('hr.persons.show', ['id' => $id])->withErrors($contents->meta->errors);
-				}
-				else
-				{
-					return Redirect::route('hr.persons.index')->with('alert_success', 'Data Orang "' . $contents->data->first_name. '" sudah dihapus');
-				}
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+			$results 									= API::person()->destroy($id);
+			$contents 									= json_decode($results);
+
+			if (!$contents->meta->success)
+			{
+				return Redirect::route('hr.persons.show', ['id' => $id])->withErrors($contents->meta->errors);
 			}
 			else
 			{
-				return Redirect::route('hr.persons.show', ['id' => $id])->withErrors(['Batal Menghapus']);
+				return Redirect::route('hr.persons.index')->with('alert_success', 'Data Orang "' . $contents->data->first_name. '" sudah dihapus');
 			}
-		}
-		else
-		{
-			$results 									= API::person()->show($id);
-			$contents 									= json_decode($results);
-
-			if(!$contents->meta->success)
-			{
-				App::abort(404);
-			}
-
-			$data 										= json_decode(json_encode($contents->data), true);
-
-			$this->layout->page_title 					= strtoupper($this->controller_name);
-
-			$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.destroy');
-			$this->layout->content->controller_name 	= $this->controller_name;
-			$this->layout->content->data 				= $data;
-
-			return $this->layout;
+		}else{
+			return Redirect::route('hr.persons.show', ['id' => $id])->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 }
