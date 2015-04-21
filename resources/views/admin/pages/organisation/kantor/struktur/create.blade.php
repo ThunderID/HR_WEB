@@ -22,8 +22,9 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<select class="form-control" id="path" name="path" value="{{$data['chart']['path']}}">
+								<option value=""></option>
 								@foreach($data_branch['data']['charts'] as $key => $value)
-									<option value="{{$value['path']}}">{{$value['name']}}</option>
+									<option value="{{$value['path']}}">{{$value['name']}} di {{$data_branch['data']['organisation']['name']}}</option>
 								@endforeach
 							</select>
 							<label for="path">Atasan</label>
