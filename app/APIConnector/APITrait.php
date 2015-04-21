@@ -4,13 +4,13 @@ use Exception;
 
 trait APITrait {
 
-	static protected $basic_url = 'http://localhost:7200/';
+	static protected $basic_url = 'http://192.168.1.89:8000/';
 
 	protected static function runGet($url, $data = [])
 	{
 		try
 		{
-			fsockopen('localhost', '7200', $errno, $errstr, 60);
+			fsockopen('192.168.1.89', '8000', $errno, $errstr, 60);
 		}
 		catch (Exception $e) 
 		{
@@ -38,7 +38,7 @@ trait APITrait {
 	{
 		try
 		{
-			fsockopen('localhost', '7200', $errno, $errstr, 60);
+			fsockopen('192.168.1.89', '8000', $errno, $errstr, 60);
 		}
 		catch (Exception $e) 
 		{
