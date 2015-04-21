@@ -406,6 +406,22 @@ Route::group(['prefix' => 'cms'], function(){
 	/* ---------------------------------------------------------------------------- END AJAX ----------------------------------------------------------------------------*/
 });
 
+Blade::extend(function ($value, $compiler)
+{
+	$pattern = $compiler->createMatcher('replace_delimiter');
+	$replace = '<?php echo ucwords(str_replace("_", " ", $2)); ?>';
+	
+	return preg_replace($pattern, '$1'.$replace, $value);
+});	
+
+Blade::extend(function ($value, $compiler)
+{
+	$pattern = $compiler->createMatcher('date');
+	$replace = '<?php echo date("d F Y", strtotime($2)); ?>';
+	
+	return preg_replace($pattern, '$1'.$replace, $value);
+});	
+
 Route::get('/tes', function(){
 	$days 			= (new DateTime('- 3 days'));
  print_r($days->format('Y-m-d'));

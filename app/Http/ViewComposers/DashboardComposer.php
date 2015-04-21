@@ -36,8 +36,10 @@ class DashboardComposer {
 		foreach (Session::get('dashboard') as $key => $value) 
 		{
 			$dashboard[]					= [
+												'id'		=> $value['id'],
 												'title'		=> $value['title'],
 												'type'		=> $value['type'],
+												'function'	=> $value['function'],
 												'field'		=> (array)json_decode($value['field']),
 												'data'		=> call_user_func([$this, $value['function']], (array)json_decode($value['query'])),
 												];
@@ -105,6 +107,7 @@ class DashboardComposer {
 		{
 			App::abort(404);
 		}
+
 		return ['data' => json_decode(json_encode($contents->data),true)];
 	}
 
