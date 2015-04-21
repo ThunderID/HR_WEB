@@ -38,7 +38,7 @@
 							</ol>
 						</div><!--end .section-header -->
 					@endif
-					<div class="section-body contain-md">
+					<div class="section-body ml-5">
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 								@if(isset($page_title))

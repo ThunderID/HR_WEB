@@ -39,4 +39,13 @@
 			</li><!--end .dropdown -->
 		</ul><!--end .header-nav-profile -->
 	</div><!--end #header-navbar-collapse -->
+	<div class="headerbar-right">
+		<ul class="header-nav header-nav-options">
+			<li class="header-nav-brand">
+				<div class="brand-holder">
+					<span class="text-lg text-menu">{{Session::get('user.organisation.name')}}</span>
+				</div>				
+			</li>	
+		</ul><!--end .header-nav-profile -->
+	</div><!--end #header-navbar-collapse -->					
 </div>
