@@ -18,6 +18,7 @@
 			@else
 				<form class="form" role="form" action="{{route('hr.organisation.charts.store', [$branch_id])}}" method="post">
 			@endif
+			<?php print_r($data); exit;?>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">

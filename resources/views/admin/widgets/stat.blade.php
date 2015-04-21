@@ -22,7 +22,7 @@
 					<div class="btn-group mt-5 hide">
 						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-default btn-flat" data-toggle="tooltip" data-placement="top" data-original-title="lihat data semua"><i class="md md-visibility"></i></a>
 						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-default btn-flat" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
-						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-default btn-flat" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
+						<a href="javascript:;" class="btn btn-default btn-flat del_widget" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
 					</div>
 				</div>
 			</div><!--end .card-head -->
@@ -49,7 +49,7 @@
 					<div class="btn-group mt-5 hide">
 						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="lihat data semua"><i class="md md-visibility"></i></a>
 						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="ubah widget"><i class="md md-settings"></i></a>
-						<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-icon-toggle btn-default btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
+						<a href="javascript:;" class="btn btn-icon-toggle btn-default btn-sm del_widget" data-toggle="tooltip" data-placement="top" data-original-title="hapus widget"><i class="md md-delete"></i></a>
 					</div>
 				</div>
 			</div><!--end .card-head -->
