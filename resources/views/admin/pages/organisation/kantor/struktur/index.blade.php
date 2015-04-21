@@ -11,7 +11,7 @@
 				</a>
 			</div>
 			<div class="text-right col-sm-1">
-				<a href="{{route('hr.organisation.charts.edit', [$data['id'], $value['id']])}}">
+				<a class="btn_edit" href="javascript:;" data-toggle="modal" data-target="#edit_modal{{$key}}">
 					<i class="fa fa-pencil"></i>
 				</a>
 			</div>
@@ -127,3 +127,84 @@
 			</div>
 		</div>
 	</div>		
+
+	@foreach($data['charts'] as $key => $value)
+	<div class="modal fade" id="edit_modal{{$key}}" tabindex="-1" role="dialog" aria-labelledby="edit_modal{{$key}}" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title text-xl" id="formModalLabel">Edit Struktur {{$value['name']}}</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form" role="form" action="{{route('hr.organisation.charts.update', [$data['id'], $value['id']])}}" method="post">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<select class="form-control" id="path" name="path">
+										<option value=""></option>
+										@foreach($data['charts'] as $key2 => $value2)
+											@if($value['path'] == $value2['path'])
+												<option selected value="{{$value2['path']}}">{{$value2['name']}} di {{$data['organisation']['name']}}</option>
+											@else
+												<option value="{{$value2['path']}}">{{$value2['name']}} di {{$data['organisation']['name']}}</option>
+											@endif
+										@endforeach
+									</select>
+									<label for="path">Atasan</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">	
+									<input type="text" class="form-control" id="grade" name="tag" value="{{$value['tag']}}">
+									<label for="grade">Departemen</label>
+								</div>				
+							</div>				
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="text" class="form-control input-lg" id="name" name="name" value="{{$value['name']}}">
+									<label for="name">Nama</label>
+								</div>
+							</div>
+						</div><!--end .row -->
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<input type="text" class="form-control" id="min_employee" name="min_employee" value="{{$value['min_employee']}}">
+									<label for="min_employee">Jumlah Minimum Pegawai</label>
+								</div>
+							</div><!--end .col -->
+							<div class="col-md-3">
+								<div class="form-group">
+									<input type="text" class="form-control" id="ideal_employee" name="ideal_employee" value="{{$value['ideal_employee']}}">
+									<label for="ideal_employee">Jumlah Ideal Pegawai</label>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<input type="text" class="form-control" id="max_employee" name="max_employee" value="{{$value['max_employee']}}">
+									<label for="max_employee">Jumlah Maksimum Pegawai</label>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<input type="text" class="form-control" id="grade" name="grade" Placehoder="(Biarkan kosong untuk departemen)" value="{{$value['grade']}}">
+									<label for="grade">Grade</label>
+								</div>
+							</div>
+						</div>
+						<div class="card-actionbar">
+							<div class="card-actionbar-row">
+								<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
+								<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+							</div><!--end .card-actionbar-row -->
+						</div><!--end .card-actionbar -->				
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	@endforeach
+
