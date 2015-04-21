@@ -5,7 +5,6 @@
 
 @section('content')
 	<div class="card">
-
 		<!-- BEGIN SEARCH HEADER -->
 		<div class="card-head style-primary">
 			<div class="tools pull-left">
@@ -77,7 +76,11 @@
 								</div>
 								<div class="clearfix">
 									<div class="col-lg-12">
-										<span>CEO di PT ini</span>
+										@foreach($value['works'] as $key2 => $value2)
+											@if($key2 == 0)
+												<span>{{$value2['name']}} di {{$value2['branch']['name']}}</span>
+											@endif
+										@endforeach
 									</div>
 								</div>
 								@if(count($value['contacts']))
