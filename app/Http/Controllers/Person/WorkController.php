@@ -87,6 +87,11 @@ class WorkController extends Controller {
 				{
 					$chart['end'] 						= date("Y-m-d", strtotime(Input::get('work_end')));
 					$chart['reason_end_job'] 			= Input::get('work_quit_reason');
+				}else{
+					if(Input::get('cur_work_end')){
+						$chart['end'] 						= NULL;
+						$chart['reason_end_job'] 			= NULL;
+					}
 				}
 				$input['works'][] 					= $chart;
 
@@ -95,7 +100,7 @@ class WorkController extends Controller {
 				$content 							= json_decode($results);
 				if($content->meta->success)
 				{
-					return Redirect::route('hr.persons.index');
+					return Redirect::route('hr.persons.works.index', ['id' => $person_id]);
 				}
 
 				return Redirect::back()->withErrors($content->meta->errors)->withInput();

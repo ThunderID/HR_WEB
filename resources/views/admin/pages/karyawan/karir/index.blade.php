@@ -5,7 +5,6 @@
 
 @section('content')
 	<div class="card">
-	<?php print_r($works);?>
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
@@ -295,6 +294,7 @@
 												<input type="text" class="form-control date-pick" id="work_end" name="work_end">
 											@else
 												<input type="text" class="form-control date-pick" id="work_end" name="work_end" value="{{date("d F Y", strtotime($value['end']))}}">
+												<input type="hidden" id="cur_work_end" name="cur_work_end" value="{{date("d F Y", strtotime($value['end']))}}">
 											@endif
 										</div>
 									</div>

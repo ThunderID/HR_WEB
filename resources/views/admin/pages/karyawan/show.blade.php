@@ -105,10 +105,10 @@
 				{!! Form::open(array('route' => array('hr.persons.delete', $data['id']),'method' => 'POST')) !!}
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="simpleModalLabel">Hapus Data Relasi</h4>
+					<h4 class="modal-title" id="simpleModalLabel">Hapus Data Profil</h4>
 				</div>
 				<div class="modal-body">
-					<p>Apakah Anda yakin akan menghapus data relasi? Silahkan masukkan password Anda untuk konfirmasi.</p>
+					<p>Apakah Anda yakin akan menghapus data profil? Silahkan masukkan password Anda untuk konfirmasi.</p>
 					<div class="row">
 						<div class="form-group">
 							<div class="col-sm-3">
