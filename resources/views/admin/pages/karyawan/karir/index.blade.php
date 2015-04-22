@@ -8,14 +8,16 @@
 
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
-			<div class="col-md-12 pt-5 ">
-				<div class="row">
-					<div class="col-md-12">
-						<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction pull-left">
-							<i class="md md-reply"></i> Kembali
-						</a>
-					</div>
-				</div>
+			<div class="col-xs-12 pt-5 ">
+				<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction pull-left">
+					<i class="md md-reply"></i> Kembali
+				</a>
+				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
+					<i class="fa fa-trash"></i> Hapus
+				</a>
+				<a href="{{route('hr.persons.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-pencil"></i> Edit
+				</a>				
 			</div>
 		</div>
 		<!-- END CARD HEADER -->
@@ -26,12 +28,11 @@
 					<li><small>CATEGORIES</small></li>
 					<li><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li><a href="{{route('hr.persons.documents.index', [$data['id']])}}">Dokumen </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li class="active"><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
 					<li><small>DOKUMEN</small></li>
-					@foreach($data['documents'] as $key => $value)
+					@foreach($documents as $key => $value)
 						<li><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
 					@endforeach
 				</ul>					
@@ -41,9 +42,13 @@
 			<div class="hbox-column col-md-7" id="sidebar_mid">
 				<div class="margin-bottom-xxl">
 					<div class="pull-left width-3 clearfix hidden-xs">
-						<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+						@if($data['avatar']!='')
+							<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
+						@else
+							<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+						@endif
 					</div>
-					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['first_name'].' '.$data['middle_name'].' '.$data['last_name'].' '.$data['suffix_title']}}</h1>
+					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['full_name'].' '.$data['suffix_title']}}</h1>
 					<h5>
 						@if(isset($data['works'][0]))
 							{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
@@ -72,7 +77,7 @@
 										<div class="timeline-entry">
 											<div class="card style-default-light">
 												<div class="card-body small-padding">
-													<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
+													<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Sekarang @else {{date("F Y", strtotime($value['end']))}} @endif</small>
 													<p>
 														<span class="text-lg text-medium">{{$value['chart']['name']}} ({{$value['status']}})</span><br/>
 														<span class="text-lg text-light">{{$value['chart']['branch']['name']}}</span>
@@ -147,7 +152,7 @@
 								<div class="form-group">
 									<select  id="work_status" name="work_status" class="form-control">
 										<option value=""></option>
-										<option value="contracts">Contracts</option>
+										<option value="contract">Contracts</option>
 										<option value="trial">Trial</option>
 										<option value="permanent">Permanent</option>
 										<option value="internship">Internship</option>

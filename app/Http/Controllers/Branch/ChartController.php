@@ -16,7 +16,16 @@ class ChartController extends Controller {
 	function getShow($branch_id, $id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::organisationchart()->show($branch_id, $id);
+		if(Input::has('tag'))
+		{
+			$department 							= Input::get('tag');
+		}
+		else
+		{
+			$department 							= null;
+		}
+
+		$results 									= API::organisationbranch()->show($branch_id, $department);
 
 		$contents 									= json_decode($results);
 
@@ -26,12 +35,36 @@ class ChartController extends Controller {
 		}
 
 		$data 										= json_decode(json_encode($contents->data), true);
+		
+		$results_2 									= API::organisationchart()->show($branch_id, $id);
+
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$chart 										= json_decode(json_encode($contents_2->data), true);
+
+		$results_3 									= API::organisationchart()->index(1, ['neighbor' => $chart['path'], 'branchid' => $branch_id], ['path' => 'asc']);
+
+		$contents 									= json_decode($results_3);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$charts 									= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= $contents->data->name;
-		$this->layout->content 						= view('admin.pages.organisation.kantor.'.$this->controller_name.'.show');
+		$this->layout->page_title 					= $contents_2->data->name;
+		$this->layout->content 						= view('admin.pages.organisation.kantor.show.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->chart 				= $chart;
+		$this->layout->content->charts 				= $charts;
 
 		return $this->layout;
 	}
@@ -98,7 +131,7 @@ class ChartController extends Controller {
 				{
 					$application['is_delete']			= false;
 				}
-				$input['application'][]					= $application;
+				$input['applications'][]				= $application;
 			}
 		}
 
@@ -108,7 +141,7 @@ class ChartController extends Controller {
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.charts.show', [$branch_id, $content->data->id]);
+			return Redirect::route('hr.organisation.charts.show', [$branch_id, $content->data->id])->with('alert_success', 'Struktur '.$content->data->name.' Sudah Tersimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -118,7 +151,16 @@ class ChartController extends Controller {
 	function getEdit($branch_id, $id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::organisationchart()->show($branch_id, $id);
+		if(Input::has('tag'))
+		{
+			$department 							= Input::get('tag');
+		}
+		else
+		{
+			$department 							= null;
+		}
+
+		$results 									= API::organisationbranch()->show($branch_id, $department);
 
 		$contents 									= json_decode($results);
 
@@ -128,11 +170,44 @@ class ChartController extends Controller {
 		}
 
 		$data 										= json_decode(json_encode($contents->data), true);
+		
+		$results_2 									= API::organisationchart()->show($branch_id, $id);
 
-		$this->layout->page_title 					= 'Edit "'.$data['name'].' "';
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisationchart()->show($branch_id, $id);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$chart 										= json_decode(json_encode($contents->data), true);
+
+		$results_3 									= API::organisationchart()->index(1, ['neighbor' => $chart['path'], ['path', 'asc']]);
+
+		$contents 									= json_decode($results_3);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$charts 									= json_decode(json_encode($contents->data), true);
+
+		$this->layout->page_title 					= 'Edit "'.$chart['name'].' "';
 		$this->layout->content 						= view('admin.pages.organisation.kantor.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->chart 				= $chart;
+		$this->layout->content->charts 				= $charts;
 		$this->layout->content->branch_id 			= $branch_id;
 
 		return $this->layout;

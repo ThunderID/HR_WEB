@@ -30,12 +30,11 @@
 					<li><small>CATEGORIES</small></li>
 					<li class="active"><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li><a href="{{route('hr.persons.documents.index', [$data['id']])}}">Dokumen </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
 					<li><small>DOKUMEN</small></li>
-					@foreach($data['documents'] as $key => $value)
+					@foreach($documents as $key => $value)
 						<li><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
 					@endforeach
 				</ul>					
@@ -45,9 +44,13 @@
 			<div class="hbox-column col-md-7" id="sidebar_mid">
 				<div class="margin-bottom-xxl">
 					<div class="pull-left width-3 clearfix hidden-xs">
-						<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+						@if($data['avatar']!='')
+							<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
+						@else
+							<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+						@endif
 					</div>
-					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['first_name'].' '.$data['middle_name'].' '.$data['last_name'].' '.$data['suffix_title']}}</h1>
+					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['full_name'].' '.$data['suffix_title']}}</h1>
 					<h5>
 						@if(isset($data['works'][0]))
 							{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}

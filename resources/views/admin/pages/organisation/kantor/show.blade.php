@@ -24,25 +24,11 @@
 
 		<!-- BEGIN CARD TILES -->
 		<div class="card-tiles">
-			<!-- BEGIN LEFTBAR -->
-			<div class="hbox-column col-md-2" id="sidebar_left">
-				<ul class="nav nav-pills nav-stacked">
-					<li><small>CATEGORIES</small></li>
-					<li @if(!Input::has('tag')) class="active" @endif><a href="{{route('hr.organisation.branches.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
-				</ul>
-				<ul class="nav nav-pills nav-stacked">
-					<li><small>DEPARTMENT</small></li>
-					@foreach($data['departments'] as $key => $value)
-						<li @if(Input::has('tag') && strtolower(Input::get('tag') == $value['tag'])) class="active" @endif><a href="{{route('hr.organisation.branches.show', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
-					@endforeach
-				</ul>					
-			</div>
+			@include('admin.helpers.company-leftbar')
 
 			<!-- BEGIN MIDDLE -->					
 			<div class="hbox-column col-md-7" id="sidebar_mid">
 				<div class="margin-bottom-xxl">
-					<div class="pull-left width-3 clearfix hidden-xs">
-					</div>
 					<h1 class="text-light no-margin">{{$data['name']}}</h1>
 					<h5>
 						{{$data['business_activities']}}
@@ -50,18 +36,13 @@
 					<h5>
 						{{$data['business_fields']}}
 					</h5>
+					<div class="pull-right clearfix hidden-xs">
+						<a type="button" class="btn btn-default" href="{{route('hr.persons.index', ['page' => 1, 'branch' => $data['name']])}}">Lihat Karyawan</a>
+					</div>
 					&nbsp;&nbsp;
 				</div>
-				<ul class="nav nav-tabs" data-toggle="tabs">
-					<li class="active"><a href="#details">Struktur</a></li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="details">
-						<div class="clearfix">&nbsp;</div>
-						@include('admin.pages.organisation.kantor.struktur.index')
-					</div>
-				</div>
-				<!-- END MIDDLE -->
+				
+				@yield('kantor.show')
 			</div>
 
 			<!-- BEGIN RIGHTBAR -->
@@ -69,11 +50,10 @@
 		</div>
 	</div>
 
-	<!-- BEGIN MODAL -->
 	<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{!! Form::open(array('route' => array('hr.organisation.charts.delete', $data['id']),'method' => 'POST')) !!}
+				{!! Form::open(array('route' => array('hr.organisation.branches.delete', $data['id']),'method' => 'POST')) !!}
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="simpleModalLabel">Hapus Data Kantor</h4>

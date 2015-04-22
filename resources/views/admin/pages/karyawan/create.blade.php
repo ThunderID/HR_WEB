@@ -59,8 +59,8 @@
 				<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
 					<li class="active"><a href="#profil">PROFIL</a></li>
 					<li><a href="#contact">KONTAK</a></li>
-					<li><a href="#document">DOKUMEN</a></li>
 					@if(!$data['id'])
+						<li><a href="#document">DOKUMEN</a></li>
 						<li><a href="#relation">KERABAT</a></li>
 						<li><a href="#work">PEKERJAAN</a></li>
 					@endif
@@ -610,7 +610,7 @@
 					<div class="form-group">
 						<select  id="work_status[<%=index%>]" name="work_status[<%=index%>]" class="form-control">
 							<option value=""></option>
-							<option value="contracts">Contracts</option>
+							<option value="contract">Contracts</option>
 							<option value="trial">Trial</option>
 							<option value="permanent">Permanent</option>
 							<option value="internship">Internship</option>
@@ -984,7 +984,7 @@
     						});
     					}
 
-    					$('#profile_picture_url').val(JSON.stringify(uploaded_files));
+    					$('#profile_picture_url').val(uploaded_files);
     				});
     			}
     		});	        

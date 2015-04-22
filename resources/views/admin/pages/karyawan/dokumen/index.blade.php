@@ -8,12 +8,18 @@
 
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
-			<div class="col-md-12 pt-5 ">
+			<div class="col-xs-12 pt-5 ">
 				<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i> Kembali
 				</a>
+				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
+					<i class="fa fa-trash"></i> Hapus
+				</a>
+				<a href="{{route('hr.persons.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-pencil"></i> Edit
+				</a>				
 			</div>
-		</div>	
+		</div>
 		<!-- END CARD HEADER -->
 		<div class="card-tiles">
 			<!-- BEGIN LEFTBAR -->
@@ -22,13 +28,16 @@
 					<li><small>CATEGORIES</small></li>
 					<li><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li class="active"><a href="{{route('hr.persons.documents.index', [$data['id']])}}">Dokumen </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
 					<li><small>DOKUMEN</small></li>
-					@foreach($data['documents'] as $key => $value)
-						<li><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
+					<?php $tag = null;?>
+					@foreach($documents as $key => $value)
+						@if($value['tag']!=$tag)
+							<li @if(Input::get('tag')==$value['tag']) class="active"@endif><a href="{{route('hr.persons.documents.index', [$data['id'],'page' => 1, 'q' => Input::get('q'), 'tag' => $value['tag']])}}">{{$value['tag']}} <small class="pull-right text-bold opacity-75"></small></a></li>
+							<?php $tag = $value['tag'];?>
+						@endif
 					@endforeach
 				</ul>	
 			</div>
@@ -37,9 +46,13 @@
 			<div class="hbox-column col-md-7" id="sidebar_mid">
 				<div class="margin-bottom-xxl">
 					<div class="pull-left width-3 clearfix hidden-xs">
+					@if($data['avatar']!='')
+							<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
+					@else
 						<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+					@endif
 					</div>
-					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['first_name'].' '.$data['middle_name'].' '.$data['last_name'].' '.$data['suffix_title']}}</h1>
+					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['full_name'].' '.$data['suffix_title']}}</h1>
 					<h5>
 						@if(isset($data['works'][0]))
 							{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
@@ -61,7 +74,7 @@
 						<ul class="list-unstyled" id="workList">
 							<li class="clearfix">
 								<div class="list-results pl-10" style="margin-bottom:0px;">
-									@foreach($documents as $key => $value)	
+									@foreach($person_documents as $key => $value)	
 										<div class="row">
 											<div class="col-xs-12">
 												<a href="{{route('hr.persons.documents.show', [$data['id'], $value['id']])}}">
@@ -77,7 +90,7 @@
 										</div><!--end .row -->
 									@endforeach
 								</div><!--end .hbox-md -->
-								@if(count($documents))
+								@if(count($person_documents))
 									@include('admin.helpers.pagination')
 								@else
 									<div class="row">
@@ -103,15 +116,17 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Dokumen</h4>
 				</div>
-				<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
+				<form class="form" role="form" action="{{route('hr.persons.documents.store', $data['id'])}}" method="post">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
 									<select id="docs_type" name="docs_type" class="form-control">
-										<option value=""></option>											
-										@foreach($docs as $key => $value)
-											<option value="{{$key}}">{{$value['name']}}</option>
+										<option value=""></option>								
+										@foreach($documents as $key => $value)
+											@if($value['tag']==Input::get('tag'))
+												<option value="{{$key}}">{{$value['name']}}</option>
+											@endif
 										@endforeach	
 									</select>									
 									<label for="docs_type">Jenis Dokumen</label>
@@ -134,7 +149,7 @@
 			</div>
 		</div>
 	</div>			
-	@foreach($docs as $key => $value)
+	@foreach($documents as $key => $value)
 		<script type="text/html" id="panel{{$key}}">
 			<input name="documents_id[{{$key}}]"type="hidden" value="{{$value['id']}}">											
 			<input name="documents[{{$key}}]"type="hidden" value="">

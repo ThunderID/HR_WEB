@@ -61,8 +61,8 @@
 								</div>
 								<div class="clearfix">
 									<div class="col-lg-12">
+										<span>{{$value['business_activities']}}</span><br/>
 										<span>{{$value['business_fields']}}</span>
-										<span>{{$value['business_activities']}}</span>
 									</div>
 								</div>
 								@if(count($value['contacts']))

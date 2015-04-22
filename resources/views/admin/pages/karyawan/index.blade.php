@@ -31,11 +31,11 @@
 				<div class="col-sm-4 col-md-3 col-lg-2">
 					<ul class="nav nav-pills nav-stacked">
 						<li><small>Cari</small></li>
-						<li @if(!Input::has('field')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::get('field')=='firstname') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'firstname'])}}">Nama Depan <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::get('field')=='lastname') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'lastname'])}}">Nama Akhir <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::get('field')=='prefixtitle') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'prefixtitle'])}}">Gelar Depan <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::get('field')=='suffixtitle') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'field' => 'suffixtitle'])}}">Gelar Belakang <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(!Input::has('branch')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li><small>Kantor</small></li>
+						@foreach($branches as $key => $value)
+							<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name']])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+						@endforeach
 					</ul>
 				</div><!--end .col -->
 				<!-- END SEARCH NAV -->
@@ -50,10 +50,10 @@
 								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
-								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc'])}}">Nama Depan [A-Z]</a></li>
-								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc'])}}">Nama Depan Z-A</a></li>
-								<li @if(Input::get('sort_lastname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'asc'])}}">Nama Belakang [A-Z]</a></li>
-								<li @if(Input::get('sort_lastname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'desc'])}}">Nama Belakang Z-A</a></li>
+								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q')])}}">Nama Depan [A-Z]</a></li>
+								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q')])}}">Nama Depan Z-A</a></li>
+								<li @if(Input::get('sort_lastname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q')])}}">Nama Belakang [A-Z]</a></li>
+								<li @if(Input::get('sort_lastname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q')])}}">Nama Belakang Z-A</a></li>
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->
@@ -66,7 +66,11 @@
 						<div class="col-xs-12 col-lg-6 hbox-xs">
 
 							<div class="hbox-column width-3">
-								<img class="img-circle img-responsive" alt="" @if($value['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+								@if($value['avatar']!='')
+									<img class="img-circle img-responsive" alt="" src="{{url($value['avatar'])}}"></img>
+								@else
+									<img class="img-circle img-responsive" alt="" @if($value['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+								@endif
 							</div><!--end .hbox-column -->
 							<div class="hbox-xs v-top height-4">
 								<div class="clearfix">

@@ -184,7 +184,7 @@ class CompanyController extends Controller {
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.branches.index');
+			return Redirect::route('hr.organisation.branches.index')->with('alert_success', 'Kantor '.$content->data->name.' Sudah Tersimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -214,7 +214,7 @@ class CompanyController extends Controller {
 
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= $contents->data->name;
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show.struktur.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 

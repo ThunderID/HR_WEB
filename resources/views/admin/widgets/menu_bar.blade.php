@@ -19,7 +19,7 @@
 
 	<div class="menubar-foot-panel">
 		<small class="no-linebreak hidden-folded">
-			<span class="opacity-75">Copyright &copy; 2014</span> <strong>Thunder.id</strong>
+			<span class="opacity-75">Copyright &copy; 2015</span> <strong>Thunder.ID</strong>
 		</small>
 	</div>
 </div><!--end .menubar-scroll-panel-->

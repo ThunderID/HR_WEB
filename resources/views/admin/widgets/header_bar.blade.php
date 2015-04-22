@@ -21,7 +21,9 @@
 		<ul class="header-nav header-nav-profile">
 			<li class="dropdown">
 				<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-					@if(Session::get('user.gender')=='male')
+					@if(Session::get('user.avatar')!='')
+						<img src="{{url(Session::get('user.avatar'))}}" alt="">
+					@elseif(Session::get('user.gender')=='male')
 						<img src="{{url('images/male.png')}}" alt="">
 					@else
 						<img src="{{url('images/female.png')}}" alt="">

@@ -9,11 +9,17 @@
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
-				<a href="{{route('hr.persons.show',[ $data['id']])}}" class="btn btn-flat ink-reaction pull-left">
+				<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i> Kembali
 				</a>
+				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
+					<i class="fa fa-trash"></i> Hapus
+				</a>
+				<a href="{{route('hr.persons.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-pencil"></i> Edit
+				</a>				
 			</div>
-		</div>				
+		</div>
 		<!-- END CARD HEADER -->
 		<div class="card-tiles">
 			<!-- BEGIN LEFTBAR -->
@@ -22,12 +28,11 @@
 					<li><small>CATEGORIES</small></li>
 					<li><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li class="active"><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li><a href="{{route('hr.persons.documents.index', [$data['id']])}}">Dokumen </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
 					<li><small>DOKUMEN</small></li>
-					@foreach($data['documents'] as $key => $value)
+					@foreach($documents as $key => $value)
 						<li><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
 					@endforeach
 				</ul>					
@@ -38,9 +43,13 @@
 			<div class="hbox-column col-md-7" id="sidebar_mid">
 				<div class="margin-bottom-xxl">
 					<div class="pull-left width-3 clearfix hidden-xs">
-						<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+						@if($data['avatar']!='')
+							<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
+						@else
+							<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+						@endif
 					</div>
-					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['first_name'].' '.$data['middle_name'].' '.$data['last_name'].' '.$data['suffix_title']}}</h1>
+					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['full_name'].' '.$data['suffix_title']}}</h1>
 					<h5>
 						@if(isset($data['works'][0]))
 							{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
@@ -67,15 +76,19 @@
 								@endif											
 								<div class="col-xs-12 col-lg-12 hbox-xs">
 									<div class="hbox-column width-3">
-										<img class="img-circle img-responsive" alt="" @if($value['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+										@if($value['avatar']!='')
+											<img class="img-circle img-responsive" alt="" src="{{url($value['avatar'])}}"></img>
+										@else
+											<img class="img-circle img-responsive" alt="" @if($value['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+										@endif
 									</div><!--end .hbox-column -->
 									<div class="hbox-xs v-top height-4">
 										<div class="clearfix">
 											<div class="col-lg-12 margin-bottom-lg">
-												<a class="btn pull-right ink-reaction btn-floating-action btn-danger del-modal" type="button" data-toggle="modal" data-target="#del_modal">
+												<a class="btn btn-sm pull-right ink-reaction btn-floating-action btn-danger del-modal" type="button" data-toggle="modal" data-target="#del_modal">
 													<i class="fa fa-trash"></i>
 												</a>
-												<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a>
+												<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['full_name']}}</a>
 											</div>
 										</div>
 
@@ -118,7 +131,7 @@
 	</div>
 
 	<!-- BEGIN MODAL -->
-
+	@if(count($relatives))
 	<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -136,7 +149,7 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div>
-
+	@endif
 	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content ">
@@ -247,21 +260,30 @@
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type="text" class="form-control" id="place_of_birth_relation" name="place_of_birth_relation">
-											<label for="place_of_birth_relation">Tempat Lahir</label>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="text" class="form-control" id="place_of_birth_relation" name="place_of_birth_relation">
+												<label for="place_of_birth_relation">Tempat Lahir</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="input-group" style="width:100%; text-align:left;">
+													<div class="input-group-content">
+														<input type="text" class="form-control date-pick" name="date_of_birth_relation" />
+														<label>Tanggal Lahir</label>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<div class="input-group" style="width:100%; text-align:left;">
-												<div class="input-group-content">
-													<input type="text" class="form-control date-pick" name="date_of_birth_relation" />
-													<label>Tanggal Lahir</label>
-												</div>
+
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="phone_relation" name="phone_relation">
+												<label for="phone_relation">Nomor Telepon</label>
 											</div>
 										</div>
 									</div>
