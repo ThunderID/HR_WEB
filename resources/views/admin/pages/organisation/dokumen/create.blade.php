@@ -21,7 +21,7 @@
 									<label for="name">Judul</label>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control input-lg" id="tag" name="tag" value="">
+									<input type="text" class="form-control input-lg" id="tag" name="tag" value="{{$data['tag']}}">
 									<label for="">Kategori</label>
 								</div>
 								<div class="form-group">
@@ -107,7 +107,7 @@
 						<div class="row p-20">
 							<div class="col-md-12">
 								<div class="form-group">
-									<textarea name="content_document" id="content_document" class="form-control" rows="8" placeholder=""></textarea>
+									<textarea name="template" id="content_document" class="form-control" rows="8" placeholder="">{{$data['template']}}</textarea>
 									<label for="textarea1">Isi Paragraph</label>
 								</div>
 							</div>

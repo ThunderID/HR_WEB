@@ -39,7 +39,7 @@
 				</div>
 				<h1 class="text-light no-margin">{{ucwords($data['name'])}}</h1>
 				<h5>
-					{{($data['persons'][0]['count'])}} Dokumen
+					{{(isset($data['persons'][0]['count']) ? $data['persons'][0]['count'].' Dokumen' : '')}}
 				</h5>
 				&nbsp;&nbsp;
 				@if(is_null($persons))

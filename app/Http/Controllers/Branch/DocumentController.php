@@ -83,7 +83,7 @@ class DocumentController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['document'] 							= Input::only('name','required');
+		$input['document'] 							= Input::only('name','required', 'tag', 'template');
 		$input['document']['is_required']			= false;
 
 		if(Input::has('required'))

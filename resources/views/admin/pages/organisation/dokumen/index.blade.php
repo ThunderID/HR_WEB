@@ -73,7 +73,7 @@
 									<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
 									<span class="pull-left">
 										<span class="text-bold">{{ucwords($value['name'])}}</span><br>
-										<span class="opacity-50">{{($value['persons'][0]['count'])}} Dokumen</span>
+										<span class="opacity-50">{{(isset($value['persons'][0]['count']) ? $value['persons'][0]['count'].' Dokumen' : '')}} </span>
 									</span>
 								</p>
 								<div>
