@@ -17,6 +17,11 @@ class PersonController extends Controller {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['CurrentContact' => 'updated_at', 'CurrentWork' => '' ,'checkwork' => 'active'];
+		if(Input::has('gender'))
+		{
+			$search['gender']						= Input::get('gender');			
+		}
+
 		if(Input::has('branch'))
 		{
 			$search['CurrentWorkOn']				= Input::get('branch');			
@@ -142,7 +147,7 @@ class PersonController extends Controller {
 			}
 			$input['person']['password']			= Input::get('password');
 		}
-		
+
 		if(Input::has('work_company'))
 		{
 			foreach (Input::get('work_company') as $key => $value) 
