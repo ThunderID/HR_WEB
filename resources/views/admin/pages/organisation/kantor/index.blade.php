@@ -33,9 +33,7 @@
 		<!-- BEGIN SEARCH RESULTS -->
 		<div class="card-body">
 			<div class="row">
-
 				<div class="col-sm-12">
-
 					<!-- BEGIN SEARCH RESULTS LIST -->
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">Total data <strong>{{$paginator->total_item}}</strong></span>

@@ -34,17 +34,20 @@
 			<div class="row">
 
 				<!-- BEGIN SEARCH NAV -->
-				<div class="col-sm-4 col-md-3 col-lg-2">
+				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary">Tampilkan</li>
+						<li class="text-primary">TAMPILKAN</li>
 						<li @if(!Input::has('branch')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
+					</ul>
+					<br/>
+					<ul class="nav nav-pills nav-stacked">
 						@if(!Input::has('branch'))
-							<li><small>Kantor</small></li>
+							<li class="text-primary" style="text-transform: uppercase;">KANTOR</li>
 							@foreach($branches as $key => $value)
 								<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name']])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
 							@endforeach
 						@else
-							<li class="text-primary">{{Input::get('branch')}}</li>
+							<li class="text-primary" style="text-transform: uppercase;">{{Input::get('branch')}}</li>
 							<li @if(!Input::has('tag')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => Input::get('branch')])}}">Semua Department <small class="pull-right text-bold opacity-75"></small></a></li>
 							@foreach($branches as $key => $value)
 								@foreach($value['departments'] as $key2 => $value2)
