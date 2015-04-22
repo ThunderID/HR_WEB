@@ -7,18 +7,24 @@
 	<div class="card">
 		<!-- BEGIN SEARCH HEADER -->
 		<div class="card-head style-primary">
-			<div class="tools pull-left">
-				<form class="navbar-search" role="search">
-					{!! Form::open(['route' => ('hr.persons.index'), 'method' => 'get']) !!}
-					<div class="form-group">
-						<input type="text" class="form-control" name="q" placeholder="Ketik kata kunci">
-					</div>
-					<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
-					{!! Form::close() !!}
-				</form>
+			<div class="col-md-6 col-xs-6" style="padding-left:0px; margin-top: 3px">
+				<div class="tools pull-left">
+					<form class="navbar-search" role="search">
+						{!! Form::open(['route' => ('hr.persons.index'), 'method' => 'get']) !!}
+						<div class="form-group">
+							<input type="text" class="form-control" name="q" placeholder="Ketik kata kunci">
+						</div>
+						<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+						{!! Form::close() !!}
+					</form>
+				</div>
 			</div>
-			<div class="tools">
-				<a class="btn btn-floating-action btn-default-light" href="{{route('hr.persons.create') }}"><i class="fa fa-plus"></i></a>
+			<div class="col-md-6 col-xs-6 mt-10" style="padding-right:0px; ">
+				<div class="tools pull-right">
+					<a class="btn btn-flat ink-reaction" href="{{route('hr.persons.create') }}">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Tambah
+					</a>
+				</div>
 			</div>
 		</div><!--end .card-head -->
 		<!-- END SEARCH HEADER -->
