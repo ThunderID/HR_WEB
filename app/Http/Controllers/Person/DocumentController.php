@@ -67,7 +67,7 @@ class DocumentController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.dokumen.index');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.dokumen.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->documents 			= $documents;
@@ -161,7 +161,7 @@ class DocumentController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= ucwords($contents->data->nick_name);
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.dokumen.show');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.dokumen.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->person_document 	= $person_document;
@@ -172,17 +172,31 @@ class DocumentController extends Controller {
 
 	function anyDelete($personid, $id)
 	{
-		$results 									= API::person()->documentdestroy($personid, $id);
+		$username 					= Session::get('user.name');
+		$password 					= Input::get('password');
 
-		$contents 									= json_decode($results);
+		$results 					= API::person()->authenticate($username, $password);
 
-		if (!$contents->meta->success)
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
 		{
-			return Redirect::back()->withErrors($contents->meta->errors);
+			$results 									= API::person()->documentdestroy($personid, $id);
+
+			$contents 									= json_decode($results);
+
+			if (!$contents->meta->success)
+			{
+				return Redirect::route('hr.persons.documents.show', [$personid, $id])->withErrors($contents->meta->errors);
+			}
+			else
+			{
+				return Redirect::route('hr.persons.documents.index', [$personid])->with('alert_success', 'Dokumen sudah dihapus');
+			}
 		}
 		else
 		{
-			return Redirect::route('hr.persons.documents.index', [$personid])->with('alert_success', 'Dokumen sudah dihapus');
+			return Redirect::route('hr.persons.documents.index', [$personid])->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 }

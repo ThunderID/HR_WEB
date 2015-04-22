@@ -401,7 +401,7 @@ class PersonController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.profile.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->documents 			= $documents;

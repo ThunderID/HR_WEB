@@ -58,7 +58,7 @@ class WorkController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.karir.index');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.karir.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->work 				= null;
@@ -100,7 +100,7 @@ class WorkController extends Controller {
 				$content 							= json_decode($results);
 				if($content->meta->success)
 				{
-					return Redirect::route('hr.persons.works.index', ['id' => $person_id]);
+					return Redirect::route('hr.persons.works.index', ['id' => $person_id])->with('alert_success', 'Pekerjaan sudah disimpan');
 				}
 
 				return Redirect::back()->withErrors($content->meta->errors)->withInput();

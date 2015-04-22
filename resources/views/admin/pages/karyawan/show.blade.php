@@ -24,21 +24,7 @@
 
 		<!-- BEGIN CARD TILES -->
 		<div class="card-tiles">
-			<!-- BEGIN LEFTBAR -->
-			<div class="hbox-column col-md-2" id="sidebar_left">
-				<ul class="nav nav-pills nav-stacked">
-					<li><small>CATEGORIES</small></li>
-					<li class="active"><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
-				</ul>
-				<ul class="nav nav-pills nav-stacked">
-					<li><small>DOKUMEN</small></li>
-					@foreach($documents as $key => $value)
-						<li><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
-					@endforeach
-				</ul>					
-			</div>
+			@include('admin.helpers.person-leftbar')
 
 			<!-- BEGIN MIDDLE -->					
 			<div class="hbox-column col-md-7" id="sidebar_mid">
@@ -50,7 +36,7 @@
 							<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
 						@endif
 					</div>
-					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['full_name'].' '.$data['suffix_title']}}</h1>
+					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['full_name'].', '.$data['suffix_title']}}</h1>
 					<h5>
 						@if(isset($data['works'][0]))
 							{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
@@ -58,39 +44,7 @@
 					</h5>
 					&nbsp;&nbsp;
 				</div>
-				<ul class="nav nav-tabs" data-toggle="tabs">
-					<li class="active"><a href="#details">Karir</a></li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="details">
-						<br/>
-						<ul class="timeline collapse-lg timeline-hairline no-shadow">
-							@foreach($data['experiences'] as $key => $value)
-								@if($key==0)
-									<li class="timeline-inverted">
-								@else
-									<li>
-								@endif
-									<div class="timeline-circ style-accent"></div>
-									<div class="timeline-entry">
-										<div class="card style-default-bright">
-											<div class="card-body small-padding">
-												<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['pivot']['start']))}} - @if($value['pivot']['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['pivot']['end']))}} @endif</small>
-												<p>
-													<span class="text-lg text-medium">{{$value['name']}} ({{$value['pivot']['status']}})</span><br/>
-													<span class="text-lg text-light">{{$value['branch']['name']}}</span>
-												</p>
-												<p>
-													{{$value['pivot']['reason_end_job']}}
-												</p>
-											</div>
-										</div>
-									</div>
-								</li>
-							@endforeach
-						</ul>
-					</div>
-				</div>
+				@yield('karyawan.show')
 				<!-- END MIDDLE -->
 			</div>
 
