@@ -35,8 +35,9 @@ class PasswordController extends Controller {
 	{
 		$username 					= Session::get('user.name');
 		$password 					= Input::get('old_password');
-		$input						= Input::only('password', 'password_confirmation');
-		$validator 					= Validator::make($input, ['password' => 'required|confirmed|min:8']);
+		$input['person']			= Input::only('password', 'password_confirmation');
+		$input['person']['id']		= Session::get('loggedUser');
+		$validator 					= Validator::make($input['person'], ['password' => 'required|confirmed|min:8']);
 
 		if (!$validator->passes())
 		{
@@ -49,7 +50,6 @@ class PasswordController extends Controller {
 
 		if($content->meta->success)
 		{
-
 			$results 				= API::person()->store(Session::get('loggedUser'), $input);
 
 			$content 				= json_decode($results);

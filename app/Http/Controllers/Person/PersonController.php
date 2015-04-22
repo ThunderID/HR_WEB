@@ -140,9 +140,9 @@ class PersonController extends Controller {
 			{
 				return Redirect::back()->withErrors($validator->errors())->withInput();
 			}
-			$input['person']['passowrd']			= Input::get('password');
+			$input['person']['password']			= Input::get('password');
 		}
-
+		
 		if(Input::has('work_company'))
 		{
 			foreach (Input::get('work_company') as $key => $value) 
@@ -363,7 +363,7 @@ class PersonController extends Controller {
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.persons.index');
+			return Redirect::route('hr.persons.index')->with('alert_success', 'Data Karyawan sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();

@@ -10,7 +10,6 @@
 						<br/><br/>
 						<form class="form floating-label" action="{{ route('hr.password.post') }}" accept-charset="utf-8" method="post">
 							<input type='hidden' name='_token' value="{{csrf_token()}}">
-							@include('admin.widgets.alerts')
 							<div class="form-group">
 								<input type="password" class="form-control" id="old_password" name="old_password">
 								<label for="old_password">Password Lama</label>
