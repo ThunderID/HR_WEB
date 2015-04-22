@@ -59,7 +59,7 @@ class ChartController extends Controller {
 		$charts 									= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= $contents_2->data->name;
+		$this->layout->page_title 					= $data['name'];
 		$this->layout->content 						= view('admin.pages.organisation.kantor.show.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;

@@ -1,6 +1,6 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(($controller_name))}}</li>
+	<li class='active'>{{ucwords('Kantor')}}</li>
 @stop
 
 @section('content')
@@ -10,14 +10,17 @@
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
 				<a href="{{route('hr.organisation.branches.index')}}" class="btn btn-flat ink-reaction pull-left">
-					<i class="md md-reply"></i> Kembali
+					<i class="md md-reply"></i> 
 				</a>
-				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
-					<i class="fa fa-trash"></i> Hapus
+				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $data['name']])}}" class="btn btn-flat mt-5 ink-reaction pull-right">
+					<i class="fa fa-users fa-lg"></i> 
 				</a>
-				<a href="{{route('hr.organisation.branches.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
-					<i class="fa fa-pencil"></i> Edit
-				</a>				
+				<a href="{{route('hr.organisation.branches.edit', [$data['id']])}}" class="btn btn-flat mt-5 ink-reaction pull-right">
+					<i class="fa fa-pencil fa-lg"></i> 
+				</a>
+				<a class="btn btn-flat mt-5 ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
+					<i class="fa fa-trash fa-lg"></i> 
+				</a>
 			</div>
 		</div>
 		<!-- END CARD HEADER -->
@@ -36,9 +39,6 @@
 					<h5>
 						{{$data['business_fields']}}
 					</h5>
-					<div class="pull-right clearfix hidden-xs">
-						<a type="button" class="btn btn-default" href="{{route('hr.persons.index', ['page' => 1, 'branch' => $data['name']])}}">Lihat Karyawan</a>
-					</div>
 					&nbsp;&nbsp;
 				</div>
 				

@@ -6,7 +6,7 @@
 	<div class="clearfix">&nbsp;</div>
 	@foreach($data['charts'] as $key => $value)
 		<div class="row">
-			<div class="col-sm-9">@for($i=1;$i<count(explode(',',$value['path']));$i++)&nbsp;&nbsp;&nbsp;@endfor <i class="fa fa-chevron-circle-right"></i>&nbsp;&nbsp;{{$value['name']}}</div>
+			<div class="col-sm-10">@for($i=1;$i<count(explode(',',$value['path']));$i++)&nbsp;&nbsp;&nbsp;@endfor <i class="fa fa-chevron-circle-right"></i>&nbsp;&nbsp;{{$value['name']}}</div>
 			<div class="text-right col-sm-1">
 				<a href="#" data-toggle="modal" data-target="#del_modal2">
 					<i class="fa fa-trash"></i>
@@ -15,11 +15,6 @@
 			<div class="text-right col-sm-1">
 				<a class="btn_edit" href="{{route('hr.organisation.charts.show', [$data['id'], $value['id'], 'tag' => $value['tag']])}}">
 					<i class="fa fa-pencil"></i>
-				</a>
-			</div>
-			<div class="text-right col-sm-1">
-				<a href="{{route('hr.organisation.charts.show', [$data['id'], $value['id'], 'tag' => $value['tag']])}}">
-					<i class="fa fa-eye"></i>
 				</a>
 			</div>
 		</div>
@@ -71,7 +66,7 @@
 									<select class="form-control" id="path" name="path">
 										<option value=""></option>
 										@foreach($data['charts'] as $key => $value)
-											<option value="{{$value['path']}}">{{$value['name']}} di {{$data['name']}}</option>
+											<option value="{{$value['path']}}">{{$value['name']}}</option>
 										@endforeach
 									</select>
 									<label for="path">Atasan</label>
