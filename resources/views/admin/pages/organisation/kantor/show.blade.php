@@ -10,16 +10,16 @@
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
 				<a href="{{route('hr.organisation.branches.index')}}" class="btn btn-flat ink-reaction pull-left">
-					<i class="md md-reply"></i> 
+					<i class="md md-reply"></i>&nbsp;Kembali
 				</a>
-				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $data['name']])}}" class="btn btn-flat mt-5 ink-reaction pull-right">
-					<i class="fa fa-users fa-lg"></i> 
+				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
+					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
-				<a href="{{route('hr.organisation.branches.edit', [$data['id']])}}" class="btn btn-flat mt-5 ink-reaction pull-right">
-					<i class="fa fa-pencil fa-lg"></i> 
+				<a href="{{route('hr.organisation.branches.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
-				<a class="btn btn-flat mt-5 ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
-					<i class="fa fa-trash fa-lg"></i> 
+				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-users"></i>&nbsp;Karyawan
 				</a>
 			</div>
 		</div>
