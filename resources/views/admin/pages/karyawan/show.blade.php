@@ -27,7 +27,7 @@
 			<div class="hbox-column col-md-2" id="sidebar_left">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary" style="text-transform: uppercase;">CATEGORIES</li>
-					<li @if(!Input::has('tag') && isset($relatives) && isset($works)) class="active" @endif><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					<li @if(!Input::has('tag') && !isset($relatives) && !isset($works)) class="active" @endif><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li @if(isset($relatives)) class="active" @endif><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li @if(isset($works)) class="active" @endif><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
