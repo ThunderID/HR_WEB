@@ -60,7 +60,7 @@
 
 					<!-- BEGIN SEARCH RESULTS LIST -->
 					<div class="margin-bottom-xxl">
-						<span class="text-light text-lg">Total data <strong>{{$paginator->total_item}}</strong></span>
+						<span class="text-light text-lg">@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif</span>
 						<div class="btn-group btn-group-sm pull-right">
 							<button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
 								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
@@ -124,12 +124,6 @@
 			</div>
 			@if(count($data))
 				@include('admin.helpers.pagination')
-			@else
-				<div class="row">
-					<div class="col-sm-12 text-center">
-						<p>Tidak ada data</p>
-					</div>
-				</div>
 			@endif
 		</div>
 	</div>

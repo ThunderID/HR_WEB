@@ -27,7 +27,7 @@
 			<!-- BEGIN LEFTBAR -->
 			<div class="hbox-column col-md-2" id="sidebar_left">
 				<ul class="nav nav-pills nav-stacked">
-					<li><small>CATEGORIES</small></li>
+					<li class="text-primary">CATEGORIES</li>
 					<li @if(is_null($persons)) class="active" @endif><a href="{{route('hr.documents.show', [$data['id']])}}">Detail  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li @if(($persons)) class="active" @endif><a href="{{route('hr.document.persons.index', [$data['id'], 'page' => 1])}}">Karyawan </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
@@ -63,7 +63,7 @@
 				</div>
 				@else
 				<ul class="nav nav-tabs" data-toggle="tabs">
-					<li class="active"><a href="#details">Dokumen</a></li>
+					<li class="active"><a href="#details">Karyawan</a></li>
 				</ul>
 				<div class="page-header no-border holder" style="margin-top:0px;">
 				</div>

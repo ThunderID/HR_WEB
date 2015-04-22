@@ -118,3 +118,7 @@
 		});	
     </script>
 @stop
+
+@section('Karyawan-active')
+	active
+@stop

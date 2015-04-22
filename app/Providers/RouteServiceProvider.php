@@ -106,8 +106,8 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.dashboard.overview'							=> 'dashboard-is_read',
 							'hr.dashboard.widgets.delete'					=> 'dashboard-is_create',
 							'hr.dashboard.widgets.store'					=> 'dashboard-is_create',
-							'hr.password.get'								=> 'password-is_update',
-							'hr.password.post'								=> 'password-is_update',
+							'hr.password.get'								=> 'person-is_update',
+							'hr.password.post'								=> 'person-is_update',
 							
 							'hr.organisation.branches.index'				=> 'branch-is_read',
 							'hr.organisation.branches.show'					=> 'branch-is_read',

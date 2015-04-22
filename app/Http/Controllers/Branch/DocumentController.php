@@ -41,12 +41,28 @@ class DocumentController extends Controller {
 		$data 										= json_decode(json_encode($contents->data), true);
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
+		$search 									= ['organisationid' => Session::get('user.organisation')];
+
+		$sort 										= ['tag' => 'asc'];
+
+		$results_2 									= API::document()->index($page, $search, $sort);
+
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$tags 										= json_decode(json_encode($contents_2->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper(($this->controller_name));
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->tags 				= $tags;
 		$this->layout->content->paginator 			= $paginator;
 
 		return $this->layout;
