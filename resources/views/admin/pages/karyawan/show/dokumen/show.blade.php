@@ -32,7 +32,7 @@
 					<p>Apakah Anda yakin akan menghapus data dokumen? Silahkan masukkan password Anda untuk konfirmasi.</p>
 					<div class="row">
 						<div class="form-group">
-							<div class="col-sm-3">
+							<div class="col-sm-3"> 
 								<label for="password1" class="control-label">Password</label>
 							</div>
 							<div class="col-sm-9">
