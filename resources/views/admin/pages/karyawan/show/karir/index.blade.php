@@ -36,8 +36,8 @@
 											
 											{{$value['reason_end_job']}}
 										</p>
-										<a data-toggle="modal" data-target="#edit_modal{{$key}}" class="btn pull-right ink-reaction btn-primary" type="button">
-											<i class="fa fa-pencil"></i>&nbsp;Edit
+										<a data-toggle="modal" data-target="#edit_modal{{$key}}" class="btn pull-right ink-reaction btn-flat" type="button">
+											<i class="fa fa-pencil"></i>Edit
 										</a>											
 									</div>
 								</div>

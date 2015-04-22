@@ -24,7 +24,7 @@
 						<div class="hbox-xs v-top height-4">
 							<div class="clearfix">
 								<div class="col-lg-12 margin-bottom-lg">
-									<a class="btn pull-right ink-reaction btn-floating-action btn-danger del-modal" type="button" data-toggle="modal" data-target="#del_modal_2_{{$value['id']}}">
+									<a class="btn pull-right ink-reaction btn-icon-toggle del-modal" type="button" data-toggle="modal" data-target="#del_modal_2_{{$value['id']}}">
 										<i class="fa fa-trash"></i>
 									</a>
 									<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a>
@@ -48,40 +48,7 @@
 							@endif
 						</div>
 					</div>
-
-					<!-- BEGIN MODAL -->
-					<div class="modal fade" id="del_modal_2_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal_2_{{$value['id']}}" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								{!! Form::open(array('route' => array('hr.persons.relatives.delete',  $data['id'],$value['relative_id']),'method' => 'POST')) !!}
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="simpleModalLabel">Hapus Data Relasi</h4>
-								</div>
-								<div class="modal-body">
-									<p>Apakah Anda yakin akan menghapus data relasi? Silahkan masukkan password Anda untuk konfirmasi.</p>
-									<div class="row">
-										<div class="form-group">
-											<div class="col-sm-3">
-												<label for="password1" class="control-label">Password</label>
-											</div>
-											<div class="col-sm-9">
-												<input type="password" name="password" id="password" class="form-control" placeholder="Password">
-											</div>
-										</div>					
-									</div>
-								</div>
-								<div class="modal-footer">
-									<p>{!! Form::hidden('from_confirm_form', 'Yes') !!}</p>
-									<a type="button" class="btn btn-default" data-dismiss="modal">Cancel</a>
-									<button type="submit" type="button" class="btn btn-danger">Hapus</button>
-								</div>
-								{!! Form::close() !!}
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</div>		
-				@endforeach
-
+				@endforeach	
 			</div>
 			@if(count($relatives))
 				@include('admin.helpers.pagination')
@@ -95,6 +62,7 @@
 		</div>
 	</div>
 
+	<!-- BEGIN MODAL -->
 	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content ">
@@ -246,6 +214,38 @@
 		</div>
 	</div>
 
+	@foreach($relatives as $key => $value)	
+	<div class="modal fade" id="del_modal_2_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal_2_{{$value['id']}}" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{!! Form::open(array('route' => array('hr.persons.relatives.delete',  $data['id'],$value['relative_id']),'method' => 'POST')) !!}
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="simpleModalLabel">Hapus Data Relasi</h4>
+				</div>
+				<div class="modal-body">
+					<p>Apakah Anda yakin akan menghapus data relasi? Silahkan masukkan password Anda untuk konfirmasi.</p>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="password1" class="control-label">Password</label>
+							</div>
+							<div class="col-sm-9">
+								<input type="password" name="password" id="password" class="form-control" placeholder="Password">
+							</div>
+						</div>					
+					</div>
+				</div>
+				<div class="modal-footer">
+					<p>{!! Form::hidden('from_confirm_form', 'Yes') !!}</p>
+					<a type="button" class="btn btn-default" data-dismiss="modal">Cancel</a>
+					<button type="submit" type="button" class="btn btn-danger">Hapus</button>
+				</div>
+				{!! Form::close() !!}
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>	
+	@endforeach
 @stop
 
 

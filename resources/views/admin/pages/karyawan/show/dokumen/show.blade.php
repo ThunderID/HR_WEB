@@ -3,19 +3,22 @@
 	<ul class="nav nav-tabs" data-toggle="tabs">
 		<li class="active"><a href="#details">{{$person_document['document']['name']}}</a></li>
 	</ul>
-	<div class="tab-content">
+	<div class="tab-content" style="padding-top:0px;">
 		<div class="tab-pane active" id="details">
-			<a class="btn btn-sm pull-right ink-reaction btn-floating-action btn-danger del_modal_2 mt-5" type="button" data-toggle="modal" data-target="#del_modal_2">
-				<i class="fa fa-trash"></i>
-			</a>
 			<br/>
-			<br/>
+			<br/>	
 			@foreach($person_document['details'] as $key => $value)
-				<div class="row">
-					<div class="col-sm-3"><h5 class="text-bold">{{ucwords($value['template']['field'])}}</h5></div>
-					<div class="col-sm-9"><h5 class="text-light">@if($value['numeric']!=0) {{$value['numeric']}} @else {{$value['text']}} @endif</h5></div>
+			<div class="row ">
+				<div class="col-md-12">
+					<div class="col-md-4"><h5 class="text-bold">{{ucwords($value['template']['field'])}}</h5></div>
+					<div class="col-md-8"><h5 class="text-light">@if($value['numeric']!=0) {{$value['numeric']}} @else {{$value['text']}} @endif</h5></div>
 				</div>
+			</div>
 			@endforeach
+			<br/>
+			<a class="btn pull-right ink-reaction btn-flat btn-danger del_modal_2 mt-5" type="button" data-toggle="modal" data-target="#del_modal_2">
+				<i class="fa fa-trash"></i>&nbsp;HAPUS
+			</a>
 		</div>
 	</div>
 
