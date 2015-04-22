@@ -30,7 +30,7 @@
 				<!-- BEGIN SEARCH NAV -->
 				<div class="col-sm-4 col-md-3 col-lg-2">
 					<ul class="nav nav-pills nav-stacked">
-						<li><small>Cari</small></li>
+						<li class="text-primary">Tampilkan</li>
 						<li @if(!Input::has('branch')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
 						@if(!Input::has('branch'))
 							<li><small>Kantor</small></li>
@@ -38,7 +38,7 @@
 								<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name']])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
 							@endforeach
 						@else
-							<li><small>{{Input::get('branch')}}</small></li>
+							<li class="text-primary">{{Input::get('branch')}}</li>
 							<li @if(!Input::has('tag')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => Input::get('branch')])}}">Semua Department <small class="pull-right text-bold opacity-75"></small></a></li>
 							@foreach($branches as $key => $value)
 								@foreach($value['departments'] as $key2 => $value2)
