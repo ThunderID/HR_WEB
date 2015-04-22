@@ -246,25 +246,25 @@
 												</label>
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="text" class="form-control" id="place_of_birth_relation" name="place_of_birth_relation">
-												<label for="place_of_birth_relation">Tempat Lahir</label>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input type="text" class="form-control" id="place_of_birth_relation" name="place_of_birth_relation">
+													<label for="place_of_birth_relation">Tempat Lahir</label>
+												</div>
 											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<div class="input-group" style="width:100%; text-align:left;">
-													<div class="input-group-content">
-														<input type="text" class="form-control date-pick" name="date_of_birth_relation" />
-														<label>Tanggal Lahir</label>
+											<div class="col-md-6">
+												<div class="form-group">
+													<div class="input-group" style="width:100%; text-align:left;">
+														<div class="input-group-content">
+															<input type="text" class="form-control date-pick" name="date_of_birth_relation" />
+															<label>Tanggal Lahir</label>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
+									</div>										
 								</div>									
 							</div>
 						</div>
