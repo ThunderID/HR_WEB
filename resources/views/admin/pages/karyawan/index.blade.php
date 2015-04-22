@@ -32,10 +32,20 @@
 					<ul class="nav nav-pills nav-stacked">
 						<li><small>Cari</small></li>
 						<li @if(!Input::has('branch')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li><small>Kantor</small></li>
-						@foreach($branches as $key => $value)
-							<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name']])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
-						@endforeach
+						@if(!Input::has('branch'))
+							<li><small>Kantor</small></li>
+							@foreach($branches as $key => $value)
+								<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name']])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+							@endforeach
+						@else
+							<li><small>{{Input::get('branch')}}</small></li>
+							<li @if(!Input::has('tag')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => Input::get('branch')])}}">Semua Department <small class="pull-right text-bold opacity-75"></small></a></li>
+							@foreach($branches as $key => $value)
+								@foreach($value['departments'] as $key2 => $value2)
+									<li @if(Input::has('tag') && ((Input::get('tag') == ($value2['tag'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name'], 'tag' => $value2['tag']])}}">{{$value2['tag']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+								@endforeach
+							@endforeach
+						@endif
 					</ul>
 				</div><!--end .col -->
 				<!-- END SEARCH NAV -->
@@ -50,10 +60,10 @@
 								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
-								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q')])}}">Nama Depan [A-Z]</a></li>
-								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q')])}}">Nama Depan Z-A</a></li>
-								<li @if(Input::get('sort_lastname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q')])}}">Nama Belakang [A-Z]</a></li>
-								<li @if(Input::get('sort_lastname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q')])}}">Nama Belakang Z-A</a></li>
+								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag')])}}">Nama Depan [A-Z]</a></li>
+								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag')])}}">Nama Depan Z-A</a></li>
+								<li @if(Input::get('sort_lastname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag')])}}">Nama Belakang [A-Z]</a></li>
+								<li @if(Input::get('sort_lastname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_lastname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag')])}}">Nama Belakang Z-A</a></li>
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->

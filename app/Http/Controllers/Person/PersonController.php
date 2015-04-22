@@ -25,6 +25,10 @@ class PersonController extends Controller {
 		{
 			$search['fullname']						= Input::get('q');			
 		}
+		if(Input::has('tag'))
+		{
+			$search['CurrentWorkOn']				= [Input::get('branch'), Input::get('tag')];			
+		}
 
 		if(Input::has('sort_firstname'))
 		{
@@ -49,11 +53,17 @@ class PersonController extends Controller {
 		}
 
 		$data 										= json_decode(json_encode($contents->data), true);
+
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$search										= ['organisationid' => Session::get('user.organisation')];
-	
 		
+		if(Input::has('branch'))
+		{
+			$search['name']							= Input::get('branch');
+			$search['DisplayDepartments']			= '';
+		}
+
 		$sort 										= ['created_at' => 'asc'];			
 		
 		$results_2 									= API::organisationbranch()->index(1, $search, $sort);
