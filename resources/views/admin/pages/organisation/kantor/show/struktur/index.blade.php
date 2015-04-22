@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-sm-10">@for($i=1;$i<count(explode(',',$value['path']));$i++)&nbsp;&nbsp;&nbsp;@endfor <i class="fa fa-chevron-circle-right"></i>&nbsp;&nbsp;{{$value['name']}}</div>
 			<div class="text-right col-sm-1">
-				<a href="#" data-toggle="modal" data-target="#del_modal2">
+				<a href="#" data-toggle="modal" data-target="#del_modal2_{{$value['id']}}">
 					<i class="fa fa-trash"></i>
 				</a>
 			</div>
@@ -18,12 +18,11 @@
 				</a>
 			</div>
 		</div>
-	@endforeach
 
-	<div class="modal fade" id="del_modal2" tabindex="-1" role="dialog" aria-labelledby="del_modal2" aria-hidden="true">
+	<div class="modal fade" id="del_modal2_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal2_{{$value['id']}}" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{!! Form::open(array('route' => array('hr.organisation.branches.delete', $data['id']),'method' => 'POST')) !!}
+				{!! Form::open(array('route' => array('hr.organisation.charts.delete', $data['id'], $value['id']),'method' => 'POST')) !!}
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="simpleModalLabel">Hapus Data struktur</h4>
@@ -49,7 +48,8 @@
 				{!! Form::close() !!}
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
-	</div>		
+	</div>
+	@endforeach
 
 	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
 		<div class="modal-dialog modal-lg">

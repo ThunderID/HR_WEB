@@ -220,15 +220,30 @@ class ChartController extends Controller {
 
 	function anyDelete($branch_id, $id)
 	{
-		$results 									= API::organisationchart()->destroy($branch_id, $id);
+		// ---------------------- LOAD DATA ----------------------
+		$username 					= Session::get('user.name');
+		$password 					= Input::get('password');
 
-		$content 									= json_decode($results);
-		
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.branches.show', [$branch_id]);
-		}
+			$results 				= API::organisationchart()->destroy($branch_id, $id);
 
-		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+			$content 				= json_decode($results);
+			
+			if($content->meta->success)
+			{
+				return Redirect::route('hr.organisation.branches.show', [$branch_id])->with('alert_success', 'Struktur "' . $content->data->name. '" sudah dihapus');
+			}
+
+			return Redirect::route('hr.organisation.branches.show', ['id' => $branch_id])->withErrors($content->meta->errors);
+		}
+		else
+		{
+			return Redirect::route('hr.organisation.branches.show', ['id' => $branch_id])->withErrors(['Password yang Anda masukkan tidak sah!']);
+		}
 	}
 }
