@@ -131,7 +131,7 @@ class PersonController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['person'] 							= Input::only('prefix_title', 'name', 'middle_name', 'last_name', 'suffix_title', 'nick_name', 'gender', 'place_of_birth', 'username');
+		$input['person'] 							= Input::only('prefix_title', 'name', 'middle_name', 'last_name', 'suffix_title', 'name', 'gender', 'place_of_birth', 'username');
 		$input['person']['name']					= Input::get('name').' '.Input::get('middle_name').' '.Input::get('last_name');
 
 		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
@@ -191,7 +191,7 @@ class PersonController extends Controller {
 						$relate['last_name'] 			= Input::get('last_name_relation')[$key];
 						$relate['full_name']			= $relate['name'].' '.$relate['middle_name'].' '.$relate['last_name'];
 						$relate['suffix_title'] 		= Input::get('suffix_title_relation')[$key];
-						$relate['nick_name'] 			= Input::get('nick_name_relation')[$key];
+						$relate['name'] 			= Input::get('name_relation')[$key];
 						$relate['gender'] 				= Input::get('gender_relation')[$key];
 						$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth_relation')[$key]));
 						$relate['place_of_birth'] 		= Input::get('place_of_birth_relation')[$key];
@@ -406,7 +406,7 @@ class PersonController extends Controller {
 		$documents 									= json_decode(json_encode($contents_2->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper($contents->data->name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.profile.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
@@ -442,7 +442,7 @@ class PersonController extends Controller {
 		$data 										= json_decode(json_encode($content->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper('Edit "'.$content->data->nick_name.'"');
+		$this->layout->page_title 					= strtoupper('Edit "'.$content->data->name.'"');
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;

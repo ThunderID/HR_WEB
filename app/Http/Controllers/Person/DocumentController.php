@@ -65,7 +65,7 @@ class DocumentController extends Controller {
 		$documents 									= json_decode(json_encode($contents_2->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper($contents->data->name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.dokumen.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
@@ -159,7 +159,7 @@ class DocumentController extends Controller {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= ucwords($contents->data->nick_name);
+		$this->layout->page_title 					= ucwords($contents->data->name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.dokumen.show');
 		$this->layout->content->controller_name 	= $this->controller_name;

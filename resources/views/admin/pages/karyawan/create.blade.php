@@ -137,8 +137,8 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" id="username" name="username" value="{{ $data['username'] }}">
-										<label for="username">Username</label>
+										<input type="text" class="form-control" id="name" name="name" value="{{ $data['name'] }}">
+										<label for="name">Username</label>
 									</div>
 								</div><!--end .col -->
 								<div class="col-md-6">
