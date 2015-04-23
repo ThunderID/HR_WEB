@@ -31,17 +31,14 @@ abstract class Controller extends BaseController {
 				}
 				if($value['menu']=='branch')
 				{
-					$nav->add('company', 'Perusahaan', 'javascript:;', 'md md-business');
-					$nav->add('company_branch', 'Kantor', route('hr.organisation.branches.index'), null, 'company');
-				}
-				if($value['menu']=='document')
-				{
-					$nav->add('company_document', 'Dokumen', route('hr.documents.index'), null, 'company');
+					$nav->add('setting', 'Setting', 'javascript:;', 'fa fa-gear');
+					$nav->add('setting_branch', 'Branch', route('hr.organisation.branches.index'), null, 'setting');
+					$nav->add('setting_document', 'Dokumen Personalia', route('hr.documents.index'), null, 'setting');
 				}
 				if($value['menu']=='person')
 				{
-					$nav->add('person', 'Karyawan', 'javascript:;', 'fa fa-user');
-					$nav->add('basic_info', 'Lihat Semua', route('hr.persons.index'), null, 'person');
+					$nav->add('data', 'Data', 'javascript:;', 'fa fa-archive');
+					$nav->add('data_personalia', 'Personalia', route('hr.persons.index'), null, 'data');
 				}
 				if($value['menu']=='organisation')
 				{
