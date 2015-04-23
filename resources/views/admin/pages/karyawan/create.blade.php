@@ -473,7 +473,7 @@
 								<!-- tab1 -->
 								<div class="tab-pane" id="tmpl_panel1_<%=index%>">
 									<div class="form-group">
-										<input name="relation_id[<%=index%>]" id="relation_id[<%=index%>]" class="form-control getName">											
+										<input name="relation_id[<%=index%>]" id="relation_id[<%=index%>]" class="form-control getName<%=index%>">											
 										<label for="relation_id[<%=index%>]">Nama</label>
 									</div>
 								</div>
@@ -847,7 +847,7 @@
 				format:"dd MM yyyy"
 			});
 
-			$('.getName').select2({
+			$('.getName1').select2({
 	            minimumInputLength: 3,
 	            placeholder: '',
 	            ajax: {
@@ -897,22 +897,28 @@
 	            }
 	        });
 
+			var counter = 1;
 			$('.relation-add').click(function(){
-				$('.getName').select2({
+				counter += 1;
+				$('.getName' + counter).select2({
 		            minimumInputLength: 3,
 		            placeholder: '',
 		            ajax: {
 		                url: "{{route('hr.ajax.name')}}",
 		                dataType: 'json',
 		                quietMillis: 500,
-		               data: function (term) {},
+		               data: function (term) {
+		                    return {
+		                        term: term
+		                    };
+		                },
 		                results: function (data) {
 		                    return {
 		                        results: $.map(data, function (item) {
 		                            return {
-		                                text: item.name,
-		                                id: item.id,
-		                            }			                        
+		                                text: item.first_name + ' ' + item.middle_name + ' ' + item.last_name ,
+		                                id: item.id
+		                            }
 		                        })
 		                    };
 		                }
