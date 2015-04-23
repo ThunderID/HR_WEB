@@ -267,61 +267,61 @@
 							<div class="row">
 								<div class="col-md-8">
 									<div class="form-group">
-										<input type="text" class="form-control" id="address_address[<%=index%>]" name="address_address[<%=index%>]">
-										<label for="address_address[<%=index%>]">Alamat Lengkap</label>
+										<input type="text" class="form-control" id="address_address[1]" name="address_address[1]">
+										<label for="address_address[1]">Alamat Lengkap</label>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<input type="text" class="form-control" id="address_kode_pos[<%=index%>]" name="address_kode_pos[<%=index%>]">
-										<label for="address_kode_pos[<%=index%>]">Kode Pos</label>
+										<input type="text" class="form-control" id="address_kode_pos[1]" name="address_kode_pos[1]">
+										<label for="address_kode_pos[1]">Kode Pos</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-2">
 									<div class="form-group">
-										<input type="text" class="form-control" id="address_RT[<%=index%>]" name="address_RT[<%=index%>]">
-										<label for="address_RT[<%=index%>]">RT</label>
+										<input type="text" class="form-control" id="address_RT[1]" name="address_RT[1]">
+										<label for="address_RT[1]">RT</label>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group">
-										<input type="text" class="form-control" id="address_RW[<%=index%>]" name="address_RW[<%=index%>]">
-										<label for="address_RW[<%=index%>]">RW</label>
+										<input type="text" class="form-control" id="address_RW[1]" name="address_RW[1]">
+										<label for="address_RW[1]">RW</label>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<input type="text" class="form-control" id="address_kecamatan[<%=index%>]" name="address_kecamatan[<%=index%>]">
-										<label for="address_kecamatan[<%=index%>]">Kecamatan</label>
+										<input type="text" class="form-control" id="address_kecamatan[1]" name="address_kecamatan[1]">
+										<label for="address_kecamatan[1]">Kecamatan</label>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<input type="text" class="form-control" id="address_kelurahan[<%=index%>]" name="address_kelurahan[<%=index%>]">
-										<label for="address_kelurahan[<%=index%>]">Kelurahan</label>
+										<input type="text" class="form-control" id="address_kelurahan[1]" name="address_kelurahan[1]">
+										<label for="address_kelurahan[1]">Kelurahan</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-4">
 									<div class="form-group">
-										<input type="text" class="form-control" id="address_kota[<%=index%>]" name="address_kota[<%=index%>]">
-										<label for="address_kota[<%=index%>]">Kota</label>
+										<input type="text" class="form-control" id="address_kota[1]" name="address_kota[1]">
+										<label for="address_kota[1]">Kota</label>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<input type="text" class="form-control" id="address_provinsi[<%=index%>]" name="address_provinsi[<%=index%>]">
-										<label for="address_provinsi[<%=index%>]">Provinsi</label>
+										<input type="text" class="form-control" id="address_provinsi[1]" name="address_provinsi[1]">
+										<label for="address_provinsi[1]">Provinsi</label>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="form-group">
-										<select  id="address_negara[<%=index%>]" name="address_negara[<%=index%>]" class="form-control">
+										<select  id="address_negara[1]" name="address_negara[1]" class="form-control">
 										@include('admin.helpers.country-dropdown')
-										<label for="address_negara[<%=index%>]">Negara</label>
+										<label for="address_negara[1]">Negara</label>
 									</div>
 								</div>					
 							</div>
