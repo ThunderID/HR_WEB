@@ -146,7 +146,17 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\ComposerServiceProvider',
-		'Intervention\Image\ImageServiceProvider',
+		
+		// 'Intervention\Image\ImageServiceProvider',
+		// 'Barryvdh\Debugbar\ServiceProvider',
+
+		// 'ThunderID\Person\PersonServiceProvider',
+		// 'ThunderID\Doclate\DocumentServiceProvider',
+		// 'ThunderID\Organisation\OrganisationServiceProvider',
+		// 'ThunderID\Work\WorkServiceProvider',
+		// 'ThunderID\Contact\ContactServiceProvider',
+		// 'ThunderID\Widboard\WidboardServiceProvider',
+
 	],
 
 	/*
@@ -199,6 +209,7 @@ return [
 		'HTML' 		=> 'Illuminate\Html\HtmlFacade',
 		'Faker'		=> 'Faker\Factory',
 		'Image' 	=> 'Intervention\Image\Facades\Image',
+		'API'		=> 'App\APIConnector\INENGINE\API',
 	],
 
 ];

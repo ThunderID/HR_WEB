@@ -1,4 +1,4 @@
-<?php namespace App\APIConnector;
+<?php namespace App\APIConnector\OUTENGINE;
 
 use Session;
 
@@ -6,7 +6,7 @@ class APIOrganisationChart{
 
 	use APITrait;
 
-	function index($page, $search, $sort)
+	function index($page, $search, $sort, $all = false)
 	{
 		return self::runPost(self::$basic_url . '/organisations/branches/charts/'.$page, ['search' => $search, 'sort' => $sort]);
 	}

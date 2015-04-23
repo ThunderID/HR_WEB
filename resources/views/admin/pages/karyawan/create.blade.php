@@ -24,7 +24,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group floating-label">
-									<input type="text" class="form-control input-lg" id="first_name" name="first_name" value=@if (isset($data['first_name'])){{ $data['first_name'] }}@endif>
+									<input type="text" class="form-control input-lg" id="first_name" name="first_name" value=@if (isset($data['name'])){{ $data['name'] }}@endif>
 									<label for="first_name">Nama Depan</label>
 								</div>
 							</div><!--end .col -->

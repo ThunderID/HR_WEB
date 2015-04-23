@@ -1,20 +1,20 @@
-<?php namespace App\APIConnector;
+<?php namespace App\APIConnector\OUTENGINE;
 
 use Exception;
 
 trait APITrait {
 
-	static protected $basic_url = 'http://192.168.1.89:8000/';
+	static protected $basic_url = 'http://localhost:8000/';
 
 	protected static function runGet($url, $data = [])
 	{
 		try
 		{
-			fsockopen('192.168.1.89', '8000', $errno, $errstr, 60);
+			fsockopen('http://localhost/', '8000', $errno, $errstr, 60);
 		}
 		catch (Exception $e) 
 		{
-			throw new Exception("Running API dulu gan!! di port 7200.. (Udah ada warnnya nih ©thunder)", 1);
+			throw new Exception("Running API dulu gan!! di port 8000.. (Udah ada warnnya nih ©thunder)", 1);
 		}
 
 		$curl 			= curl_init($url);
@@ -38,11 +38,11 @@ trait APITrait {
 	{
 		try
 		{
-			fsockopen('192.168.1.89', '8000', $errno, $errstr, 60);
+			fsockopen('http://localhost/', '8000', $errno, $errstr, 60);
 		}
 		catch (Exception $e) 
 		{
-			throw new Exception("Running API dulu gan!! di port 7200.. (Udah ada warnnya nih ©thunder)", 1);
+			throw new Exception("Running API dulu gan!! di port 8000.. (Udah ada warnnya nih ©thunder)", 1);
 		}
 
 		$content 		= json_encode($data);

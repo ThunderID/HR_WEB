@@ -1,4 +1,4 @@
-<?php namespace App\APIConnector;
+<?php namespace App\APIConnector\OUTENGINE;
 
 use Session;
 
@@ -27,7 +27,7 @@ class APIPerson {
 	}
 
 	function store($id, $attributes)
-	{
+	{		
 		return self::runPost(self::$basic_url . 'persons/store/data', ['id' => $id, 'attributes' => $attributes]);
 	}
 	
@@ -51,7 +51,7 @@ class APIPerson {
 		return self::runGet(self::$basic_url . '/persons/'.$personid.'/documents/delete/'.$id, ['id' => $id]);
 	}
 
-	function relativeDestroy($personid,$id)
+	function relativeDestroy($personid, $id)
 	{
 		return self::runGet(self::$basic_url . '/persons/'.$personid.'/relatives/delete/'.$id, ['id' => $id]);
 	}

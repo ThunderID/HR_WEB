@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Person;
 
 use Input, Session, App, Config, Paginator, Redirect, Validator;
-use App\APIConnector\API;
+use API;
 use App\Http\Controllers\Controller;
 
 class PersonController extends Controller {
@@ -37,7 +37,7 @@ class PersonController extends Controller {
 
 		if(Input::has('sort_firstname'))
 		{
-			$sort['first_name']						= Input::get('sort_firstname');			
+			$sort['name']						= Input::get('sort_firstname');			
 		}
 		elseif(Input::has('sort_lastname'))
 		{
@@ -45,7 +45,7 @@ class PersonController extends Controller {
 		}
 		else
 		{
-			$sort 									= ['first_name' => 'asc'];
+			$sort 									= ['name' => 'asc'];
 		}
 
 		$results 									= API::person()->index($page, $search, $sort);
@@ -131,8 +131,9 @@ class PersonController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['person'] 							= Input::only('prefix_title', 'first_name', 'middle_name', 'last_name', 'suffix_title', 'nick_name', 'gender', 'place_of_birth', 'username');
-		$input['person']['full_name']				= Input::get('first_name').' '.Input::get('middle_name').' '.Input::get('last_name');
+		$input['person'] 							= Input::only('prefix_title', 'name', 'middle_name', 'last_name', 'suffix_title', 'nick_name', 'gender', 'place_of_birth', 'username');
+		$input['person']['name']					= Input::get('name').' '.Input::get('middle_name').' '.Input::get('last_name');
+
 		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
 		$input['person']['id']						= $id;
 		$input['person']['avatar']					= Input::get('link_profile_picture');
@@ -185,10 +186,10 @@ class PersonController extends Controller {
 					else
 					{
 						$relate['prefix_title'] 		= Input::get('prefix_title_relation')[$key];
-						$relate['first_name'] 			= Input::get('first_name_relation')[$key];
+						$relate['name'] 			= Input::get('name_relation')[$key];
 						$relate['middle_name'] 			= Input::get('midle_name_relation')[$key];
 						$relate['last_name'] 			= Input::get('last_name_relation')[$key];
-						$relate['full_name']			= $relate['first_name'].' '.$relate['middle_name'].' '.$relate['last_name'];
+						$relate['full_name']			= $relate['name'].' '.$relate['middle_name'].' '.$relate['last_name'];
 						$relate['suffix_title'] 		= Input::get('suffix_title_relation')[$key];
 						$relate['nick_name'] 			= Input::get('nick_name_relation')[$key];
 						$relate['gender'] 				= Input::get('gender_relation')[$key];
@@ -363,6 +364,7 @@ class PersonController extends Controller {
 				$input['documents'][] 					= $document;
 			}
 		}
+
 		$results 										= API::person()->store($id, $input);
 
 		$content 										= json_decode($results);
@@ -476,7 +478,7 @@ class PersonController extends Controller {
 			}
 			else
 			{
-				return Redirect::route('hr.persons.index')->with('alert_success', 'Data Orang "' . $contents->data->first_name. '" sudah dihapus');
+				return Redirect::route('hr.persons.index')->with('alert_success', 'Data Orang "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else

@@ -3,7 +3,7 @@
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use App, View, Route, Response, Session, Redirect, Config, Request;
-use App\APIConnector\API;
+use API;
 
 class RouteServiceProvider extends ServiceProvider {
 
@@ -55,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider {
 				Session::put('user.organisation', $contents->data->works[0]->branch->organisation->id);
 				Session::put('user.org_name', $contents->data->works[0]->branch->organisation->name);
 				Session::put('user.role', $contents->data->works[0]->name);
-				Session::put('user.name', $contents->data->username);
+				Session::put('user.name', $contents->data->name);
 				Session::put('user.gender', $contents->data->gender);
 				Session::put('user.avatar', $contents->data->avatar);
 				Session::put('user.access', json_decode(json_encode($contents->data->works[0]->applications),true));

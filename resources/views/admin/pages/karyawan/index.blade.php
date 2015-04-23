@@ -94,7 +94,7 @@
 							<div class="hbox-xs v-top height-4">
 								<div class="clearfix">
 									<div class="col-lg-12 margin-bottom-lg">
-										<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a>
+										<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['name']}}</a>
 									</div>
 								</div>
 								<div class="clearfix">

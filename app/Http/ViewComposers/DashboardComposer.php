@@ -1,7 +1,7 @@
 <?php namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
-use App\APIConnector\API;
+use API;
 use Input, Session, DateTime;
 
 class DashboardComposer {

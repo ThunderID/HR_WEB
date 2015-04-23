@@ -81,7 +81,7 @@
 													<p>
 														<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
 														<span class="pull-left">
-															<span class="text-bold">{{$value['person']['full_name']}}</span><br/>
+															<span class="text-bold">{{$value['person']['name']}}</span><br/>
 															<span class="opacity-50">{{date("l, d F Y", strtotime($value['created_at']))}}</span><br/>
 														</span>
 													</p>

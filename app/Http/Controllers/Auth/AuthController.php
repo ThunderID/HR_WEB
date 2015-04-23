@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use Input, Auth, \Illuminate\Support\MessageBag, Redirect, Config, Session, Validator;
-use App\APIConnector\API;
+use API;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller {
@@ -34,10 +34,10 @@ class AuthController extends Controller {
 
 	function postLogin()
 	{
-		$username 					= Input::get('username');
+		$email 						= Input::get('email');
 		$password 					= Input::get('password');
 
-		$results 					= API::person()->authenticate($username, $password);
+		$results 					= API::person()->authenticate($email, $password);
 
 		$content 					= json_decode($results);
 

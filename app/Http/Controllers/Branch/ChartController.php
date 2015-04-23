@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Branch;
 
 use Input, Session, App, Paginator, Redirect, Response, Request;
-use App\APIConnector\API;
+use API;
 use App\Http\Controllers\Controller;
 
 class ChartController extends Controller {

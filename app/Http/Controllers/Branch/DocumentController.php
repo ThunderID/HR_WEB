@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Branch;
 
 use Input, Session, App, Redirect, Paginator;
-use App\APIConnector\API;
+use API;
 use App\Http\Controllers\Controller;
 
 class DocumentController extends Controller {

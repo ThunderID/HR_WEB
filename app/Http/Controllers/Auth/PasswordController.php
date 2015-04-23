@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use Input, Auth, \Illuminate\Support\MessageBag, Redirect, Config, Session, Validator;
-use App\APIConnector\API;
+use API;
 use App\Http\Controllers\Controller;
 
 class PasswordController extends Controller {

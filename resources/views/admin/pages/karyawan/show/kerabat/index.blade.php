@@ -27,7 +27,7 @@
 									<a class="btn pull-right ink-reaction btn-icon-toggle del-modal" type="button" data-toggle="modal" data-target="#del_modal_2_{{$value['id']}}">
 										<i class="fa fa-trash"></i>
 									</a>
-									<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['first_name'].' '.$value['middle_name'] .' '.$value['last_name']}}</a>
+									<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['name']}}</a>
 								</div>
 							</div>
 

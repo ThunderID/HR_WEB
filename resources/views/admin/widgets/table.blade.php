@@ -16,7 +16,7 @@
 					<thead>
 						<tr>
 							@foreach ($data['field'] as $f => $field)
-								@if ($field == 'full_name')
+								@if ($field == 'name')
 									<?php $field = 'Nama Pegawai'; ?>
 									<th> {{ $field }} </th>
 								@elseif ($field == 'created_at')

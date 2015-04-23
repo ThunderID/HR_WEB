@@ -25,7 +25,7 @@
 								</div>
 								<div class="tile-text">
 									<a class="btn-link" href="{{ route('hr.persons.show', [$value['id']]) }}">
-										{{ $value['first_name']. ' '. $value['middle_name'] . ' ' . $value['last_name'] }}
+										{{ $value['name'] }}
 									</a>
 									
 								</div>

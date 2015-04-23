@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\APIConnector\API;
+use API;
 use Session, Redirect, Input;
 
 class DashboardController extends Controller {

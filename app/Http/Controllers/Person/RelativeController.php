@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Person;
 
 use Input, Session, App, Config, Paginator, Redirect, Validator;
-use App\APIConnector\API;
+use API;
 use App\Http\Controllers\Controller;
 
 class RelativeController extends Controller {
@@ -17,7 +17,7 @@ class RelativeController extends Controller {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['checkrelation' => $personid, 'CurrentContact' => 'updated_at'];
-		$sort 										= ['first_name' => 'asc'];
+		$sort 										= ['name' => 'asc'];
 
 		$results 									= API::person()->index($page, $search, $sort);
 
@@ -86,11 +86,11 @@ class RelativeController extends Controller {
 			else
 			{
 				$relate['prefix_title'] 		= Input::get('prefix_title_relation');
-				$relate['first_name'] 			= Input::get('first_name_relation');
+				$relate['name'] 			= Input::get('name_relation');
 				$relate['middle_name'] 			= Input::get('midle_name_relation');
 				$relate['last_name'] 			= Input::get('last_name_relation');
 				$relate['suffix_title'] 		= Input::get('suffix_title_relation');
-				$relate['full_name']			= $relate['first_name'].' '.$relate['middle_name'].' '.$relate['last_name'];
+				$relate['full_name']			= $relate['name'].' '.$relate['middle_name'].' '.$relate['last_name'];
 				$relate['nick_name'] 			= Input::get('nick_name_relation');
 				$relate['gender'] 				= Input::get('gender_relation');
 				$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth_relation')));

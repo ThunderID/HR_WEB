@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Input, Session, App, Paginator, Redirect;
-use App\APIConnector\API;
+use API;
 use App\Http\Controllers\Controller;
 
 class OrganisationController extends Controller {

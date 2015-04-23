@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use \Input, Session, \Response, \DateTime;
-use App\APIConnector\API;
+use API;
 
 class AjaxController extends Controller {
 
