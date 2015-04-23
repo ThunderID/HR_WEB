@@ -600,7 +600,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<input name="work_company[<%=index%>]" id="work_company[<%=index%>]" class="form-control getCompany" data-comp="">											
+						<input name="work_company[<%=index%>]" id="work_company[<%=index%>]" class="form-control getCompany<%=index%>" data-comp="">											
 						<label for="work_company[<%=index%>]">Posisi</label>
 					</div>
 				</div>
@@ -872,7 +872,7 @@
 	            }
 	        });
 
-			$('.getCompany').select2({
+			$('.getCompany1').select2({
 	            minimumInputLength: 3,
 	            placeholder: '',
 	            ajax: {
@@ -897,10 +897,10 @@
 	            }
 	        });
 
-			var counter = 1;
+			var r_counter = 1;
 			$('.relation-add').click(function(){
-				counter += 1;
-				$('.getName' + counter).select2({
+				r_counter += 1;
+				$('.getName' + r_counter).select2({
 		            minimumInputLength: 3,
 		            placeholder: '',
 		            ajax: {
@@ -926,22 +926,28 @@
 		        });	
 	        });	
 
+			var c_counter = 1;
 			$('.work-add').click(function(){
-				$('.getCompany').select2({
+				c_counter += 1;
+				$('.getCompany' + c_counter).select2({
 		            minimumInputLength: 3,
 		            placeholder: '',
 		            ajax: {
 		                url: "{{route('hr.ajax.company')}}",
 		                dataType: 'json',
 		                quietMillis: 500,
-		               data: function (term) {},
+		               	data: function (term) {
+		                    return {
+		                        term: term
+		                    };
+		                },
 		                results: function (data) {
 		                    return {
 		                        results: $.map(data, function (item) {
 		                            return {
-		                                text: item.name,
-		                                id: item.id,
-		                            }			                        
+		                                text: item.name +' di '+ item.branch.name,
+		                                id: item.id
+		                            }
 		                        })
 		                    };
 		                }
