@@ -842,10 +842,14 @@
 			document.getElementById('tmpl_' + n).className = "tab-pane active";
 		}		
 
-		$(document).ready(function () {
+		function load_input_date(){
 			$('.date-pick').datepicker({
 				format:"dd MM yyyy"
 			});
+		}
+
+		$(document).ready(function () {
+			load_input_date();
 
 			$('.getName1').select2({
 	            minimumInputLength: 3,
@@ -899,6 +903,8 @@
 
 			var r_counter = 1;
 			$('.relation-add').click(function(){
+				load_input_date();     
+
 				r_counter += 1;
 				$('.getName' + r_counter).select2({
 		            minimumInputLength: 3,
@@ -928,6 +934,8 @@
 
 			var c_counter = 1;
 			$('.work-add').click(function(){
+				load_input_date();     
+				
 				c_counter += 1;
 				$('.getCompany' + c_counter).select2({
 		            minimumInputLength: 3,
