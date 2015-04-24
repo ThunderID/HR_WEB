@@ -59,36 +59,19 @@ class RouteServiceProvider extends ServiceProvider {
 				Session::put('user.email', $contents->data->contacts[0]->value);
 				Session::put('user.gender', $contents->data->gender);
 				Session::put('user.avatar', $contents->data->avatar);
-				Session::put('user.access', json_decode(json_encode($contents->data->works[0]->applications),true));
 				
 				//check access
-				foreach(Session::get('user.access') as $key => $value)
-				{
-					if($value['pivot']['is_create']==true)
-					{
-						$acl[] 						= $value['menu'].'-'.'is_create';
-					}
-					if($value['pivot']['is_read']==true)
-					{
-						$acl[] 						= $value['menu'].'-'.'is_read';
-					}
-					if($value['pivot']['is_update']==true)
-					{
-						$acl[] 						= $value['menu'].'-'.'is_update';
-					}
-					if($value['pivot']['is_delete']==true)
-					{
-						$acl[] 						= $value['menu'].'-'.'is_delete';
-					}
-				}
+				$access 										= explode('-', app('hr_acl')[Route::currentRouteName()]);
+				$results 										= API::application()->authenticate($menu = $access[0], $access = $access[1], $personid = Session::get('loggedUser'), $apps = 'web');
 
-				if (!isset($acl) || (!in_array(app('hr_acl')[Route::currentRouteName()], $acl)))
+				$contents 										= json_decode($results);
+
+				if(!$contents->meta->success)
 				{
 					Session::flush();
 					return Redirect::guest(route('hr.login.get'));
 				}
 
-				Session::put('dashboard', json_decode(json_encode($contents->data->widgets),true));
 			}
 		});
 	}
@@ -107,8 +90,8 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.dashboard.overview'							=> 'dashboard-is_read',
 							'hr.dashboard.widgets.delete'					=> 'dashboard-is_create',
 							'hr.dashboard.widgets.store'					=> 'dashboard-is_create',
-							'hr.password.get'								=> 'person-is_update',
-							'hr.password.post'								=> 'person-is_update',
+							'hr.password.get'								=> 'password-is_update',
+							'hr.password.post'								=> 'password-is_update',
 							
 							'hr.organisation.branches.index'				=> 'branch-is_read',
 							'hr.organisation.branches.show'					=> 'branch-is_read',

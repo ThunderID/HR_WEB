@@ -56,7 +56,7 @@ class WorkController extends Controller {
 		$documents 									= json_decode(json_encode($contents_2->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper($contents->data->name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.karir.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
@@ -149,7 +149,7 @@ class WorkController extends Controller {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= 'Karir '.strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= 'Karir '.strtoupper($contents->data->name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.karir.index');
 		$this->layout->content->controller_name 	= $this->controller_name;

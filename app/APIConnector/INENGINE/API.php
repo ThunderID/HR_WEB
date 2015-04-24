@@ -28,4 +28,9 @@ class API {
 	{
 		return new APIWidget();
 	}	
+
+	static function application()
+	{
+		return new APIApplication();
+	}	
 }
