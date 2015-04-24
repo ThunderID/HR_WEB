@@ -44,10 +44,6 @@
 					<ul class="list-unstyled">
 						<li class="clearfix">
 							@forelse($data['templates'] as $key => $value)
-								<div class="page-header no-border holder pl-20 pr-20" style="margin-top:-5px">
-									<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right mr-10" href="{{route('hr.document.templates.delete', [$value['id']])}}"><span class="md md-delete"></span></a>
-									<h4 class="text-accent">Isi Dokumen {{$key+1}} [Sekarang] </h4>
-								</div>
 								<div class="row p-20">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -56,7 +52,7 @@
 											<label for="field[{{$key}}]">Nama Input</label>
 										</div>	
 									</div>	
-									<div class="col-md-6">
+									<div class="col-md-5">
 										<div class="form-group">
 											<select id="Type" class="form-control form-control input-md" name="type[$key]">
 												<option value="numeric" @if($value['type']=='numeric') selected @endif>Angka</option>
@@ -67,14 +63,13 @@
 											<label for="Type">Tipe Input</label>
 										</div>
 									</div>
+									<div class="col-md-1 pull-left">
+										<a class="btn btn-icon-toggle btn-accent btn-delete pull-left mlm-15 mt-20" href="{{route('hr.document.templates.delete', [$value['id']])}}"><span class="md md-delete"></span></a>
+									</div>
 								</div>
 							@empty
 								<p>Tidak ada isi untuk dokumen ini</p>
 							@endforelse
-							<div class="page-header no-border holder pl-20 pr-20" style="margin-top:-5px">
-								<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right mr-10"></a>
-								<h4 class="text-accent">Isi Dokumen [Baru] </h4>
-							</div>
 							<div class="row p-20">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -82,7 +77,7 @@
 										<label for="field[{{count($data['templates'])+1}}]">Nama Input</label>
 									</div>	
 								</div>	
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<div class="form-group">
 										<select id="Type" class="form-control form-control input-md" name="type[{{count($data['templates'])+1}}]">
 											<option value="numeric">Angka</option>
@@ -92,6 +87,9 @@
 										</select>	
 										<label for="Type">Tipe Input</label>
 									</div>
+								</div>
+								<div class="col-md-1 pull-left">
+									<a class="btn btn-icon-toggle btn-accent btn-delete pull-left mlm-15 mt-20"><i class="md md-delete"></i></a>
 								</div>
 							</div>
 						</li>
@@ -106,7 +104,7 @@
 					<li class="clearfix">
 						<div class="row p-20">
 							<div class="col-md-12">
-								<div class="form-group">
+								<div class="form-group" style="padding-top:30px">
 									<textarea name="template" id="content_document" class="form-control" rows="8" placeholder="">{{$data['template']}}</textarea>
 									<label for="textarea1">Isi Paragraph</label>
 								</div>
@@ -131,13 +129,8 @@
 	<!-- BEGIN DOCUMENT TEMPLATES -->
 	<script type="text/html" id="skillTmpl">
 		<li class="clearfix">
-			<div class="row p-20">
+			<div class="row pl-20 pr-20 mtm-10">
 				<div class="col-xs-12">
-					<div class="page-header no-border holder" style="margin-top:-10px">
-						<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right mrm-10"><span class="md md-delete"></span></a>
-						<h4 class="text-accent">Isi Dokumen <%=index%></h4>
-					</div>
-
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -145,7 +138,7 @@
 								<label for="field[<%=index%>]">Nama Input</label>
 							</div>	
 						</div>	
-						<div class="col-md-6">
+						<div class="col-md-5">
 							<div class="form-group">
 								<select id="Type" class="form-control form-control input-md" name="type[<%=index%>]">
 									<option value="numeric">Angka</option>
@@ -155,6 +148,9 @@
 								</select>	
 								<label for="Type">Tipe Input</label>
 							</div>
+						</div>
+						<div class="col-md-1 pull-left">
+							<a class="btn btn-icon-toggle btn-accent btn-delete pull-left mlm-15 mt-20"><i class="md md-delete"></i></a>
 						</div>
 					</div>
 
@@ -175,4 +171,13 @@
 	{!! HTML::script('js/summernote.min.js')!!}
 	{!! HTML::script('js/microtemplating.min.js')!!}
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
+	<script>
+		$('#content_document').summernote({
+			height: 350,
+			toolbar: [
+				['style', ['bold', 'italic', 'underline', 'clear', 'fontsize']],
+				['para', ['ul', 'ol', 'paragraph']]
+			]
+		});
+	</script>
 @stop
