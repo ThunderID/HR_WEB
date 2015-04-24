@@ -58,7 +58,7 @@
 							<div class="col-xs-12 col-lg-6 hbox-xs">
 								@include('admin.widgets.contents',[
 									'route'				=> route('hr.organisation.branches.show', ['id' => $value['id']]),
-									'mode'				=> 'grid',
+									'mode'				=> 'list',
 									'data_content'		=> $value,
 									'toggle'			=> [
 															'branch'	=> true
