@@ -57,7 +57,7 @@ class RelativeController extends Controller {
 
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= strtoupper($contents->data->nick_name);
+		$this->layout->page_title 					= strtoupper($contents->data->name);
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.show.kerabat.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
@@ -86,12 +86,12 @@ class RelativeController extends Controller {
 			else
 			{
 				$relate['prefix_title'] 		= Input::get('prefix_title_relation');
-				$relate['name'] 			= Input::get('name_relation');
+				$relate['name'] 				= Input::get('name_relation');
 				$relate['middle_name'] 			= Input::get('midle_name_relation');
 				$relate['last_name'] 			= Input::get('last_name_relation');
 				$relate['suffix_title'] 		= Input::get('suffix_title_relation');
 				$relate['full_name']			= $relate['name'].' '.$relate['middle_name'].' '.$relate['last_name'];
-				$relate['nick_name'] 			= Input::get('nick_name_relation');
+				$relate['name'] 				= Input::get('name_relation');
 				$relate['gender'] 				= Input::get('gender_relation');
 				$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth_relation')));
 				$relate['place_of_birth'] 		= Input::get('place_of_birth_relation');

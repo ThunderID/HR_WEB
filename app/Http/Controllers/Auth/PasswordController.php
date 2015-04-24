@@ -33,7 +33,7 @@ class PasswordController extends Controller {
 
 	function postPassword()
 	{
-		$username 					= Session::get('user.name');
+		$email 						= Session::get('user.email');
 		$password 					= Input::get('old_password');
 		$input['person']			= Input::only('password', 'password_confirmation');
 		$input['person']['id']		= Session::get('loggedUser');
@@ -44,7 +44,7 @@ class PasswordController extends Controller {
 			return Redirect::back()->withErrors($validator->errors())->withInput();
 		}
 
-		$results 					= API::person()->authenticate($username, $password);
+		$results 					= API::person()->authenticate($email, $password);
 
 		$content 					= json_decode($results);
 
