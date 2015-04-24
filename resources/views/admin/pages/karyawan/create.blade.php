@@ -32,41 +32,36 @@
 							<div class="row">
 								<div class="col-md-3">
 									<div class="form-group">
-										<input type="text" class="form-control input-lg" id="prefix_title" name="prefix_title" value=@if (isset($data['prefix_title'])){{ $data['prefix_title'] }}@endif>
+										{!! Form::input('text', 'prefix_title', $data['prefix_title'], ['class' => 'form-control']) !!}
 										<label for="company">Gelar Depan</label>
 									</div>
 								</div><!--end .col -->
 								<div class="col-md-6">
-									<div class="form-group">
-										<input type="text" class="form-control input-lg" id="name" name="name" value=@if (isset($data['name'])){{ $data['name'] }}@endif>
+									<div class="form-group @if ($errors->first('name')) has-error @endif">
+										{!! Form::input('text', 'name', $data['name'], ['class' => 'form-control']) !!}
 										<label for="name">Nama Lengkap</label>
 									</div>
 								</div><!--end .col -->
 								<div class="col-md-3">
 									<div class="form-group">
-										<input type="text" class="form-control input-lg" id="suffix_title" name="suffix_title" value=@if (isset($data['suffix_title'])){{ $data['suffix_title'] }}@endif>
-										<label for="functiontitle">Gelar Belakang</label>
+										{!! Form::input('text', 'suffix_title', $data['suffix_title'], ['class' => 'form-control']) !!}
+										<label for="suffix_title">Gelar Belakang</label>
 									</div>
 								</div><!--end .col -->									
 							</div>
 
-
 							<div class="row">
 								<div class="col-md-6">
-									<div class="form-group">
-										<input type="text" class="form-control" id="place_of_birth" name="place_of_birth" value=@if (isset($data['place_of_birth'])){{ $data['place_of_birth'] }}@endif>
+									<div class="form-group @if ($errors->first('place_of_birth')) has-error @endif">
+										{!! Form::input('text', 'place_of_birth', $data['place_of_birth'], ['class' => 'form-control']) !!}
 										<label for="place_of_birth">Tempat Lahir</label>
 									</div>
 								</div><!--end .col -->
 								<div class="col-md-6">
-									<div class="form-group">
-										<div class="input-group" id="date_of_birth" style="width:100%;">
-											<div class="form-group">
-												<input type="text" class="form-control" data-inputmask="'alias': 'date'" id="date_of_birth" name="date_of_birth" value=@if (isset($data['date_of_birth'])){{ $data['date_of_birth'] }}@endif>
-												<label>Tanggal Lahir</label>
-											</div>		
-										</div>
-									</div>
+									<div class="form-group @if ($errors->first('date_of_birth')) has-error @endif">
+										{!! Form::input('text', 'date_of_birth', $data['date_of_birth'], ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'date_of_birth']) !!}
+										<label for="date_of_birth">Tanggal Lahir</label>
+									</div>		
 								</div>
 							</div><!--end .row -->	
 
@@ -81,7 +76,7 @@
 										</label>
 									</div>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-2 @if ($errors->first('gender')) has-error @endif">
 									<div class="radio radio-styled">
 										<label>
 											<input name="gender" type="radio" value="male"
@@ -95,7 +90,7 @@
 										</label>
 									</div>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-2  @if ($errors->first('gender')) has-error @endif">
 									<div class="radio radio-styled">
 										<label>
 											<input name="gender" type="radio" value="female"
@@ -139,10 +134,11 @@
 	{!! HTML::script('js/microtemplating.min.js')!!}
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
 	{!! HTML::script('js/dropzone.min.js')!!}
-	{!! HTML::script('js/libs/jquery.inputmask.bundle.min.js')!!}
+	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 
 	<script type="text/javascript">
 		$(document).ready(function () {
+			$(".date_mask").inputmask();
 	        $("#document_upload").dropzone({ 
     			url: '{{ route("hr.images.upload") }}' ,
     			maxFilesize: 1,
