@@ -1,6 +1,6 @@
 			<!-- BEGIN RIGHTBAR -->
 			<div class="hbox-column col-md-3 style-default-light" id="sidebar_right">
-				<div class="row" style='height:100%;'>
+				<div class="row style-default-light">
 					<div class="col-xs-12">
 						<h4>Ringkas</h4>
 						<br/>

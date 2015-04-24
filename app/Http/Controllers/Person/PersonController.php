@@ -16,7 +16,7 @@ class PersonController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['CurrentContact' => 'updated_at', 'CurrentWork' => '' ,'checkwork' => 'active'];
+		$search 									= ['CurrentContact' => 'item', 'CurrentWork' => ''];
 		if(Input::has('gender'))
 		{
 			$search['gender']						= Input::get('gender');			
@@ -131,10 +131,16 @@ class PersonController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['person'] 							= Input::only('prefix_title', 'name', 'middle_name', 'last_name', 'suffix_title', 'name', 'gender', 'place_of_birth', 'username');
-		$input['person']['name']					= Input::get('name').' '.Input::get('middle_name').' '.Input::get('last_name');
+		if(Input::has('name'))
+		{
+			$input['person'] 							= Input::only('prefix_title', 'name', 'suffix_title', 'gender', 'place_of_birth');
+		}
 
-		$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
+		if(Input::has('date_of_birth'))
+		{
+			$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
+		}
+		
 		$input['person']['id']						= $id;
 		$input['person']['avatar']					= Input::get('link_profile_picture');
 
@@ -370,7 +376,7 @@ class PersonController extends Controller {
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.persons.index')->with('alert_success', 'Data Karyawan sudah di simpan');
+			return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Karyawan sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
