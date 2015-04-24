@@ -128,16 +128,17 @@ class DashboardComposer {
 
 	public function index_branches($search)
 	{
+		$search = [];
 		$sort 										= ['branches.created_at' => 'asc'];
 
 		$results 									= API::organisationbranch()->index(1, $search, $sort);
 
 		$contents 									= json_decode($results);
-
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
 		}
+		
 		return ['data' => json_decode(json_encode($contents->data),true)];
 	}
 }

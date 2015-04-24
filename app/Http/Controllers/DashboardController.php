@@ -15,8 +15,9 @@ class DashboardController extends Controller {
 	function getOverview()
 	{
 		// view
-		$this->layout->content 				= view('admin.pages.dashboard.overview');
-		$this->layout->page_title			= 'Dashboard: Overview';
+		$this->layout->content 				= view('admin.pages.dashboard.under_maintence');
+		// $this->layout->page_title			= 'Dashboard: Overview';
+		$this->layout->page_title			= '';
 
 		$this->layout->content->dashboard 	= Session::get('dashboard');
 		
@@ -41,25 +42,73 @@ class DashboardController extends Controller {
 
 	function storeWidget()
 	{
-		$input['widget'] 							= Input::only('type', 'title', 'function', 'order');
-		if(Input::has('data_panel'))
+		$input['widget'] 							= Input::only('type', 'title', 'function', 'order', 'query', 'field');
+
+		if (Input::has('content_documents'))
 		{
-			$input['widget']['function']			= Input::get('data_panel');
+			$content = Input::get('content_documents');
+			if (Input::get('content_documents')=='all') {
+				$query['organisationID'] 	= 1;  
+			}
+			else 
+			{
+				$query['organisationID'] 	= 1;
+				$query['tag']				= Input::get('content_documents');
+			}
+			$input['widget']['query']		= json_encode($query);
+
 		}
-		if(Input::has('data_stat'))
+		if (Input::has('content_employees')) 
 		{
-			$input['widget']['function']			= Input::get('data_stat');
+			$content = Input::get('content_employees');
+			if (Input::get('content_employees')=='all'){
+				$query['checkwork']			= 'active';
+			}
+			else 
+			{
+				$query['checkwork']			= 'active';
+				$query[$content] 			= (string)-(str_replace('_', ' ', Input::get('date')));
+			}
+			$input['widget']['query'] 		= json_encode($query);
 		}
-		if(Input::has('data_table'))
+
+		if (Input::has('content_branches'))
 		{
-			$input['widget']['function']			= Input::get('data_table');
+			$content = Input::get('content_branches');
+			if (Input::get('content_branches')=='all'){
+				$query['organisationID'] 	= 1;
+			}
+			else 
+			{
+				$query['organisationID']	= 1;
+				$query[$content] 			= (string)('-'.(str_replace('_', ' ', Input::get('date'))));
+			}
+			$input['widget']['query'] 		= json_encode($query);	
 		}
+
+		if (Input::get('type')=='table'){
+			if (str_is('*count*', strtolower($content)))
+			{
+				if (str_is('*employees*', strtolower(Input::get('function'))))
+				{
+					$input['widget']['field'] 	= ['fullname', 'count'];
+				}
+				else
+				{
+					$input['widget']['field'] 	= ['name', 'count'];	
+				}
+			}
+		}
+		else {
+			$input['widget']['field'] = '';
+		}
+
 		$input['person']['id']						= Session::get('loggedUser');
 
 		$results 									= API::widget()->store(null, $input);
 
 		$contents 									= json_decode($results);
-
+		// dd($results);
 		if (!$contents->meta->success)
 		{
 			return Redirect::route('hr.dashboard.overview')->withErrors($contents->meta->errors);

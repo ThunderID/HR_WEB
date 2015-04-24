@@ -15418,7 +15418,6 @@ sub.badge {
 .border-transparent {
   border-color: transparent;
 }
-
 .hidden-border {
   border-color: transparent !important;
 }

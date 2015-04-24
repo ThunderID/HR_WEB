@@ -59,6 +59,7 @@ elixir(function(mix) {
 	.copy('resources/js/libs/org-chart/jquery.orgchart.js', 'public/js/jquery.orgchart.js')
 	.copy('resources/js/libs/summernote/summernote.min.js', 'public/js/summernote.min.js')
 	.copy('resources/js/libs/toastr/toastr.min.js', 'public/js/toastr/toastr.min.js')
+	.copy('resources/js/libs/inputmask/jquery.inputmask.bundle.min.js', 'public/js/jquery.inputmask.min.js')
 	.copy('resources/js/core/demo/DemoPageContacts.js', 'public/js/pluginmicrotemplating.min.js')
 	.copy('resources/fonts/', 'public/build/fonts/')
 	.copy('resources/images/', 'public/images/');

@@ -4,7 +4,7 @@
 		<ul class="header-nav header-nav-options">
 			<li class="header-nav-brand">
 				<div class="brand-holder">
-					<a href="../../html/dashboards/dashboard.html">
+					<a href="{{ route('hr.dashboard.overview') }}">
 						<span class="text-lg text-bold text-primary">{{$html_title}}</span>
 					</a>
 				</div>
@@ -19,6 +19,20 @@
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="headerbar-right">
 		<ul class="header-nav header-nav-profile">
+			<li>
+				<!-- Search form -->
+				{{-- <form class="form" role="search">
+					<div class="form-group">
+						<select id="change_branch" class="form-control select2-list">
+							<option value="">Mentari Pagi Sejahtera</option>
+							<option value="">Halo Malang</option>
+							<option value="">Gopego</option>
+							<option value="">Thunder</option>
+							<option value="">Vortege</option>
+						</select>
+					</div>
+				</form> --}}
+			</li>
 			<li class="dropdown">
 				<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
 					@if(Session::get('user.avatar')!='')

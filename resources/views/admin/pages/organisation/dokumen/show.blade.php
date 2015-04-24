@@ -18,6 +18,9 @@
 				<a href="{{route('hr.documents.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i> Edit
 				</a>				
+				<a href="{{route('hr.documents.pdf', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-print"></i> Lihat Print
+				</a>				
 			</div>
 		</div>
 		<!-- END CARD HEADER -->
