@@ -62,28 +62,20 @@
 					</div><!--end .margin-bottom-xxl -->
 					<div class="list-results" style="margin-bottom:0px;">
 						@foreach($data as $key => $value)	
-						@if($key%2==0 && $key!=0)
-							</div>
-							<div class="list-results" style="margin-bottom:0px;">
-						@endif											
-						<div class="col-xs-12 col-lg-6 hbox-xs">
-							<a href="{{route('hr.documents.show', $value['id'])}}">
-							<div class="hbox-xs v-top height-2">
-								<p class="clearfix">
-									<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
-									<span class="pull-left">
-										<span class="text-bold">{{ucwords($value['name'])}}</span><br>
-										<span class="opacity-50">{{(isset($value['persons'][0]['count']) ? $value['persons'][0]['count'].' Dokumen' : '')}} </span>
-									</span>
-								</p>
-								<div>
-									<em></em>
+							@if($key%2==0 && $key!=0)
 								</div>
-							</div><!--end .hbox-column -->
-							</a>
-						</div><!--end .hbox-xs -->
+								<div class="list-results" style="margin-bottom:0px;">
+							@endif											
+							<div class="col-xs-12 col-lg-6 hbox-xs">
+								@include('admin.widgets.contents', [
+									'route'				=> route('hr.documents.show', $value['id']),
+									'mode'				=> 'list',
+									'data_content'		=> $value,
+									'toggle'			=> ['document' 	=> true]
+								])
+							</div>
 						@endforeach
-					</div><!--end .list-results -->
+					</div>
 					@if(count($data))
 						@include('admin.helpers.pagination')
 					@endif

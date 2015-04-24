@@ -78,52 +78,24 @@
 					</div><!--end .margin-bottom-xxl -->
 					<div class="list-results" style="margin-bottom:0px;">
 						@foreach($data as $key => $value)	
-						@if($key%2==0 && $key!=0)
+							@if($key%2==0 && $key!=0)
+								</div>
+								<div class="list-results" style="margin-bottom:0px;">
+							@endif											
+							<div class="col-xs-12 col-lg-6 hbox-xs">
+								@include('admin.widgets.contents', [
+									'route'				=> route('hr.persons.show', ['id' => $value['id']]),
+									'mode'				=> 'grid',
+									'data_content'		=> $value,
+									'toggle'			=> [
+															'avatar' 	=> true,
+															'person'	=> true
+															]
+								])
 							</div>
-							<div class="list-results" style="margin-bottom:0px;">
-						@endif											
-						<div class="col-xs-12 col-lg-6 hbox-xs">
-
-							<div class="hbox-column width-3">
-								@if($value['avatar']!='')
-									<img class="img-circle img-responsive" alt="" src="{{url($value['avatar'])}}"></img>
-								@else
-									<img class="img-circle img-responsive" alt="" @if($value['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
-								@endif
-							</div><!--end .hbox-column -->
-							<div class="hbox-xs v-top height-4">
-								<div class="clearfix">
-									<div class="col-lg-12 margin-bottom-lg">
-										<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['name']}}</a>
-									</div>
-								</div>
-								<div class="clearfix">
-									<div class="col-lg-12">
-										@foreach($value['works'] as $key2 => $value2)
-											@if($key2 == 0)
-												<span>{{$value2['name']}} di {{$value2['branch']['name']}}</span>
-											@endif
-										@endforeach
-									</div>
-								</div>
-								@if(count($value['contacts']))
-									@foreach($value['contacts'] as $key2 => $value2)
-										<div class="clearfix">
-											<div class="col-lg-12">
-												@if($value2['item']=='phone_number')
-													<span class="opacity-75"><span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;{{$value2['value']}}</span>
-												@elseif($value2['item']=='email')
-													<span class="opacity-75"><span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;{{$value2['value']}}</span>
-												@endif
-											</div>
-										</div>
-									@endforeach
-								@endif
-							</div><!--end .hbox-column -->
-						</div><!--end .hbox-xs -->
 						@endforeach
-					</div><!--end .list-results -->
-				</div><!--end .list-results -->
+					</div>
+				</div>
 			</div>
 			@if(count($data))
 				@include('admin.helpers.pagination')
