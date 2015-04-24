@@ -4,31 +4,45 @@
 			<button class="btn btn-primary btn-raised ink-reaction add_widget">Tambah Widget</button>
 		</div>
 	</div>
-	<div class="row">
-		<?php $color = ['warning', 'danger', 'success', 'info']; $x= 0;?>
+	<?php $color = ['warning', 'danger', 'success', 'info']; 
+		$x 	= 0; 
+		$st 	= 1;
+		$pn 	= 1;
+		$tb 	= 1;
+	?>
 		@foreach ($dashboard as $key => $db)
 			@if ($db['type'] == 'stat')
+				@if ($st == 1)
+					<div class="row">
+				@endif
 				<?php 
 					$data['title'] 		= ucwords($db['title']); 
 					$data['number']		= $db['data']['number'];
 					$data['function'] 	= $db['function']; 
 					$data['style'] 		= $color[$x];
 					$x++;
+					$st++;
 				?>
-			@elseif($db['type'] == 'panel')
+			@elseif ($db['type'] == 'panel')
+				@if ($pn == 1)
+					</div>
+					<div class="row">
+				@endif
 				<?php
 					$data['title'] 		= ucwords($db['title']); 
 					$data['data']		= $db['data']['data'];
 					$data['function'] 	= $db['function']; 
 					$x++;
+					$pn++;
 				?>
-			@else
+			@elseif ($db['type'] == 'table')
 				<?php
 					$data['title']		= ucwords($db['title']);
 					$data['data']		= $db['data']['data'];
 					$data['function']	= $db['function'];
 					$data['field']		= $db['field'];
 					$x++;
+					$tb++;
 				?>
 			@endif
 
@@ -54,14 +68,14 @@
 							<label for="title">Title Widget</label>
 						</div>
 						<div class="form-group">
-							<select id="type" name="data_widget" class="form-control select2-list" data-old="">
-								<option value="">--Pilih--</option>
+							<select id="type" name="function" class="form-control select2-list" data-old="">
+								<option value="">-- Pilih --</option>
 								<option value="total_documents">Total Dokumen</option>
-								<option value="list_documents">List Dokumen</option>
+								<option value="index_documents">List Dokumen</option>
 								<option value="total_employees">Total Karyawan</option>
-								<option value="list_employees">List Karyawan</option>
+								<option value="index_employees">List Karyawan</option>
 								<option value="total_branches">Total Perusahaan</option>
-								<option value="list_branches">List Perusahaan</option>
+								<option value="index_branches">List Perusahaan</option>
 							</select>
 							<label for="select1">Data Field</label>
 						</div>
@@ -75,74 +89,36 @@
 							</div>
 						</div>
 
-						<div class="total_documents list_documents" style="display:none">
+						<div class="total_documents index_documents" style="display:none">
 							<div class="form-group">
-								<select name="content" id="list_type_document" class="form-control select2-list">
+								<select name="content_documents" id="list_type_document" class="form-control select2-list">
 									<option value="all">Semua</option>
-									<option value="bank">Bank</option>
-									<option value="bpjs">BPJS</option>
-									<option value="kontrak_kerja">Kontrak Kerja</option>
-									<option value="ktp">KTP</option>
-									<option value="npwp">NPWP</option>
-									<option value="pen_formal">Pendidikan Formal</option>
-									<option value="pen_non_formal">Pendidikan Non Formal</option>
-									<option value="pengalaman_kerja">Pengalaman Kerja</option>
-									<option value="pen_kerja">Penilian Kerja</option>
-									<option value="proyek">Proyek</option>
-									<option value="reksa_dana">Reksa Dana</option>
-									<option value="surat_peringatan">Surat Peringatan</option>
+									<option value="sp">Surat Peringatan</option>
 								</select>
 								<label for="">Tipe Dokumen</label>
 							</div>
 						</div>
 
-						<div class="total_employees list_employees" style="display:none">
+						<div class="total_employees index_employees" style="display:none">
 							<div class="form-group">
-								<select name="content" id="content_employees" class="form-control select2-list">
+								<select name="content_employees" id="content_employees" class="form-control select2-list">
 									<option value="all">Semua Karyawan</option>
-									<option value="check_create">Karyawan Terbaru</option>
-									<option value="check_resign">Karyawan Resign</option>
+									<option value="checkcreate">Karyawan Terbaru</option>
+									<option value="checkresign">Karyawan Resign</option>
 								</select>
 								<label for="">Field Karyawan</label>
 							</div>
 						</div>
 
-						<div class="total_branches list_branches" style="display:none">
+						<div class="total_branches index_branches" style="display:none">
 							<div class="form-group">
-								<select name="content" id="content_branches" class="form-control select2-list">
+								<select name="content_branches" id="content_branches" class="form-control select2-list">
 									<option value="all">Semua Perusahaan</option>
-									<option value="check_create">Perusahaan Terbaru</option>
-									<option value="doc_in_branch">Dokumen di Perusahaan</option>
-									<option value="employe_in_branch">Karyawan di Perusahaan</option>
+									<option value="checkcreate">Perusahaan Terbaru</option>
+									<option value="countworkerbystatus">Jumlah Karyawan di Perusahaan</option>
+									<option value="countresign">Jumlah Karyawan Resign di Perusahaan</option>
 								</select>
 								<label for="">Field Perusahaan</label>
-							</div>
-						</div>
-
-						<div class="field_table" style="display:none">
-							<div class="form-group">
-								<select name="field1" id="field_table_list" class="form-control select2-list" data-sum="1">
-									<option value="field_1"></option>
-								</select>
-								<label for="">Kolom 1</label>
-							</div>
-							<div class="form-group">
-								<select name="field2" id="field_table_list" class="form-control select2-list" data-sum="1">
-									<option value="field_2"></option>
-								</select>
-								<label for="">Kolom 2</label>
-							</div>
-							<div class="form-group">
-								<select name="field3" id="field_table_list" class="form-control select2-list" data-sum="1">
-									<option value="field_3"></option>
-								</select>
-								<label for="">Kolom 3</label>
-							</div>
-							<div class="form-group">
-								<select name="field4" id="field_table_list" class="form-control select2-list" data-sum="1">
-									<option value="field_4"></option>
-								</select>
-								<label for="">Kolom 4</label>
 							</div>
 						</div>
 
@@ -150,9 +126,9 @@
 							<select name="date" id="list_date" class="form-control select2-list">
 								<option value="3_days">Per 3 hari</option>
 								<option value="7_days">Per 7 hari</option>
-								<option value="1_month">Per 1 bulan</option>
-								<option value="3_month">Per 3 bulan</option>
-								<option value="5_month">Per 5 bulan</option>
+								<option value="1_months">Per 1 bulan</option>
+								<option value="3_months">Per 3 bulan</option>
+								<option value="5_months">Per 5 bulan</option>
 								<option value="1_years">Per 1 tahun</option>
 								<option value="all">Tidak ada batas waktu</option>
 							</select>
@@ -160,11 +136,12 @@
 						</div>
 
 						<div class="form-group">
-							<select id="select1" name="order" class="form-control">
-								@for($i=count($dashboard)+1;$i<=6;$i++)
-									<option value="{{$i}}">{{$i}}</option>
-								@endfor
-							</select>
+							<input type="text" name="order" class="form-control">
+							{{-- <select id="select1" name="order" class="form-control"> --}}
+								{{-- @for($i=count($dashboard)+1;$i<=6;$i++) --}}
+									{{-- <option value="{{$i}}">{{$i}}</option> --}}
+								{{-- @endfor --}}
+							{{-- </select> --}}
 							<label for="select1">Urutan</label>
 						</div>
 					</div>
@@ -320,16 +297,6 @@
 				$('.'+val).css('display', 'block');	
 
 				$(this).attr('data-old', val);
-			});
-
-			$('#type_widget').change(function(){
-				var val_widget = $(this).val();
-
-				if (val_widget == 'table') {
-					$('.field_table').css('display', 'block');
-				} else {
-					$('.field_table').css('display', 'none');
-				}
 			});
 
 

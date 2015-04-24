@@ -182,6 +182,7 @@ class DocumentController extends Controller {
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 
+		// dd($data);
 		return $this->layout;
 	}
 
@@ -258,6 +259,27 @@ class DocumentController extends Controller {
 		{
 			return Redirect::route('hr.documents.index')->with('alert_success', 'Template Dokumen "' . $contents->data->field. '" sudah dihapus');
 		}
+	}
+
+	function showTemplatePDF($id)
+	{
+		$results 									= API::document()->show($id);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		// return view('admin.pages.organisation.'.$this->controller_name.'.template_pdf')->with('data', $data);
+
+		$pdf 										= PDF::loadView('admin.pages.organisation.'.$this->controller_name.'.template_pdf', ['data' => $data]);
+
+
+		return $pdf->stream();
 	}
 
 }
