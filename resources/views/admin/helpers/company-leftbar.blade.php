@@ -3,6 +3,7 @@
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary">CATEGORIES</li>
 					<li @if(!Input::has('tag')) class="active" @endif><a href="{{route('hr.organisation.branches.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					<li><a href="{{route('hr.organisation.branches.show', [$data['id']])}}">Kontak  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary">DEPARTMENT</li>

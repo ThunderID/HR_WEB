@@ -31,6 +31,7 @@
 						<li @if(!Input::has('tag') && !isset($relatives) && !isset($works)) class="active" @endif><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(isset($relatives)) class="active" @endif><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(isset($works)) class="active" @endif><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li><a href="{{route('hr.persons.show', [$data['id']])}}">Kontak  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					</ul>
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary" style="text-transform: uppercase;">DOKUMEN</li>
