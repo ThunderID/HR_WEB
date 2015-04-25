@@ -100,6 +100,11 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisation.branches.update'				=> 'branch-is_update',
 							'hr.organisation.branches.edit'					=> 'branch-is_update',
 							'hr.organisation.branches.delete'				=> 'branch-is_delete',
+
+							'hr.branches.contacts.index'					=> 'branch-is_read',
+							'hr.branches.contacts.show'						=> 'branch-is_read',
+							'hr.branches.contacts.store'					=> 'branch-is_create',
+							'hr.branches.contacts.delete'					=> 'branch-is_delete',
 							
 							'hr.documents.index'							=> 'document-is_read',
 							'hr.documents.show'								=> 'document-is_read',

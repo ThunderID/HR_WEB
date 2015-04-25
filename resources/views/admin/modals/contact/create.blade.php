@@ -1,4 +1,4 @@
-<div class="modal fade" id="addressCreate" tabindex="-1" role="dialog" aria-labelledby="addressCreate" aria-hidden="true">
+<div class="modal fade" id="contactCreate" tabindex="-1" role="dialog" aria-labelledby="contactCreate" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header text-primary">

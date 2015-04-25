@@ -13,7 +13,7 @@ class ChartController extends Controller {
 		parent::__construct();
 	}
 
-	function getShow($branch_id, $id)
+	function getShow($branch_id, $id, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
 		if(Input::has('tag'))
@@ -58,6 +58,21 @@ class ChartController extends Controller {
 
 		$charts 									= json_decode(json_encode($contents->data), true);
 
+		$search 									= ['chartid' => $id, 'withattributes' => ['application']];
+		$sort 										= ['chart_id' => 'asc'];
+			
+		$results_4 									= API::organisationchart()->appsIndex($page, $search, $sort);
+
+		$contents 									= json_decode($results_4);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$applications 								= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= $data['name'];
 		$this->layout->content 						= view('admin.pages.organisation.kantor.show.'.$this->controller_name.'.show');
@@ -65,6 +80,9 @@ class ChartController extends Controller {
 		$this->layout->content->data 				= $data;
 		$this->layout->content->chart 				= $chart;
 		$this->layout->content->charts 				= $charts;
+		$this->layout->content->applications 		= $applications;
+		$this->layout->content->paginator 			= $paginator;
+		$this->layout->content->route 				= ['branch_id' => $branch_id,'id' => $id,'tag' => Input::get('tag')];
 
 		return $this->layout;
 	}

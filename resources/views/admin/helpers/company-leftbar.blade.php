@@ -2,8 +2,13 @@
 			<div class="hbox-column col-md-2" id="sidebar_left">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary">CATEGORIES</li>
-					<li @if(!Input::has('tag')) class="active" @endif><a href="{{route('hr.organisation.branches.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li><a href="{{route('hr.organisation.branches.show', [$data['id']])}}">Kontak  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					<li @if(!Input::has('tag') && !Input::has('item')) class="active" @endif><a href="{{route('hr.organisation.branches.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+				</ul>
+				<ul class="nav nav-pills nav-stacked">
+					<li class="text-primary">CONTACT</li>
+					@foreach($data['tagcontacts'] as $key => $value)
+						<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">{{ucwords(str_replace('_',' ',$value['item']))}}  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					@endforeach
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary">DEPARTMENT</li>

@@ -4,7 +4,7 @@ use Input, Session, App, Paginator, Redirect;
 use API;
 use App\Http\Controllers\Controller;
 
-class CompanyController extends Controller {
+class BranchController extends Controller {
 
 	protected $controller_name = 'kantor';
 
@@ -16,7 +16,7 @@ class CompanyController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search										= ['organisationid' => Session::get('user.organisation'), 'CurrentContact' => 'updated_at'];
+		$search										= ['organisationid' => Session::get('user.organisation'), 'CurrentContact' => 'is_default'];
 		if(Input::has('q'))
 		{
 			if(Input::has('field'))

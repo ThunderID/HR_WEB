@@ -86,53 +86,82 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
-	Route::group(['prefix' => 'companies', 'before' => 'hr_acl'], function(){
+	Route::group(['prefix' => 'branches', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
 						[
-							'uses' 	=> 'Branch\CompanyController@getIndex', 
+							'uses' 	=> 'Branch\BranchController@getIndex', 
 							'as' 	=> 'hr.organisation.branches.index'
 						]
 					);
 
 		Route::get('create/new', 
 						[
-							'uses' 	=> 'Branch\CompanyController@getCreate', 
+							'uses' 	=> 'Branch\BranchController@getCreate', 
 							'as' 	=> 'hr.organisation.branches.create'
 						]
 					);
 
 		Route::post('store', 
 						[
-							'uses' 	=> 'Branch\CompanyController@postStore', 
+							'uses' 	=> 'Branch\BranchController@postStore', 
 							'as' 	=> 'hr.organisation.branches.store'
 						]
 					);
 
 		Route::get('show/{id}', 
 						[
-							'uses' 	=> 'Branch\CompanyController@getShow', 
+							'uses' 	=> 'Branch\BranchController@getShow', 
 							'as' 	=> 'hr.organisation.branches.show'
 						]
 					);
 		Route::get('edit/{id}', 
 						[
-							'uses' 	=> 'Branch\CompanyController@getEdit', 
+							'uses' 	=> 'Branch\BranchController@getEdit', 
 							'as' 	=> 'hr.organisation.branches.edit'
 						]
 					);
 		Route::post('update/{id}', 
 						[
-							'uses' 	=> 'Branch\CompanyController@postUpdate', 
+							'uses' 	=> 'Branch\BranchController@postUpdate', 
 							'as' 	=> 'hr.organisation.branches.update'
 						]
 					);	
 		Route::any('delete/{id}', 
 						[
-							'uses' 	=> 'Branch\CompanyController@anyDelete', 
+							'uses' 	=> 'Branch\BranchController@anyDelete', 
 							'as' 	=> 'hr.organisation.branches.delete'
 						]
 					);	
+
+	/* ---------------------------------------------------------------------------- BRANCH CONTACTS----------------------------------------------------------------------------*/
+		Route::get('show/{branch_id}/contacts/{page?}', 
+						[
+							'uses' 	=> 'Branch\ContactController@getIndex', 
+							'as' 	=> 'hr.branches.contacts.index'
+						]
+					);
+		Route::get('show/{branch_id}/contacts/show/{id}', 
+						[
+							'uses' 	=> 'Branch\ContactController@getShow', 
+							'as' 	=> 'hr.branches.contacts.show'
+						]
+					);
+		Route::post('show/{branch_id}/contacts/store', 
+						[
+							'uses' 	=> 'Branch\ContactController@postStore', 
+							'as' 	=> 'hr.branches.contacts.store'
+						]
+					);
+
+		Route::any('show/{branch_id}/contacts/delete/{id}', 
+						[
+							'uses' 	=> 'Branch\ContactController@anyDelete', 
+							'as' 	=> 'hr.branches.contacts.delete'
+						]
+					);
+	/* ---------------------------------------------------------------------------- END BRANCH CONTACTS----------------------------------------------------------------------------*/
 	});
+
 
 	/* ---------------------------------------------------------------------------- END ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
@@ -151,7 +180,7 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.organisation.charts.store'
 						]
 					);
-		Route::get('branch/{branch_id}/show/{id}', 
+		Route::get('branch/{branch_id}/show/{id}/{page?}', 
 						[
 							'uses' 	=> 'Branch\ChartController@getShow', 
 							'as' 	=> 'hr.organisation.charts.show'
@@ -350,11 +379,11 @@ Route::group(['prefix' => 'cms'], function(){
 					);
 
 		Route::any('show/{person_id}/documents/delete/{id}', 
-					[
-						'uses' 	=> 'Person\DocumentController@anyDelete', 
-						'as' 	=> 'hr.persons.documents.delete'
-					]
-				);
+						[
+							'uses' 	=> 'Person\DocumentController@anyDelete', 
+							'as' 	=> 'hr.persons.documents.delete'
+						]
+					);
 		/* ---------------------------------------------------------------------------- END PERSON DOCUMENTS----------------------------------------------------------------------------*/
 	
 		/* ---------------------------------------------------------------------------- PERSON WORKS----------------------------------------------------------------------------*/

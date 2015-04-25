@@ -18,8 +18,8 @@
 				<a href="{{route('hr.documents.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i> Edit
 				</a>				
-				<a href="{{route('hr.documents.pdf', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
-					<i class="fa fa-print"></i> Lihat Print
+				<a href="#" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-print"></i> Print
 				</a>				
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 				</div>
 				<h1 class="text-light no-margin">{{ucwords($data['name'])}}</h1>
 				<h5>
-					{{(isset($data['persons'][0]['count']) ? $data['persons'][0]['count'].' Dokumen' : '')}}
+					{{(isset($paginator) ? $paginator->total_item.' Dokumen' : '')}}
 				</h5>
 				&nbsp;&nbsp;
 				@if(is_null($persons))

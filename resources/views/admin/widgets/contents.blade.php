@@ -23,6 +23,7 @@
 				<span class="fa fa-fw fa-file-o fa-2x pull-left mt-10"></span>
 				<span class="pull-left">
 					<span class="text-bold">{{ucwords($data_content['name'])}}</span><br>
+					<span class="opacity-50"><i class = "fa fa-tags"></i> {{ucwords($data_content['tag'])}}</span><br>
 					<span class="opacity-50">{{(isset($data_content['persons'][0]['count']) ? $data_content['persons'][0]['count'].' Dokumen' : '')}} </span>
 				</span>
 			</div>

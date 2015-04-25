@@ -16,10 +16,10 @@ class DocumentController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['countperson' => '', 'organisationid' => Session::get('user.organisation')];
+		$search 									= [ 'organisationid' => Session::get('user.organisation')];
 		if(Input::has('q'))
 		{
-			$search 								= ['name' => Input::get('q'),'countperson' => '', 'organisationid' => Session::get('user.organisation')];
+			$search 								= ['name' => Input::get('q'), 'organisationid' => Session::get('user.organisation')];
 		}
 
 		if(Input::has('tag'))
@@ -127,32 +127,23 @@ class DocumentController extends Controller {
 	function getShow($id, $page=null)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::document()->show($id);
+		$results 										= API::document()->show($id);
 
-		$contents 									= json_decode($results);
+		$contents 										= json_decode($results);
 
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
 		}
 
-		$data 										= json_decode(json_encode($contents->data), true);
+		$data 											= json_decode(json_encode($contents->data), true);
 
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
+		$this->layout->content 							= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		
 		if(!is_null($page))
 		{
 			// ---------------------- LOAD DATA ----------------------
 			$search 									= ['documentid' => $id, 'withattributes' => ['person']];
-			if(Input::has('q'))
-			{
-				$search 								= ['name' => Input::get('q'),'countperson' => '', 'organisationid' => Session::get('user.organisation')];
-			}
-
-			if(Input::has('tag'))
-			{
-				$search['tag'] 							= Input::get('tag');
-			}
 
 			$sort 										= ['created_at' => 'asc'];
 
@@ -166,6 +157,7 @@ class DocumentController extends Controller {
 			}
 			
 			$persons 									= json_decode(json_encode($contents_2->data), true);
+
 			$paginator 									= new Paginator($contents_2->pagination->total_data, (int)$contents_2->pagination->page, $contents_2->pagination->per_page, $contents_2->pagination->from, $contents_2->pagination->to);
 			$this->layout->content->persons 			= $persons;
 			$this->layout->content->paginator 			= $paginator;

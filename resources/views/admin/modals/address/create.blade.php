@@ -1,4 +1,4 @@
-<div class="modal fade" id="contactCreate" tabindex="-1" role="dialog" aria-labelledby="contactCreate" aria-hidden="true">
+<div class="modal fade" id="addressCreate" tabindex="-1" role="dialog" aria-labelledby="addressCreate" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header text-primary">
@@ -14,20 +14,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<input type="text" class="form-control" id="contact_phone[1]" name="contact_phone[1]">
-							<label for="contact_phone[1]">Nomor Telepon</label>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<input type="text" class="form-control" id="contact_email[1]" name="contact_email[1]">
-							<label for="contact_email[1]">Alamat Email</label>
-						</div>
-					</div>					
-				</div>				
 			</div>			
 			<div class="modal-footer">
 				<a type="button" class="btn btn-default" data-dismiss="modal">Batal</a>

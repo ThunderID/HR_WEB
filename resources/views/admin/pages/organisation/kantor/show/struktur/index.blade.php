@@ -13,7 +13,7 @@
 				</a>
 			</div>
 			<div class="text-right col-sm-1">
-				<a class="btn_edit" href="{{route('hr.organisation.charts.show', [$data['id'], $value['id'], 'tag' => $value['tag']])}}">
+				<a class="btn_edit" href="{{route('hr.organisation.charts.show', [$data['id'], $value['id'], 'page' => 1, 'tag' => $value['tag']])}}">
 					<i class="fa fa-pencil"></i>
 				</a>
 			</div>

@@ -27,4 +27,10 @@ class APIOrganisationChart{
 		$data = new \ThunderID\Organisation\Controllers\ChartController;
 		return $data->destroy($branch_id, $id);
 	}
+
+	function appsIndex($page, $search, $sort, $all = false)
+	{
+		$data = new \ThunderID\Chauth\Controllers\ChauthController;
+		return $data->index($page, $search, $sort, $all = false);
+	}
 }
