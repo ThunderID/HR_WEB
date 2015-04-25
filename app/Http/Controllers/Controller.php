@@ -14,7 +14,7 @@ abstract class Controller extends BaseController {
 
 	function __construct() 
 	{
-		if (Session::has('user.access'))
+		if (Session::has('loggedUser'))
 		{
 
 			$this->layout 					= view('admin.layouts.template');
@@ -29,7 +29,7 @@ abstract class Controller extends BaseController {
 			$nav->add('setting_document', 'Dokumen Personalia', route('hr.documents.index'), null, 'setting');
 			$nav->add('data', 'Data', 'javascript:;', 'fa fa-archive');
 			$nav->add('data_personalia', 'Personalia', route('hr.persons.index'), null, 'data');
-			
+
 			$this->layout->nav 			= $nav;
 		}
 		else
