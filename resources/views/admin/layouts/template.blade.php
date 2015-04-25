@@ -60,8 +60,6 @@
 
 		<script src="{{elixir('js/admin.js')}}"></script>
 		
-		@include('admin.helpers.3col_justify')
-
 		@section('js')
 		@show
 	</body>
