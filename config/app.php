@@ -147,15 +147,15 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\ComposerServiceProvider',
 		
-		// 'Intervention\Image\ImageServiceProvider',
-		// 'Barryvdh\Debugbar\ServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 
-		// 'ThunderID\Person\PersonServiceProvider',
-		// 'ThunderID\Doclate\DocumentServiceProvider',
-		// 'ThunderID\Organisation\OrganisationServiceProvider',
-		// 'ThunderID\Work\WorkServiceProvider',
-		// 'ThunderID\Contact\ContactServiceProvider',
-		// 'ThunderID\Widboard\WidboardServiceProvider',
+		'ThunderID\Person\PersonServiceProvider',
+		'ThunderID\Doclate\DocumentServiceProvider',
+		'ThunderID\Organisation\OrganisationServiceProvider',
+		'ThunderID\Work\WorkServiceProvider',
+		'ThunderID\Contact\ContactServiceProvider',
+		'ThunderID\Widboard\WidboardServiceProvider',
 
 	],
 

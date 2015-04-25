@@ -9,7 +9,14 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<input type="text" class="form-control" id="item[1]" name="item[1]">
+							<select class="form-control" id="item[1]" name="item[1]">
+								<option value=""></option>
+								<option value="phone">Nomor Telepon</option>
+								<option value="email">Email</option>
+								<option value="bbm">BBM</option>
+								<option value="line">Line</option>
+								<option value="whatsapp">WhatsApp</option>
+							</select>							
 							<label for="item[1]">Jenis Kontak</label>
 						</div>
 					</div>

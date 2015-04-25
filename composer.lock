@@ -4,8 +4,62 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7bf6c86a1574856f50d05184a9216e1f",
+    "hash": "f52dd8129f20f06e4aa149d2163c0831",
     "packages": [
+        {
+            "name": "barryvdh/laravel-debugbar",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "reference": "77be5170f3777e2e899ec98105ce5686cd4aa63b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/77be5170f3777e2e899ec98105ce5686cd4aa63b",
+                "reference": "77be5170f3777e2e899ec98105ce5686cd4aa63b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.x",
+                "maximebf/debugbar": "~1.10.2",
+                "php": ">=5.4.0",
+                "symfony/finder": "~2.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Debugbar\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "PHP Debugbar integration for Laravel",
+            "keywords": [
+                "debug",
+                "debugbar",
+                "laravel",
+                "profiler",
+                "webprofiler"
+            ],
+            "time": "2015-03-07 15:15:23"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "1.3.0",
@@ -223,6 +277,52 @@
             "time": "2014-12-20 21:24:13"
         },
         {
+            "name": "fzaninotto/faker",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "1d143fd8caf4d264602450bc01d7484af788706b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/1d143fd8caf4d264602450bc01d7484af788706b",
+                "reference": "1d143fd8caf4d264602450bc01d7484af788706b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Faker": "src/",
+                    "Faker\\PHPUnit": "test/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "time": "2013-12-16 21:56:48"
+        },
+        {
             "name": "illuminate/html",
             "version": "v5.0.0",
             "source": {
@@ -274,12 +374,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "0c6767c7be0e0c73df05c77ffc72eaed91ed2aed"
+                "reference": "9c26a834ff7d1c2bb4e88f98228030eed26960d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/0c6767c7be0e0c73df05c77ffc72eaed91ed2aed",
-                "reference": "0c6767c7be0e0c73df05c77ffc72eaed91ed2aed",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/9c26a834ff7d1c2bb4e88f98228030eed26960d4",
+                "reference": "9c26a834ff7d1c2bb4e88f98228030eed26960d4",
                 "shasum": ""
             },
             "require": {
@@ -322,7 +422,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2015-04-14 20:20:45"
+            "time": "2015-04-22 16:05:20"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -718,6 +818,62 @@
                 "storage"
             ],
             "time": "2015-03-29 14:01:43"
+        },
+        {
+            "name": "maximebf/debugbar",
+            "version": "v1.10.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maximebf/php-debugbar.git",
+                "reference": "7b2006e6e095126b5a061ec33fca3d90ea8a8219"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/7b2006e6e095126b5a061ec33fca3d90ea8a8219",
+                "reference": "7b2006e6e095126b5a061ec33fca3d90ea8a8219",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/log": "~1.0",
+                "symfony/var-dumper": "~2.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "kriswallsmith/assetic": "The best way to manage assets",
+                "monolog/monolog": "Log using Monolog",
+                "predis/predis": "Redis storage"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.10-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "DebugBar": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maxime Bouroumeau-Fuseau",
+                    "email": "maxime.bouroumeau@gmail.com",
+                    "homepage": "http://maximebf.com"
+                }
+            ],
+            "description": "Debug bar in the browser for php application",
+            "homepage": "https://github.com/maximebf/php-debugbar",
+            "keywords": [
+                "debug"
+            ],
+            "time": "2015-02-05 07:51:20"
         },
         {
             "name": "monolog/monolog",
@@ -1802,6 +1958,180 @@
             "time": "2015-03-31 08:12:29"
         },
         {
+            "name": "thunderid/apidto",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/apidto.git",
+                "reference": "475b25180b04e632e8eede7e7b006fa2cceee684"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/apidto/zipball/475b25180b04e632e8eede7e7b006fa2cceee684",
+                "reference": "475b25180b04e632e8eede7e7b006fa2cceee684",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ThunderID\\APIDTO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-07 07:48:17"
+        },
+        {
+            "name": "thunderid/chauth",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Chauth.git",
+                "reference": "1a658925a1fa40cfa69912d9c7e90511b41c90c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Chauth/zipball/1a658925a1fa40cfa69912d9c7e90511b41c90c4",
+                "reference": "1a658925a1fa40cfa69912d9c7e90511b41c90c4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Chauth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-21 16:50:23"
+        },
+        {
+            "name": "thunderid/commoquent",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/commoquent.git",
+                "reference": "c2434474b45a5e9bccf128c851b4b18559417895"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/commoquent/zipball/c2434474b45a5e9bccf128c851b4b18559417895",
+                "reference": "c2434474b45a5e9bccf128c851b4b18559417895",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ThunderID\\Commoquent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-23 16:12:35"
+        },
+        {
+            "name": "thunderid/contact",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Contact.git",
+                "reference": "8920d9f00203e4fcc676c37df8403ef2dc94d013"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Contact/zipball/8920d9f00203e4fcc676c37df8403ef2dc94d013",
+                "reference": "8920d9f00203e4fcc676c37df8403ef2dc94d013",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Contact\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-23 16:17:15"
+        },
+        {
+            "name": "thunderid/doclate",
+            "version": "1.2.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Doclate.git",
+                "reference": "175f8156621ea10f270fd8c983a822eb12379140"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Doclate/zipball/175f8156621ea10f270fd8c983a822eb12379140",
+                "reference": "175f8156621ea10f270fd8c983a822eb12379140",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Doclate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-23 15:03:50"
+        },
+        {
             "name": "thunderid/menu",
             "version": "dev-master",
             "source": {
@@ -1836,6 +2166,150 @@
             ],
             "description": "menu generator",
             "time": "2015-03-22 00:42:59"
+        },
+        {
+            "name": "thunderid/organisation",
+            "version": "1.2.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Organisation.git",
+                "reference": "a64d88be3ff682acf2e1fbab2c816533e39981f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Organisation/zipball/a64d88be3ff682acf2e1fbab2c816533e39981f2",
+                "reference": "a64d88be3ff682acf2e1fbab2c816533e39981f2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Organisation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-23 14:45:53"
+        },
+        {
+            "name": "thunderid/person",
+            "version": "1.2.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Person.git",
+                "reference": "5d8468dd7093b6e23d233326ab02cc5f66e9cf23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Person/zipball/5d8468dd7093b6e23d233326ab02cc5f66e9cf23",
+                "reference": "5d8468dd7093b6e23d233326ab02cc5f66e9cf23",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Person\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-23 16:16:21"
+        },
+        {
+            "name": "thunderid/widboard",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Widboard.git",
+                "reference": "f4ba858f8fe4ef786a6d2d2fa4b4ce2819a52e28"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Widboard/zipball/f4ba858f8fe4ef786a6d2d2fa4b4ce2819a52e28",
+                "reference": "f4ba858f8fe4ef786a6d2d2fa4b4ce2819a52e28",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Widboard\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-23 16:23:06"
+        },
+        {
+            "name": "thunderid/work",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Work.git",
+                "reference": "70c4fda14336005974ae2e91f4d7219e6bdc96e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Work/zipball/70c4fda14336005974ae2e91f4d7219e6bdc96e7",
+                "reference": "70c4fda14336005974ae2e91f4d7219e6bdc96e7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Work\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-23 12:26:35"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2964,7 +3438,17 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "thunderid/menu": 20,
-        "intervention/image": 20
+        "intervention/image": 20,
+        "thunderid/person": 20,
+        "thunderid/doclate": 20,
+        "thunderid/organisation": 20,
+        "thunderid/work": 20,
+        "thunderid/contact": 20,
+        "thunderid/apidto": 20,
+        "thunderid/commoquent": 20,
+        "thunderid/chauth": 20,
+        "thunderid/widboard": 20,
+        "fzaninotto/faker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
