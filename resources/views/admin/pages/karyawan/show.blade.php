@@ -24,49 +24,49 @@
 		<!-- BEGIN CARD TILES -->
 		<div class="card-tiles">
 			<!-- BEGIN LEFTBAR -->
-			<div class="hbox-column col-md-2" id="sidebar_left">
-				<ul class="nav nav-pills nav-stacked">
-					<li class="text-primary" style="text-transform: uppercase;">CATEGORIES</li>
-					<li @if(!Input::has('tag') && !isset($relatives) && !isset($works)) class="active" @endif><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li @if(isset($relatives)) class="active" @endif><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li @if(isset($works)) class="active" @endif><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
-				</ul>
-				<ul class="nav nav-pills nav-stacked">
-					<li class="text-primary" style="text-transform: uppercase;">DOKUMEN</li>
-					<?php $tag =null;?>
-					@foreach($documents as $key => $value)
-						@if($value['tag']!=$tag)
-							<li @if(Input::has('tag') && Input::get('tag')==$value['tag']) class="active" @endif ><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
-							<?php $tag = $value['tag'];?>
-						@endif
-					@endforeach
-				</ul>					
-			</div>
-
-			<!-- BEGIN MIDDLE -->					
-			<div class="hbox-column col-md-7" id="sidebar_mid">
-				<div class="margin-bottom-xxl">
-					<div class="pull-left width-3 clearfix hidden-xs">
-						@if($data['avatar']!='')
-							<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
-						@else
-							<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
-						@endif
-					</div>
-					<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['name'].', '.$data['suffix_title']}}</h1>
-					<h5>
-						@if(isset($data['works'][0]))
-							{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
-						@endif
-					</h5>
-					&nbsp;&nbsp;
+			<div class="hbox-md col-md-12">
+				<div class="hbox-column col-md-2" id="sidebar_left">
+					<ul class="nav nav-pills nav-stacked">
+						<li class="text-primary" style="text-transform: uppercase;">CATEGORIES</li>
+						<li @if(!Input::has('tag') && !isset($relatives) && !isset($works)) class="active" @endif><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(isset($relatives)) class="active" @endif><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(isset($works)) class="active" @endif><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					</ul>
+					<ul class="nav nav-pills nav-stacked">
+						<li class="text-primary" style="text-transform: uppercase;">DOKUMEN</li>
+						<?php $tag =null;?>
+						@foreach($documents as $key => $value)
+							@if($value['tag']!=$tag)
+								<li @if(Input::has('tag') && Input::get('tag')==$value['tag']) class="active" @endif ><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
+								<?php $tag = $value['tag'];?>
+							@endif
+						@endforeach
+					</ul>					
 				</div>
-				@yield('karyawan.show')
-				<!-- END MIDDLE -->
-			</div>
+
+				<div class="hbox-column col-md-7" id="sidebar_mid">
+					<div class="col-md-12">
+						<div class="pull-left width-3 clearfix hidden-xs">
+							@if($data['avatar']!='')
+								<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
+							@else
+								<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+							@endif
+						</div>
+						<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['name'].', '.$data['suffix_title']}}</h1>
+						<h5>
+							@if(isset($data['works'][0]))
+								{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
+							@endif
+						</h5>
+						&nbsp;&nbsp;
+						@yield('karyawan.show')
+					</div>
+				</div>
 
 			<!-- BEGIN RIGHTBAR -->
 			@include('admin.helpers.person-rightbar')
+			</div>
 		</div>
 	</div>
 
@@ -109,7 +109,6 @@
 @section('js')
 	{!! HTML::script('js/dropzone.min.js')!!}
 	<script type="text/javascript">
-		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
 
         $("#document_upload").dropzone({ 
 			url: '{{ route("hr.images.upload") }}' ,
