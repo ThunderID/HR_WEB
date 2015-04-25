@@ -23,30 +23,13 @@ abstract class Controller extends BaseController {
 			// leftmenu
 			$nav = new MaterialAdminSideMenu();
 			//check access
-			foreach(Session::get('user.access') as $key => $value)
-			{
-				if($value['menu']=='dashboard')
-				{
-					$nav->add('dashboard', 'Dashboard', route('hr.dashboard.overview'), 'md md-home');
-				}
-				if($value['menu']=='branch')
-				{
-					$nav->add('setting', 'Setting', 'javascript:;', 'fa fa-gear');
-					$nav->add('setting_branch', 'Branch', route('hr.organisation.branches.index'), null, 'setting');
-					$nav->add('setting_document', 'Dokumen Personalia', route('hr.documents.index'), null, 'setting');
-				}
-				if($value['menu']=='person')
-				{
-					$nav->add('data', 'Data', 'javascript:;', 'fa fa-archive');
-					$nav->add('data_personalia', 'Personalia', route('hr.persons.index'), null, 'data');
-				}
-				if($value['menu']=='organisation')
-				{
-					$nav->add('organisasi', 'Organisasi', 'javascript:;', 'md md-business');
-					$nav->add('basic_info', 'Lihat Semua', route('hr.organisations.index'), null, 'organisasi');
-					$nav->add('basic_info_add', 'Tambah Baru', route('hr.organisations.create'), null, 'organisasi');
-				}
-			}
+			$nav->add('dashboard', 'Dashboard', route('hr.dashboard.overview'), 'md md-home');
+			$nav->add('setting', 'Setting', 'javascript:;', 'fa fa-gear');
+			$nav->add('setting_branch', 'Branch', route('hr.organisation.branches.index'), null, 'setting');
+			$nav->add('setting_document', 'Dokumen Personalia', route('hr.documents.index'), null, 'setting');
+			$nav->add('data', 'Data', 'javascript:;', 'fa fa-archive');
+			$nav->add('data_personalia', 'Personalia', route('hr.persons.index'), null, 'data');
+			
 			$this->layout->nav 			= $nav;
 		}
 		else
