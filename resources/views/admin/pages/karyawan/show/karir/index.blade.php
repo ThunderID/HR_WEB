@@ -59,206 +59,20 @@
 	</div>
 
 	<!-- BEGIN MODAL -->
-	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content ">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Pekerjaan</h4>
-				</div>
-				<form class="form" role="form" action="{{route('hr.persons.works.store', $data['id'])}}" method="post">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<h4>Petunjuk</h4>
-								<article class="margin-bottom-xxl">
-									<p>
-										Isikan posisi pekerjaan, dan status pegawai. Pastikan data yang anda isikan adalah benar.<br/>
-										Untuk pegawai yang saat ini masih bekerja, inputan "Berhenti Bekerja" dan "Alasan Berhenti" dapat dikosongkan.
-									</p>
-								</article>
-							</div><!--end .col -->
-						</div><!--end .row -->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<input name="work_company" id="work_company" class="form-control getCompany" data-comp="">											
-									<label for="work_company">Posisi</label>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<select  id="work_status" name="work_status" class="form-control">
-										<option value=""></option>
-										<option value="contract">Contracts</option>
-										<option value="trial">Trial</option>
-										<option value="permanent">Permanent</option>
-										<option value="internship">Internship</option>
-										<option value="previous">Previous</option>
-									</select>
-									<label for="work_status">Status Pegawai</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="input-group" id="work_start" style="width:100%;">
-										<div class="input-group-content">
-											<input type="text" class="form-control date-pick" id="work_start" name="work_start">
-										</div>
-									</div>
-									<label for="work_start">Mulai Bekerja</label>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="input-group" id="work_end" style="width:100%;">
-										<div class="input-group-content">
-											<input type="text" class="form-control date-pick" id="work_end" name="work_end">
-										</div>
-									</div>
-									<label for="work_end">Berhenti Bekerja</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3"></textarea>
-									<label for="work_quit_reason">Alasan Berhenti</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group text-right">
-									<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-								</div><!--end .card-actionbar -->
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
+	<?php $isNew = true;?>
+	{!! Form::open(array('route' => array('hr.persons.works.store',  $data['id']),'method' => 'POST')) !!}
+		<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
+			@include('admin.modals.work.create')
 		</div>
-	</div>
-
-
-	@foreach($works as $key => $value)	
-	<div class="modal fade" id="edit_modal{{$key}}" tabindex="-1" role="dialog" aria-labelledby="edit_modal{{$key}}" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content ">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title text-xl" id="formModalLabel">Edit Pekerjaan</h4>
-				</div>
-				<form class="form" role="form" action="{{route('hr.persons.works.update', ['person_id' => $data['id'], 'id' => $value['id']] )}}" method="post">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<h4>Petunjuk</h4>
-								<article class="margin-bottom-xxl">
-									<p>
-										Isikan posisi pekerjaan, dan status pegawai. Pastikan data yang anda isikan adalah benar.<br/>
-										Untuk pegawai yang saat ini masih bekerja, inputan "Berhenti Bekerja" dan "Alasan Berhenti" dapat dikosongkan.
-									</p>
-								</article>
-							</div><!--end .col -->
-						</div><!--end .row -->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<input name="work_company" id="work_company{{$key}}" class="form-control getExtCompany{{$key}}" data-comp="" value="{{$value['chart']['path']}}">											
-									<label for="work_company">Posisi</label>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<select  id="work_status" name="work_status" class="form-control">
-										<option value=""></option>
-										@if($value['status']=="contract")
-											<option selected value="contract">Contract</option>
-										@else
-											<option value="contract">Contract</option>
-										@endif
-
-										@if($value['status']=="trial")
-											<option selected value="trial">Trial</option>
-										@else
-											<option value="trial">Trial</option>
-										@endif
-
-										@if($value['status']=="permanent")
-											<option selected value="permanent">Permanent</option>
-										@else
-											<option value="permanent">Permanent</option>
-										@endif
-
-										@if($value['status']=="internship")
-											<option selected value="internship">Internship</option>
-										@else
-											<option value="internship">Internship</option>
-										@endif
-
-										@if($value['status']=="previous")
-											<option selected value="previous">Previous</option>
-										@else
-											<option value="previous">Previous</option>
-										@endif										
-									</select>
-									<label for="work_status">Status Pegawai</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="input-group" id="work_start" style="width:100%;">
-										<div class="input-group-content">
-											<input type="text" class="form-control date-pick" id="work_start" name="work_start" value="{{date("d F Y", strtotime($value['start']))}}">
-										</div>
-									</div>
-									<label for="work_start">Mulai Bekerja</label>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<div class="input-group" id="work_end" style="width:100%;">
-										<div class="input-group-content">
-											@if(is_null($value['end']))
-												<input type="text" class="form-control date-pick" id="work_end" name="work_end">
-											@else
-												<input type="text" class="form-control date-pick" id="work_end" name="work_end" value="{{date("d F Y", strtotime($value['end']))}}">
-												<input type="hidden" id="cur_work_end" name="cur_work_end" value="{{date("d F Y", strtotime($value['end']))}}">
-											@endif
-										</div>
-									</div>
-									<label for="work_end">Berhenti Bekerja</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3">{{$value['reason_end_job']}}</textarea>
-									<label for="work_quit_reason">Alasan Berhenti</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group text-right">
-									<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-								</div><!--end .card-actionbar -->
-							</div>
-						</div>
-					</div>
-				</form>
+	{!! Form::close() !!}
+	<?php $isNew = false;?>
+	@foreach($works as $key => $value)
+		<form class="form" role="form" action="{{route('hr.persons.works.update', ['person_id' => $data['id'], 'id' => $value['id']] )}}" method="post">
+			<div class="modal fade" id="edit_modal{{$key}}" tabindex="-1" role="dialog" aria-labelledby="edit_modal{{$key}}" aria-hidden="true">
+				@include('admin.modals.work.create')
 			</div>
-		</div>
-	</div>	
+		</form>	
 	@endforeach
-
 @stop
 
 @section('css')
@@ -266,18 +80,11 @@
 @stop
 
 @section('js')
-	{!! HTML::script('js/bootstrap-datepicker.js')!!}
-	{!! HTML::script('js/microtemplating.min.js')!!}
+	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
 
 	<script type="text/javascript">
-		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
-
-		$(document).ready(function () {
-			$('.date-pick').datepicker({
-				format:"dd MM yyyy"
-			});
-		});
+		$(".date_mask").inputmask();
 
 		@foreach($works as $key => $work)	
 			@if ($work['id'])

@@ -19,109 +19,16 @@
 			</div>
 		</div>
 
-	<div class="modal fade" id="del_modal2_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal2_{{$value['id']}}" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				{!! Form::open(array('route' => array('hr.organisation.charts.delete', $data['id'], $value['id']),'method' => 'POST')) !!}
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="simpleModalLabel">Hapus Data struktur</h4>
-				</div>
-				<div class="modal-body">
-					<p>Apakah Anda yakin akan menghapus data struktur? Silahkan masukkan password Anda untuk konfirmasi.</p>
-					<div class="row">
-						<div class="form-group">
-							<div class="col-sm-3">
-								<label for="password1" class="control-label">Password</label>
-							</div>
-							<div class="col-sm-9">
-								<input type="password" name="password" id="password" class="form-control" placeholder="Password">
-							</div>
-						</div>					
-					</div>
-				</div>
-				<div class="modal-footer">
-					<p>{!! Form::hidden('from_confirm_form', 'Yes') !!}</p>
-					<a type="button" class="btn btn-default" data-dismiss="modal">Cancel</a>
-					<button type="submit" type="button" class="btn btn-danger">Hapus</button>
-				</div>
-				{!! Form::close() !!}
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div>
+		{!! Form::open(array('route' => array('hr.organisation.branches.delete', $data['id']),'method' => 'POST')) !!}
+			<div class="modal fade" id="del_modal2_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal2_{{$value['id']}}" aria-hidden="true">
+				@include('admin.modals.delete.delete')
+			</div>	
+		{!! Form::close() !!}	
 	@endforeach
 
-	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content ">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Struktur</h4>
-				</div>
-				<div class="modal-body">
-					<form class="form" role="form" action="{{route('hr.organisation.charts.store', $data['id'])}}" method="post">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<select class="form-control" id="path" name="path">
-										<option value=""></option>
-										@foreach($data['charts'] as $key => $value)
-											<option value="{{$value['path']}}">{{$value['name']}}</option>
-										@endforeach
-									</select>
-									<label for="path">Atasan</label>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">	
-									<input type="text" class="form-control" id="grade" name="tag">
-									<label for="grade">Departemen</label>
-								</div>				
-							</div>				
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<input type="text" class="form-control input-lg" id="name" name="name">
-									<label for="name">Nama</label>
-								</div>
-							</div>
-						</div><!--end .row -->
-						<div class="row">
-							<div class="col-md-3">
-								<div class="form-group">
-									<input type="text" class="form-control" id="min_employee" name="min_employee">
-									<label for="min_employee">Jumlah Minimum Pegawai</label>
-								</div>
-							</div><!--end .col -->
-							<div class="col-md-3">
-								<div class="form-group">
-									<input type="text" class="form-control" id="ideal_employee" name="ideal_employee">
-									<label for="ideal_employee">Jumlah Ideal Pegawai</label>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<input type="text" class="form-control" id="max_employee" name="max_employee">
-									<label for="max_employee">Jumlah Maksimum Pegawai</label>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<input type="text" class="form-control" id="grade" name="grade" Placehoder="(Biarkan kosong untuk departemen)">
-									<label for="grade">Grade</label>
-								</div>
-							</div>
-						</div>
-						<div class="card-actionbar">
-							<div class="card-actionbar-row">
-								<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
-								<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-							</div><!--end .card-actionbar-row -->
-						</div><!--end .card-actionbar -->				
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>		
+	{!! Form::open(array('route' => array('hr.organisation.charts.store', $data['id']),'method' => 'POST')) !!}
+		<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
+			@include('admin.modals.branch.create')
+		</div>	
+	{!! Form::close() !!}	
 @stop
