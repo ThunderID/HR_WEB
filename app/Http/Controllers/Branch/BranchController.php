@@ -253,7 +253,7 @@ class BranchController extends Controller {
 	function anyDelete($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$username 					= Session::get('user.name');
+		$username 					= Session::get('user.email');
 		$password 					= Input::get('password');
 
 		$results 					= API::person()->authenticate($username, $password);

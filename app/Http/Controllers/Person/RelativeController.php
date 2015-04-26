@@ -121,7 +121,7 @@ class RelativeController extends Controller {
 
 	function anyDelete($personid, $id)
 	{
-		$username 					= Session::get('user.name');
+		$username 					= Session::get('user.email');
 		$password 					= Input::get('password');
 
 		$results 					= API::person()->authenticate($username, $password);
