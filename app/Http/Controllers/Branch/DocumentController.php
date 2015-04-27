@@ -210,10 +210,10 @@ class DocumentController extends Controller {
 	function anyDelete($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$username 					= Session::get('user.name');
+		$email 						= Session::get('user.email');
 		$password 					= Input::get('password');
 
-		$results 					= API::person()->authenticate($username, $password);
+		$results 					= API::person()->authenticate($email, $password);
 
 		$content 					= json_decode($results);
 
@@ -249,7 +249,7 @@ class DocumentController extends Controller {
 		}
 		else
 		{
-			return Redirect::route('hr.documents.index')->with('alert_success', 'Template Dokumen "' . $contents->data->field. '" sudah dihapus');
+			return Redirect::route('hr.documents.show', $contents->data->document_id)->with('alert_success', 'Template Dokumen "' . $contents->data->field. '" sudah dihapus');
 		}
 	}
 

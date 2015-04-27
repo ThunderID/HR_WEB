@@ -19,75 +19,58 @@
 			<div class="clearfix">
 				&nbsp;
 			</div>	
-			@if($data['id'])
-				<ul class="list-unstyled">
-					<li class="clearfix">
-						@if(count($contacts))
-							@foreach($contacts as $key => $value)
-								@if($value['item']=='address')
-									<form class="form" role="form" action="{{route('hr.organisation.branches.update', $data['id'])}}" method="post">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="form-group">
-													<input type="hidden" class="form-control" id="id_address[0]" name="id_address[0]" value="{{$value['id']}}">
-													<textarea type="text" class="form-control" name="address_address[0]" style="resize: none;" rows="3">{{$value['value']}}</textarea>
-													<label for="address_address[0]">Alamat @if($value['is_default']) Sekarang @else Lama @endif</label>
-												</div>
-											</div>
-										</div>
-										<?php $is_address = true;?>																						
-										<div class="card-actionbar">
-											<div class="card-actionbar-row">
-												<button type="submit" class="btn btn-flat btn-accent"><i class="fa fa-pencil"></i>&nbsp;SIMPAN</button>
-											</div>
-										</div>
-									</form>
-								@else
-									<form class="form" role="form" action="{{route('hr.organisation.branches.update', $data['id'])}}" method="post">
-										<div class="row">
-											<div class="col-md-10">
-												<div class="form-group">
-													<input type="text" class="form-control" id="value[{{$key}}]" name="value[{{$key}}]" value="{{$value['value']}}">
-													<input type="hidden" class="form-control" id="item[{{$key}}]" name="item[{{$key}}]" value="{{$value['item']}}">
-													<input type="hidden" class="form-control" id="id_item[{{$key}}]" name="id_item[{{$key}}]" value="{{$value['id']}}">
-													<label for="value[{{$key}}]">{{ucwords(str_replace('_',' ',$value['item']))}} @if($value['is_default']) Sekarang @else Lama @endif</label>
-												</div>
-											</div>
-											<div class="col-md-2">
-												<button type="submit" class="btn btn-flat btn-accent"><i class="fa fa-pencil"></i>&nbsp;SIMPAN</button>
-											</div>
-										</div>
-									</form>
-								@endif
-							@endforeach
-						@else
-							<ul class="list-unstyled">
-								<div class="alert alert-callout alert-warning" role="alert">
-									<strong>Perhatian!</strong> Data kontak belum dimasukkan.
-								</div>					
-							</ul>							
-						@endif
-
-						@if(count($contacts))
-							@include('admin.helpers.pagination')
-						@endif
-					</li>			
-				</ul>
-			@else
-				<ul class="list-unstyled">
-					<div class="alert alert-callout alert-warning" role="alert">
-						<strong>Perhatian!</strong> Data kontak belum dimasukkan.
-					</div>					
-				</ul>
+			@forelse($contacts as $key => $value)
+				@if($value['item']=='address')
+					<form class="form" role="form" action="{{route('hr.branches.contacts.store', $data['id'])}}" method="post">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="hidden" class="form-control" id="id_address[0]" name="id_address[0]" value="{{$value['id']}}">
+									<textarea type="text" class="form-control" name="address_address[0]" style="resize: none;" rows="3">{{$value['value']}}</textarea>
+									<label for="address_address[0]">Alamat @if($value['is_default']) Aktif @else Tidak Aktif @endif</label>
+								</div>
+							</div>
+						</div>
+						<?php $is_address = true;?>																						
+						<div class="card-actionbar">
+							<div class="card-actionbar-row">
+								<button type="submit" class="btn btn-flat btn-accent"><i class="fa fa-pencil"></i>&nbsp;SIMPAN</button>
+							</div>
+						</div>
+					</form>
+				@else
+					<form class="form" role="form" action="{{route('hr.branches.contacts.store', $data['id'])}}" method="post">
+						<div class="row">
+							<div class="col-md-10">
+								<div class="form-group">
+									<input type="text" class="form-control" id="value[{{$key}}]" name="value[{{$key}}]" value="{{$value['value']}}">
+									<input type="hidden" class="form-control" id="item[{{$key}}]" name="item[{{$key}}]" value="{{$value['item']}}">
+									<input type="hidden" class="form-control" id="id_item[{{$key}}]" name="id_item[{{$key}}]" value="{{$value['id']}}">
+									<label for="value[{{$key}}]">{{ucwords(str_replace('_',' ',$value['item']))}} @if($value['is_default']) Aktif @else Tidak Aktif @endif</label>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-flat btn-accent"><i class="fa fa-pencil"></i>&nbsp;SIMPAN</button>
+							</div>
+						</div>
+					</form>
+				@endif
+			@empty
+				<div class="alert alert-callout alert-warning" role="alert">
+					<strong>Perhatian!</strong> Data kontak belum dimasukkan.
+				</div>
+			@endforelse
+			@if(count($contacts))
+				@include('admin.helpers.pagination')
 			@endif
 		</div>
 	</div>
 
-	{!! Form::open(array('route' => array('hr.organisation.branches.update',  $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('route' => array('hr.branches.contacts.store',  $data['id']),'method' => 'POST')) !!}
 		@include('admin.modals.contact.create')
 	{!! Form::close() !!}
 
-	{!! Form::open(array('route' => array('hr.organisation.branches.update',  $data['id']),'method' => 'POST')) !!}	
+	{!! Form::open(array('route' => array('hr.branches.contacts.store',  $data['id']),'method' => 'POST')) !!}	
 		@include('admin.modals.address.create')
 	{!! Form::close() !!}
 @stop

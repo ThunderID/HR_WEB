@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header text-primary">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="simpleModalLabel">Tambah Data Kontak</h4>
+				<h4 class="modal-title" id="simpleModalLabel">Tambah Kontak</h4>
 			</div>
 			<div class="modal-body form">
 				<div class="row">

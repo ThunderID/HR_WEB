@@ -65,7 +65,7 @@
 					<div class="clearfix">
 						<div class="col-lg-12">
 
-							@if($value2['item']=='phone_number')
+							@if($value2['item']=='phone')
 								<span class="opacity-75"><span class="glyphicon glyphicon-phone text-sm"></span> {!! $value2['value'] !!}</span>
 							@elseif($value2['item']=='email')
 								<span class="opacity-75"><span class="glyphicon glyphicon-envelope text-sm"></span> {!! $value2['value'] !!}</span>

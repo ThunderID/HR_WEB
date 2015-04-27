@@ -66,4 +66,61 @@ class ContactController extends Controller {
 
 		return $this->layout;
 	}
+
+
+	function postStore($branchid = null)
+	{
+		// ---------------------- HANDLE INPUT ----------------------
+		$input['branch']['id'] 						= $branchid;
+
+		if(Input::has('address_address'))
+		{
+			foreach (Input::get('address_address') as $key => $value) 
+			{
+				$address							= [];
+				$address['value'] 					= $value;
+				if(isset(Input::get('id_address')[$key]) && Input::get('id_address')[$key]!='')
+				{
+					$address['id'] 					= Input::get('id_address')[$key];
+				}
+				if($address['value']!='')
+				{
+					$address['item']					= 'address';
+					$input['contacts']['address'][] 	= $address;
+				}
+			}
+		}
+
+		if(Input::has('item'))
+		{
+			foreach (Input::get('item') as $key => $value) 
+			{
+				$contact['value'] 					= Input::get('value')[$key];
+				
+				if($contact['value']!='')
+				{
+					if(isset(Input::get('id_item')[$key]))
+					{
+						$contact['id']				= Input::get('id_item')[$key];
+					}
+					
+					$contact['item']				= $value;
+					$input['contacts'][$value][] 	= $contact;
+				}
+			}
+		}
+
+		$input['organisation']['id']					= Session::get('user.organisation');
+
+		$results 										= API::organisationbranch()->store($branchid, $input);
+
+		$content 										= json_decode($results);
+		
+		if($content->meta->success)
+		{
+			return Redirect::route('hr.organisation.branches.show', [$branchid])->with('alert_success', 'Kantor '.$content->data->name.' Sudah Tersimpan');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+	}
 }

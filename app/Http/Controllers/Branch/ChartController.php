@@ -159,7 +159,7 @@ class ChartController extends Controller {
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.charts.show', [$branch_id, $content->data->id])->with('alert_success', 'Struktur '.$content->data->name.' Sudah Tersimpan');
+			return Redirect::route('hr.organisation.charts.show', [$branch_id, $content->data->id])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -239,10 +239,10 @@ class ChartController extends Controller {
 	function anyDelete($branch_id, $id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$username 					= Session::get('user.name');
+		$email 						= Session::get('user.email');
 		$password 					= Input::get('password');
 
-		$results 					= API::person()->authenticate($username, $password);
+		$results 					= API::person()->authenticate($email, $password);
 
 		$content 					= json_decode($results);
 
@@ -254,7 +254,7 @@ class ChartController extends Controller {
 			
 			if($content->meta->success)
 			{
-				return Redirect::route('hr.organisation.branches.show', [$branch_id])->with('alert_success', 'Struktur "' . $content->data->name. '" sudah dihapus');
+				return Redirect::route('hr.organisation.branches.show', [$branch_id])->with('alert_success', 'Posisi "' . $content->data->name. '" sudah dihapus');
 			}
 
 			return Redirect::route('hr.organisation.branches.show', ['id' => $branch_id])->withErrors($content->meta->errors);

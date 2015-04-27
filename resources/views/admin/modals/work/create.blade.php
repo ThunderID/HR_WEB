@@ -43,7 +43,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane @if($isNew == true || $value['chart_id']==0) active @endif" id="second5">
+						<div class="tab-pane @if($isNew == false && $value['chart_id']==0) active @endif" id="second5">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">

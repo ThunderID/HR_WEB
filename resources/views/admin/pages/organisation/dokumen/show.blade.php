@@ -31,7 +31,7 @@
 			<div class="hbox-column col-md-2" id="sidebar_left">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary">CATEGORIES</li>
-					<li @if(is_null($persons)) class="active" @endif><a href="{{route('hr.documents.show', [$data['id']])}}">Detail  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					<li @if(is_null($persons)) class="active" @endif><a href="{{route('hr.documents.show', [$data['id']])}}">@if(!count($data['templates'])) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Detail  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li @if(($persons)) class="active" @endif><a href="{{route('hr.document.persons.index', [$data['id'], 'page' => 1])}}">Karyawan </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 			</div>
@@ -46,66 +46,66 @@
 				</h5>
 				&nbsp;&nbsp;
 				@if(is_null($persons))
-				<ul class="nav nav-tabs" data-toggle="tabs">
-					<li class="active"><a href="#details">Struktur</a></li>
-				</ul>
-				<div class="tab-content height-8">
-					<div class="tab-pane active" id="details">
-						<br/>
-						@foreach($data['templates'] as $key => $value)
-							<div class="row">
-								<div class="col-sm-10">{{ucwords($value['field'])}} ({{$value['type']}})</div>
-								<div class="text-right col-sm-2">
-									<a href="{{route('hr.document.templates.delete', [$value['id']])}}">
-										<i class="fa fa-trash"></i>
-									</a>
-								</div>
-							</div>
-						@endforeach
-					</div>
-				</div>
-				@else
-				<ul class="nav nav-tabs" data-toggle="tabs">
-					<li class="active"><a href="#details">Karyawan</a></li>
-				</ul>
-				<div class="page-header no-border holder" style="margin-top:0px;">
-				</div>
-				<div class="tab-content">
-					<div class="tab-pane active" id="details">
-					<br/>
-					<br/>
-						<ul class="list-unstyled" id="workList">
-							<li class="clearfix">
-								<div class="list-results pl-10" style="margin-bottom:0px;">
-									@foreach($persons as $key => $value)	
-										<div class="row">
-											<div class="col-xs-12">
-												<a href="{{route('hr.persons.documents.show', [$value['person']['id'], $value['id']])}}">
-													<p>
-														<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
-														<span class="pull-left">
-															<span class="text-bold">{{$value['person']['name']}}</span><br/>
-															<span class="opacity-50">{{date("l, d F Y", strtotime($value['created_at']))}}</span><br/>
-														</span>
-													</p>
-												</a>
-											</div>
-										</div><!--end .row -->
-									@endforeach
-								</div><!--end .hbox-md -->
-								@if(count($persons))
-									@include('admin.helpers.pagination')
-								@else
-									<div class="row">
-										<div class="col-sm-12 text-center">
-											<p>Tidak ada data</p>
-										</div>
+					<ul class="nav nav-tabs" data-toggle="tabs">
+						<li class="active"><a href="#details">Template Dokumen</a></li>
+					</ul>
+					<div class="tab-content height-8">
+						<div class="tab-pane active" id="details">
+							<br/>
+							@foreach($data['templates'] as $key => $value)
+								<div class="row">
+									<div class="col-sm-10">{{ucwords($value['field'])}} ({{$value['type']}})</div>
+									<div class="text-right col-sm-2">
+										<a href="{{route('hr.document.templates.delete', [$value['id']])}}">
+											<i class="fa fa-trash"></i>
+										</a>
 									</div>
-								@endif			
-							</li>
-						</ul>
+								</div>
+							@endforeach
+						</div>
 					</div>
-				</div>
+				@else
+					<ul class="nav nav-tabs" data-toggle="tabs">
+						<li class="active"><a href="#details">Karyawan</a></li>
+					</ul>
+					<div class="page-header no-border holder" style="margin-top:0px;">
+					</div>
+					<div class="tab-content">
+						<div class="tab-pane active" id="details">
+							<br/>
+							<br/>
+							<ul class="list-unstyled" id="workList">
+								<li class="clearfix">
+									<div class="list-results pl-10" style="margin-bottom:0px;">
+										@foreach($persons as $key => $value)	
+											<div class="row">
+												<div class="col-xs-12">
+													<a href="{{route('hr.persons.documents.show', [$value['person']['id'], $value['id']])}}">
+														<p>
+															<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
+															<span class="pull-left">
+																<span class="text-bold">{{$value['person']['name']}}</span><br/>
+																<span class="opacity-50">{{date("l, d F Y", strtotime($value['created_at']))}}</span><br/>
+															</span>
+														</p>
+													</a>
+												</div>
+											</div><!--end .row -->
+										@endforeach
+									</div><!--end .hbox-md -->
+									@if(count($persons))
+										@include('admin.helpers.pagination')
+									@else
+										<div class="row">
+											<div class="col-sm-12 text-center">
+												<p>Tidak ada data</p>
+											</div>
+										</div>
+									@endif			
+								</li>
+							</ul>
+						</div>
+					</div>
 				@endif
 				<!-- END MIDDLE -->
 			</div>

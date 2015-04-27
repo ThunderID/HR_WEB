@@ -19,7 +19,12 @@ class PersonController extends Controller {
 		$search 									= ['CurrentContact' => 'item'];
 		if(Input::has('karyawan'))
 		{
-			$search['CurrentWork']					= '';			
+			$search['CurrentWork']					= '';
+			$search['checkwork']					= true;
+		}
+		if(Input::has('non-karyawan'))
+		{
+			$search['CheckWork']					= false;			
 		}
 		if(Input::has('gender'))
 		{
@@ -282,7 +287,7 @@ class PersonController extends Controller {
 				}
 			}
 		}
-		
+
 		if(Input::has('documents'))
 		{
 			foreach (Input::get('documents') as $key => $value) 

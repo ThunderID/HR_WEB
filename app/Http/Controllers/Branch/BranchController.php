@@ -90,78 +90,9 @@ class BranchController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		if(Input::has('name'))
 		{
-			$input['branch'] 						= Input::only('name','license','npwp','business_activities','business_fields');
+			$input['branch'] 							= Input::only('name','license','npwp','business_activities','business_fields');
 		}
-		$input['branch']['id'] 						= $id;
-
-		if(Input::has('address_address'))
-		{
-			foreach (Input::get('address_address') as $key => $value) 
-			{
-				$address							= [];
-				$address['value'] 					= $value;
-				if(isset(Input::get('address_RT')[$key]) && Input::get('address_RT')[$key]!='')
-				{
-					$address['value'] 				= $address['value'].' RT. '.Input::get('address_RT')[$key];
-				}
-				if(isset(Input::get('address_RW')[$key]) && Input::get('address_RW')[$key]!='')
-				{
-					$address['value'] 				= $address['value'].' RW. '.Input::get('address_RW')[$key];
-				}
-				if(isset(Input::get('address_kecamatan')[$key]) && Input::get('address_kecamatan')[$key]!='')
-				{
-					$address['value'] 				= $address['value'].' Kec. '.Input::get('address_kecamatan')[$key];
-				}
-				if(isset(Input::get('address_kelurahan')[$key]) && Input::get('address_kelurahan')[$key]!='')
-				{
-					$address['value'] 				= $address['value'].' Kel. '.Input::get('address_kelurahan')[$key];
-				}
-				if(isset(Input::get('address_kota')[$key]) && Input::get('address_kota')[$key]!='')
-				{
-					$address['value'] 				= $address['value'].' Kota/Kab '.Input::get('address_kota')[$key];
-				}
-				if(isset(Input::get('address_provinsi')[$key]) && Input::get('address_provinsi')[$key]!='')
-				{
-					$address['value'] 				= $address['value'].' - '.Input::get('address_provinsi')[$key];
-				}
-				if(isset(Input::get('address_negara')[$key]) && Input::get('address_negara')[$key]!='')
-				{
-					$address['value'] 				= $address['value'].' - '.Input::get('address_negara')[$key];
-				}
-				if(isset(Input::get('address_kode_pos')[$key]) && Input::get('address_kode_pos')[$key]!='')
-				{
-					$address['value'] 				= $address['value'].' Kode pos '.Input::get('address_kode_pos')[$key];
-				}
-				if(isset(Input::get('id_address')[$key]) && Input::get('id_address')[$key]!='')
-				{
-					$address['id'] 					= Input::get('id_address')[$key];
-				}
-				if($address['value']!='')
-				{
-					$address['item']					= 'address';
-					$input['contacts']['address'][] 	= $address;
-				}
-			}
-		}
-
-		if(Input::has('item'))
-		{
-			foreach (Input::get('item') as $key => $value) 
-			{
-				$contact['value'] 					= Input::get('value')[$key];
-				
-				if($contact['value']!='')
-				{
-					if(isset(Input::get('id_item')[$key]))
-					{
-						$contact['id']				= Input::get('id_item')[$key];
-					}
-					
-					$contact['item']				= $value;
-					$input['contacts'][$value][] 	= $contact;
-				}
-			}
-		}
+		$input['branch']['id'] 							= $id;
 
 		$input['organisation']['id']					= Session::get('user.organisation');
 

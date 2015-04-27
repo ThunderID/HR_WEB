@@ -9,8 +9,7 @@
 			<a class="btn btn-primary pull-right" href="" data-toggle="modal" data-target="#add_modal">TAMBAH</a>
 		</div>
 		<div class="clearfix">&nbsp;</div>
-		<?php $key = 0 ?>
-		@foreach($data['charts'] as $key => $value)
+		@forelse($data['charts'] as $key => $value)
 			<div class="row">
 				<div class="col-sm-10">
 					@for($i=1;$i<count(explode(',',$value['path']));$i++)&nbsp;&nbsp;&nbsp;@endfor 
@@ -26,23 +25,20 @@
 				</div>
 			</div>
 
-			{!! Form::open(array('route' => array('hr.organisation.branches.delete', $data['id']),'method' => 'POST')) !!}
+			{!! Form::open(array('route' => array('hr.organisation.charts.delete', $data['id'], $value['id']),'method' => 'POST')) !!}
 				<div class="modal fade" id="del_modal2_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal2_{{$value['id']}}" aria-hidden="true">
 					@include('admin.modals.delete.delete')
 				</div>	
 			{!! Form::close() !!}	
-		@endforeach
-		@if($key == 0)
-				<ul class="list-unstyled">
-					<div class="alert alert-callout alert-warning" role="alert">
-						<strong>Perhatian!</strong> Data belum dimasukkan.
-					</div>					
-				</ul>
-		@endif		
+		@empty
+			<div class="alert alert-callout alert-warning" role="alert">
+				<strong>Perhatian!</strong> Data belum dimasukkan.
+			</div>
+		@endforelse		
 
 		{!! Form::open(array('route' => array('hr.organisation.charts.store', $data['id']),'method' => 'POST')) !!}
 			<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
-				@include('admin.modals.branch.create')
+				@include('admin.modals.chart.create')
 			</div>	
 		{!! Form::close() !!}	
 	</div>

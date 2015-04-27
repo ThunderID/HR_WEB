@@ -172,10 +172,10 @@ class DocumentController extends Controller {
 
 	function anyDelete($personid, $id)
 	{
-		$username 					= Session::get('user.name');
+		$email 						= Session::get('user.email');
 		$password 					= Input::get('password');
 
-		$results 					= API::person()->authenticate($username, $password);
+		$results 					= API::person()->authenticate($email, $password);
 
 		$content 					= json_decode($results);
 
