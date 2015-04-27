@@ -16,7 +16,7 @@
 		<a href="{{ $route }}">
 	@endif
 
-	<div class="hbox-xs v-top @if (isset($class)) $class @else 'height-4' @endif ">
+	<div class="hbox-xs v-top @if (isset($class['top'])) {{ $class['top'] }} @else height-4 @endif ">
 
 		@if (isset($toggle['document']))
 			<div class="clearfix">
