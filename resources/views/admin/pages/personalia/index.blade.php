@@ -44,12 +44,14 @@
 					</ul>
 					<br/>
 					<ul class="nav nav-pills nav-stacked">
-						@if(!Input::has('branch'))
-							<li class="text-primary" style="text-transform: uppercase;">KANTOR</li>
-							@foreach($branches as $key => $value)
-								<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['name'], 'gender' => Input::get('gender')])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
-							@endforeach
-						@else
+						<li class="text-primary" style="text-transform: uppercase;">KANTOR</li>
+						@foreach($branches as $key => $value)
+							<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['name'], 'gender' => Input::get('gender')])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+						@endforeach
+					</ul>
+					<br/>
+					<ul class="nav nav-pills nav-stacked">
+						@if(Input::has('branch'))
 							<li class="text-primary" style="text-transform: uppercase;">{{Input::get('branch')}}</li>
 							<li @if(!Input::has('tag')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => Input::get('branch'), 'gender' => Input::get('gender')])}}">Semua Department <small class="pull-right text-bold opacity-75"></small></a></li>
 							@foreach($branches as $key => $value)
