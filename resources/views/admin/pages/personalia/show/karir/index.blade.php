@@ -59,12 +59,16 @@
 	</div>
 
 	<!-- BEGIN MODAL -->
+	<?php $key = 0;?>
 	<?php $isNew = true;?>
+	<?php $value = null;?>
+
 	{!! Form::open(array('route' => array('hr.persons.works.store',  $data['id']),'method' => 'POST')) !!}
 		<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
 			@include('admin.modals.work.create')
 		</div>
 	{!! Form::close() !!}
+
 	<?php $isNew = false;?>
 	@foreach($works as $key => $value)
 		<form class="form" role="form" action="{{route('hr.persons.works.update', ['person_id' => $data['id'], 'id' => $value['id']] )}}" method="post">
