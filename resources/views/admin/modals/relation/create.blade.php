@@ -16,13 +16,8 @@
 					</div><!--end .col -->
 				</div><!--end .row -->
 				<div class="form-group">
-					{!! Form::select('relationship', array(
-						''			=> 'Pilih',
-					    'parent' 	=> 'Orang Tua',
-					    'spouse' 	=> 'Pasangan',
-					    'child' 	=> 'Anak'
-						),'', ['class' => 'form-control', 'id' => 'relationship']);
-					!!}
+					<?php $data_value = null ?>
+					@include('admin.helpers.dropdowns.person-relationship')
 					<label for="relationship">Hubungan/Relasi</label>
 				</div>
 				<div class="tabs-left style-default-light">

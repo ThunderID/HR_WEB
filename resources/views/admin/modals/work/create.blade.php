@@ -29,38 +29,13 @@
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<select  id="work_status" name="work_status" class="form-control">
-								<option value=""></option>
-								@if($value['status']=="contract" && $isNew == false)
-									<option selected value="contract">Contract</option>
-								@else
-									<option value="contract">Contract</option>
-								@endif
-
-								@if($value['status']=="trial" && $isNew == false)
-									<option selected value="trial">Trial</option>
-								@else
-									<option value="trial">Trial</option>
-								@endif
-
-								@if($value['status']=="permanent" && $isNew == false)
-									<option selected value="permanent">Permanent</option>
-								@else
-									<option value="permanent">Permanent</option>
-								@endif
-
-								@if($value['status']=="internship" && $isNew == false)
-									<option selected value="internship">Internship</option>
-								@else
-									<option value="internship">Internship</option>
-								@endif
-
-								@if($value['status']=="previous" && $isNew == false)
-									<option selected value="previous">Previous</option>
-								@else
-									<option value="previous">Previous</option>
-								@endif										
-							</select>
+							@if($isNew == false)
+								<?php $data_value = $value['status'] ?>
+								@include('admin.helpers.dropdowns.work-status')
+							@else
+								<?php $data_value = Null ?>
+								@include('admin.helpers.dropdowns.work-status')
+							@endif
 							<label for="work_status">Status Pegawai</label>
 						</div>
 					</div>
