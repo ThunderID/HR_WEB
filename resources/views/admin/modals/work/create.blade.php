@@ -85,7 +85,7 @@
 							<div class="input-group" id="work_end" style="width:100%;">
 								<div class="input-group-content">
 									@if($isNew == false)
-										@if(is_null($value['end']))
+										@if(is_null($value['end']) || $value['end'] == '0000-00-00')
 											{!! Form::input('text', 'work_end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'work_end']) !!}
 										@else
 											{!! Form::input('text', 'work_end', date("d m Y", strtotime($value['end'])), ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'work_end']) !!}

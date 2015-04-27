@@ -83,7 +83,7 @@ class WorkController extends Controller {
 				$chart['chart_id'] 					= Input::get('work_company');
 				$chart['status'] 					= Input::get('work_status');
 				$chart['start'] 					= date("Y-m-d", strtotime(Input::get('work_start')));
-				if(Input::get('work_end'))
+				if(Input::get('work_end') && Input::get('work_end') != null)
 				{
 					$chart['end'] 						= date("Y-m-d", strtotime(Input::get('work_end')));
 					$chart['reason_end_job'] 			= Input::get('work_quit_reason');
@@ -91,6 +91,9 @@ class WorkController extends Controller {
 					if(Input::get('cur_work_end')){
 						$chart['end'] 						= NULL;
 						$chart['reason_end_job'] 			= NULL;
+					}else{
+						$chart['end'] 						= "";
+						$chart['reason_end_job'] 			= "";
 					}
 				}
 				$input['works'][] 					= $chart;
