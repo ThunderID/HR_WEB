@@ -18,10 +18,7 @@ class AjaxController extends Controller {
 		$search 									= [];
 		if(Input::has('term'))
 		{
-			$search['firstname']					= Input::get('term');	
-			$search['orlastname']					= Input::get('term');		
-			$search['orprefixtitle']				= Input::get('term');		
-			$search['orsuffixtitle']				= Input::get('term');		
+			$search['name']							= Input::get('term');	
 		}
 
 		$sort 										= ['created_at' => 'asc'];

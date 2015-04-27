@@ -16,7 +16,11 @@ class PersonController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['CurrentContact' => 'item', 'CurrentWork' => ''];
+		$search 									= ['CurrentContact' => 'item'];
+		if(Input::has('karyawan'))
+		{
+			$search['CurrentWork']					= '';			
+		}
 		if(Input::has('gender'))
 		{
 			$search['gender']						= Input::get('gender');			

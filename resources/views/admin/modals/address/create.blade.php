@@ -13,7 +13,11 @@
 							<label for="address_address[1]">Alamat Lengkap</label>
 						</div>
 					</div>
+<<<<<<< HEAD
 				</div>
+=======
+				</div>			
+>>>>>>> ba19edcac377421d8fca5bcb67472c32f404f269
 			</div>			
 			<div class="modal-footer">
 				<a type="button" class="btn btn-default" data-dismiss="modal">Batal</a>

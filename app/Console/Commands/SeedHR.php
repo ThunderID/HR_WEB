@@ -42,10 +42,10 @@ class SeedHR extends Command {
 		if ( ! $this->confirmToProceed()) return;
 		$this->info("---------------------------------- SEEDING HR--------------------------------------------------");
 		$command = "db:seed";
-		// $this->call($command, ['--class' => 'ThunderID\\Person\\seeds\\DatabaseSeeder']);
-		// $this->call($command, ['--class' => 'ThunderID\\Chauth\\seeds\\DatabaseSeeder']);
-		// $this->call($command, ['--class' => 'ThunderID\\Organisation\\seeds\\DatabaseSeeder']);
-		// $this->call($command, ['--class' => 'ThunderID\\Contact\\seeds\\DatabaseSeeder']);
+		$this->call($command, ['--class' => 'ThunderID\\Person\\seeds\\DatabaseSeeder']);
+		$this->call($command, ['--class' => 'ThunderID\\Chauth\\seeds\\DatabaseSeeder']);
+		$this->call($command, ['--class' => 'ThunderID\\Organisation\\seeds\\DatabaseSeeder']);
+		$this->call($command, ['--class' => 'ThunderID\\Contact\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Work\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Doclate\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Widboard\\seeds\\DatabaseSeeder']);

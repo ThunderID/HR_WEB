@@ -42,7 +42,7 @@ class MigrateHR extends Command {
 	{
 		if ( ! $this->confirmToProceed()) return;
 		$this->info("---------------------------------- MIGRATING HR--------------------------------------------------");
-		$this->call('migrate:reset');
+		// $this->call('migrate:reset');
 		$command = "migrate";
 		$this->call($command, ['--path' => 'vendor/thunderid/organisation/src/migrations']);
 		$this->call($command, ['--path' => 'vendor/thunderid/person/src/migrations']);

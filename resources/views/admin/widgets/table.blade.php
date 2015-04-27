@@ -23,7 +23,7 @@
 									<?php $field = 'Tanggal'; ?>
 									<th class='text-center'> {{ $field }} </th>
 								@else
-									<th> @replace_delimiter($field) </th>
+									<th> @if(!is_array($field)) @replace_delimiter($field) @endif</th>
 								@endif
 							@endforeach
 						</tr>
