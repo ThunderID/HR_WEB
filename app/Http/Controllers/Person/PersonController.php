@@ -264,92 +264,16 @@ class PersonController extends Controller {
 			}
 		}
 
-		if(Input::has('contact_phone'))
+		if(Input::has('item'))
 		{
-			foreach (Input::get('contact_phone') as $key => $value) 
+			foreach (Input::get('item') as $key => $value) 
 			{
-				if($value!='')
+				$contact['value'] 					= Input::get('value')[$key];
+				
+				if($contact['value']!='')
 				{
-					if(isset(Input::get('id_phone')[$key]))
-					{
-						$input['contacts']['phone_number'][] = ['value' => $value, 'id' => Input::get('id_phone')[$key], 'item' => 'phone_number'];
-					}
-					else
-					{
-						$input['contacts']['phone_number'][] = ['value' => $value, 'item' => 'phone_number'];
-					}
-				}
-			}
-		}
-
-		if(Input::has('contact_email'))
-		{
-			foreach (Input::get('contact_email') as $key => $value) 
-			{
-				if($value!='')
-				{
-					if(isset(Input::get('id_email')[$key]))
-					{
-						$input['contacts']['email'][] = ['value' => $value, 'id' => Input::get('id_email')[$key], 'item' => 'email'];
-					}
-					else
-					{
-						$input['contacts']['email'][] = ['value' => $value, 'item' => 'email'];
-					}
-				}
-			}
-		}
-
-		if(Input::has('contact_BBM'))
-		{
-			foreach (Input::get('contact_BBM') as $key => $value) 
-			{
-				if($value!='')
-				{
-					if(isset(Input::get('id_bbm')[$key]))
-					{
-						$input['contacts']['bbm'][] = ['value' => $value, 'id' => Input::get('id_bbm')[$key], 'item' => 'bbm'];
-					}
-					else
-					{
-						$input['contacts']['bbm'][] = ['value' => $value, 'item' => 'bbm'];
-					}
-				}
-			}
-		}
-
-		if(Input::has('contact_LINE'))
-		{
-			foreach (Input::get('contact_LINE') as $key => $value) 
-			{
-				if($value!='')
-				{
-					if(isset(Input::get('id_line')[$key]))
-					{
-						$input['contacts']['line'][] = ['value' => $value, 'id' => Input::get('id_line')[$key], 'item' => 'line'];
-					}
-					else
-					{
-						$input['contacts']['line'][] = ['value' => $value, 'item' => 'line'];
-					}
-				}
-			}
-		}
-
-		if(Input::has('contact_WhatsApp'))
-		{
-			foreach (Input::get('contact_WhatsApp') as $key => $value) 
-			{
-				if($value!='')
-				{
-					if(isset(Input::get('id_whatsapp')[$key]))
-					{
-						$input['contacts']['whatsapp'][] = ['value' => $value, 'id' => Input::get('id_whatsapp')[$key], 'item' => 'whatsapp'];
-					}
-					else
-					{
-						$input['contacts']['whatsapp'][] = ['value' => $value, 'item' => 'whatsapp'];
-					}
+					$contact['item']				= $value;
+					$input['contacts'][$value][] 	= $contact;
 				}
 			}
 		}

@@ -75,4 +75,10 @@ class APIPerson {
 		$data = new \ThunderID\Person\Controllers\WorkController;
 		return $data->show($personid, $id);
 	}
+
+	function contactIndex($page, $search, $sort)
+	{
+		$data = new \ThunderID\Contact\Controllers\ContactController;
+		return $data->index($page, $search, $sort);
+	}
 }

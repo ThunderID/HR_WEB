@@ -147,6 +147,11 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.persons.works.edit'							=> 'person-is_create',
 							'hr.persons.works.update'						=> 'person-is_create',
 							
+							'hr.persons.contacts.index'						=> 'person-is_read',
+							'hr.persons.contacts.store'						=> 'person-is_create',
+							'hr.persons.contacts.edit'						=> 'person-is_create',
+							'hr.persons.contacts.update'					=> 'person-is_create',
+
 							'hr.images.upload'								=> 'person-is_create',
 							
 							'hr.organisations.index'						=> ['organisation-is_read'],

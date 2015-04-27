@@ -415,6 +415,36 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 		/* ---------------------------------------------------------------------------- END PERSON WORKS----------------------------------------------------------------------------*/
+
+		/* ---------------------------------------------------------------------------- PERSON CONTACTS----------------------------------------------------------------------------*/
+		Route::get('show/{person_id}/contacts/{page?}', 
+						[
+							'uses' 	=> 'Person\ContactController@getIndex', 
+							'as' 	=> 'hr.persons.contacts.index'
+						]
+					);
+
+		Route::post('{person_id}/contacts/store/', 
+						[
+							'uses' 	=> 'Person\ContactController@postStore', 
+							'as' 	=> 'hr.persons.contacts.store'
+						]
+					);
+
+		Route::get('show/{person_id}/contacts/edit/{id}', 
+						[
+							'uses' 	=> 'Person\ContactController@getEdit', 
+							'as' 	=> 'hr.persons.contacts.edit'
+						]
+					);
+		
+		Route::post('show/{person_id}/contacts/update/{id}', 
+						[
+							'uses' 	=> 'Person\ContactController@postUpdate', 
+							'as' 	=> 'hr.persons.contacts.update'
+						]
+					);
+		/* ---------------------------------------------------------------------------- END PERSON CONTACTS----------------------------------------------------------------------------*/
 	});
 	/* ---------------------------------------------------------------------------- END PERSON ----------------------------------------------------------------------------*/
 
