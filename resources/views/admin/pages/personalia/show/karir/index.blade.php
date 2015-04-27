@@ -23,8 +23,8 @@
 									<div class="card-body small-padding">
 										<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
 										<p>
-											<span class="text-lg text-medium">{{$value['chart']['name']}} ({{$value['status']}})</span><br/>
-											<span class="text-lg text-light">{{$value['chart']['branch']['name']}}</span>
+											<span class="text-lg text-medium">{{($value['chart']['name'] ? $value['chart']['name'] : $value['position'])}} ({{$value['status']}})</span><br/>
+											<span class="text-lg text-light">{{($value['chart']['branch']['name'] ? $value['chart']['branch']['name'] : $value['organisation'])}}</span>
 										</p>
 										<p>
 											@if(empty ($value['reason_end_job']))

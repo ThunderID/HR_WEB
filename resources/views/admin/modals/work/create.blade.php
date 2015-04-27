@@ -1,8 +1,8 @@
 	<div class="modal-dialog modal-lg form">
-		<div class="modal-content ">
+		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title text-xl" id="formModalLabel">Edit Pekerjaan</h4>
+				<h4 class="modal-title text-xl" id="formModalLabel">Tambah Pekerjaan</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -12,22 +12,58 @@
 							<p>
 								Isikan posisi pekerjaan, dan status pegawai. Pastikan data yang anda isikan adalah benar.<br/>
 								Untuk pegawai yang saat ini masih bekerja, inputan "Berhenti Bekerja" dan "Alasan Berhenti" dapat dikosongkan.
+								Untuk pegawai yang saat ini tidak bekerja, dikantor ini lagi inputan "Berhenti Bekerja" dan "Alasan Berhenti" dapat diisi.
+								Untuk mengisi pengalaman kerja pegawai pilih tab pengalaman.
 							</p>
 						</article>
 					</div><!--end .col -->
 				</div><!--end .row -->
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							@if($isNew == false)
-								<input name="work_company" id="work_company{{$key}}" class="form-control getExtCompany{{$key}}" data-comp="" value="{{$value['chart']['path']}}">											
-							@else
-								<input name="work_company" id="work_company{{$key}}" class="form-control getCompany" data-comp="">											
-							@endif
-							<label for="work_company">Posisi</label>
+				<div class="tabs style-default-light">
+					<ul class="card-head nav nav-tabs" data-toggle="tabs">
+						@if($isNew == true || $value['chart_id']!=0)
+							<li class="active"><a href="#first5">Perusahaan ini</a></li>
+						@endif
+						@if($isNew == true || $value['chart_id']==0)
+							<li><a href="#second5">Perusahaan lain</a></li>
+						@endif
+					</ul>
+					<div class="card-body tab-content style-default-bright">
+						<!-- tab1 -->
+						<div class="tab-pane @if($isNew == true || $value['chart_id']!=0) active @endif" id="first5">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										@if($isNew == false)
+											<input name="work_company" id="work_company[{{$key}}]" class="form-control getExtCompany{{$key}}" data-comp="" value="{{$value['chart']['path']}}">											
+										@else
+											<input name="work_company" id="work_company[{{$key}}]" class="form-control getCompany" data-comp="">											
+										@endif
+										<label for="work_company">Posisi</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane @if($isNew == true || $value['chart_id']==0) active @endif" id="second5">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										{!! Form::input('text', 'work_organisation', (isset($value['organisation']) ? $value['organisation'] : null), ['class' => 'form-control']) !!}
+										<label for="work_organisation">Perusahaan</label>
+									</div>
+								</div><!--end .col -->
+								<div class="col-md-6">
+									<div class="form-group @if ($errors->first('position')) has-error @endif">
+										{!! Form::input('text', 'work_position', (isset($value['position']) ? $value['position'] : null), ['class' => 'form-control']) !!}
+										<label for="work_position">Posisi</label>
+									</div>
+								</div><!--end .col -->
+							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
+				</div>
+
+				<div class="row pl-25">
+					<div class="col-md-12">
 						<div class="form-group">
 							@if($isNew == false)
 								<?php $data_value = $value['status'] ?>
@@ -40,7 +76,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row pl-25">
 					<div class="col-md-6">
 						<div class="form-group">
 							<div class="input-group" id="work_start" style="width:100%;">
@@ -75,26 +111,20 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row pl-25">
 					<div class="col-md-12">
 						<div class="form-group">
-							<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3">
-								@if($isNew == false)
-									{{$value['reason_end_job']}}
-								@endif
-							</textarea>
+							<textarea style="resize: vertical;" name="work_quit_reason" id="work_quit_reason" class="form-control" rows="3">@if($isNew == false){{$value['reason_end_job']}}@endif</textarea>
 							<label for="work_quit_reason">Alasan Berhenti</label>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="form-group text-right">
-							<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
-							<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-						</div><!--end .card-actionbar -->
-					</div>
-				</div>
 			</div>
+			<div class="card-actionbar">
+				<div class="card-actionbar-row">
+					<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
+					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+				</div><!--end .card-actionbar-row -->
+			</div><!--end .card-actionbar -->
 		</div>
 	</div>

@@ -10,7 +10,7 @@
 						<h4>Petunjuk</h4>
 						<article class="margin-bottom-xxl">
 							<p>
-								Silahkan memilih hubungan/relasi terlebih dahulu. Bila data relasi sebelumnya telah di-inputkan, maka pilih "Data Lama" dan ketikkan nama relasi. Nila data relasi belum pernah di0input, pilih "Data Baru" dan masukkan informasi sesuai dengan inputan yang tersedia.
+								Silahkan memilih hubungan/relasi terlebih dahulu. Bila data relasi sebelumnya telah di-inputkan, maka pilih "Data Lama" dan ketikkan nama relasi. Nilai data relasi belum pernah di input, pilih "Data Baru" dan masukkan informasi sesuai dengan inputan yang tersedia.
 							</p>
 						</article>
 					</div><!--end .col -->

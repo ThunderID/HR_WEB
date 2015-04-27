@@ -73,9 +73,9 @@ class WorkController extends Controller {
 	function postStore($person_id, $id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		if(Input::has('work_company'))
+		if(Input::has('work_company') || Input::has('work_organisation'))
 		{
-			if(Input::get('work_company')!='')
+			if(Input::get('work_company')!='' || Input::has('work_organisation'))
 			{
 				$input['person']['id'] 				= $person_id;
 				
@@ -85,17 +85,29 @@ class WorkController extends Controller {
 				$chart['start'] 					= date("Y-m-d", strtotime(Input::get('work_start')));
 				if(Input::get('work_end') && Input::get('work_end') != null)
 				{
-					$chart['end'] 						= date("Y-m-d", strtotime(Input::get('work_end')));
-					$chart['reason_end_job'] 			= Input::get('work_quit_reason');
-				}else{
-					if(Input::get('cur_work_end')){
+					$chart['end'] 					= date("Y-m-d", strtotime(Input::get('work_end')));
+					$chart['reason_end_job'] 		= Input::get('work_quit_reason');
+				}
+				if(Input::get('work_organisation') && Input::get('work_position') != null)
+				{
+					$chart['organisation'] 			= Input::get('work_organisation');
+					$chart['position'] 				= Input::get('work_position');
+					unset($chart['chart_id']);
+				}
+				else
+				{
+					if(Input::get('cur_work_end'))
+					{
 						$chart['end'] 						= NULL;
 						$chart['reason_end_job'] 			= NULL;
-					}else{
+					}
+					else
+					{
 						$chart['end'] 						= "";
 						$chart['reason_end_job'] 			= "";
 					}
 				}
+
 				$input['works'][] 					= $chart;
 
 				$results 							= API::person()->store($person_id, $input);
