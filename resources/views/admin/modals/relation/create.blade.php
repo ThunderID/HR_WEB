@@ -16,12 +16,13 @@
 					</div><!--end .col -->
 				</div><!--end .row -->
 				<div class="form-group">
-					<select  id="relationship" name="relationship" class="form-control">
-						<option value=""></option>
-						<option value="parent">Orang Tua</option>
-						<option value="spouse">Pasangan</option>
-						<option value="child">Anak</option>
-					</select>
+					{!! Form::select('relationship', array(
+						''			=> 'Pilih',
+					    'parent' 	=> 'Orang Tua',
+					    'spouse' 	=> 'Pasangan',
+					    'child' 	=> 'Anak'
+						),'', ['class' => 'form-control', 'id' => 'relationship']);
+					!!}
 					<label for="relationship">Hubungan/Relasi</label>
 				</div>
 				<div class="tabs-left style-default-light">
@@ -76,30 +77,32 @@
 								</div>
 							</div><!--end .row -->	
 							<div class="row">
-								<div class="col-md-2">
-									<div class="form-group">
-										<label>
-											Jenis Kelamin
-										</label>
+									<div class="col-md-2">
+										<div class="form-group">
+											<label>
+												Jenis Kelamin
+											</label>
+										</div>
 									</div>
-								</div>
-								<div class="col-md-2 @if ($errors->first('gender')) has-error @endif">
-									<div class="radio radio-styled">
-										<label>
-											<input name="gender" type="radio" value="male">
-											<span>Laki-laki</span>
-										</label>
+									<div class="col-md-2 @if ($errors->first('gender')) has-error @endif">
+										<div class="radio radio-styled">
+											<label>
+												<input name="gender" type="radio" value="male">
+												<span>Laki-laki</span>
+											</label>
+										</div>
 									</div>
-								</div>
-								<div class="col-md-2  @if ($errors->first('gender')) has-error @endif">
-									<div class="radio radio-styled">
-										<label>
-											<input name="gender" type="radio" value="female">
-											<span>Perempuan</span>
-										</label>
-									</div>
-								</div>								
-							</div>
+									<div class="col-md-2  @if ($errors->first('gender')) has-error @endif">
+										<div class="radio radio-styled">
+											<label>
+												<input name="gender" type="radio" value="female">
+												<span>Perempuan</span>
+											</label>
+										</div>
+									</div>								
+							</div><!--end .row -->	
+							</br>
+							<p>CONTACTS</p>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group @if ($errors->first('phone')) has-error @endif">
@@ -107,9 +110,7 @@
 										<label for="phone">Nomor Telepon</label>
 									</div>
 								</div><!--end .col -->
-							</div><!--end .row -->	
-
-
+							</div>
 						</div>
 					</div>
 				</div>
