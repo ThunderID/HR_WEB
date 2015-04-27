@@ -33,7 +33,9 @@
 					<br/>					
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
-					<li class="text-primary">DEPARTMENT</li>
+					@if(count($data['departments']) > 0)
+						<li class="text-primary">DEPARTMENT</li>
+					@endif
 					@foreach($data['departments'] as $key => $value)
 						<li @if(Input::has('tag') && strtolower(Input::get('tag') == $value['tag'])) class="active" @endif><a href="{{route('hr.organisation.branches.show', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
 					@endforeach
