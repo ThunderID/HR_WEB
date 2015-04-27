@@ -112,7 +112,7 @@
 	                    return {
 	                        results: $.map(data, function (item) {
 	                            return {
-	                                text: item.first_name + ' ' + item.middle_name + ' ' + item.last_name ,
+	                                text: item.name,
 	                                id: item.id
 	                            }
 	                        })

@@ -196,12 +196,12 @@ class PersonController extends Controller {
 					else
 					{
 						$relate['prefix_title'] 		= Input::get('prefix_title_relation')[$key];
-						$relate['name'] 			= Input::get('name_relation')[$key];
+						$relate['name'] 				= Input::get('name_relation')[$key];
 						$relate['middle_name'] 			= Input::get('midle_name_relation')[$key];
 						$relate['last_name'] 			= Input::get('last_name_relation')[$key];
 						$relate['full_name']			= $relate['name'].' '.$relate['middle_name'].' '.$relate['last_name'];
 						$relate['suffix_title'] 		= Input::get('suffix_title_relation')[$key];
-						$relate['name'] 			= Input::get('name_relation')[$key];
+						$relate['name'] 				= Input::get('name_relation')[$key];
 						$relate['gender'] 				= Input::get('gender_relation')[$key];
 						$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth_relation')[$key]));
 						$relate['place_of_birth'] 		= Input::get('place_of_birth_relation')[$key];

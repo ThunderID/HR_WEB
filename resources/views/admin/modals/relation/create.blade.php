@@ -75,7 +75,6 @@
 									</div>		
 								</div>
 							</div><!--end .row -->	
-
 							<div class="row">
 								<div class="col-md-2">
 									<div class="form-group">
@@ -100,7 +99,17 @@
 										</label>
 									</div>
 								</div>								
-							</div>								
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group @if ($errors->first('phone')) has-error @endif">
+										{!! Form::input('text', 'phone', null, ['class' => 'form-control']) !!}
+										<label for="phone">Nomor Telepon</label>
+									</div>
+								</div><!--end .col -->
+							</div><!--end .row -->	
+
+
 						</div>
 					</div>
 				</div>

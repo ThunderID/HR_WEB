@@ -73,7 +73,7 @@ class RelativeController extends Controller {
 	{
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['person']['id']						= $personid;
-		
+
 		if(Input::has('relationship'))
 		{
 			if(Input::get('relation')!='')
@@ -85,20 +85,16 @@ class RelativeController extends Controller {
 			}
 			else
 			{
-				$relate['prefix_title'] 		= Input::get('prefix_title_relation');
-				$relate['name'] 				= Input::get('name_relation');
-				$relate['middle_name'] 			= Input::get('midle_name_relation');
-				$relate['last_name'] 			= Input::get('last_name_relation');
-				$relate['suffix_title'] 		= Input::get('suffix_title_relation');
-				$relate['full_name']			= $relate['name'].' '.$relate['middle_name'].' '.$relate['last_name'];
-				$relate['name'] 				= Input::get('name_relation');
-				$relate['gender'] 				= Input::get('gender_relation');
-				$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth_relation')));
-				$relate['place_of_birth'] 		= Input::get('place_of_birth_relation');
+				$relate['prefix_title'] 		= Input::get('prefix_title');
+				$relate['name'] 				= Input::get('name');
+				$relate['suffix_title'] 		= Input::get('suffix_title');
+				$relate['gender'] 				= Input::get('gender');
+				$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth')));
+				$relate['place_of_birth'] 		= Input::get('place_of_birth');
 				$relate['relationship'] 		= Input::get('relationship');
 				$relate['relationship'] 		= Input::get('relationship');
 				$relate['organisation_id'] 		= Session::get('user.organisation');
-				$relate['contacts'][]	 		= ['item' => 'phone_number', 'value' => Input::get('phone_relation')];
+				$relate['contacts'][]	 		= ['item' => 'phone_number', 'value' => Input::get('phone')];
 				$input['relatives'][] 			= $relate;
 			}
 		}
