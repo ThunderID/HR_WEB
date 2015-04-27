@@ -272,6 +272,11 @@ class PersonController extends Controller {
 				
 				if($contact['value']!='')
 				{
+					if(Input::has('id_item')[$key])
+					{
+						$contact['id']				= Input::get('id_item')[$key];
+					}
+					
 					$contact['item']				= $value;
 					$input['contacts'][$value][] 	= $contact;
 				}
