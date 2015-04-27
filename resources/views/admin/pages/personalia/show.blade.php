@@ -30,7 +30,11 @@
 						<li class="text-primary" style="text-transform: uppercase;">CATEGORIES</li>
 						<li @if(!Input::has('tag') && !isset($contacts) && !isset($relatives) && !isset($works)) class="active" @endif><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(isset($relatives)) class="active" @endif><a href="{{route('hr.persons.relatives.index', [$data['id']])}}">Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(isset($works)) class="active" @endif><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+						@if(count($data['works']) > 0)
+							<li @if(isset($works)) class="active" @endif><a href="{{route('hr.persons.works.index', [$data['id']])}}">Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+						@else
+							<li @if(isset($works)) class="active" @endif><a href="{{route('hr.persons.works.index', [$data['id']])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+						@endif
 					</ul>
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary">CONTACTS</li>
