@@ -58,8 +58,21 @@
 
 @stop
 
+@section('css')
+	{!! HTML::style('css/toastr.css')!!}	
+@stop
+
 @section('js')
+	{!! HTML::script('js/toastr.js')!!}
 	<script type="text/javascript">
-		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');	
+		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.del_charts').click(function(){
+				var x = $(this).attr('data-target');
+				$(x).modal();
+			});
+		});
 	</script>
 @stop

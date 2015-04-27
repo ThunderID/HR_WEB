@@ -21,7 +21,7 @@
 							<div class="timeline-entry">
 								<div class="card style-default-light">
 									<div class="card-body small-padding">
-										<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if(is_null($value['end'])) Sekarang @else {{date("F Y", strtotime($value['end']))}} @endif</small>
+										<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
 										<p>
 											<span class="text-lg text-medium">{{$value['chart']['name']}} ({{$value['status']}})</span><br/>
 											<span class="text-lg text-light">{{$value['chart']['branch']['name']}}</span>
@@ -36,8 +36,8 @@
 											
 											{{$value['reason_end_job']}}
 										</p>
-										<a data-toggle="modal" data-target="#edit_modal{{$key}}" class="btn pull-right ink-reaction btn-flat" type="button">
-											<i class="fa fa-pencil"></i>Edit
+										<a data-toggle="tooltip" data-target="#edit_modal{{$key}}" class="btn pull-right ink-reaction btn-icon-toggle btn_edit_work" data-placement="top" data-original-title="edit pekerjaan">
+											<i class="fa fa-pencil" style="margin-right:0px"></i>
 										</a>											
 									</div>
 								</div>
@@ -77,11 +77,13 @@
 
 @section('css')
 	{!! HTML::style('css/datepicker3.css')!!}
+	{!! HTML::style('css/toastr.css')!!}	
 @stop
 
 @section('js')
 	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
+	{!! HTML::script('js/toastr.js')!!}
 
 	<script type="text/javascript">
 		$(".date_mask").inputmask();
@@ -142,7 +144,7 @@
 		$('.getCompany').select2({
 			tokenSeparators: [",", " "],
 			tags: [],
-			minimumInputLength: 3,
+			minimumInputLength: 1,
 			placeholder: "",
 			maximumSelectionSize: 1,
 			selectOnBlur: true,
@@ -166,6 +168,11 @@
                     };
                 }
             }
+        });
+
+        $('.btn_edit_work').click(function(){
+        	var mod = $(this).attr('data-target');
+        	$(mod).modal();
         });
 
     </script>
