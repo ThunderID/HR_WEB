@@ -19,7 +19,7 @@
 			<div class="clearfix">
 				&nbsp;
 			</div>		
-			@if($data['id'])
+			@if(count($contacts))
 				<ul class="list-unstyled">
 					<li class="clearfix">
 						@foreach($contacts as $key => $value)
@@ -66,7 +66,7 @@
 			@else
 				<ul class="list-unstyled">
 					<div class="alert alert-callout alert-warning" role="alert">
-						<strong>Perhatian!</strong> Data kontak belum dimasukkan.
+						<strong>Perhatian!</strong> Data belum dimasukkan.
 					</div>					
 				</ul>
 			@endif
@@ -80,7 +80,7 @@
 				<a class="btn btn-icon-toggle btn-accent btn-delete stick-top-right"></a>
 				<h4 class="text-accent">Kontak [Sekarang] </h4>
 			</div>
-			@if($data['id'])
+			@if(count($contacts))
 				<ul class="list-unstyled">
 					<li class="clearfix">
 						@foreach($data['contacts'] as $key => $value)
@@ -105,7 +105,7 @@
 			@else
 				<ul class="list-unstyled">
 					<div class="alert alert-callout alert-warning" role="alert">
-						<strong>Perhatian!</strong> Data kontak belum dimasukkan.
+						<strong>Perhatian!</strong> Data belum dimasukkan.
 					</div>					
 				</ul>
 			@endif							

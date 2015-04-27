@@ -34,9 +34,23 @@
 					</ul>
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary">CONTACTS</li>
+						<?php $isAddress = false; ?>
+						<?php $isPhone = false; ?>
 						@foreach($data['tagcontacts'] as $key => $value)
+							@if($value == 'address')
+								<?php $isAddress = true ?>
+							@elseif($key == 'phone')
+								<?php $isPhone = true ?>
+							@endif
 							<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">{{ucwords(str_replace('_',' ',$value['item']))}}  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 						@endforeach
+						@if($isAddress == false)
+							<li><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => 'address'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Address</a></li>
+						@endif
+						@if($isPhone == false)
+							<li><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => 'phone'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Phone</a></li>
+						@endif
+						<br/>
 					</ul>
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary" style="text-transform: uppercase;">DOKUMEN</li>
