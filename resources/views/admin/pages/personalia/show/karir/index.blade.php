@@ -10,49 +10,51 @@
 			<br/>	
 			<div class="tab-pane" id="details">
 				<br/>
-				<ul class="timeline collapse-lg timeline-hairline no-shadow">
-					@foreach($works as $key => $value)
-						@if($key==0)
-							<li class="timeline-inverted">
-						@else
-							<li>
-						@endif
-							<div class="timeline-circ style-accent"></div>
-							<div class="timeline-entry">
-								<div class="card style-default-light">
-									<div class="card-body small-padding">
-										<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
-										<p>
-											<span class="text-lg text-medium">{{($value['chart']['name'] ? $value['chart']['name'] : $value['position'])}} ({{$value['status']}})</span><br/>
-											<span class="text-lg text-light">{{($value['chart']['branch']['name'] ? $value['chart']['branch']['name'] : $value['organisation'])}}</span>
-										</p>
-										<p>
-											@if(empty ($value['reason_end_job']))
-												{{'Pegawai Aktif'}}
-											@else
-												{{'Pegawai Nonaktif'}}
-												<br/>
-											@endif
-											
-											{{$value['reason_end_job']}}
-										</p>
-										<a data-toggle="tooltip" data-target="#edit_modal{{$key}}" class="btn pull-right ink-reaction btn-icon-toggle btn_edit_work" data-placement="top" data-original-title="edit pekerjaan">
-											<i class="fa fa-pencil" style="margin-right:0px"></i>
-										</a>											
+				@if(count($data['works']) > 0)
+					<ul class="timeline collapse-lg timeline-hairline no-shadow">
+						@foreach($works as $key => $value)
+							@if($key==0)
+								<li class="timeline-inverted">
+							@else
+								<li>
+							@endif
+								<div class="timeline-circ style-accent"></div>
+								<div class="timeline-entry">
+									<div class="card style-default-light">
+										<div class="card-body small-padding">
+											<small class="text-uppercase text-primary pull-right">{{date("F Y", strtotime($value['start']))}} - @if($value['end']=='0000-00-00') Present @else {{date("F Y", strtotime($value['end']))}} @endif</small>
+											<p>
+												<span class="text-lg text-medium">{{($value['chart']['name'] ? $value['chart']['name'] : $value['position'])}} ({{$value['status']}})</span><br/>
+												<span class="text-lg text-light">{{($value['chart']['branch']['name'] ? $value['chart']['branch']['name'] : $value['organisation'])}}</span>
+											</p>
+											<p>
+												@if(empty ($value['reason_end_job']))
+													{{'Pegawai Aktif'}}
+												@else
+													{{'Pegawai Nonaktif'}}
+													<br/>
+												@endif
+												
+												{{$value['reason_end_job']}}
+											</p>
+											<a data-toggle="tooltip" data-target="#edit_modal{{$key}}" class="btn pull-right ink-reaction btn-icon-toggle btn_edit_work" data-placement="top" data-original-title="edit pekerjaan">
+												<i class="fa fa-pencil" style="margin-right:0px"></i>
+											</a>											
+										</div>
 									</div>
 								</div>
-							</div>
-						</li>
-					@endforeach
-				</ul><!--end .timeline -->
-				@if(count($works))
-					@include('admin.helpers.pagination')
+							</li>
+						@endforeach
+					</ul><!--end .timeline -->
+					@if(count($works))
+						@include('admin.helpers.pagination')
+					@endif
 				@else
-					<div class="row">
-						<div class="col-sm-12 text-center">
-							<p>Tidak ada data</p>
-						</div>
-					</div>
+					<ul class="list-unstyled">
+						<div class="alert alert-callout alert-warning" role="alert">
+							<strong>Perhatian!</strong> Data belum dimasukkan.
+						</div>					
+					</ul>
 				@endif
 			</div>
 		</div>
