@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class DocumentController extends Controller {
 
-	protected $controller_name = 'karyawan';
+	protected $controller_name = 'personalia';
 
 	function __construct() 
 	{

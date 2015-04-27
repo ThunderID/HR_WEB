@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class PersonController extends Controller {
 
-	protected $controller_name = 'karyawan';
+	protected $controller_name = 'personalia';
 
 	function __construct() 
 	{
@@ -380,7 +380,7 @@ class PersonController extends Controller {
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Karyawan sudah di simpan');
+			return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();

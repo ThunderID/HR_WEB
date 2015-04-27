@@ -1,4 +1,4 @@
-@extends('admin.pages.karyawan.show')
+@extends('admin.pages.personalia.show')
 @section('karyawan.show')
 	<ul class="nav nav-tabs" data-toggle="tabs">
 		<li class="active"><a href="#details">Dokumen</a></li>
