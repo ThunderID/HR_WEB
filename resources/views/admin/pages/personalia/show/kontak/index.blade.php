@@ -89,8 +89,10 @@
 									<div class="row">
 										<div class="col-md-10">
 											<div class="form-group">
-												<input type="text" class="form-control" id="item{{$key}}" name="item{{$key}}" value="{{$value['value']}}">
-												<label for="item{{$key}}">{{str_replace('_',' ',$value['item'])}}</label>
+												<input type="text" class="form-control" id="value[{{$key}}]" name="value[{{$key}}]" value="{{$value['value']}}">
+												<input type="hidden" class="form-control" id="item[{{$key}}]" name="item[{{$key}}]" value="{{$value['item']}}">
+												<input type="hidden" class="form-control" id="id_item[{{$key}}]" name="id_item[{{$key}}]" value="{{$value['id']}}">												
+												<label for="value[{{$key}}]">{{str_replace('_',' ',$value['item'])}}</label>
 											</div>
 										</div>
 										<div class="col-md-2">

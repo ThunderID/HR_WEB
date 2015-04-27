@@ -27,26 +27,28 @@
 
 		<!-- BEGIN CARD TILES -->
 		<div class="card-tiles">
-			@include('admin.helpers.company-leftbar')
+			<div class = "col-md-12 hbox-md">
+				@include('admin.helpers.company-leftbar')
 
-			<!-- BEGIN MIDDLE -->					
-			<div class="hbox-column col-md-7" id="sidebar_mid">
-				<div class="margin-bottom-xxl">
-					<h1 class="text-light no-margin">{{$data['name']}}</h1>
-					<h5>
-						{{$data['business_activities']}}
-					</h5>
-					<h5>
-						{{$data['business_fields']}}
-					</h5>
-					&nbsp;&nbsp;
+				<!-- BEGIN MIDDLE -->					
+				<div class="hbox-column col-md-7" id="sidebar_mid">
+					<div class="margin-bottom-xxl">
+						<h1 class="text-light no-margin">{{$data['name']}}</h1>
+						<h5>
+							{{$data['business_activities']}}
+						</h5>
+						<h5>
+							{{$data['business_fields']}}
+						</h5>
+						&nbsp;&nbsp;
+					</div>
+					
+					@yield('kantor.show')
 				</div>
-				
-				@yield('kantor.show')
-			</div>
 
-			<!-- BEGIN RIGHTBAR -->
-			@include('admin.helpers.company-rightbar')
+				<!-- BEGIN RIGHTBAR -->
+				@include('admin.helpers.company-rightbar')
+			</div>
 		</div>
 	</div>
 

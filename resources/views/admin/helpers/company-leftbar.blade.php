@@ -6,12 +6,36 @@
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary">CONTACTS</li>
+					<?php $isAddress = 0; ?>
+					<?php $isPhone = 0; ?>
+					<?php $isEmail = 0; ?>
+
 					@foreach($data['tagcontacts'] as $key => $value)
+						@if($value['item'] == 'address' && $isAddress == 0) 
+							<?php $isAddress = 1 ?>
+						@elseif($value['item'] == 'phone' && $isPhone == 0) 
+							<?php $isPhone = 1 ?>
+						@elseif($value['item'] == 'email' && $isEmail == 0) 
+							<?php $isEmail = 1 ?>
+						@endif
 						<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">{{ucwords(str_replace('_',' ',$value['item']))}}  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					@endforeach
+
+					@if($isAddress == 0)
+						<li @if(Input::has('item') && Input::get('item') == 'address') class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => 'address'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Address</a></li>
+					@endif
+					@if($isPhone == 0)
+						<li @if(Input::has('item') && Input::get('item') == 'phone') class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => 'phone'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Phone</a></li>
+					@endif
+					@if($isEmail == 0)
+						<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Email</a></li>
+					@endif
+					<br/>					
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
-					<li class="text-primary">DEPARTMENT</li>
+					@if(count($data['departments']) > 0)
+						<li class="text-primary">DEPARTMENT</li>
+					@endif
 					@foreach($data['departments'] as $key => $value)
 						<li @if(Input::has('tag') && strtolower(Input::get('tag') == $value['tag'])) class="active" @endif><a href="{{route('hr.organisation.branches.show', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
 					@endforeach
