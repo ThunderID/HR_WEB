@@ -42,7 +42,7 @@ class ContactController extends Controller {
 			$search['item']							= Input::get('item');
 		}
 
-		$sort 										= ['is_default' => 'asc'];
+		$sort 										= ['is_default' => 'desc'];
 
 		$results_3 									= API::organisationbranch()->contactIndex($page, $search, $sort);
 

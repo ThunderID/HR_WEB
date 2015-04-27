@@ -152,7 +152,7 @@ class BranchController extends Controller {
 				
 				if($contact['value']!='')
 				{
-					if(Input::has('id_item')[$key])
+					if(isset(Input::get('id_item')[$key]))
 					{
 						$contact['id']				= Input::get('id_item')[$key];
 					}
