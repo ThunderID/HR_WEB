@@ -38,11 +38,13 @@
 		@if (isset($toggle['person']))
 			<div class="clearfix">
 				<div class="col-lg-12">
-					@foreach($data_content['works'] as $key2 => $value2)
-						@if($key2 == 0)
-							<span>{{$value2['name']}} di {{$value2['branch']['name']}}</span>
-						@endif
-					@endforeach
+					@if(isset($data_content['works']))
+						@foreach($data_content['works'] as $key2 => $value2)
+							@if($key2 == 0)
+								<span>{{$value2['name']}} di {{$value2['branch']['name']}}</span>
+							@endif
+						@endforeach
+					@endif
 				</div>
 			</div>
 		@endif
