@@ -43,74 +43,8 @@
 			</ul>
 		</div>
 	</div>
-
-	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content ">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title text-xl" id="formModalLabel">Tambah Dokumen</h4>
-				</div>
-				<form class="form" role="form" action="{{route('hr.persons.documents.store', $data['id'])}}" method="post">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<select id="docs_type" name="docs_type" class="form-control">
-										<option value=""></option>								
-										@foreach($documents as $key => $value)
-											@if($value['tag']==Input::get('tag'))
-												<option value="{{$key}}">{{$value['name']}}</option>
-											@endif
-										@endforeach	
-									</select>									
-									<label for="docs_type">Jenis Dokumen</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 input_panel" id="input_panel">
-
-							</div>
-						</div>
-					</div>
-					<div class="card-actionbar">
-						<div class="card-actionbar-row">
-							<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
-							<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-						</div><!--end .card-actionbar-row -->
-					</div><!--end .card-actionbar -->
-				</form>
-			</div>
-		</div>
-	</div>			
-	@foreach($documents as $key => $value)
-		<script type="text/html" id="panel{{$key}}">
-			<input name="documents_id[{{$key}}]"type="hidden" value="{{$value['id']}}">											
-			<input name="documents[{{$key}}]"type="hidden" value="">
-			@foreach($value['templates'] as $key2 => $value2)
-				<div class="form-group">
-					@if($value2['type']=='numeric' || $value2['type']=='string')
-						<input name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control">											
-						<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-						<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-					@elseif($value2['type']=='date')
-						<div class="input-daterange input-group" id="template_value[{{$key}}][{{$key2}}]" style="width:100%;">
-							<div class="input-group-content">
-								<input type="text" class="form-control" name="template_value[{{$key}}][{{$key2}}]">
-							</div>
-						</div>
-						<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-						<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-					@elseif($value2['type']=='text')
-						<textarea name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control"></textarea>										
-						<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-						<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-					@endif
-				</div>
-			@endforeach
-		</script>
-	@endforeach
+	
+@include('admin.modals.documents.create')
 
 @stop
 
@@ -121,8 +55,6 @@
 
 @section('js')
 	<script type="text/javascript">
-		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
-
 		$(document).ready(function () {
 			$('.date-pick').datepicker({
 				format:"dd MM yyyy"
