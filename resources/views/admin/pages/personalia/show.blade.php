@@ -74,20 +74,22 @@
 
 				<div class="hbox-column col-md-7" id="sidebar_mid">
 					<div class="col-md-12">
-						<div class="pull-left width-3 clearfix hidden-xs">
-							@if($data['avatar']!='')
-								<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
-							@else
-								<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
-							@endif
+						<div class="row">
+							<div class="pull-left width-3 clearfix hidden-xs">
+								@if($data['avatar']!='')
+									<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
+								@else
+									<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
+								@endif
+							</div>
+							<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['name'].', '.$data['suffix_title']}}</h1>
+							<h5>
+								@if(isset($data['works'][0]))
+									{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
+								@endif
+							</h5>
 						</div>
-						<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['name'].', '.$data['suffix_title']}}</h1>
-						<h5>
-							@if(isset($data['works'][0]))
-								{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
-							@endif
-						</h5>
-						&nbsp;&nbsp;
+						&nbsp;
 						@yield('karyawan.show')
 					</div>
 				</div>
