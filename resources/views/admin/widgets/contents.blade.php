@@ -61,20 +61,15 @@
 		@if (!isset($toggle['document']))
 
 			@if(count($data_content['contacts']))
-				@foreach($data_content['contacts'] as $key2 => $value2)
-					<div class="clearfix">
-						<div class="col-lg-12">
-
-							@if($value2['item']=='phone')
-								<span class="opacity-75"><span class="glyphicon glyphicon-phone text-sm"></span> {!! $value2['value'] !!}</span>
-							@elseif($value2['item']=='email')
-								<span class="opacity-75"><span class="glyphicon glyphicon-envelope text-sm"></span> {!! $value2['value'] !!}</span>
-							@endif
-
-						</div>
-					</div>
-				@endforeach
-
+				<ul class="fa-ul" style="padding-left:5px;">
+					@foreach($data_content['contacts'] as $key2 => $value2)
+						@if($value2['item']=='phone')
+							<li class="opacity-75"><i class="fa-li fa fa-mobile-phone fa-lg" style="margin-top:2px"></i> {!! $value2['value'] !!}</li>
+						@elseif($value2['item']=='email')
+							<li class="opacity-75"><i class="fa-li fa fa-envelope" style="margin-top:2px"></i> {!! $value2['value'] !!}</li>
+						@endif
+					@endforeach
+				</ul>
 			@endif
 			
 		@endif
