@@ -38,6 +38,9 @@
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif</span>
 						<div class="btn-group btn-group-sm pull-right">
+							@if (Input::get('q'))
+								<a href="{{ route('hr.organisation.branches.index') }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
+							@endif
 							<button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
 								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 							</button>
@@ -49,7 +52,7 @@
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->
-						<div class="list-results" style="margin-bottom:-1px;border-top:1px solid #eee;border-bottom:1px solid #eee;">
+					<div class="list-results" style="margin-bottom:-1px;border-top:1px solid #eee;border-bottom:1px solid #eee;">
 						@foreach($data as $key => $value)	
 							@if($key%2==0 && $key!=0)
 								</div>

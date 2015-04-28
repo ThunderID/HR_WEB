@@ -13,7 +13,7 @@
 									<dd>
 									<span class="opacity-50">NOMOR TELEPON</span><br/>
 								@elseif($value['item']=='email')
-									<dt><span class="fa fa-fw fa-envelope-square fa-lg opacity-50"></span></dt>
+									<dt><span class="fa fa-fw fa-envelope fa-lg opacity-50" style="font-size:12px;margin-top:3px"></span></dt>
 									<dd>
 									<span class="opacity-50">EMAIL</span><br/>
 								@elseif($value['item']=='address')

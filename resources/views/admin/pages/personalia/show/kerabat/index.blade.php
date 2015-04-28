@@ -27,7 +27,9 @@
 									<a class="btn pull-right ink-reaction btn-icon-toggle del-modal" type="button" data-toggle="modal" data-target="#del_modal_2_{{$value['id']}}">
 										<i class="fa fa-trash"></i>
 									</a>
+									<?php $enm = $data['relatives'][$key]['pivot']['relationship'] ?>
 									<a class="text-lg text-medium" href="{{ route('hr.persons.show' ,['id'=> $value['id']]) }}">{{$value['name']}}</a>
+									(@include('admin.helpers.translate_enum.relationship'))
 								</div>
 							</div>
 
