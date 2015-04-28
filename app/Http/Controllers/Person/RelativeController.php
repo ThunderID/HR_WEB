@@ -94,7 +94,7 @@ class RelativeController extends Controller {
 				$relate['relationship'] 		= Input::get('relationship');
 				$relate['relationship'] 		= Input::get('relationship');
 				$relate['organisation_id'] 		= Session::get('user.organisation');
-				$relate['contacts'][]	 		= ['item' => 'phone_number', 'value' => Input::get('phone')];
+				$relate['contacts'][]	 		= ['item' => 'phone', 'value' => Input::get('phone')];
 				$input['relatives'][] 			= $relate;
 			}
 		}
