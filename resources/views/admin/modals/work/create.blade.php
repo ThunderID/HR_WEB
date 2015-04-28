@@ -81,7 +81,7 @@
 									<div class="input-group" id="work_start" style="width:100%;">
 										<div class="input-group-content">
 										@if($isNew == false)
-											{!! Form::input('text', 'work_start', date("d m Y", strtotime($value['start'])), ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'work_start']) !!}
+											{!! Form::input('text', 'work_start', date("d-m-Y", strtotime($value['start'])), ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'work_start']) !!}
 										@else
 											{!! Form::input('text', 'work_start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'work_start']) !!}
 										@endif
@@ -98,7 +98,7 @@
 												@if(is_null($value['end']) || $value['end'] == '0000-00-00')
 													{!! Form::input('text', 'work_end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'work_end']) !!}
 												@else
-													{!! Form::input('text', 'work_end', date("d m Y", strtotime($value['end'])), ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'work_end']) !!}
+													{!! Form::input('text', 'work_end', date("d-m-Y", strtotime($value['end'])), ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'work_end']) !!}
 													<input type="hidden" id="cur_work_end" name="cur_work_end" value="{{date("d F Y", strtotime($value['end']))}}">
 												@endif
 											@else
