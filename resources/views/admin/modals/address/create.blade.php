@@ -1,11 +1,21 @@
 <div class="modal fade" id="addressCreate" tabindex="-1" role="dialog" aria-labelledby="addressCreate" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog form">
 		<div class="modal-content">
-			<div class="modal-header text-primary">
+			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="simpleModalLabel">Tambah Alamat</h4>
+				<h4 class="modal-title text-xl" id="formModalLabel">Tambah Alamat</h4>
 			</div>
-			<div class="modal-body form">
+			<div class="modal-body style-default-light">
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="text-primary">Petunjuk</h4>
+						<article class="margin-bottom-xxl">
+							<p class="opacity-75">
+								Isikan alamat lengkap pada kolom dibawah ini.
+							</p>
+						</article>
+					</div><!--end .col -->
+				</div><!--end .row -->					
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
@@ -15,9 +25,9 @@
 					</div>
 				</div>			
 			</div>			
-			<div class="modal-footer">
-				<a type="button" class="btn btn-default" data-dismiss="modal">Batal</a>
-				<button type="submit" type="button" class="btn btn-primary">Tambah</button>
+			<div class="modal-footer style-default-light">
+				<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
+				<button type="submit" type="button" class="btn btn-flat btn-primary">Tambah</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

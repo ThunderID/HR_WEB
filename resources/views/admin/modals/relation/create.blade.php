@@ -4,28 +4,33 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title text-xl" id="formModalLabel">Tambah Relasi</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body style-default-light">
 				<div class="row">
 					<div class="col-lg-12">
-						<h4>Petunjuk</h4>
+						<h4 class="text-primary">Petunjuk</h4>
 						<article class="margin-bottom-xxl">
-							<p>
+							<p class="opacity-75">
 								Silahkan memilih hubungan/relasi terlebih dahulu. Bila data relasi sebelumnya telah di-inputkan, maka pilih "Data Lama" dan ketikkan nama relasi. Nilai data relasi belum pernah di input, pilih "Data Baru" dan masukkan informasi sesuai dengan inputan yang tersedia.
 							</p>
 						</article>
 					</div><!--end .col -->
 				</div><!--end .row -->
-				<div class="form-group">
-					<?php $data_value = null ?>
-					@include('admin.helpers.dropdowns.person-relationship')
-					<label for="relationship">Hubungan/Relasi</label>
-				</div>
 				<div class="tabs-left style-default-light">
-					<ul class="card-head nav nav-tabs" data-toggle="tabs">
+					<ul class="card-head nav nav-tabs style-default" data-toggle="tabs">
 						<li><a href="#first5">Data Lama</a></li>
 						<li class="active"><a href="#second5">Data Baru</a></li>
 					</ul>
 					<div class="card-body tab-content style-default-bright">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<?php $data_value = null ?>
+									@include('admin.helpers.dropdowns.person-relationship')
+									<label for="relationship">Hubungan/Relasi</label>
+								</div>
+							</div>
+						</div>
+
 						<!-- tab1 -->
 						<div class="tab-pane" id="first5">
 							<div class="form-group">
@@ -118,7 +123,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-actionbar">
+			<div class="card-actionbar style-default-light">
 				<div class="card-actionbar-row">
 					<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
