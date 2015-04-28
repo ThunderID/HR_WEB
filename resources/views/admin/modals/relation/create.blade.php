@@ -82,7 +82,11 @@
 									<div class="col-md-2 @if ($errors->first('gender')) has-error @endif">
 										<div class="radio radio-styled">
 											<label>
-												<input name="gender" type="radio" value="male">
+												<input name="gender" type="radio" value="male" 
+													@if(Input::old('gender')== "male"))
+														{{'checked="checked"'}}
+													@endif
+												>
 												<span>Laki-laki</span>
 											</label>
 										</div>
@@ -90,7 +94,11 @@
 									<div class="col-md-2  @if ($errors->first('gender')) has-error @endif">
 										<div class="radio radio-styled">
 											<label>
-												<input name="gender" type="radio" value="female">
+												<input name="gender" type="radio" value="female"
+													@if(Input::old('gender')== "female"))
+														{{'checked="checked"'}}
+													@endif
+												>
 												<span>Perempuan</span>
 											</label>
 										</div>
