@@ -20,8 +20,8 @@ class RelativeController extends Controller {
 		$sort 										= ['name' => 'asc'];
 
 		$results 									= API::person()->index($page, $search, $sort);
-
 		$contents 									= json_decode($results);
+
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
@@ -73,7 +73,6 @@ class RelativeController extends Controller {
 	{
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['person']['id']						= $personid;
-
 		if(Input::has('relationship'))
 		{
 			if(Input::get('relation')!='')
