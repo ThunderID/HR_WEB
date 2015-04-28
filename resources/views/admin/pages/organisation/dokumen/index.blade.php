@@ -56,8 +56,13 @@
 
 					<!-- BEGIN SEARCH RESULTS LIST -->
 					<div class="margin-bottom-xxl">
-						<span class="text-light text-lg">@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif</span>
+						<span class="text-light text-lg">
+							@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
+						</span>
 						<div class="btn-group btn-group-sm pull-right">
+							@if (Input::get('q'))
+								<a href="{{ route('hr.documents.index') }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
+							@endif
 						</div>
 					</div><!--end .margin-bottom-xxl -->
 					<div class="list-results" style="margin-bottom:0px;">
@@ -71,7 +76,8 @@
 									'route'				=> route('hr.documents.show', $value['id']),
 									'mode'				=> 'list',
 									'data_content'		=> $value,
-									'toggle'			=> ['document' 	=> true]
+									'toggle'			=> ['document' 	=> true],
+									'class'				=> ['top'		=> 'height-2']
 								])
 							</div>
 						@endforeach

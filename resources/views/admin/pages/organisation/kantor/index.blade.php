@@ -52,7 +52,7 @@
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->
-						<div class="list-results" style="margin-bottom:-1px;border-top:1px solid #eee;border-bottom:1px solid #eee;">
+					<div class="list-results" style="margin-bottom:-1px;border-top:1px solid #eee;border-bottom:1px solid #eee;">
 						@foreach($data as $key => $value)	
 							@if($key%2==0 && $key!=0)
 								</div>
