@@ -37,7 +37,7 @@
 				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary">TAMPILKAN</li>
-						<li @if(!Input::has('karyawan') && !Input::has('branch') && !Input::has('gender')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(!Input::has('non-karyawan') && !Input::has('karyawan') && !Input::has('branch') && !Input::has('gender')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(Input::has('karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => 'active'])}}">Karyawan <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(Input::has('non-karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'non-karyawan' => 'false'])}}">Non Karyawan <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(Input::has('gender') && Input::get('gender')=='male') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'gender' => 'male', 'branch' => Input::get('branch'), 'tag' => Input::get('tag'), 'non-karyawan' => Input::get('non-karyawan')])}}">Pria <small class="pull-right text-bold opacity-75"></small></a></li>
@@ -45,7 +45,7 @@
 					</ul>
 					<br/>
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary" style="text-transform: uppercase;">KANTOR</li>
+						<li class="text-primary" style="text-transform: uppercase;">BRANCH</li>
 						@foreach($branches as $key => $value)
 							<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['name'], 'gender' => Input::get('gender')])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
 						@endforeach
@@ -75,8 +75,8 @@
 								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
-								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'tag' => Input::get('tag'), 'gender' => Input::get('gender')])}}">Nama Depan [A-Z]</a></li>
-								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'tag' => Input::get('tag'), 'gender' => Input::get('gender')])}}">Nama Depan [Z-A]</a></li>
+								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'tag' => Input::get('tag'), 'gender' => Input::get('gender')])}}">Nama [A-Z]</a></li>
+								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'tag' => Input::get('tag'), 'gender' => Input::get('gender')])}}">Nama [Z-A]</a></li>
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->

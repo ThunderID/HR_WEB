@@ -17,10 +17,12 @@
 				</a>
 				<a href="{{route('hr.documents.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i> Edit
-				</a>				
+				</a>
+				<?php /*		
 				<a href="#" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-print"></i> Print
-				</a>				
+				</a>
+				*/?>			
 			</div>
 		</div>
 		<!-- END CARD HEADER -->
