@@ -42,20 +42,6 @@
 								</div>
 							</div>
 						</div><!--end .row -->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" id="business_activities" name="business_activities" value="{{$data['business_activities']}}">
-									<label for="business_activities">Kegiatan Bisnis</label>
-								</div>
-							</div><!--end .col -->
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" id="business_fields" name="business_fields" value="{{$data['business_fields']}}">
-									<label for="business_fields">Bidang Bisnis</label>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

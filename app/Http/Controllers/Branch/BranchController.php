@@ -26,8 +26,6 @@ class BranchController extends Controller {
 			else
 			{
 				$search['name']						= Input::get('q');			
-				$search['orbusinessactivities']		= Input::get('q');			
-				$search['orbusinessfields']			= Input::get('q');			
 			}
 		}
 
@@ -90,7 +88,7 @@ class BranchController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		if(Input::has('name'))
 		{
-			$input['branch'] 							= Input::only('name','license','npwp','business_activities','business_fields');
+			$input['branch'] 							= Input::only('name','license','npwp');
 		}
 		$input['branch']['id'] 							= $id;
 
