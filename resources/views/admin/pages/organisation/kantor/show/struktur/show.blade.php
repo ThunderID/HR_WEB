@@ -67,7 +67,7 @@
 			</div>
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="{{route('hr.organisation.branches.index')}}">BATAL</a>
+					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->				
@@ -182,7 +182,7 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="{{route('hr.organisation.branches.show', $chart['branch']['id'])}}">BATAL</a>
+					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
