@@ -32,11 +32,12 @@
 							</div>
 						</div>					
 					</div>					
-				</div>			
+				</div>	
+				<input class="input_id" type="hidden" name="id_item">
 			</div>			
 			<div class="modal-footer style-default-light">
 				<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
-				<button type="submit" type="button" class="btn btn-flat btn-primary">Tambah</button>
+				<button type="submit" type="button" class="btn btn-flat btn-primary btn_save">Tambah</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

@@ -16,7 +16,7 @@
 				</a>
 				<a href="{{route('hr.persons.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i> Edit
-				</a>				
+				</a>
 			</div>
 		</div>
 		<!-- END CARD HEADER -->
@@ -66,9 +66,9 @@
 							<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Email</a></li>
 						@endif
 						@if($isMsgSVC == 0)
-							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => ''])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Message Service</a></li>
+							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => true])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Message Service</a></li>
 						@elseif($isMsgSVC == 2)
-							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => ''])}}">Message Service</a> <small class="pull-right text-bold opacity-75"></small></a></li>
+							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => true])}}">Message Service</a> <small class="pull-right text-bold opacity-75"></small></a></li>
 						@endif							
 						<br/>
 					</ul>
@@ -139,14 +139,6 @@
 
 		});	
 
-		$('.btn_modal').click(function()
-		{
-			var x = $(this).attr('data-id');
-			$('.contactCreate').on('show.bs.modal', function(e) {
-				console.log(x);
-			}).modal();
-		});
-
 		$('.modalContact').on('show.bs.modal', function(e) {
 			var id = $(e.relatedTarget).attr('data-id');
 			var item = $(e.relatedTarget).attr('data-item');
@@ -154,14 +146,18 @@
 
 			if(id != 0){
 				$('.inp_value').val(val);
+				$('.input_id').val(id);
 				$(".getContacts").select2("data", { id: 1, text: item });
 				$('.getContacts').select2('disable');
 				$('.modal_contact_title').text('Edit ' + item);
+				$('.btn_save').text('Simpan');
 			}else{
 				$('.inp_value').val('');
+				$('.input_id').val('');
 				$(".getContacts").select2("val", "");
 				$('.getContacts').select2('enable');
-				$('.modal_contact_title').text('Tambah Kontak')
+				$('.modal_contact_title').text('Tambah Kontak');
+				$('.btn_save').text('Tambah');
 			}
 		});
 
