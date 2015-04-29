@@ -21,8 +21,13 @@ class ContactController extends Controller {
 		{
 			$search['item']							= Input::get('item');
 		}
-		
-		$sort 										= ['item' => 'asc'];
+
+		if(Input::has('messageService'))
+		{
+			$search['messageservices']				= Input::get('messageService');
+		}
+
+		$sort 										= ['is_default' => 'desc'];
 
 		$results 									= API::person()->contactIndex($page, $search, $sort);
 

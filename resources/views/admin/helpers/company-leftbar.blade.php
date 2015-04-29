@@ -39,9 +39,9 @@
 						<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Email</a></li>
 					@endif
 					@if($isMsgSVC == 0)
-						<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Message Service</a></li>
+						<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'messageService' => ''])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Message Service</a></li>
 					@elseif($isMsgSVC == 2)
-						<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">Message Service</a> <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'messageService' => ''])}}">Message Service</a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					@endif					
 					<br/>					
 				</ul>
