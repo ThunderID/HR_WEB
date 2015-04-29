@@ -52,8 +52,6 @@
 		@if (isset($toggle['branch']))
 			<div class="clearfix">
 				<div class="col-lg-12">
-					<span>{{$value['business_activities']}}</span><br/>
-					<span>{{$value['business_fields']}}</span>
 				</div>
 			</div>
 		@endif
