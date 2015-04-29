@@ -9,6 +9,7 @@
 					<?php $isAddress = 0; ?>
 					<?php $isPhone = 0; ?>
 					<?php $isEmail = 0; ?>
+					<?php $isMsgSVC = 0; ?>
 
 					@foreach($data['tagcontacts'] as $key => $value)
 						@if($value['item'] == 'address' && $isAddress == 0) 
@@ -17,8 +18,15 @@
 							<?php $isPhone = 1 ?>
 						@elseif($value['item'] == 'email' && $isEmail == 0) 
 							<?php $isEmail = 1 ?>
+						@elseif($value['item'] != 'email' && $value['item'] != 'phone' && $value['item'] != 'address' && $isMsgSVC == 0) 
+							<?php $isMsgSVC = 1 ?>							
 						@endif
-						<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">{{ucwords(str_replace('_',' ',$value['item']))}}  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+
+						@if($value['item'] != 'email' && $value['item'] != 'phone' && $value['item'] != 'address')
+							<?php $isMsgSVC = 2 ?>	
+						@else
+							<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">{{ucwords(str_replace('_',' ',$value['item']))}}</a> <small class="pull-right text-bold opacity-75"></small></a></li>
+						@endif
 					@endforeach
 
 					@if($isAddress == 0)
@@ -30,6 +38,11 @@
 					@if($isEmail == 0)
 						<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Email</a></li>
 					@endif
+					@if($isMsgSVC == 0)
+						<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Message Service</a></li>
+					@elseif($isMsgSVC == 2)
+						<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif><a href="{{route('hr.branches.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">Message Service</a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					@endif					
 					<br/>					
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
