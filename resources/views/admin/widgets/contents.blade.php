@@ -1,6 +1,6 @@
 @if ($mode == 'grid')
 	{{-- mode GRID --}}
-@else
+@elseif ($mode == 'list')
 	{{-- mode LIST --}}
 	@if (isset($toggle['avatar']))
 		<div class="hbox-column width-3">
@@ -75,5 +75,37 @@
 
 	@if (isset($toggle['document']))
 		</a>
+	@endif
+@elseif ($mode == 'list_simple')								
+	@if($value['item']=='address')
+		<ul class="list-unstyled">
+			<div class="alert alert-callout alert-info" role="alert" style="border-style:none;">
+				<div class="row">
+				<div class="col-md-10">
+					<strong class="text-primary">Alamat @if($value['is_default']) Sekarang @else Lama @endif</strong><br/>
+					{{$value['value']}}
+				</div>
+				<div class="col-md-2">
+					<a class="btn btn-icon-toggle btn-primary pull-right" data-toggle="modal" data-target="#addressCreate" data-address="hola">
+						<i class="fa fa-pencil"></i>
+					</a>
+				</div>
+				</div>
+			</div>					
+		</ul>		
+	@else
+		<ul class="list-unstyled">
+			<div class="alert alert-callout alert-info" role="alert" style="border-style:none;">
+				<div class="row">
+				<div class="col-md-10">
+					<strong class="text-primary">{{ucwords(str_replace('_',' ',$value['item']))}} @if($value['is_default']) Sekarang @else Lama @endif</strong><br/>
+					{{$value['value']}}
+				</div>
+				<div class="col-md-2">
+					<a class="btn btn-icon-toggle btn-primary pull-right btn_modal" data-toggle="modal" data-target="#contactCreate" data-item={{$value['item']}} data-value={{$value['value']}} data-id={{$value['id']}}><i class="fa fa-pencil"></i></a>
+				</div>
+				</div>
+			</div>					
+		</ul>	
 	@endif
 @endif

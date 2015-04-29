@@ -118,7 +118,7 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row mr-20">
-					<a class="btn btn-flat" href="{{route('hr.documents.index')}}">BATAL</a>
+					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->

@@ -47,7 +47,7 @@
 			</div>
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="{{route('hr.organisation.branches.index')}}">BATAL</a>
+					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div>
 			</div>			

@@ -136,8 +136,34 @@
 				maximumSelectionSize: 1,
 				selectOnBlur: true
 	        });
+
 		});	
 
+		$('.btn_modal').click(function()
+		{
+			var x = $(this).attr('data-id');
+			$('.contactCreate').on('show.bs.modal', function(e) {
+				console.log(x);
+			}).modal();
+		});
+
+		$('.modalContact').on('show.bs.modal', function(e) {
+			var id = $(e.relatedTarget).attr('data-id');
+			var item = $(e.relatedTarget).attr('data-item');
+			var val = $(e.relatedTarget).attr('data-value');
+
+			if(id != 0){
+				$('.inp_value').val(val);
+				$(".getContacts").select2("data", { id: 1, text: item });
+				$('.getContacts').select2('disable');
+				$('.modal_contact_title').text('Edit ' + item);
+			}else{
+				$('.inp_value').val('');
+				$(".getContacts").select2("val", "");
+				$('.getContacts').select2('enable');
+				$('.modal_contact_title').text('Tambah Kontak')
+			}
+		});
 
         $("#document_upload").dropzone({ 
 			url: '{{ route("hr.images.upload") }}' ,
