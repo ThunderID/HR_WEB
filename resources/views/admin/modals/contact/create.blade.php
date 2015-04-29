@@ -21,14 +21,7 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-6">
 							<div class="form-group">
-								<select class="form-control" id="item[1]" name="item[1]">
-									<option value=""></option>
-									<option value="phone">Nomor Telepon</option>
-									<option value="email">Email</option>
-									<option value="bbm">BBM</option>
-									<option value="line">Line</option>
-									<option value="whatsapp">WhatsApp</option>
-								</select>							
+								<input name="item[1]" id="item[1]" class="form-control getContacts" data-comp="">																
 								<label for="item[1]">Jenis Kontak</label>
 							</div>
 						</div>
