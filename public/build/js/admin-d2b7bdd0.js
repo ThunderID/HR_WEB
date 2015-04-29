@@ -2698,14 +2698,3 @@ $('[data-toggle="popover"]').popover({container:'body'});};window.materialadmin.
 	};
 
 })(jQuery);
-
-	var app = function() {
-		var change_branch = function() {
-			$('#change_branch').select2();
-		}
-		return {
-			init: function() {
-				change_branch();
-			}
-		};
-	}();
