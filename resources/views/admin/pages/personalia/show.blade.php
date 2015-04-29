@@ -139,14 +139,6 @@
 
 		});	
 
-		$('.btn_modal').click(function()
-		{
-			var x = $(this).attr('data-id');
-			$('.contactCreate').on('show.bs.modal', function(e) {
-				console.log(x);
-			}).modal();
-		});
-
 		$('.modalContact').on('show.bs.modal', function(e) {
 			var id = $(e.relatedTarget).attr('data-id');
 			var item = $(e.relatedTarget).attr('data-item');
@@ -154,14 +146,18 @@
 
 			if(id != 0){
 				$('.inp_value').val(val);
+				$('.input_id').val(id);
 				$(".getContacts").select2("data", { id: 1, text: item });
 				$('.getContacts').select2('disable');
 				$('.modal_contact_title').text('Edit ' + item);
+				$('.btn_save').text('Simpan');
 			}else{
 				$('.inp_value').val('');
+				$('.input_id').val('');
 				$(".getContacts").select2("val", "");
 				$('.getContacts').select2('enable');
-				$('.modal_contact_title').text('Tambah Kontak')
+				$('.modal_contact_title').text('Tambah Kontak');
+				$('.btn_save').text('Tambah');
 			}
 		});
 
