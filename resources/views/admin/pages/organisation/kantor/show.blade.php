@@ -71,14 +71,70 @@
 @section('js')
 	{!! HTML::script('js/toastr.js')!!}
 	<script type="text/javascript">
-		window.onload=col_justify('sidebar_left','sidebar_mid','sidebar_right');
-	</script>
-	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.del_charts').click(function(){
 				var x = $(this).attr('data-target');
 				$(x).modal();
 			});
+
+			$('.getContacts').select2({
+				tokenSeparators: [",", " "],
+				tags: [],
+				minimumInputLength: 1,
+				placeholder: "",
+				maximumSelectionSize: 1,
+				selectOnBlur: true
+	        });
+		});			
+
+
+		$('.modalContact').on('show.bs.modal', function(e) {
+			var id = $(e.relatedTarget).attr('data-modal-contact-id');
+			var item = $(e.relatedTarget).attr('data-modal-contact-item');
+			var val = $(e.relatedTarget).attr('data-modal-contact-value');
+
+			if(id != 0){
+				$('.modal_contact_inp_value').val(val);
+				$('.modal_contact_input_id').val(id);
+				$('.getContacts').select2("data", { id: item, text: item });
+				$('.getContacts').prop('readonly',true);
+				$('.modal_contact_title').text('Edit ' + item);
+				$('.modal_contact_btn_save').text('Simpan');
+			}else{
+				$('.modal_contact_inp_value').val('');
+				$('.modal_contact_input_id').val('');
+				$('.getContacts').select2("val", "");
+				$('.getContacts').prop('readonly',false);
+				$('.modal_contact_title').text('Tambah Kontak');
+				$('.modal_contact_btn_save').text('Tambah');
+			}
 		});
+
+
+		$('.modalAddress').on('show.bs.modal', function(e) {
+			var id = $(e.relatedTarget).attr('data-modal-address-id');
+			var item = $(e.relatedTarget).attr('data-modal-address-item');
+			var val = $(e.relatedTarget).attr('data-modal-address-value');
+
+			if(id != 0){
+				val = val.replace(/\_/g, ' ');
+				$('.modal_address_value').text(val);
+
+				$('.modal_address_input_id').val(id);
+
+
+				$('.modal_address_title').text('Edit Alamat');
+				$('.modal_address_btn_save').text('Simpan');
+			}else{
+				$('.modal_address_value').text('');
+
+				$('.modal_address_input_id').val('');
+
+
+				$('.modal_address_title').text('Tambah Alamat');
+				$('.modal_address_btn_save').text('Tambah');
+			}
+		});		
+
 	</script>
 @stop

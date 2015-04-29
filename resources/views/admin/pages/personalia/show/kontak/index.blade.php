@@ -8,9 +8,9 @@
 			<div class="page-header no-border holder" style="margin-top:0px;">
 				<br/>
 				@if(Input::has('item') && Input::get('item')=='address')
-					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addressCreate" data-id="0">Tambah Data</button>
+					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-id="0">Tambah Data</button>
 				@else
-					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#contactCreate" data-id="0">Tambah Data</button>
+					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#contactCreate" data-modal-contact-id="0">Tambah Data</button>
 				@endif
 			</div>	
 			<div class="clearfix">

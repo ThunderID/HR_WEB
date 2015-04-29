@@ -8,9 +8,9 @@
 			<div class="page-header no-border holder" style="margin-top:0px;">
 				<br/>
 				@if(Input::has('item') && Input::get('item')=='address')
-					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addressCreate">Tambah Data</button>
+					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-id="0">Tambah Data</button>
 				@else
-					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#contactCreate">Tambah Data</button>
+					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#contactCreate" data-modal-contact-id="0">Tambah Data</button>
 				@endif
 			</div>	
 			<div class="clearfix">
@@ -20,41 +20,12 @@
 				&nbsp;
 			</div>	
 			@forelse($contacts as $key => $value)
-				@if($value['item']=='address')
-					<form class="form" role="form" action="{{route('hr.branches.contacts.store', $data['id'])}}" method="post">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<input type="hidden" class="form-control" id="id_address[0]" name="id_address[0]" value="{{$value['id']}}">
-									<textarea type="text" class="form-control" name="address_address[0]" style="resize: none;" rows="3">{{$value['value']}}</textarea>
-									<label for="address_address[0]">Alamat @if($value['is_default']) Aktif @else Tidak Aktif @endif</label>
-								</div>
-							</div>
-						</div>
-						<?php $is_address = true;?>																						
-						<div class="card-actionbar">
-							<div class="card-actionbar-row">
-								<button type="submit" class="btn btn-flat btn-accent"><i class="fa fa-pencil"></i>&nbsp;SIMPAN</button>
-							</div>
-						</div>
-					</form>
-				@else
-					<form class="form" role="form" action="{{route('hr.branches.contacts.store', $data['id'])}}" method="post">
-						<div class="row">
-							<div class="col-md-10">
-								<div class="form-group">
-									<input type="text" class="form-control" id="value[{{$key}}]" name="value[{{$key}}]" value="{{$value['value']}}">
-									<input type="hidden" class="form-control" id="item[{{$key}}]" name="item[{{$key}}]" value="{{$value['item']}}">
-									<input type="hidden" class="form-control" id="id_item[{{$key}}]" name="id_item[{{$key}}]" value="{{$value['id']}}">
-									<label for="value[{{$key}}]">{{ucwords(str_replace('_',' ',$value['item']))}} @if($value['is_default']) Aktif @else Tidak Aktif @endif</label>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<button type="submit" class="btn btn-flat btn-accent"><i class="fa fa-pencil"></i>&nbsp;SIMPAN</button>
-							</div>
-						</div>
-					</form>
-				@endif
+				@include('admin.widgets.contents', [
+					'mode'				=> 'list_simple',
+					'data_content'		=> $value,
+					'toggle'			=> [],
+					'class'				=> ['top'		=> 'height-3']
+				])
 			@empty
 				<div class="alert alert-callout alert-warning" role="alert">
 					<strong>Perhatian!</strong> Data kontak belum dimasukkan.

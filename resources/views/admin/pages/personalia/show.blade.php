@@ -136,30 +136,55 @@
 				maximumSelectionSize: 1,
 				selectOnBlur: true
 	        });
-
 		});	
 
 		$('.modalContact').on('show.bs.modal', function(e) {
-			var id = $(e.relatedTarget).attr('data-id');
-			var item = $(e.relatedTarget).attr('data-item');
-			var val = $(e.relatedTarget).attr('data-value');
+			var id = $(e.relatedTarget).attr('data-modal-contact-id');
+			var item = $(e.relatedTarget).attr('data-modal-contact-item');
+			var val = $(e.relatedTarget).attr('data-modal-contact-value');
 
 			if(id != 0){
-				$('.inp_value').val(val);
-				$('.input_id').val(id);
-				$(".getContacts").select2("data", { id: 1, text: item });
-				$('.getContacts').select2('disable');
+				$('.modal_contact_inp_value').val(val);
+				$('.modal_contact_input_id').val(id);
+				$('.getContacts').select2("data", { id: item, text: item });
+				$('.getContacts').prop('readonly',true);
 				$('.modal_contact_title').text('Edit ' + item);
-				$('.btn_save').text('Simpan');
+				$('.modal_contact_btn_save').text('Simpan');
 			}else{
-				$('.inp_value').val('');
-				$('.input_id').val('');
-				$(".getContacts").select2("val", "");
-				$('.getContacts').select2('enable');
+				$('.modal_contact_inp_value').val('');
+				$('.modal_contact_input_id').val('');
+				$('.getContacts').select2("val", "");
+				$('.getContacts').prop('readonly',false);
 				$('.modal_contact_title').text('Tambah Kontak');
-				$('.btn_save').text('Tambah');
+				$('.modal_contact_btn_save').text('Tambah');
 			}
 		});
+
+
+		$('.modalAddress').on('show.bs.modal', function(e) {
+			var id = $(e.relatedTarget).attr('data-modal-address-id');
+			var item = $(e.relatedTarget).attr('data-modal-address-item');
+			var val = $(e.relatedTarget).attr('data-modal-address-value');
+
+			if(id != 0){
+				val = val.replace(/\_/g, ' ');
+				$('.modal_address_value').text(val);
+
+				$('.modal_address_input_id').val(id);
+
+
+				$('.modal_address_title').text('Edit Alamat');
+				$('.modal_address_btn_save').text('Simpan');
+			}else{
+				$('.modal_address_value').text('');
+
+				$('.modal_address_input_id').val('');
+
+
+				$('.modal_address_title').text('Tambah Alamat');
+				$('.modal_address_btn_save').text('Tambah');
+			}
+		});		
 
         $("#document_upload").dropzone({ 
 			url: '{{ route("hr.images.upload") }}' ,

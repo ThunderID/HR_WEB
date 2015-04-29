@@ -21,23 +21,23 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input name="item[1]" id="item[1]" class="form-control getContacts inp_item" data-comp="">																
+								<input name="item[1]" id="item[1]" class="form-control getContacts modal_contact_inp_item" data-comp="">																
 								<label for="item[1]">Jenis Kontak</label>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control inp_value" id="value[1]" name="value[1]">
+								<input type="text" class="form-control modal_contact_inp_value" id="value[1]" name="value[1]">
 								<label for="value[1]">Isian</label>
 							</div>
 						</div>					
 					</div>					
 				</div>	
-				<input class="input_id" type="hidden" name="id_item">
+				<input class="modal_contact_input_id" type="hidden" name="id_item[1]">
 			</div>			
 			<div class="modal-footer style-default-light">
 				<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
-				<button type="submit" type="button" class="btn btn-flat btn-primary btn_save">Tambah</button>
+				<button type="submit" type="button" class="btn btn-flat btn-primary modal_contact_btn_save">Tambah</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
