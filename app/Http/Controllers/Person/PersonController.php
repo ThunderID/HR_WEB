@@ -147,9 +147,11 @@ class PersonController extends Controller {
 
 		if(Input::has('date_of_birth'))
 		{
-			$input['person']['date_of_birth']			= date("Y-m-d", strtotime(Input::get('date_of_birth')));
+			list($d,$m,$y) 								= explode('/', Input::get('date_of_birth'));
+			$birth 										= "$y-$m-$d";
+			$input['person']['date_of_birth']			= date("Y-m-d", strtotime($birth));
 		}
-		
+
 		$input['person']['id']						= $id;
 		$input['person']['avatar']					= Input::get('link_profile_picture');
 

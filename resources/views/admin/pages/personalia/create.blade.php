@@ -59,6 +59,12 @@
 								</div><!--end .col -->
 								<div class="col-md-6">
 									<div class="form-group @if ($errors->first('date_of_birth')) has-error @endif">
+										@if($data['id'])
+											<?php 
+												list($y,$m,$d) 			= explode('-', $data['date_of_birth']);
+												$data['date_of_birth']	= $d.'/'.$m.'/'.$y;
+											?>
+										@endif
 										{!! Form::input('text', 'date_of_birth', $data['date_of_birth'], ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"', 'id'=>'date_of_birth']) !!}
 										<label for="date_of_birth">Tanggal Lahir</label>
 									</div>		
