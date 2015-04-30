@@ -78,7 +78,7 @@
 			});
 
 			$('.getContacts').select2({
-				tokenSeparators: [",", " "],
+				tokenSeparators: [",", " ", "_", "-"],
 				tags: [],
 				minimumInputLength: 1,
 				placeholder: "",

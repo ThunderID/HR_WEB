@@ -1,7 +1,7 @@
 @extends('admin.pages.organisation.kantor.show')
 @section('kantor.show')
 	<ul class="nav nav-tabs" data-toggle="tabs">
-		<li class="active"><a href="#alamat">{{Input::get('item'). ' ( '.$paginator->total_item.' )' }}</a></li>
+		<li class="active"><a href="#alamat">{{Input::get('item') ? Input::get('item') : 'Message Services'}} {{' ( '.$paginator->total_item.' )' }}</a></li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="alamat">
