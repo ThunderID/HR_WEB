@@ -5,5 +5,5 @@
     'permanent' 	=> 'Permanent',
     'internship' 	=> 'Internship',
     'previous' 		=> 'Previous'
-	),$data_value, ['class' => 'form-control', 'id' => 'work_status']);
+	),$data_value, ['class' => 'form-control modal_work_status', 'id' => 'work_status']);
 !!}

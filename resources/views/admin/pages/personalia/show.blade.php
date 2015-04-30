@@ -122,10 +122,16 @@
 
 @section('css')
 	{!! HTML::style('css/dropzone.css')!!}
+	{!! HTML::style('css/datepicker3.css')!!}
+	{!! HTML::style('css/toastr.css')!!}	
+
 @stop
 
 @section('js')
 	{!! HTML::script('js/dropzone.min.js')!!}
+	{!! HTML::script('js/jquery.inputmask.min.js')!!}
+	{!! HTML::script('js/toastr.js')!!}
+
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$('.getContacts').select2({
@@ -185,6 +191,85 @@
 				$('.modal_address_btn_save').text('Tambah');
 			}
 		});		
+
+        $('.modalWork').on('show.bs.modal', function(e) {
+			var id 						= $(e.relatedTarget).attr('data-id');
+			var chart_id 				= $(e.relatedTarget).attr('data-chart-id');
+			var work_start 				= $(e.relatedTarget).attr('data-work-start');
+			var work_end 				= $(e.relatedTarget).attr('data-work-end');
+			var reason_resign 			= $(e.relatedTarget).attr('data-reason-resign');
+			var work_status				= $(e.relatedTarget).attr('data-work-status');
+			var work_position 			= $(e.relatedTarget).attr('data-work-position');
+			var work_organisation		= $(e.relatedTarget).attr('data-work-organisation');
+			var work_company_path		= $(e.relatedTarget).attr('data-work-company-path');
+			var work_company_name 		= $(e.relatedTarget).attr('data-work-company-name');
+			var work_branch_name 		= $(e.relatedTarget).attr('data-work-branch-name'); 	
+
+			if (typeof chart_id == 'undefined'){
+				$('#tab_chart').removeClass('hide');
+			}
+			else {
+				$('#tab_chart').addClass('hide');
+			}
+
+			if (id != 0)
+			{
+				$('.modal_work_company').select2('data', { id: work_company, text: work_company_name+' di '+work_branch_name});
+				$('.modal_work_company').prop('readonly', true);
+				$('.modal_work_organition').val(work_organisation);
+				$('.modal_work_position').val(work_position);
+				$('.modal_work_status').val(work_status);
+				$('.modal_work_start').val(work_start);
+				$('.modal_work_end').val(work_end);
+				$('.modal_reason_resign').text(reason_resign);
+				$('.modal_btn_work').text('Simpan');
+			}
+			else
+			{
+				$('.modal.work_company').select2("val", "");	
+				$('.modal_work_company').prop('readonly', false);
+				$('.modal_work_organition').val('');
+				$('.modal_work_position').val('');
+				$('.modal_work_status').val('');
+				$('.modal_work_start').val('');
+				$('.modal_work_end').val('');
+				$('.modal_reason_resign').text('');
+				$('.modal_btn_work').text('Tambah');
+			}
+			console.log(chart_id);
+		});
+
+		$(".date_mask").inputmask();    
+
+		$('.getCompany').select2({
+			tokenSeparators: [",", " "],
+			tags: [],
+			minimumInputLength: 1,
+			placeholder: "",
+			maximumSelectionSize: 1,
+			selectOnBlur: true,
+            ajax: {
+                url: "{{route('hr.ajax.company')}}",
+                dataType: 'json',
+                quietMillis: 500,
+               	data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name +' di '+ item.branch.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
+
 
         $("#document_upload").dropzone({ 
 			url: '{{ route("hr.images.upload") }}' ,

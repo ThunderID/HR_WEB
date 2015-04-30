@@ -43,7 +43,7 @@ elixir(function(mix) {
 				'core/source/AppVendor.js',
 				'thunder/thumbnail_image_upload/thumbnail-image-upload.jquery.js',
 				'thunder/bootstrap.type2confirm/bootstrap.type2confirm.jquery.js',
-				'app.js',
+				// 'app.js',
 				], 'public/js/admin.js')
 	// .version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
 	.copy('resources/css/theme-1/libs/summernote/summernote.css','public/css/summernote.css')
