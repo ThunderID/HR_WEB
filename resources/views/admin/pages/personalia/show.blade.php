@@ -193,7 +193,8 @@
 		});		
 
         $('.modalWork').on('show.bs.modal', function(e) {
-			var id 						= $(e.relatedTarget).attr('data-id');
+        	var action 					= $(e.relatedTarget).attr('data-action');
+			var val_id 					= $(e.relatedTarget).attr('data-value-id');
 			var chart_id 				= $(e.relatedTarget).attr('data-chart-id');
 			var work_start 				= $(e.relatedTarget).attr('data-work-start');
 			var work_end 				= $(e.relatedTarget).attr('data-work-end');
@@ -205,15 +206,15 @@
 			var work_company_name 		= $(e.relatedTarget).attr('data-work-company-name');
 			var work_branch_name 		= $(e.relatedTarget).attr('data-work-branch-name'); 	
 
-			if (typeof chart_id == 'undefined'){
+			if (typeof chart_id === "undefined"){
 				$('#tab_chart').removeClass('hide');
 			}
 			else {
 				$('#tab_chart').addClass('hide');
 			}
-
-			if (id != 0)
+			if (val_id != 0)
 			{
+				$(this).parent().attr('action', action);
 				$('.modal_work_company').select2('data', { id: work_company, text: work_company_name+' di '+work_branch_name});
 				$('.modal_work_company').prop('readonly', true);
 				$('.modal_work_organition').val(work_organisation);
@@ -221,22 +222,22 @@
 				$('.modal_work_status').val(work_status);
 				$('.modal_work_start').val(work_start);
 				$('.modal_work_end').val(work_end);
-				$('.modal_reason_resign').text(reason_resign);
+				$('.modal_reason_resign').val(reason_resign);
 				$('.modal_btn_work').text('Simpan');
 			}
 			else
 			{
-				$('.modal.work_company').select2("val", "");	
-				$('.modal_work_company').prop('readonly', false);
+				$(this).parent().attr('action', action);
+				$('.getCompany').select2("val", "");	
+				$('.getCompany').prop('readonly', false);
 				$('.modal_work_organition').val('');
-				$('.modal_work_position').val('');
+				$('.modal_work_position').select2("val", "");
 				$('.modal_work_status').val('');
 				$('.modal_work_start').val('');
 				$('.modal_work_end').val('');
-				$('.modal_reason_resign').text('');
+				$('.modal_reason_resign').val('').empty();
 				$('.modal_btn_work').text('Tambah');
 			}
-			console.log(chart_id);
 		});
 
 		$(".date_mask").inputmask();    
