@@ -4,17 +4,17 @@ use Exception;
 
 trait APITrait {
 
-	static protected $basic_url = 'http://localhost:8000/';
+	public $basic_url = 'http://localhost:8400/';
 
-	protected static function runGet($url, $data = [])
+	public static function runGet($url, $data = [])
 	{
 		try
 		{
-			fsockopen('http://localhost/', '8000', $errno, $errstr, 60);
+			fsockopen('localhost', '8400', $errno, $errstr, 60);
 		}
 		catch (Exception $e) 
 		{
-			throw new Exception("Running API dulu gan!! di port 8000.. (Udah ada warnnya nih ©thunder)", 1);
+			throw new Exception("Running API dulu gan!! di port 8400.. (Udah ada warnnya nih ©thunder)", 1);
 		}
 
 		$curl 			= curl_init($url);
@@ -34,15 +34,15 @@ trait APITrait {
 		return $results;
 	}
 
-	protected static function runPost($url, $data = [])
+	public static function runPost($url, $data = [])
 	{
 		try
 		{
-			fsockopen('http://localhost/', '8000', $errno, $errstr, 60);
+			fsockopen('localhost', '8400', $errno, $errstr, 60);
 		}
 		catch (Exception $e) 
 		{
-			throw new Exception("Running API dulu gan!! di port 8000.. (Udah ada warnnya nih ©thunder)", 1);
+			throw new Exception("Running API dulu gan!! di port 8400.. (Udah ada warnnya nih ©thunder)", 1);
 		}
 
 		$content 		= json_encode($data);

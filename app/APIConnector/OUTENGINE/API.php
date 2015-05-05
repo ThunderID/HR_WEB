@@ -4,7 +4,7 @@ use Session;
 
 class API {
 
-	// use APITrait;
+	use APITrait;
 
 	static function person()
 	{
