@@ -156,6 +156,9 @@ return [
 		'ThunderID\Work\WorkServiceProvider',
 		'ThunderID\Contact\ContactServiceProvider',
 		'ThunderID\Widboard\WidboardServiceProvider',
+		'ThunderID\Schedule\ScheduleServiceProvider',
+		'ThunderID\Log\LogServiceProvider',
+		'ThunderID\Furlough\FurloughServiceProvider',
 
 	],
 
