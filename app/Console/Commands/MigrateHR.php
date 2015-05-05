@@ -53,7 +53,7 @@ class MigrateHR extends Command {
 		$this->call($command, ['--path' => 'vendor/thunderid/widboard/src/migrations']);
 		$this->call($command, ['--path' => 'vendor/thunderid/schedule/src/migrations']);
 		$this->call($command, ['--path' => 'vendor/thunderid/log/src/migrations']);
-		$this->call($command, ['--path' => 'vendor/thunderid/furlough/src/migrations']);
+		$this->call($command, ['--path' => 'vendor/thunderid/workleave/src/migrations']);
 		$this->info("---------------------------------- MIGRATED HR--------------------------------------------------");
 		return true;
 	}

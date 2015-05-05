@@ -158,7 +158,7 @@ return [
 		'ThunderID\Widboard\WidboardServiceProvider',
 		'ThunderID\Schedule\ScheduleServiceProvider',
 		'ThunderID\Log\LogServiceProvider',
-		'ThunderID\Furlough\FurloughServiceProvider',
+		'ThunderID\Workleave\WorkleaveServiceProvider',
 
 	],
 

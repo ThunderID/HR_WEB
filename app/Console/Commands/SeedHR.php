@@ -51,7 +51,7 @@ class SeedHR extends Command {
 		$this->call($command, ['--class' => 'ThunderID\\Widboard\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Schedule\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Log\\seeds\\DatabaseSeeder']);
-		$this->call($command, ['--class' => 'ThunderID\\Furlough\\seeds\\DatabaseSeeder']);
+		$this->call($command, ['--class' => 'ThunderID\\Workleave\\seeds\\DatabaseSeeder']);
 		$this->info("---------------------------------- SEEDED HR--------------------------------------------------");
 		return true;
 	}
