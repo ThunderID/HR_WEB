@@ -84,7 +84,7 @@ class DashboardComposer {
 	{
 		$sort 										= ['branches.created_at' => 'asc'];
 
-		$results 									= API::organisationbranch()->index(1, $search, $sort);
+		$results 									= API::branch()->index(1, $search, $sort);
 
 		$contents 									= json_decode($results);
 
@@ -131,7 +131,7 @@ class DashboardComposer {
 		$search = [];
 		$sort 										= ['branches.created_at' => 'asc'];
 
-		$results 									= API::organisationbranch()->index(1, $search, $sort);
+		$results 									= API::branch()->index(1, $search, $sort);
 
 		$contents 									= json_decode($results);
 		if(!$contents->meta->success)

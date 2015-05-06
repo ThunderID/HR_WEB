@@ -25,7 +25,7 @@ class ContactController extends Controller {
 			$department 							= null;
 		}
 
-		$results 									= API::organisationbranch()->show($branchid, $department);
+		$results 									= API::branch()->show($branchid, $department);
 
 		$contents 									= json_decode($results);
 
@@ -49,7 +49,7 @@ class ContactController extends Controller {
 
 		$sort 										= ['is_default' => 'desc'];
 
-		$results_3 									= API::organisationbranch()->contactIndex($page, $search, $sort);
+		$results_3 									= API::branch()->contactIndex($page, $search, $sort);
 
 		$contents 									= json_decode($results_3);
 
@@ -117,7 +117,7 @@ class ContactController extends Controller {
 
 		$input['organisation']['id']					= Session::get('user.organisation');
 
-		$results 										= API::organisationbranch()->store($branchid, $input);
+		$results 										= API::branch()->store($branchid, $input);
 
 		$content 										= json_decode($results);
 		

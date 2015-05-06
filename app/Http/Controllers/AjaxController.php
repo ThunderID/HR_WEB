@@ -45,7 +45,7 @@ class AjaxController extends Controller {
 
 		$sort 										= ['created_at' => 'asc'];
 
-		$results 									= API::organisationchart()->index(1, $search, $sort);
+		$results 									= API::chart()->index(1, $search, $sort);
 
 		$contents 									= json_decode($results);
 
@@ -71,7 +71,7 @@ class AjaxController extends Controller {
 
 		$sort 										= ['created_at' => 'asc'];
 
-		$results 									= API::organisationchart()->index(1, $search, $sort);
+		$results 									= API::chart()->index(1, $search, $sort);
 
 		$contents 									= json_decode($results);
 

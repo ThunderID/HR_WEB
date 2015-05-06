@@ -42,7 +42,7 @@ class BranchController extends Controller {
 			$sort 									= ['branches.created_at' => 'asc'];
 		}
 
-		$results 									= API::organisationbranch()->index($page, $search, $sort);
+		$results 									= API::branch()->index($page, $search, $sort);
 
 		$contents 									= json_decode($results);
 
@@ -94,7 +94,7 @@ class BranchController extends Controller {
 
 		$input['organisation']['id']					= Session::get('user.organisation');
 
-		$results 										= API::organisationbranch()->store($id, $input);
+		$results 										= API::branch()->store($id, $input);
 
 		$content 										= json_decode($results);
 		
@@ -117,7 +117,7 @@ class BranchController extends Controller {
 		{
 			$department 							= null;
 		}
-		$results 									= API::organisationbranch()->show($id, $department);
+		$results 									= API::branch()->show($id, $department);
 
 		$contents 									= json_decode($results);
 
@@ -141,7 +141,7 @@ class BranchController extends Controller {
 	function getEdit($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::organisationbranch()->show($id);
+		$results 									= API::branch()->show($id);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -178,7 +178,7 @@ class BranchController extends Controller {
 
 		if($content->meta->success)
 		{
-			$results 									= API::organisationbranch()->destroy($id);
+			$results 									= API::branch()->destroy($id);
 			$contents 									= json_decode($results);
 
 			if (!$contents->meta->success)

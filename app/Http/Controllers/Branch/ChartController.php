@@ -25,7 +25,7 @@ class ChartController extends Controller {
 			$department 							= null;
 		}
 
-		$results 									= API::organisationbranch()->show($branch_id, $department);
+		$results 									= API::branch()->show($branch_id, $department);
 
 		$contents 									= json_decode($results);
 
@@ -36,7 +36,7 @@ class ChartController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 		
-		$results_2 									= API::organisationchart()->show($branch_id, $id);
+		$results_2 									= API::chart()->show($branch_id, $id);
 
 		$contents_2 								= json_decode($results_2);
 
@@ -47,7 +47,7 @@ class ChartController extends Controller {
 
 		$chart 										= json_decode(json_encode($contents_2->data), true);
 
-		$results_3 									= API::organisationchart()->index(1, ['neighbor' => $chart['path'], 'branchid' => $branch_id], ['path' => 'asc']);
+		$results_3 									= API::chart()->index(1, ['neighbor' => $chart['path'], 'branchid' => $branch_id], ['path' => 'asc']);
 
 		$contents 									= json_decode($results_3);
 
@@ -61,7 +61,7 @@ class ChartController extends Controller {
 		$search 									= ['chartid' => $id, 'withattributes' => ['application']];
 		$sort 										= ['chart_id' => 'asc'];
 			
-		$results_4 									= API::organisationchart()->appsIndex($page, $search, $sort);
+		$results_4 									= API::chart()->appsIndex($page, $search, $sort);
 
 		$contents 									= json_decode($results_4);
 
@@ -89,7 +89,7 @@ class ChartController extends Controller {
 
 	function getCreate($branch_id, $id = null)
 	{
-		$results 									= json_decode(API::organisationbranch()->show($branch_id));
+		$results 									= json_decode(API::branch()->show($branch_id));
 		// ---------------------- GENERATE CONTENT ----------------------
 
 		$this->layout->page_title 					= 'Tambah '.$this->controller_name.' baru';
@@ -153,7 +153,7 @@ class ChartController extends Controller {
 			}
 		}
 
-		$results 									= API::organisationchart()->store($branch_id, $input);
+		$results 									= API::chart()->store($branch_id, $input);
 
 		$content 									= json_decode($results);
 		
@@ -178,7 +178,7 @@ class ChartController extends Controller {
 			$department 							= null;
 		}
 
-		$results 									= API::organisationbranch()->show($branch_id, $department);
+		$results 									= API::branch()->show($branch_id, $department);
 
 		$contents 									= json_decode($results);
 
@@ -189,7 +189,7 @@ class ChartController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 		
-		$results_2 									= API::organisationchart()->show($branch_id, $id);
+		$results_2 									= API::chart()->show($branch_id, $id);
 
 		$contents_2 								= json_decode($results_2);
 
@@ -198,7 +198,7 @@ class ChartController extends Controller {
 			App::abort(404);
 		}
 
-		$results 									= API::organisationchart()->show($branch_id, $id);
+		$results 									= API::chart()->show($branch_id, $id);
 
 		$contents 									= json_decode($results);
 
@@ -209,7 +209,7 @@ class ChartController extends Controller {
 
 		$chart 										= json_decode(json_encode($contents->data), true);
 
-		$results_3 									= API::organisationchart()->index(1, ['neighbor' => $chart['path'], ['path', 'asc']]);
+		$results_3 									= API::chart()->index(1, ['neighbor' => $chart['path'], ['path', 'asc']]);
 
 		$contents 									= json_decode($results_3);
 
@@ -248,7 +248,7 @@ class ChartController extends Controller {
 
 		if($content->meta->success)
 		{
-			$results 				= API::organisationchart()->destroy($branch_id, $id);
+			$results 				= API::chart()->destroy($branch_id, $id);
 
 			$content 				= json_decode($results);
 			

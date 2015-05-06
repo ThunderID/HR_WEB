@@ -2,7 +2,7 @@
 
 use Session;
 
-class APIOrganisationChart{
+class APIChart{
 
 	function index($page, $search, $sort, $all = false)
 	{

@@ -14,15 +14,25 @@ class API {
 		return new APIDocument();
 	}
 
-	static function organisationbranch()
+	static function branch()
 	{
-		return new APIOrganisationBranch();
+		return new APIBranch();
 	}
 
-	static function organisationchart()
+	static function chart()
 	{
-		return new APIOrganisationChart();
+		return new APIChart();
 	}
+
+	static function calendar()
+	{
+		return new APICalendar();
+	}	
+
+	static function schedule()
+	{
+		return new APISchedule();
+	}	
 
 	static function widget()
 	{

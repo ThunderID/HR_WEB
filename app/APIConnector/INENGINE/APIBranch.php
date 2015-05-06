@@ -2,7 +2,7 @@
 
 use Session;
 
-class APIOrganisationBranch {
+class APIBranch {
 
 	function index($page, $search, $sort, $all = false)
 	{

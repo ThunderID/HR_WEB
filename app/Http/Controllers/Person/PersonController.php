@@ -80,7 +80,7 @@ class PersonController extends Controller {
 
 		$sort 										= ['created_at' => 'asc'];			
 		
-		$results_2 									= API::organisationbranch()->index(1, $search, $sort);
+		$results_2 									= API::branch()->index(1, $search, $sort);
 
 		$contents_2 								= json_decode($results_2);
 

@@ -278,6 +278,77 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- END OF DOCUMENT ----------------------------------------------------------------------------*/
 	
+
+	/* ---------------------------------------------------------------------------- SCHEDULE ----------------------------------------------------------------------------*/
+	Route::group(['prefix' => 'calendars', 'before' => ''], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@getIndex', 
+							'as' 	=> 'hr.calendars.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@getCreate', 
+							'as' 	=> 'hr.calendars.create'
+						]
+					);
+
+		Route::post('store', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@postStore', 
+							'as' 	=> 'hr.calendars.store'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@getShow', 
+							'as' 	=> 'hr.calendars.show'
+						]
+					);
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@getEdit', 
+							'as' 	=> 'hr.calendars.edit'
+						]
+					);
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@postUpdate', 
+							'as' 	=> 'hr.calendars.update'
+						]
+					);
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@anyDelete', 
+							'as' 	=> 'hr.calendars.delete'
+						]
+					);
+	});
+
+	Route::group(['prefix' => 'calendars/schdules', 'before' => 'hr_acl'], function(){
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'Branch\DocumentController@anyTemplateDelete', 
+							'as' 	=> 'hr.document.templates.delete'
+						]
+					);
+	});
+
+	// Route::group(['prefix' => 'documents/persons/', 'before' => 'hr_acl'], function(){
+	// 	Route::get('{id}/{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@getShow', 
+	// 						'as' 	=> 'hr.document.persons.index'
+	// 					]
+	// 				);
+	// });
+
+	/* ---------------------------------------------------------------------------- END OF SCHEDULE ----------------------------------------------------------------------------*/
+	
+
 	/* ---------------------------------------------------------------------------- PERSON ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'persons', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
