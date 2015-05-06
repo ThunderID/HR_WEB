@@ -24,7 +24,12 @@ class CalendarController extends Controller {
 
 		if(Input::has('branch'))
 		{
-			$search['branch'] 						= Input::get('branch');
+			$search['branchname'] 					= Input::get('branch');
+		}
+
+		if(Input::has('chart'))
+		{
+			$search['chartname'] 					= Input::get('chart');
 		}
 
 		$sort 										= ['name' => 'asc'];
@@ -118,12 +123,12 @@ class CalendarController extends Controller {
 
 		if(Input::has('branch'))
 		{
-			$search['branch'] 						= Input::get('branch');
+			$search['branchname'] 					= Input::get('branch');
 		}
 
 		if(Input::has('chart'))
 		{
-			$search['chart'] 						= Input::get('chart');
+			$search['chartname'] 					= Input::get('chart');
 		}
 
 		$sort 										= ['name' => 'asc'];
