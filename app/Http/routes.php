@@ -302,7 +302,7 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 
-		Route::get('show/{id}', 
+		Route::get('show/{id}/{page?}', 
 						[
 							'uses' 	=> 'Schedule\CalendarController@getShow', 
 							'as' 	=> 'hr.calendars.show'
@@ -328,26 +328,36 @@ Route::group(['prefix' => 'cms'], function(){
 					);
 	});
 
-	Route::group(['prefix' => 'calendars/schdules', 'before' => 'hr_acl'], function(){
-		Route::any('delete/{id}', 
+	/* ---------------------------------------------------------------------------- END OF SCHEDULE ----------------------------------------------------------------------------*/
+	
+
+	/* ---------------------------------------------------------------------------- WORKLEAVE ----------------------------------------------------------------------------*/
+	Route::group(['prefix' => 'workleaves', 'before' => ''], function(){
+		Route::get('{page?}', 
 						[
-							'uses' 	=> 'Branch\DocumentController@anyTemplateDelete', 
-							'as' 	=> 'hr.document.templates.delete'
+							'uses' 	=> 'Schedule\WorkleaveController@getIndex', 
+							'as' 	=> 'hr.workleaves.index'
+						]
+					);
+
+		Route::post('store', 
+						[
+							'uses' 	=> 'Schedule\WorkleaveController@postStore', 
+							'as' 	=> 'hr.workleaves.store'
+						]
+					);
+
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'Schedule\WorkleaveController@postUpdate', 
+							'as' 	=> 'hr.workleaves.update'
 						]
 					);
 	});
 
-	// Route::group(['prefix' => 'documents/persons/', 'before' => 'hr_acl'], function(){
-	// 	Route::get('{id}/{page?}', 
-	// 					[
-	// 						'uses' 	=> 'Branch\DocumentController@getShow', 
-	// 						'as' 	=> 'hr.document.persons.index'
-	// 					]
-	// 				);
-	// });
-
-	/* ---------------------------------------------------------------------------- END OF SCHEDULE ----------------------------------------------------------------------------*/
+	/* ---------------------------------------------------------------------------- END OF WORKLEAVE ----------------------------------------------------------------------------*/
 	
+
 
 	/* ---------------------------------------------------------------------------- PERSON ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'persons', 'before' => 'hr_acl'], function(){

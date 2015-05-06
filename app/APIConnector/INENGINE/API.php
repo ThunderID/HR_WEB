@@ -29,9 +29,9 @@ class API {
 		return new APICalendar();
 	}	
 
-	static function schedule()
+	static function workleave()
 	{
-		return new APISchedule();
+		return new APIWorkleave();
 	}	
 
 	static function widget()
