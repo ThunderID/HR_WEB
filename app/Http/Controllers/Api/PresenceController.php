@@ -1,8 +1,14 @@
 <?php namespace App\Http\Controllers\Api;
 
-use Input, Auth, \Illuminate\Support\MessageBag, Response, Config, Session, Validator;
-use API;
-use App\Http\Controllers\Controller;
+use \App\Http\Controllers\Controller;
+use \ThunderID\Log\Models\Log;
+use \ThunderID\Person\Models\Person;
+use \ThunderID\Commoquent\Getting;
+use \ThunderID\Commoquent\Saving;
+use \ThunderID\Commoquent\Deleting;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use App, Response;
 
 class PresenceController extends Controller {
 
@@ -16,36 +22,46 @@ class PresenceController extends Controller {
 	 **/
 	public function store()
 	{
-		if(!Input::has('application'))
+		$attributes 								= Input::all();
+		if(!$attributes['application'])
 		{
 			return Response::json(['message' => 'Server Error'], 500);
 		}
 
-		$api 										= Input::get('application')['api'];
+		$api 										= $attributes['application']['api'];
 		if($api['client']!='123456789' || $api['secret']!='123456789')
 		{
 			return Response::json(['message' => 'Server Error'], 500);
 		}
-		if(!Input::has('person'))
+
+		if(!$attributes['log'])
 		{
 			return Response::json(['message' => 'Server Error'], 500);
 		}
 
-		$person 									= Input::get('person');
-		if(!isset($person['id']))
-		{
-			return Response::json(['message' => 'Server Error'], 500);
-		}
+		// DB::beginTransaction();
 
-		$results 									= API::person()->check($person['id']);
+		// if(isset($attributes['log']))
+		// {
+		// 	foreach ($attributes['log'] as $key => $value) 
+		// 	{
+		// 		$log['name']					= $value[1];
+		// 		$log['on']						= strtotime('Y-m-d H:i:s', $value[2]);
+		// 		$log['pc']						= $value[3];
 
-		$contents 									= json_decode($results);
+		// 		$saved_log 						= $this->dispatch(new Saving(new Log, $log, null, new Person, $value[0]));
+		// 		$is_success_2 					= json_decode($saved_log);
+		// 		if(!$is_success_2->meta->success)
+		// 		{
+		// 			DB::rollback();
 
-		if(!$contents->meta->success)
-		{
-			return Response::json(['message' => 'Server Error'], 500);
-		}
+		// 			return Response::json(['message' => 'Server Error'], 500);
+		// 		}
+		// 	}
+		// }
 
-		return $results;
+		// DB::commit();
+
+		return Response::json(['message' => 'Sukses'], 200);
 	}
 }
