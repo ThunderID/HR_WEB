@@ -222,4 +222,54 @@ class CalendarController extends Controller {
 			return Redirect::route('hr.calendars.show', ['id' => $id])->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
+
+	function postStorePerson($calid, $id = null)
+	{
+		// ---------------------- HANDLE INPUT ----------------------
+		$input['calendar']['id'] 					= $calid;
+
+		$input['organisation']['id']				= Session::get('user.organisation');
+
+		$persons 									= explode(',', Input::get('person'));
+		foreach ($persons as $key => $value) 
+		{
+			$input['persons'][]						= ['person_id' => $value, 'start' => date('Y-m-d H:i:s', strtotime(Input::get('when')))];
+		}
+
+		$results 									= API::calendar()->store($calid, $input);
+
+		$content 									= json_decode($results);
+		if($content->meta->success)
+		{
+			return Redirect::route('hr.calendars.show', $calid)->with('alert_success', 'Data Kalender sudah di simpan');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+	}
+
+	function postStoreChart($calid, $id = null)
+	{
+		// ---------------------- HANDLE INPUT ----------------------
+		$input['calendar']['id'] 					= $calid;
+
+		$input['organisation']['id']				= Session::get('user.organisation');
+
+		//please make sure if the date is in range, make it as an array for every date => single date save in on
+		//consider the id
+		$charts 									= explode(',', Input::get('chart'));
+		foreach ($charts as $key => $value) 
+		{
+			$input['charts'][]						= ['chart_id' => $value];
+		}
+
+		$results 									= API::calendar()->store($calid, $input);
+
+		$content 									= json_decode($results);
+		if($content->meta->success)
+		{
+			return Redirect::route('hr.calendars.show', $calid)->with('alert_success', 'Data Kalender sudah di simpan');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+	}
 }

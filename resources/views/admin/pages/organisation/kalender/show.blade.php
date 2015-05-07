@@ -18,8 +18,14 @@
 				<a href="" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
+				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#personCreate">
+					<i class="fa fa-plus-circle"></i>&nbsp;Karyawan
+				</a>
+				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#chartCreate">
+					<i class="fa fa-plus-circle"></i>&nbsp;Chart
+				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#scheduleCreate">
-					<i class="fa fa-plus-circle"></i>&nbsp;Tambah
+					<i class="fa fa-plus-circle"></i>&nbsp;Jadwal
 				</a>
 			</div>
 		</div>
@@ -78,9 +84,156 @@
 		@include('admin.modals.schedule.create')
 	{!! Form::close() !!}	
 
-@stop
+	{!! Form::open(array('url' => route('hr.calendars.persons.store', $data['id']),'method' => 'POST')) !!}
+		<div class="modal fade modalPerson" id="personCreate" tabindex="-1" role="dialog" aria-labelledby="personCreate" aria-hidden="true">
+			<div class="modal-dialog form">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Karyawan</h4>
+					</div>
+					<div class="modal-body style-default-light">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="text-primary">Petunjuk</h4>
+								<article class="margin-bottom-xxl">
+									<p class="opacity-75">
+										Untuk Menambahkan banyak karyawan silahkan gunakan comma (,)
+									</p>
+								</article>
+							</div><!--end .col -->
+						</div><!--end .row -->	
+								
+						<div class="row">
+							<div class="tabs col-md-12  pt-20">
+								<div class="col-md-12">
+									<div class="form-group">
+										<input name="person" id="person" class="form-control getName">
+										<label for="person">Nama</label>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="text" class="form-control modal_when_tgl" id="when" name="when">
+										<label for="when">Mulai Tanggal</label>
+									</div>
+								</div>
+							</div>					
+						</div>	
+						<input class="modal_contact_input_id" type="hidden" name="id_item[1]">
+					</div>			
+					<div class="modal-footer style-default-light">
+						<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
+						<button type="submit" type="button" class="btn btn-flat btn-primary modal_schedule_btn_save">Tambah</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>	
+	{!! Form::close() !!}	
 
+	{!! Form::open(array('url' => route('hr.calendars.charts.store', $data['id']),'method' => 'POST')) !!}
+		<div class="modal fade modalChart" id="chartCreate" tabindex="-1" role="dialog" aria-labelledby="chartCreate" aria-hidden="true">
+			<div class="modal-dialog form">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Chart</h4>
+					</div>
+					<div class="modal-body style-default-light">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="text-primary">Petunjuk</h4>
+								<article class="margin-bottom-xxl">
+									<p class="opacity-75">
+										Untuk Menambahkan banyak chart silahkan gunakan comma (,)
+									</p>
+								</article>
+							</div><!--end .col -->
+						</div><!--end .row -->	
+								
+						<div class="row">
+							<div class="tabs col-md-12  pt-20">
+								<div class="col-md-12">
+									<div class="form-group">
+										<input name="chart" id="chart" class="form-control getCompany">
+										<label for="chart">Nama</label>
+									</div>
+								</div>
+							</div>					
+						</div>	
+						<input class="modal_contact_input_id" type="hidden" name="id_item[1]">
+					</div>			
+					<div class="modal-footer style-default-light">
+						<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
+						<button type="submit" type="button" class="btn btn-flat btn-primary modal_schedule_btn_save">Tambah</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>	
+	{!! Form::close() !!}	
+@stop
 
 @section('js')
 	{!! HTML::script('js/DemoCalendar.js')!!}
+
+	<script type="text/javascript">
+		$('.getName').select2({
+			tokenSeparators: [","],
+			tags: [],
+			placeholder: "",
+			minimumInputLength: 1,
+			selectOnBlur: true,
+            ajax: {
+                url: "{{route('hr.ajax.name')}}",
+                dataType: 'json',
+                quietMillis: 500,
+               	data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
+		$('.getCompany').select2({
+			tokenSeparators: [","],
+			tags: [],
+			placeholder: "",
+			minimumInputLength: 1,
+			selectOnBlur: true,
+            ajax: {
+                url: "{{route('hr.ajax.company')}}",
+                dataType: 'json',
+                quietMillis: 500,
+               	data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name +' di '+ item.branch.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
+    </script>
+@stop
+
+@section('Schedule-active')
+	active
 @stop

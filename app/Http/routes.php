@@ -328,9 +328,35 @@ Route::group(['prefix' => 'cms'], function(){
 					);
 	});
 
+	Route::group(['prefix' => 'calendars/schedules/', 'before' => ''], function(){
+		Route::post('store/{cal_id}', 
+						[
+							'uses' 	=> 'Schedule\ScheduleController@postStore', 
+							'as' 	=> 'hr.calendars.schedules.store'
+						]
+					);
+	});
+
+	Route::group(['prefix' => 'calendars/persons/', 'before' => ''], function(){
+		Route::post('store/{cal_id}', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@postStorePerson', 
+							'as' 	=> 'hr.calendars.persons.store'
+						]
+					);
+	});
+
+	Route::group(['prefix' => 'calendars/charts/', 'before' => ''], function(){
+		Route::post('store/{cal_id}', 
+						[
+							'uses' 	=> 'Schedule\CalendarController@postStoreChart', 
+							'as' 	=> 'hr.calendars.charts.store'
+						]
+					);
+	});
+
 	/* ---------------------------------------------------------------------------- END OF SCHEDULE ----------------------------------------------------------------------------*/
 	
-
 	/* ---------------------------------------------------------------------------- WORKLEAVE ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'workleaves', 'before' => ''], function(){
 		Route::get('{page?}', 

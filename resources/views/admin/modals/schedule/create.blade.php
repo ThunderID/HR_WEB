@@ -30,7 +30,7 @@
 								<input type="text" class="form-control modal_schedule_tgl" id="value[1]" name="on">
 								<label for="value[1]">Tanggal</label>
 							</div>
-						</div>					
+						</div>
 					</div>					
 				</div>	
 				<div class="row">
