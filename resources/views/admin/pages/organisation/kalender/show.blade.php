@@ -74,7 +74,7 @@
 		</div>	
 	{!! Form::close() !!}
 
-	{!! Form::open(array('route' => array('hr.persons.create'),'method' => 'POST')) !!}
+	{!! Form::open(array('url' => route('hr.calendars.schedules.store', $data['id']),'method' => 'POST')) !!}
 		@include('admin.modals.schedule.create')
 	{!! Form::close() !!}	
 

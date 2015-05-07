@@ -21,13 +21,13 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input name="item[1]" id="item[1]" class="form-control getName modal_schedule_name" data-comp="">																
+								<input name="name" id="item[1]" class="form-control getName modal_schedule_name" data-comp="">																
 								<label for="item[1]">Nama</label>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control modal_schedule_tgl" id="value[1]" name="value[1]">
+								<input type="text" class="form-control modal_schedule_tgl" id="value[1]" name="on">
 								<label for="value[1]">Tanggal</label>
 							</div>
 						</div>					
@@ -37,13 +37,13 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input name="item[1]" id="item[1]" class="form-control modal_schedule_start" data-comp="">																
+								<input name="start" id="item[1]" class="form-control modal_schedule_start" data-comp="">																
 								<label for="item[1]">Start</label>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control modal_schedule_end" id="value[1]" name="value[1]">
+								<input type="text" class="form-control modal_schedule_end" id="value[1]" name="end">
 								<label for="value[1]">End</label>
 							</div>
 						</div>					

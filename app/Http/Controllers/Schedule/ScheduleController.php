@@ -22,9 +22,13 @@ class ScheduleController extends Controller {
 
 		//please make sure if the date is in range, make it as an array for every date => single date save in on
 		//consider the id
-		$input['schedules'][]						= Input::get('name', 'on', 'start', 'end', 'id');
+		$schedule 									= Input::only('name', 'on', 'start', 'end', 'id');
+		$schedule['on']								= date('Y-m-d', strtotime($schedule['on']));
+		$schedule['start']							= date('H:i:s', strtotime($schedule['start']));
+		$schedule['end']							= date('H:i:s', strtotime($schedule['end']));
+		$input['schedules'][]						= $schedule;
 
-		$results 									= API::calendar()->store($id, $input);
+		$results 									= API::calendar()->store($calid, $input);
 
 		$content 									= json_decode($results);
 		if($content->meta->success)
