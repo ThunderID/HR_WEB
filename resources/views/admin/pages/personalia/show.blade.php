@@ -96,8 +96,10 @@
 							</div>
 							<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['name'].', '.$data['suffix_title']}}</h1>
 							<h5>
-								@if(isset($data['works'][0]))
-									{{$data['works'][0]['name']}} di {{$data['works'][0]['branch']['name']}}
+								@if(isset($data['works']))
+									@foreach($data['works'] as $key => $value)
+										<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['branch']['name']}}</span>
+									@endforeach
 								@endif
 							</h5>
 						</div>

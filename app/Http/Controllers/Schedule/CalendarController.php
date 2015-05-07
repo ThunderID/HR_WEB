@@ -16,10 +16,10 @@ class CalendarController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= [ 'organisationid' => Session::get('user.organisation')];
+		$search 									= [ 'organisationid' => Session::get('user.organisation'), 'withattributes' => ['charts', 'charts.branch']];
 		if(Input::has('q'))
 		{
-			$search 								= ['name' => Input::get('q'), 'organisationid' => Session::get('user.organisation')];
+			$search 								= ['name' => Input::get('q'), 'organisationid' => Session::get('user.organisation'), 'withattributes' => ['charts', 'charts.branch']];
 		}
 
 		if(Input::has('branch'))
@@ -27,9 +27,9 @@ class CalendarController extends Controller {
 			$search['branchname'] 					= Input::get('branch');
 		}
 
-		if(Input::has('chart'))
+		if(Input::has('tag'))
 		{
-			$search['chartname'] 					= Input::get('chart');
+			$search['charttag'] 					= Input::get('tag');
 		}
 
 		$sort 										= ['name' => 'asc'];
@@ -42,15 +42,22 @@ class CalendarController extends Controller {
 		{
 			App::abort(404);
 		}
-		
+
 		$data 										= json_decode(json_encode($contents->data), true);
+		
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$search 									= ['organisationid' => Session::get('user.organisation')];
 
+		if(Input::has('branch'))
+		{
+			$search['name']							= Input::get('branch');
+			$search['DisplayDepartments']			= '';
+		}
+
 		$sort 										= ['name' => 'asc'];
 
-		$results_2 									= API::branch()->index($page, $search, $sort);
+		$results_2 									= API::branch()->index(1, $search, $sort);
 
 		$contents_2 								= json_decode($results_2);
 
@@ -90,7 +97,7 @@ class CalendarController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['calendar'] 							= Input::only('name');
 
-		$input['calendar']['id'] 					= $id;
+		// $input['calendar']['id'] 					= $id;
 
 		$input['organisation']['id']				= Session::get('user.organisation');
 
