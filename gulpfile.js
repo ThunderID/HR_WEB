@@ -24,7 +24,8 @@ elixir(function(mix) {
     			'theme-1/font-awesome.min.css',
 				'theme-1/material-design-iconic-font.min.css',
 				'theme-1/libs/bootstrap-tagsinput/bootstrap-tagsinput.css',
-				"theme-1/libs/select2/select2.css",
+				'theme-1/libs/select2/select2.css',
+				'theme-1/libs/fullcalendar/fullcalendar.css'
 				], 'public/css/admin.css')
 	.scripts(['libs/jquery/jquery-1.11.2.min.js',
 				'libs/jquery/jquery-migrate-1.2.1.min.js',
@@ -35,6 +36,8 @@ elixir(function(mix) {
 				'libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js',
 				'libs/select2/select2.min.js',
 				'libs/bootstrap-datepicker/bootstrap-datepicker.js',
+				'libs/moment/moment.min.js',
+				'libs/fullcalendar/fullcalendar.min.js',
 				'core/source/App.min.js',
 				'core/source/AppNavigation.js',
 				'core/source/AppCard.js',
@@ -46,21 +49,21 @@ elixir(function(mix) {
 				// 'app.js',
 				], 'public/js/admin.js')
 	// .version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
-	.copy('resources/css/theme-1/libs/summernote/summernote.css','public/css/summernote.css')
-	.copy('resources/css/theme-1/libs/bootstrap-datepicker/datepicker3.css', 'public/css/datepicker3.css')
-	.copy('resources/css/theme-1/libs/dropzone/dropzone-theme.css', 'public/css/dropzone.css')
-	.copy('resources/css/theme-1/libs/org-chart/', 'public/css/org-chart/')
-	.copy('resources/css/theme-1/libs/toastr/toastr.css', 'public/css/toastr.css')
-	.copy('resources/js/libs/bootstrap-datepicker/bootstrap-datepicker.js', 'public/js/bootstrap-datepicker.js')
-	.copy('resources/js/libs/dropzone/dropzone.min.js', 'public/js/dropzone.min.js')
-	.copy('resources/js/libs/utils/html5shiv.js', 'public/js/html5shiv.js')
-	.copy('resources/js/libs/utils/respond.min.js', 'public/js/respond.min.js')
-	.copy('resources/js/libs/microtemplating/microtemplating.min.js', 'public/js/microtemplating.min.js')
-	.copy('resources/js/libs/org-chart/jquery.orgchart.js', 'public/js/jquery.orgchart.js')
-	.copy('resources/js/libs/summernote/summernote.min.js', 'public/js/summernote.min.js')
-	.copy('resources/js/libs/toastr/toastr.min.js', 'public/js/toastr/toastr.min.js')
-	.copy('resources/js/libs/inputmask/jquery.inputmask.bundle.min.js', 'public/js/jquery.inputmask.min.js')
-	.copy('resources/js/core/demo/DemoPageContacts.js', 'public/js/pluginmicrotemplating.min.js')
-	.copy('resources/fonts/', 'public/build/fonts/')
-	.copy('resources/images/', 'public/images/');
+	.copy('resources/assets/css/theme-1/libs/summernote/summernote.css','public/css/summernote.css')
+	.copy('resources/assets/css/theme-1/libs/bootstrap-datepicker/datepicker3.css', 'public/css/datepicker3.css')
+	.copy('resources/assets/css/theme-1/libs/dropzone/dropzone-theme.css', 'public/css/dropzone.css')
+	.copy('resources/assets/css/theme-1/libs/org-chart/', 'public/css/org-chart/')
+	.copy('resources/assets/css/theme-1/libs/toastr/toastr.css', 'public/css/toastr.css')
+	.copy('resources/assets/js/libs/bootstrap-datepicker/bootstrap-datepicker.js', 'public/js/bootstrap-datepicker.js')
+	.copy('resources/assets/js/libs/dropzone/dropzone.min.js', 'public/js/dropzone.min.js')
+	.copy('resources/assets/js/libs/utils/html5shiv.js', 'public/js/html5shiv.js')
+	.copy('resources/assets/js/libs/utils/respond.min.js', 'public/js/respond.min.js')
+	.copy('resources/assets/js/libs/microtemplating/microtemplating.min.js', 'public/js/microtemplating.min.js')
+	.copy('resources/assets/js/libs/org-chart/jquery.orgchart.js', 'public/js/jquery.orgchart.js')
+	.copy('resources/assets/js/libs/summernote/summernote.min.js', 'public/js/summernote.min.js')
+	.copy('resources/assets/js/libs/toastr/toastr.min.js', 'public/js/toastr/toastr.min.js')
+	.copy('resources/assets/js/libs/inputmask/jquery.inputmask.bundle.min.js', 'public/js/jquery.inputmask.min.js')
+	.copy('resources/assets/js/core/demo/DemoPageContacts.js', 'public/js/pluginmicrotemplating.min.js')
+	.copy('resources/assets/fonts/', 'public/build/fonts/')
+	.copy('resources/assets/images/', 'public/images/');
 });
