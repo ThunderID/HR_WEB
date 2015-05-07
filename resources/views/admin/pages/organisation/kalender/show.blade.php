@@ -15,11 +15,11 @@
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
-				<a href="{{route('hr.calendars.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
-				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
-					<i class="fa fa-users"></i>&nbsp;Karyawan
+				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#scheduleCreate">
+					<i class="fa fa-plus-circle"></i>&nbsp;Tambah
 				</a>
 			</div>
 		</div>
@@ -29,12 +29,12 @@
 		<div class="card-tiles">
 			<div class = "col-md-12 hbox-md">
 				<!-- BEGIN MIDDLE -->					
-				<div class="hbox-column col-md-12" id="sidebar_mid">
+				<div class="hbox-column col-md-12">
 					<div class="col-md-12">
 						<div class="row">
 							<div class="margin-bottom-xxl">
 								<h1 class="text-light no-margin">{{$data['name']}}</h1>
-								<h5>
+								<h5 class="mb-30 border-bottom">
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
 									@if(isset($data['charts']))
 										@foreach($data['charts'] as $key => $value)
@@ -42,7 +42,23 @@
 										@endforeach
 									@endif
 								</h5>
-								&nbsp;&nbsp;
+								<h3 class="text-light no-margin">
+									<span class="selected-day">&nbsp;</span> &nbsp;<small class="selected-date">&nbsp;</small>
+									<span class="pull-right">
+										<a id="calender-prev" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-left"></i></a>
+										<a id="calender-next" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-right"></i></a>
+									</span>
+								</h3>
+								<h5>
+									<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
+										<li data-mode="month" class="active"><a href="#">Month</a></li>
+										<li data-mode="agendaWeek"><a href="#">Week</a></li>
+										<li data-mode="agendaDay"><a href="#">Day</a></li>
+									</ul>
+								</h5>
+								
+									<div id="calendar"></div>
+								
 							</div>
 						</div>
 					</div>
@@ -58,5 +74,13 @@
 		</div>	
 	{!! Form::close() !!}
 
+	{!! Form::open(array('route' => array('hr.persons.create'),'method' => 'POST')) !!}
+		@include('admin.modals.schedule.create')
+	{!! Form::close() !!}	
+
 @stop
 
+
+@section('js')
+	{!! HTML::script('js/DemoCalendar.js')!!}
+@stop
