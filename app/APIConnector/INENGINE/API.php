@@ -29,6 +29,11 @@ class API {
 		return new APICalendar();
 	}	
 
+	static function schedule()
+	{
+		return new APISchedule();
+	}	
+
 	static function workleave()
 	{
 		return new APIWorkleave();

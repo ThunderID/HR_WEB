@@ -49,6 +49,21 @@
 			</div>
 		@endif
 
+		@if (isset($toggle['calendar']))
+			<div class="clearfix">
+				<div class="col-xs-1">
+					<span class="opacity-50"><i class = "fa fa-tags"></i></span>
+				</div>
+				<div class="col-xs-11">
+					@if(isset($data_content['charts']))
+						@foreach($data_content['charts'] as $key => $value)
+							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['branch']['name']}}</span>
+						@endforeach
+					@endif
+				</div>
+			</div>
+		@endif
+
 		@if (isset($toggle['branch']))
 			<div class="clearfix">
 				<div class="col-lg-12">
@@ -58,7 +73,7 @@
 
 		@if (!isset($toggle['document']))
 
-			@if(count($data_content['contacts']))
+			@if(isset($data_content['contacts'])&&count($data_content['contacts']))
 				<ul class="fa-ul" style="padding-left:5px;">
 					@foreach($data_content['contacts'] as $key2 => $value2)
 						@if($value2['item']=='phone')
