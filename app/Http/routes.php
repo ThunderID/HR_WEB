@@ -610,6 +610,14 @@ Route::group(['prefix' => 'cms'], function(){
 
 Blade::extend(function ($value, $compiler)
 {
+	$pattern = $compiler->createMatcher('ucwords');
+	$replace = '<?php echo ucwords($2); ?>';
+
+	return preg_replace($pattern, '$1'.$replace, $value);
+});
+
+Blade::extend(function ($value, $compiler)
+{
 	$pattern = $compiler->createMatcher('replace_delimiter');
 	$replace = '<?php echo ucwords(str_replace("_", " ", $2)); ?>';
 	
