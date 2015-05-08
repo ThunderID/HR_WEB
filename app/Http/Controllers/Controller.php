@@ -33,7 +33,7 @@ abstract class Controller extends BaseController {
 			$nav->add('data_personalia', 'Personalia', route('hr.persons.index', ['page' => 1, 'q' => '', 'karyawan' => 'active']), null, 'data');
 
 			$nav->add('report', 'Report', 'javascript:;', 'fa fa-copy');
-			$nav->add('report_attendance', 'Attendance', route('hr.persons.index', ['page' => 1, 'q' => '', 'karyawan' => 'active']), null, 'report');
+			$nav->add('report_attendance', 'Attendance', route('hr.report.attendance.get'), null, 'report');
 			$nav->add('report_performance', 'Performance', route('hr.persons.index', ['page' => 1, 'q' => '', 'karyawan' => 'active']), null, 'report');
 
 

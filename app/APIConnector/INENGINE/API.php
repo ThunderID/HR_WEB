@@ -39,6 +39,11 @@ class API {
 		return new APIWorkleave();
 	}	
 
+	static function log()
+	{
+		return new APILog();
+	}	
+
 	static function widget()
 	{
 		return new APIWidget();
