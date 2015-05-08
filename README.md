@@ -11,8 +11,8 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. Our timeline this week (until the end of the week), Please check folder Archive
-2. Updating routes for calendar, schedule, workleave, Please check routes.php line 282 - 357
+1. Updating crud for workleave, changing version of package person to 1.2.2
+2. Our timeline this week (until the end of the week), Please check folder Archive
 3. Updating API For Tracker 
 4. Running HR WEB in 2 port, first port (primary port), second port (8400 for api)
 5. Please check app/Http/routes.api.php for test api, for test api running in primary port

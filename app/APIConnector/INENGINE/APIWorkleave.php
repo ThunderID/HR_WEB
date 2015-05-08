@@ -15,4 +15,16 @@ class APIWorkleave {
 		$data = new \ThunderID\Workleave\Controllers\WorkleaveController;
 		return $data->store($id, $attributes);
 	}
+
+	function show($id)
+	{		
+		$data = new \ThunderID\Workleave\Controllers\WorkleaveController;
+		return $data->show($id);
+	}
+
+	function destroy($id)
+	{
+		$data = new \ThunderID\Workleave\Controllers\WorkleaveController;
+		return $data->destroy($id);
+	}
 }

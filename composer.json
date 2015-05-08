@@ -9,7 +9,7 @@
 		"illuminate/html": "5.*",
 		"thunderid/menu": "dev-master",
 		"intervention/image": "dev-master",
-		"thunderid/person": "1.2.0.*@dev",
+		"thunderid/person": "1.2.2.*@dev",
 		"thunderid/doclate": "1.2.0.*@dev",
 		"thunderid/organisation": "1.2.0.*@dev",
 		"thunderid/work": "1.2.0.*@dev",

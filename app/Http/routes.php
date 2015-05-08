@@ -366,6 +366,13 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'Schedule\WorkleaveController@getCreate', 
+							'as' 	=> 'hr.workleaves.create'
+						]
+					);
+
 		Route::post('store', 
 						[
 							'uses' 	=> 'Schedule\WorkleaveController@postStore', 
@@ -373,10 +380,30 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 
+		Route::get('show/{id}/{page?}', 
+						[
+							'uses' 	=> 'Schedule\WorkleaveController@getShow', 
+							'as' 	=> 'hr.workleaves.show'
+						]
+					);
+
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'Schedule\WorkleaveController@getEdit', 
+							'as' 	=> 'hr.workleaves.edit'
+						]
+					);
+
 		Route::post('update/{id}', 
 						[
 							'uses' 	=> 'Schedule\WorkleaveController@postUpdate', 
 							'as' 	=> 'hr.workleaves.update'
+						]
+					);
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'Schedule\WorkleaveController@anyDelete', 
+							'as' 	=> 'hr.workleaves.delete'
 						]
 					);
 	});

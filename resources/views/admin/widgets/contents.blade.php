@@ -59,6 +59,11 @@
 						@foreach($data_content['charts'] as $key => $value)
 							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['branch']['name']}}</span>
 						@endforeach
+					@elseif(isset($data_content['chart']))
+						<span class="badge style-info text-sm opacity-75 mt-5">{{$data_content['chart']['name']}} - {{$value['chart']['branch']['name']}}</span>
+						@if(isset($data_content['quota']))
+							<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data_content['quota']}}</span>
+						@endif
 					@endif
 				</div>
 			</div>

@@ -21,7 +21,7 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input name="name" id="item[1]" class="form-control getName modal_schedule_name" data-comp="">																
+								<input name="name" id="item[1]" class="form-control modal_schedule_name" data-comp="">																
 								<label for="item[1]">Nama</label>
 							</div>
 						</div>
