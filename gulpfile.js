@@ -16,7 +16,7 @@ elixir.config.sourcemaps = false;
 
 elixir(function(mix) {
 	mix.less('app.less')
-	.copy('public/css/app.css', 'resources/css/app.css');
+	.copy('public/css/app.css', 'resources/assets/css/app.css');
 
     mix.styles(['app.css',
     			'theme-1/bootstrap.css',

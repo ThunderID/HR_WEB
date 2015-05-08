@@ -39,8 +39,8 @@
 					<div class="col-md-12">
 						<div class="row">
 							<div class="margin-bottom-xxl">
-								<h1 class="text-light no-margin">{{$data['name']}}</h1>
-								<h5 class="mb-30 border-bottom">
+								<h1 class="text-light no-margin">@ucwords($data['name'])</h1>
+								<h5 class="pb-30 border-bottom">
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
 									@if(isset($data['charts']))
 										@foreach($data['charts'] as $key => $value)
@@ -48,7 +48,7 @@
 										@endforeach
 									@endif
 								</h5>
-								<h3 class="text-light no-margin">
+								<h3 class="text-light no-margin pt-20">
 									<span class="selected-day">&nbsp;</span> &nbsp;<small class="selected-date">&nbsp;</small>
 									<span class="pull-right">
 										<a id="calender-prev" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-left"></i></a>
@@ -174,9 +174,24 @@
 @stop
 
 @section('js')
-	{!! HTML::script('js/DemoCalendar.js')!!}
+	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 
-	<script type="text/javascript">
+	<script type="text/javascript">		
+		<?php $schedule = []; ?>
+		@foreach($schedules as $i => $sh)		
+			<?php 
+				$schedule[$i]['id']		= $sh['id'];
+				$schedule[$i]['title'] 	= $sh['name'];
+				$schedule[$i]['start']	= $sh['on'];
+				$schedule[$i]['end']	= $sh['on'];
+			?>
+		@endforeach
+		<?php $sch = json_encode($schedule); ?>
+		
+		var schedule = {!! $sch !!};
+
+		$(".date_mask").inputmask();
+		$('.time_mask').inputmask('h:s', {placeholder: 'hh:mm'});
 		$('.getName').select2({
 			tokenSeparators: [","],
 			tags: [],
@@ -232,6 +247,8 @@
             }
         });
     </script>
+
+	{!! HTML::script('js/DemoCalendar.js')!!}
 @stop
 
 @section('Schedule-active')

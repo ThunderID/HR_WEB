@@ -21,13 +21,13 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input name="name" id="item[1]" class="form-control modal_schedule_name" data-comp="">																
+								{!! Form::input('text', 'name', null, ['class' => 'form-control modal_schedule_name']) !!}
 								<label for="item[1]">Nama</label>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control modal_schedule_tgl" id="value[1]" name="on">
+								{!! Form::input('text', 'on', null, ['class' => 'form-control modal_schedule_tgl date_mask', 'data-inputmask' => '"alias" : "date"']) !!}								
 								<label for="value[1]">Tanggal</label>
 							</div>
 						</div>
@@ -37,13 +37,13 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input name="start" id="item[1]" class="form-control modal_schedule_start" data-comp="">																
+								{!! Form::input('text', 'start', null, ['class' => 'form-control modal_schedule_start time_mask']) !!}								
 								<label for="item[1]">Start</label>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control modal_schedule_end" id="value[1]" name="end">
+								{!! Form::input('text', 'end', null, ['class' => 'form-control modal_schedule_end time_mask']) !!}
 								<label for="value[1]">End</label>
 							</div>
 						</div>					
