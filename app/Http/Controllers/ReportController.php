@@ -16,30 +16,35 @@ class ReportController extends Controller {
 	function getAttendance($page = null)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		if(input::has('start'))
+		if(Input::has('start'))
 		{
-			$search 								= ['WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
+			$search 								= ['global' => true,'WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
 		}
 		else
 		{
-			$search 								= ['WithAttributes' => ['person']];
+			$search 								= ['global' => true,'WithAttributes' => ['person']];
 		}
+		$sort 										= [];
 
-		if(input::has('case'))
+		if(Input::has('case'))
 		{
 			switch (Input::get('case')) 
 			{
 				case 'late':
 					$search['late']					= true;
+					$sort 							= ['margin_start' => 'asc'];
 					break;
 				case 'ontime':
 					$search['ontime']				= true;
+					$sort 							= ['margin_start' => 'desc'];
 					break;
 				case 'earlier':
 					$search['earlier']				= true;
+					$sort 							= ['margin_end' => 'asc'];
 					break;
 				case 'overtime':
 					$search['overtime']				= true;
+					$sort 							= ['margin_end' => 'desc'];
 					break;
 				default:
 					App::abort('404');
@@ -57,10 +62,8 @@ class ReportController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$sort 										= ['on' => 'asc'];
-
-		$results 									= API::log()->ProcessLogIndex($page, $search, $sort);
-
+		$results 									= API::log()->ProcessLogIndex($page, $search, $sort, true);
+		
 		$contents 									= json_decode($results);
 		if(!$contents->meta->success)
 		{

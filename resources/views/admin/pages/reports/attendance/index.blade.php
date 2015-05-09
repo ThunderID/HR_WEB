@@ -63,7 +63,7 @@
 				<div class="col-sm-8 col-md-9 col-lg-10">
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">
-							@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
+							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif
 						</span>
 						<div class="btn-group btn-group-sm pull-right">
 							@if (Input::get('q'))
@@ -76,11 +76,10 @@
 						<thead>
 							<tr>
 								<th>Nama</th>
-								<th>Tanggal</th>
-								<th>Jam Masuk</th>
-								<th>Jam Pulang</th>
+								<th>Total Idle</th>
 								<th>Total Jam Kerja</th>
-								<th>@if(Input::has('case') && Input::get('case')!='ontime') {{ucwords(Input::get('case'))}} @endif</th>
+								<th>Rata - Rata Jam Kerja</th>
+								<th>@if(Input::has('case') && Input::get('case')!='ontime') {{ucwords(Input::get('case'))}} (Hi - Lo) @endif</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -90,17 +89,13 @@
 										{{$value['person']['name']}}
 									</td>
 									<td>
-										{{date('d-m-Y', strtotime($value['on']))}}
+										{{gmdate("H:i:s", $value['total_idle'])}}
 									</td>
 									<td>
-										{{date('H:i:s', strtotime($value['start']))}}
+										{{gmdate("H:i:s", $value['total_workhour'])}}
 									</td>
 									<td>
-										{{date('H:i:s', strtotime($value['end']))}}
-									</td>
-									<td>
-										<?php $workhour = (strtotime($value['end']) - strtotime($value['start']));?>
-										{{gmdate("H:i:s", $workhour)}}
+										{{gmdate("H:i:s", $value['average_workhour'])}}
 									</td>
 									<td>
 										<?php 
@@ -134,9 +129,9 @@
 					</table>
 				</div>
 			</div>
-			@if(count($data))
+			<!-- @if(count($data))
 				@include('admin.helpers.pagination')
-			@endif
+			@endif -->
 		</div>
 	</div>
 @stop

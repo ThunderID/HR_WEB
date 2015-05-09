@@ -11,8 +11,8 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. Updating crud for workleave, changing version of package person to 1.2.2
-2. Our timeline this week (until the end of the week), Please check folder Archive
+1. Updating crud for follow start, changing version of package chart to 1.2.2
+2. Rule of log file: USING EMAIL!
 3. Updating API For Tracker 
 4. Running HR WEB in 2 port, first port (primary port), second port (8400 for api)
 5. Please check app/Http/routes.api.php for test api, for test api running in primary port

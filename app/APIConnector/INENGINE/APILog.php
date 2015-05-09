@@ -4,9 +4,9 @@ use Session;
 
 class APILog{
 
-	function ProcessLogIndex($page, $search, $sort, $all = false)
+	function ProcessLogIndex($page, $search, $sort, $all)
 	{
 		$data = new \ThunderID\Log\Controllers\ProcessLogController;
-		return $data->index($page, $search, $sort, $all = false);
+		return $data->index($page, $search, $sort, $all);
 	}
 }

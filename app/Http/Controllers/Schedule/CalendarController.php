@@ -259,7 +259,7 @@ class CalendarController extends Controller {
 		$charts 									= explode(',', Input::get('chart'));
 		foreach ($charts as $key => $value) 
 		{
-			$input['charts'][]						= ['chart_id' => $value];
+			$input['charts'][]						= ['chart_id' => $value, 'start' => date('Y-m-d H:i:s', strtotime(Input::get('when')))];
 		}
 
 		$results 									= API::calendar()->store($calid, $input);
