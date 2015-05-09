@@ -139,21 +139,38 @@
 			},
 			events: schedule,
 			eventRender: function (event, element) {
+				var datetime_start 	= event.start._i.split('T');
+				var datetime_end 	= event.end._i.split('T');
+				
 				element.find('#date-title').html(element.find('span.fc-event-title').text());
+				element.attr('data-toggle', 'modal');
+				element.attr('data-target', '#scheduleCreate');
+				element.attr('data-id', event.id);
+				element.attr('data-title', event.title);
+				element.attr('data-date', datetime_start[0]);
+				element.attr('data-start', datetime_start[1]);
+				element.attr('data-end', datetime_end[1]);				
 			},
+			eventClick: function(calEvent, jsEvent, view) {
+
+			        // alert('Event: ' + calEvent.title);			        
+
+			        // console.log(calEvent);
+			        // console.log(jsEvent);
+			        // console.log(view);
+
+			        $('')
+
+			        // change the border color just for fun
+			        // $(this).css('border-color', 'red');
+
+		    },
 			dayClick: function(date, jsEvent, view) {
-
-		        alert('Clicked on: ' + date.format());
-
-		        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-		        alert('Current view: ' + view.name);
-
 		        // change the day's background color just for fun
 		        $(this).css('background-color', 'rgba(33, 150, 243, 0.07)');
 		        $('.fc-day').not($(this)).css('background-color', 'white');
 
-		    }
+		    }		    
 		});
 	};
 
