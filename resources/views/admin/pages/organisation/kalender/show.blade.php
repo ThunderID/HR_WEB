@@ -24,7 +24,7 @@
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#chartCreate">
 					<i class="fa fa-plus-circle"></i>&nbsp;Chart
 				</a>
-				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#scheduleCreate">
+				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#scheduleCreate" data-id="0">
 					<i class="fa fa-plus-circle"></i>&nbsp;Jadwal
 				</a>
 			</div>
@@ -81,95 +81,15 @@
 	{!! Form::close() !!}
 
 	{!! Form::open(array('url' => route('hr.calendars.schedules.store', $data['id']),'method' => 'POST')) !!}
-		@include('admin.modals.schedule.create')
+		@include('admin.modals.schedule.create_schedule')
 	{!! Form::close() !!}	
 
 	{!! Form::open(array('url' => route('hr.calendars.persons.store', $data['id']),'method' => 'POST')) !!}
-		<div class="modal fade modalPerson" id="personCreate" tabindex="-1" role="dialog" aria-labelledby="personCreate" aria-hidden="true">
-			<div class="modal-dialog form">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Karyawan</h4>
-					</div>
-					<div class="modal-body style-default-light">
-						<div class="row">
-							<div class="col-lg-12">
-								<h4 class="text-primary">Petunjuk</h4>
-								<article class="margin-bottom-xxl">
-									<p class="opacity-75">
-										Untuk Menambahkan banyak karyawan silahkan gunakan comma (,)
-									</p>
-								</article>
-							</div><!--end .col -->
-						</div><!--end .row -->	
-								
-						<div class="row">
-							<div class="tabs col-md-12  pt-20">
-								<div class="col-md-12">
-									<div class="form-group">
-										<input name="person" id="person" class="form-control getName">
-										<label for="person">Nama</label>
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<input type="text" class="form-control modal_when_tgl" id="when" name="when">
-										<label for="when">Mulai Tanggal</label>
-									</div>
-								</div>
-							</div>					
-						</div>	
-						<input class="modal_contact_input_id" type="hidden" name="id_item[1]">
-					</div>			
-					<div class="modal-footer style-default-light">
-						<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
-						<button type="submit" type="button" class="btn btn-flat btn-primary modal_schedule_btn_save">Tambah</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div>	
+		@include('admin.modals.schedule.create_person')
 	{!! Form::close() !!}	
 
 	{!! Form::open(array('url' => route('hr.calendars.charts.store', $data['id']),'method' => 'POST')) !!}
-		<div class="modal fade modalChart" id="chartCreate" tabindex="-1" role="dialog" aria-labelledby="chartCreate" aria-hidden="true">
-			<div class="modal-dialog form">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Chart</h4>
-					</div>
-					<div class="modal-body style-default-light">
-						<div class="row">
-							<div class="col-lg-12">
-								<h4 class="text-primary">Petunjuk</h4>
-								<article class="margin-bottom-xxl">
-									<p class="opacity-75">
-										Untuk Menambahkan banyak chart silahkan gunakan comma (,)
-									</p>
-								</article>
-							</div><!--end .col -->
-						</div><!--end .row -->	
-								
-						<div class="row">
-							<div class="tabs col-md-12  pt-20">
-								<div class="col-md-12">
-									<div class="form-group">
-										<input name="chart" id="chart" class="form-control getCompany">
-										<label for="chart">Nama</label>
-									</div>
-								</div>
-							</div>					
-						</div>	
-						<input class="modal_contact_input_id" type="hidden" name="id_item[1]">
-					</div>			
-					<div class="modal-footer style-default-light">
-						<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
-						<button type="submit" type="button" class="btn btn-flat btn-primary modal_schedule_btn_save">Tambah</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div>	
+		@include('admin.modals.schedule.create_chart')
 	{!! Form::close() !!}	
 @stop
 
@@ -182,13 +102,36 @@
 			<?php 
 				$schedule[$i]['id']		= $sh['id'];
 				$schedule[$i]['title'] 	= $sh['name'];
-				$schedule[$i]['start']	= $sh['on'];
-				$schedule[$i]['end']	= $sh['on'];
+				$schedule[$i]['start']	= $sh['on'].'T'.$sh['start'];
+				$schedule[$i]['end']	= $sh['on'].'T'.$sh['end'];
 			?>
 		@endforeach
 		<?php $sch = json_encode($schedule); ?>
 		
 		var schedule = {!! $sch !!};
+
+		$('.modalSchedule').on('show.bs.modal', function(e) {
+			var id 		= $(e.relatedTarget).attr('data-id');
+			var title 	= $(e.relatedTarget).attr('data-title');
+			var date 	= $(e.relatedTarget).attr('data-date');
+			var start 	= $(e.relatedTarget).attr('data-start');
+			var end 	= $(e.relatedTarget).attr('data-end');
+
+			if (id !== 0) 
+			{
+				$('.modal_schedule_name').val(title);
+				$('.modal_schedule_date').val(date);
+				$('.modal_schedule_start').val(start);
+				$('.modal_schedule_end').val(end);
+			}
+			else
+			{
+				$('.modal_schedule_name').val('');
+				$('.modal_schedule_date').val('');
+				$('.modal_schedule_start').val('');
+				$('.modal_schedule_end').val('');
+			}
+		});
 
 		$(".date_mask").inputmask();
 		$('.time_mask').inputmask('h:s', {placeholder: 'hh:mm'});

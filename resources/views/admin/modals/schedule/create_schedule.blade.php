@@ -27,7 +27,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								{!! Form::input('text', 'on', null, ['class' => 'form-control modal_schedule_tgl date_mask', 'data-inputmask' => '"alias" : "date"']) !!}								
+								{!! Form::input('text', 'on', null, ['class' => 'form-control modal_schedule_date date_mask', 'data-inputmask' => '"alias" : "date"']) !!}								
 								<label for="value[1]">Tanggal</label>
 							</div>
 						</div>
