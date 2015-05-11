@@ -23,7 +23,15 @@ class ScheduleController extends Controller {
 		//please make sure if the date is in range, make it as an array for every date => single date save in on
 		//consider the id
 		$schedule 									= Input::only('name', 'on', 'start', 'end', 'id');
-		$schedule['on']								= date('Y-m-d', strtotime($schedule['on']));
+		if(isset($schedule['id'])&&$schedule['id']==0)
+		{
+			unset($schedule['id']);
+		}
+		unset($schedule['on']);
+		$schedule['on'][]							= date('Y-m-d', strtotime(Input::get('date_start')));
+		$schedule['on'][]							= date('Y-m-d', strtotime(Input::get('date_end')));
+
+		// $schedule['on']								= date('Y-m-d', strtotime($schedule['on']));
 		$schedule['start']							= date('H:i:s', strtotime($schedule['start']));
 		$schedule['end']							= date('H:i:s', strtotime($schedule['end']));
 		$input['schedules'][]						= $schedule;
