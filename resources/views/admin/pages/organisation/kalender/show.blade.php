@@ -58,13 +58,10 @@
 								<h5>
 									<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
 										<li data-mode="month" class="active"><a href="#">Month</a></li>
-										<li data-mode="agendaWeek"><a href="#">Week</a></li>
-										<li data-mode="agendaDay"><a href="#">Day</a></li>
+										<li data-mode="agendaWeek"><a href="#">Week</a></li>										
 									</ul>
 								</h5>
-								
-									<div id="calendar"></div>
-								
+								<div id="calendar"></div>
 							</div>
 						</div>
 					</div>
@@ -108,7 +105,7 @@
 		@endforeach
 		<?php $sch = json_encode($schedule); ?>
 		
-		var schedule = {!! $sch !!};
+		var schedule = {!! $sch !!};		
 
 		$('.modalSchedule').on('show.bs.modal', function(e) {
 			var id 		= $(e.relatedTarget).attr('data-id');
@@ -191,7 +188,7 @@
         });
     </script>
 
-	{!! HTML::script('js/DemoCalendar.js')!!}
+	@include('admin.js.script_calendar')
 @stop
 
 @section('Schedule-active')
