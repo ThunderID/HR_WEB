@@ -81,4 +81,22 @@ class APIPerson {
 		$data = new \ThunderID\Contact\Controllers\ContactController;
 		return $data->index($page, $search, $sort);
 	}
+
+	function scheduleIndex($page, $search, $sort)
+	{
+		$data = new \ThunderID\Schedule\Controllers\PersonScheduleController;
+		return $data->index($page, $search, $sort);
+	}
+
+	function scheduleStore($id, $attributes)
+	{		
+		$data = new \ThunderID\Schedule\Controllers\PersonScheduleController;
+		return $data->store($id, $attributes);
+	}
+
+	function scheduleDestroy($personid, $id)
+	{		
+		$data = new \ThunderID\Schedule\Controllers\PersonScheduleController;
+		return $data->delete($personid, $id);
+	}
 }

@@ -280,7 +280,7 @@ Route::group(['prefix' => 'cms'], function(){
 	
 
 	/* ---------------------------------------------------------------------------- SCHEDULE ----------------------------------------------------------------------------*/
-	Route::group(['prefix' => 'calendars', 'before' => ''], function(){
+	Route::group(['prefix' => 'calendars', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
 						[
 							'uses' 	=> 'Schedule\CalendarController@getIndex', 
@@ -328,7 +328,7 @@ Route::group(['prefix' => 'cms'], function(){
 					);
 	});
 
-	Route::group(['prefix' => 'calendars/schedules/', 'before' => ''], function(){
+	Route::group(['prefix' => 'calendars/schedules/', 'before' => 'hr_acl'], function(){
 		Route::post('store/{cal_id}', 
 						[
 							'uses' 	=> 'Schedule\ScheduleController@postStore', 
@@ -337,7 +337,7 @@ Route::group(['prefix' => 'cms'], function(){
 					);
 	});
 
-	Route::group(['prefix' => 'calendars/persons/', 'before' => ''], function(){
+	Route::group(['prefix' => 'calendars/persons/', 'before' => 'hr_acl'], function(){
 		Route::post('store/{cal_id}', 
 						[
 							'uses' 	=> 'Schedule\CalendarController@postStorePerson', 
@@ -346,7 +346,7 @@ Route::group(['prefix' => 'cms'], function(){
 					);
 	});
 
-	Route::group(['prefix' => 'calendars/charts/', 'before' => ''], function(){
+	Route::group(['prefix' => 'calendars/charts/', 'before' => 'hr_acl'], function(){
 		Route::post('store/{cal_id}', 
 						[
 							'uses' 	=> 'Schedule\CalendarController@postStoreChart', 
@@ -579,6 +579,29 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 		/* ---------------------------------------------------------------------------- END PERSON CONTACTS----------------------------------------------------------------------------*/
+
+		/* ---------------------------------------------------------------------------- PERSON SCHEDULES----------------------------------------------------------------------------*/
+		Route::get('show/{person_id}/schedules/{page?}', 
+						[
+							'uses' 	=> 'Person\ScheduleController@getIndex', 
+							'as' 	=> 'hr.persons.schedules.index'
+						]
+					);
+
+		Route::post('{person_id}/schedules/store/', 
+						[
+							'uses' 	=> 'Person\ScheduleController@postStore', 
+							'as' 	=> 'hr.persons.schedules.store'
+						]
+					);
+		
+		Route::any('show/{person_id}/schedules/delete/{id}', 
+						[
+							'uses' 	=> 'Person\ScheduleController@anyDelete', 
+							'as' 	=> 'hr.persons.schedules.delete'
+						]
+					);
+		/* ---------------------------------------------------------------------------- END PERSON SCHEDULES----------------------------------------------------------------------------*/
 	});
 	/* ---------------------------------------------------------------------------- END PERSON ----------------------------------------------------------------------------*/
 
@@ -595,7 +618,7 @@ Route::group(['prefix' => 'cms'], function(){
 	/* ---------------------------------------------------------------------------- END DASHBOARD ----------------------------------------------------------------------------*/
 	
 	/* ---------------------------------------------------------------------------- BEGIN DASHBOARD ----------------------------------------------------------------------------*/
-	Route::group(['prefix' => 'report', 'before' => ''], function(){
+	Route::group(['prefix' => 'report', 'before' => 'hr_acl'], function(){
 
 		Route::get('/attendance', 							[	'as' 	=> 'hr.report.attendance.get', 		'uses' 	=> 'ReportController@getForm']);
 		
@@ -607,13 +630,13 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- AJAX ----------------------------------------------------------------------------*/
 	
-	Route::get('names/search', array('as'		=> 'hr.ajax.name', 		'uses' => 'AjaxController@searchName'));
+	Route::get('names/search', 								[	'as'	=> 'hr.ajax.name', 		'uses' => 'AjaxController@searchName']);
 
-	Route::get('company/search', array('as' 	=> 'hr.ajax.company', 	'uses' => 'AjaxController@searchCompany'));
+	Route::get('company/search', 							[	'as' 	=> 'hr.ajax.company', 	'uses' => 'AjaxController@searchCompany']);
 	
-	Route::any('/image/upload', 		['as' 	=> 'hr.images.upload',	'uses' => 'GalleryController@upload']);
+	Route::any('/image/upload', 							[	'as' 	=> 'hr.images.upload',	'uses' => 'GalleryController@upload']);
 
-	Route::get('chart/search/{id}/{parent?}', array('as' 	=> 'hr.ajax.chart',	'uses' => 'AjaxController@searchChart'));
+	Route::get('chart/search/{id}/{parent?}',				[	'as' 	=> 'hr.ajax.chart',		'uses' => 'AjaxController@searchChart']);
 
 	
 	/* ---------------------------------------------------------------------------- END AJAX ----------------------------------------------------------------------------*/

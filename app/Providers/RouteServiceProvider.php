@@ -124,6 +124,18 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisation.charts.update'					=> 'branch-is_create',
 							'hr.organisation.charts.delete'					=> 'branch-is_create',
 
+							'hr.calendars.index'							=> 'branch-is_read',
+							'hr.calendars.show'								=> 'branch-is_read',
+							'hr.calendars.create'							=> 'branch-is_create',
+							'hr.calendars.store'							=> 'branch-is_create',
+							'hr.calendars.update'							=> 'branch-is_update',
+							'hr.calendars.edit'								=> 'branch-is_update',
+							'hr.calendars.delete'							=> 'branch-is_delete',
+
+							'hr.calendars.schedules.store'					=> 'branch-is_create',
+							'hr.calendars.persons.store'					=> 'branch-is_create',
+							'hr.calendars.charts.store'						=> 'branch-is_create',
+
 							'hr.persons.index'								=> 'person-is_read',
 							'hr.persons.show'								=> 'person-is_read',
 							'hr.persons.create'								=> 'person-is_create',
@@ -152,6 +164,10 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.persons.contacts.edit'						=> 'person-is_create',
 							'hr.persons.contacts.update'					=> 'person-is_create',
 
+							'hr.persons.schedules.index'					=> 'person-is_read',
+							'hr.persons.schedules.store'					=> 'person-is_create',
+							'hr.persons.schedules.delete'					=> 'person-is_create',
+
 							'hr.images.upload'								=> 'person-is_create',
 							
 							'hr.organisations.index'						=> ['organisation-is_read'],
@@ -162,6 +178,10 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisations.update'						=> ['organisation-is_update'],
 							'hr.organisations.delete'						=> ['organisation-is_delete'],
 
+							'hr.report.attendance.get'						=> 'branch-is_read',
+							'hr.report.performance.get'						=> 'branch-is_read',
+							'hr.report.attendance.post'						=> 'branch-is_read',
+							'hr.report.performance.post'					=> 'branch-is_read',
 							// 'hr.organisations.apis.create'					=> ['organisation-is_read', 'CEO'],
 							// 'hr.organisations.apis.store'					=> ['organisation-is_read', 'CEO'],
 							// 'hr.organisations.apis.edit'					=> ['organisation-is_read', 'CEO'],

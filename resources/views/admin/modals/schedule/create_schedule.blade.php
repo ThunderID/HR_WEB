@@ -26,21 +26,45 @@
 								<label for="item[1]">Nama</label>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<div class="input-daterange input-group">
-									<div class="input-group-content">
-										{!! Form::input('text', 'date_start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
-										<label>Tanggal</label>
-									</div>
-									<span class="input-group-addon">to</span>
-									<div class="input-group-content">
-										{!! Form::input('text', 'date_end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
-										<div class="form-control-line"></div>
-									</div>									
+						@if(isset($schedules))
+							<div class="col-md-6">
+								<div class="form-group">
+									{!! Form::input('text', 'status', null, ['class' => 'form-control modal_schedule_status']) !!}
+									<label for="item[1]">Status</label>
 								</div>
 							</div>
-						</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<div class="input-daterange input-group">
+										<div class="input-group-content">
+											{!! Form::input('text', 'date_start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
+											<label>Tanggal</label>
+										</div>
+										<span class="input-group-addon">to</span>
+										<div class="input-group-content">
+											{!! Form::input('text', 'date_end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
+											<div class="form-control-line"></div>
+										</div>									
+									</div>
+								</div>
+							</div>
+						@else
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="input-daterange input-group">
+										<div class="input-group-content">
+											{!! Form::input('text', 'date_start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
+											<label>Tanggal</label>
+										</div>
+										<span class="input-group-addon">to</span>
+										<div class="input-group-content">
+											{!! Form::input('text', 'date_end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
+											<div class="form-control-line"></div>
+										</div>									
+									</div>
+								</div>
+							</div>
+						@endif
 					</div>					
 				</div>	
 				<div class="row">
@@ -59,7 +83,6 @@
 						</div>					
 					</div>					
 				</div>	
-				<input class="modal_contact_input_id" type="hidden" name="id_item[1]">
 			</div>			
 			<div class="modal-footer style-default-light">
 				<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
