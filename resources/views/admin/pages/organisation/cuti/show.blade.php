@@ -31,11 +31,29 @@
 						<div class="row">
 							<div class="margin-bottom-xxl">
 								<h1 class="text-light no-margin">{{$data['name']}}</h1>
-								<h5 class="mb-30 border-bottom">
+								<h5 class="pb-10 border-bottom">
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
 									<span class="badge style-info text-sm opacity-75 mt-5">{{$data['chart']['name']}} - {{$data['chart']['branch']['name']}}</span>
 									<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data['quota']}}</span>
 								</h5>
+								<div class="pb-20">
+									{!! Form::open(['class' => 'form-inline', 'url' => '']) !!}
+										<div class="form-group">
+											<h4 class="text-lg text-medium">Filter</h4>
+										</div>
+										<div class="form-group floating-label">
+											{!! Form::input('text', 'start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
+											<label>Start</label>
+										</div>
+										<div class="form-group floating-label">
+											{!! Form::input('text', 'end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
+											<label>End</label>
+										</div>
+										<div class="form-group">
+											{!! Form::input('submit', 'Check', null, ['class' => 'btn btn-primary btn-default ink-reaction']) !!}
+										</div>
+									{!! Form::close() !!}
+								</div>
 								<h3 class="text-light no-margin">
 									Data Pegawai Cuti
 								</h3>
@@ -125,9 +143,11 @@
 @stop
 
 @section('js')
+	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 	{!! HTML::script('js/DemoCalendar.js')!!}
 
 	<script type="text/javascript">
+		$(".date_mask").inputmask();
 		$('.getName').select2({
 			tokenSeparators: [","],
 			tags: [],

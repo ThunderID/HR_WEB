@@ -141,13 +141,16 @@
 			eventRender: function (event, element) {
 				var datetime_start 	= event.start._i.split('T');
 				var datetime_end 	= event.end._i.split('T');
+				var date_start 		= datetime_start[0].split(/-/);
 				
+				date_start 			= date_start[2]+'-'+date_start[1]+'-'+date_start[0];
+
 				element.find('#date-title').html(element.find('span.fc-event-title').text());
 				element.attr('data-toggle', 'modal');
 				element.attr('data-target', '#scheduleCreate');
 				element.attr('data-id', event.id);
 				element.attr('data-title', event.title);
-				element.attr('data-date', datetime_start[0]);
+				element.attr('data-date', date_start);
 				element.attr('data-start', datetime_start[1]);
 				element.attr('data-end', datetime_end[1]);				
 			},

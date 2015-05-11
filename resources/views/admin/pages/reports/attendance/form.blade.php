@@ -4,21 +4,34 @@
 @stop
 
 @section('content')
-	<form class="form" role="form" action="{{route('hr.report.attendance.post', ['page' => 1])}}" method="get">
-		<div class="input-daterange input-group" id="demo-date-range">
-			<div class="input-group-content">
-				<input class="form-control" name="start" type="text">
-				<label>Date range</label>
-			</div>
-			<span class="input-group-addon">to</span>
-			<div class="input-group-content">
-				<input class="form-control" name="end" type="text">
-				<div class="form-control-line"></div>
-			</div>
+	<div class="card">
+		<!-- BEGIN CARD HEADER -->
+		<div class="card-head card-head-sm style-primary">
+			<header>
+				<h3>Attendance Report</h3>
+			</header>
 		</div>
-		
-		<button type="submit" class="btn btn-flat btn-accent">GENERATE REPORT</button>
-	</form>
+		<div class="card-body">
+			{!! Form::open(array('route' => ['hr.report.attendance.post', 'page' => 1], 'class' => 'form')) !!}
+				<div class="form-group">
+					<div class="input-daterange input-group date_picker">
+						<div class="input-group-content">
+							{!! Form::input('text', 'start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
+							<label>Date range</label>
+						</div>
+						<span class="input-group-addon">to</span>
+						<div class="input-group-content">
+							{!! Form::input('text', 'end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
+							<div class="form-control-line"></div>
+						</div>
+						<span class="input-group-addon">
+							<button type="submit" class="btn btn-flat btn-primary">GENERATE REPORT</button>
+						</span>
+					</div>
+				</div>
+			{!! Form::close() !!}
+		</div>
+	</div>
 @stop
 
 @section('css')
@@ -26,11 +39,19 @@
 @stop
 
 @section('js')
-	{!! HTML::script('js/bootstrap-datepicker.js')!!}
-	{!! HTML::script('js/summernote.min.js')!!}
+	{!! HTML::script('js/bootstrap-datepicker.js')!!}	
+	{!! HTML::script('js/jquery.inputmask.min.js')!!}
+
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$(".date_mask").inputmask();
+
+			$('.date_picker').datepicker({
+				format: 'dd/mm/yyyy',
+				autoclose: true, 
+				todayHighlight: true,
+				todayBtn: true
+			});
         });	
 	</script>
 @stop

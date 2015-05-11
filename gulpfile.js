@@ -16,7 +16,11 @@ elixir.config.sourcemaps = false;
 
 elixir(function(mix) {
 	mix.less('app.less')
-	.copy('public/css/app.css', 'resources/assets/css/app.css');
+	.copy('public/css/app.css', 'resources/assets/css/app.css')
+	.copy('resources/assets/css/theme-1/libs/bootstrap-datepicker/datepicker3.css', 'public/css/datepicker3.css')
+	.copy('resources/assets/css/theme-1/libs/summernote/summernote.css','public/css/summernote.css')
+	.copy('resources/assets/css/theme-1/libs/dropzone/dropzone-theme.css', 'public/css/dropzone.css')	
+	.copy('resources/assets/css/theme-1/libs/toastr/toastr.css', 'public/css/toastr.css');
 
     mix.styles(['app.css',
     			'theme-1/bootstrap.css',
@@ -49,17 +53,11 @@ elixir(function(mix) {
 				// 'app.js',
 				], 'public/js/admin.js')
 	// .version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
-	.copy('resources/assets/css/theme-1/libs/summernote/summernote.css','public/css/summernote.css')
-	.copy('resources/assets/css/theme-1/libs/bootstrap-datepicker/datepicker3.css', 'public/css/datepicker3.css')
-	.copy('resources/assets/css/theme-1/libs/dropzone/dropzone-theme.css', 'public/css/dropzone.css')
-	.copy('resources/assets/css/theme-1/libs/org-chart/', 'public/css/org-chart/')
-	.copy('resources/assets/css/theme-1/libs/toastr/toastr.css', 'public/css/toastr.css')
 	.copy('resources/assets/js/libs/bootstrap-datepicker/bootstrap-datepicker.js', 'public/js/bootstrap-datepicker.js')
 	.copy('resources/assets/js/libs/dropzone/dropzone.min.js', 'public/js/dropzone.min.js')
 	.copy('resources/assets/js/libs/utils/html5shiv.js', 'public/js/html5shiv.js')
 	.copy('resources/assets/js/libs/utils/respond.min.js', 'public/js/respond.min.js')
-	.copy('resources/assets/js/libs/microtemplating/microtemplating.min.js', 'public/js/microtemplating.min.js')
-	.copy('resources/assets/js/libs/org-chart/jquery.orgchart.js', 'public/js/jquery.orgchart.js')
+	.copy('resources/assets/js/libs/microtemplating/microtemplating.min.js', 'public/js/microtemplating.min.js')	
 	.copy('resources/assets/js/libs/summernote/summernote.min.js', 'public/js/summernote.min.js')
 	.copy('resources/assets/js/libs/toastr/toastr.min.js', 'public/js/toastr/toastr.min.js')
 	.copy('resources/assets/js/libs/inputmask/jquery.inputmask.bundle.min.js', 'public/js/jquery.inputmask.min.js')
