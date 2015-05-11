@@ -24,7 +24,7 @@
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#chartCreate">
 					<i class="fa fa-plus-circle"></i>&nbsp;Chart
 				</a>
-				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#scheduleCreate" data-id="0">
+				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#scheduleCreate" data-id="0" data-action="{{ route('hr.calendars.schedules.store', $data['id']) }}">
 					<i class="fa fa-plus-circle"></i>&nbsp;Jadwal
 				</a>
 			</div>

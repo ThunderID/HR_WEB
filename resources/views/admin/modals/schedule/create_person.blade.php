@@ -27,7 +27,7 @@
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<input type="text" class="form-control modal_when_tgl" id="when" name="when">
+								<input type="text" class="form-control modal_when_tgl date_mask" id="when" name="when" data-inputmask="'alias':'date'">
 								<label for="when">Mulai Tanggal</label>
 							</div>
 						</div>
