@@ -30,33 +30,13 @@
 				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary">TAMPILKAN</li>
-						<li @if(!Input::has('case')) class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'q' => Input::get('q')])}}">Semua</a></li>
-						<li @if(Input::get('case')=='late') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'late', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Terlambat</a></li>
-						<li @if(Input::get('case')=='ontime') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'ontime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Tepat Waktu</a></li>
-						<li @if(Input::get('case')=='earlier') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'earlier', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Pulang Lebih Awal</a></li>
-						<li @if(Input::get('case')=='overtime') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'overtime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Lembur</a></li>
+						<li @if(!Input::has('case')) class="active" @endif><a href="{{route('hr.report.attendance.detail', ['personid' => Input::get('personid'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'q' => Input::get('q')])}}">Semua</a></li>
+						<li @if(Input::get('case')=='late') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['personid' => Input::get('personid'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'late', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Terlambat</a></li>
+						<li @if(Input::get('case')=='ontime') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['personid' => Input::get('personid'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'ontime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Tepat Waktu</a></li>
+						<li @if(Input::get('case')=='earlier') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['personid' => Input::get('personid'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'earlier', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Pulang Lebih Awal</a></li>
+						<li @if(Input::get('case')=='overtime') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['personid' => Input::get('personid'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'overtime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Lembur</a></li>
 					</ul>
 					<br/>
-					<ul class="nav nav-pills nav-stacked pb-25">
-						<li class="text-primary">BRANCHES</li>
-						<?php $branch = null;?>
-						@foreach($branches as $key => $value)
-							@if($value['name']!=$branch)
-								<li @if(Input::get('branch')==$value['name']) class="active"@endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}">{{$value['name']}} <small class="pull-right text-bold opacity-75"></small></a></li>
-								<?php $branch = $value['name'];?>
-							@endif
-						@endforeach
-					</ul>
-					@if(Input::has('branch'))
-						<ul class="nav nav-pills nav-stacked">
-							<li class="text-primary">{{strtoupper(Input::get('branch'))}}</li>
-							@foreach($branches as $key => $value)
-								@foreach($value['departments'] as $key2 => $value2)
-									<li @if(Input::has('tag') && ((Input::get('tag') == ($value2['tag'])))) class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name'], 'tag' => $value2['tag'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}">{{$value2['tag']}}<small class="pull-right text-bold opacity-75"></small></a></li>
-								@endforeach
-							@endforeach
-						</ul>
-					@endif
 				</div><!--end .col -->
 				<!-- END SEARCH NAV -->
 
@@ -67,7 +47,7 @@
 						</span>
 						<div class="btn-group btn-group-sm pull-right">
 							@if (Input::get('q'))
-								<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end')]) }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
+								<a href="{{ route('hr.report.attendance.detail', ['personid' => Input::get('personid'), 'start' => Input::get('start'), 'end' => Input::get('end')]) }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
 							@endif
 						</div>
 					</div><!--end .margin-bottom-xxl -->
@@ -76,9 +56,9 @@
 						<thead>
 							<tr>
 								<th>Nama</th>
+								<th>Tanggal</th>
 								<th>Total Idle</th>
-								<th>Total Jam Kerja</th>
-								<th>Rata - Rata Jam Kerja</th>
+								<th>Total Jam Kerja / Hari</th>
 								<th>@if(Input::has('case') && Input::get('case')!='ontime') {{ucwords(Input::get('case'))}} (Hi - Lo) @endif</th>
 							</tr>
 						</thead>
@@ -89,13 +69,13 @@
 										{{$value['person']['name']}}
 									</td>
 									<td>
+										{{date('d-m-Y',strtotime($value['on']))}}
+									</td>
+									<td>
 										{{gmdate("H:i:s", $value['total_idle'])}}
 									</td>
 									<td>
 										{{gmdate("H:i:s", $value['total_workhour'])}}
-									</td>
-									<td>
-										{{gmdate("H:i:s", $value['average_workhour'])}}
 									</td>
 									<td>
 										<?php 

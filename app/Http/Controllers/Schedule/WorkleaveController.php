@@ -138,7 +138,7 @@ class WorkleaveController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 		
-		$search 									= ['workleave' => ['on' => $data['apply'], $data['expired'], 'name' => 'cuti', 'chartid' => $data['chart_id']], 'withattributes' => ['workleaves']];
+		$search 									= ['workleave' => ['on' => [$data['apply'], $data['expired']], 'status' => 'workleave', 'chartid' => $data['chart_id']], 'withattributes' => ['workleaves']];
 
 		// if(Input::has('branch'))
 		// {
@@ -162,6 +162,7 @@ class WorkleaveController extends Controller {
 		}
 		
 		$persons 									= json_decode(json_encode($contents->data), true);
+
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------

@@ -119,7 +119,6 @@
 										}
 
 										;?>
-										<a href="{{route('hr.report.attendance.detail', ['personid' => $value['person_id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}">
 										@if($value['has_schedule'])
 											<span class ="badge style-info text-sm">
 												@if(!is_null($margin))
@@ -137,7 +136,6 @@
 												@endif
 											</span>
 										@endif
-										</a>
 									</td>
 								</tr>
 							@endforeach

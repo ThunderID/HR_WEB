@@ -180,6 +180,7 @@ class RouteServiceProvider extends ServiceProvider {
 
 							'hr.report.attendance.get'						=> 'branch-is_read',
 							'hr.report.performance.get'						=> 'branch-is_read',
+							'hr.report.attendance.detail'					=> 'branch-is_read',
 							'hr.report.attendance.post'						=> 'branch-is_read',
 							'hr.report.performance.post'					=> 'branch-is_read',
 							// 'hr.organisations.apis.create'					=> ['organisation-is_read', 'CEO'],
