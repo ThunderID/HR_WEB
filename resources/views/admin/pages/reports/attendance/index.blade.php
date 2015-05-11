@@ -119,8 +119,22 @@
 										}
 
 										;?>
-										@if(!is_null($margin))
-											{{gmdate("H:i:s", $margin)}}
+										@if($value['has_schedule'])
+											<span class ="badge style-info text-sm">
+												@if(!is_null($margin))
+													{{gmdate("H:i:s", $margin)}}
+												@else
+													Terjadwal
+												@endif
+											</span>
+										@else
+											<span class ="badge style-warning text-sm">
+												@if(!is_null($margin))
+													{{gmdate("H:i:s", $margin)}}
+												@else
+													Tidak ada dalam jadwal
+												@endif
+											</span>
 										@endif
 									</td>
 								</tr>

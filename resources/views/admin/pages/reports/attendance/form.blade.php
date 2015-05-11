@@ -12,7 +12,7 @@
 			</header>
 		</div>
 		<div class="card-body">
-			{!! Form::open(array('route' => ['hr.report.attendance.post', 'page' => 1], 'class' => 'form')) !!}
+			{!! Form::open(array('route' => ['hr.report.attendance.post', 'page' => 1], 'class' => 'form', 'method' => 'get')) !!}
 				<div class="form-group">
 					<div class="input-daterange input-group date_picker">
 						<div class="input-group-content">

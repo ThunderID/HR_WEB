@@ -16,6 +16,7 @@
 						</article>
 					</div><!--end .col -->
 				</div><!--end .row -->	
+				{!! Form::input('hidden', 'id', null, ['class' => 'form-control modal_schedule_id']) !!}
 						
 				<div class="row">
 					<div class="tabs col-md-12  pt-20">

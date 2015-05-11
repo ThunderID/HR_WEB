@@ -15,7 +15,7 @@
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
-				<a href="" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.calendars.edit', $data['id'])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#personCreate">
@@ -119,6 +119,7 @@
 
 			if (id !== 0) 
 			{
+				$('.modal_schedule_id').val(id);
 				$('.modal_schedule_name').val(title);
 				$('.modal_schedule_date').val(date);
 				$('.modal_schedule_start').val(start);
@@ -126,6 +127,7 @@
 			}
 			else
 			{
+				$('.modal_schedule_id').val(null);
 				$('.modal_schedule_name').val('');
 				$('.modal_schedule_date').val('');
 				$('.modal_schedule_start').val('');
