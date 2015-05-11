@@ -41,11 +41,11 @@
 										<div class="form-group">
 											<h4 class="text-lg text-medium">Filter</h4>
 										</div>
-										<div class="form-group floating-label">
+										<div class="form-group">
 											{!! Form::input('text', 'start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
 											<label>Start</label>
 										</div>
-										<div class="form-group floating-label">
+										<div class="form-group">
 											{!! Form::input('text', 'end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
 											<label>End</label>
 										</div>

@@ -36,6 +36,7 @@
 			o._handleCalendarPrevClick(e);
 		});
 		$('#calender-next').on('click', function (e) {
+			// console.log(e);
 			o._handleCalendarNextClick(e);
 		});
 		$('.nav-tabs li').on('show.bs.tab', function (e) {
@@ -48,11 +49,11 @@
 	// =========================================================================
 
 	p._handleCalendarPrevClick = function (e) {
-		$('#calendar').fullCalendar('prev');
+		// $('#calendar').fullCalendar('prev');
 		this._displayDate();
 	};
 	p._handleCalendarNextClick = function (e) {
-		$('#calendar').fullCalendar('next');
+		// $('#calendar').fullCalendar('next');
 		this._displayDate();
 	};
 	p._handleCalendarMode = function (e) {
@@ -61,6 +62,7 @@
 
 	p._displayDate = function () {
 		var selectedDate = $('#calendar').fullCalendar('getDate');
+		console.log(selectedDate);
 		$('.selected-day').html(moment(selectedDate).format("dddd"));
 		$('.selected-date').html(moment(selectedDate).format("DD MMMM YYYY"));
 		$('.selected-year').html(moment(selectedDate).format("YYYY"));
@@ -153,21 +155,35 @@
 				element.attr('data-date', date_start);
 				element.attr('data-start', datetime_start[1]);
 				element.attr('data-end', datetime_end[1]);				
+				element.attr('data-action', 'http://localhost:8000/cms/calendars/schedules/store/1');
 			},
-			eventClick: function(calEvent, jsEvent, view) {
+			eventAfterRender: function(event, $el, view ) {
+				var datetime_start 	= event.start._i.split('T');
+				var datetime_end 	= event.end._i.split('T');								
 
-			        // alert('Event: ' + calEvent.title);			        
-
-			        // console.log(calEvent);
-			        // console.log(jsEvent);
-			        // console.log(view);
-
-			        $('')
-
-			        // change the border color just for fun
-			        // $(this).css('border-color', 'red');
-
+		        var formattedTime = $.fullCalendar.formatRange(event.start, event.end, "HH:mm { - HH:mm}");
+		        // If FullCalendar has removed the title div, then add the title to the time div like FullCalendar would do
+		        if($el.find(".fc-event-title").length === 0) {
+		            $el.find(".fc-event-time").text(formattedTime + " - " + event.title);
+		        }
+		        else {
+		            $el.find(".fc-event-time").text(formattedTime);
+		        }
 		    },
+			// eventClick: function(calEvent, jsEvent, view) {
+
+			//         // alert('Event: ' + calEvent.title);			        
+
+			//         // console.log(calEvent);
+			//         // console.log(jsEvent);
+			//         // console.log(view);
+
+			//         $('')
+
+			//         // change the border color just for fun
+			//         // $(this).css('border-color', 'red');
+
+		 //    },
 			dayClick: function(date, jsEvent, view) {
 		        // change the day's background color just for fun
 		        $(this).css('background-color', 'rgba(33, 150, 243, 0.07)');

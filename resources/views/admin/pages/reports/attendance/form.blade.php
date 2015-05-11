@@ -49,8 +49,7 @@
 			$('.date_picker').datepicker({
 				format: 'dd/mm/yyyy',
 				autoclose: true, 
-				todayHighlight: true,
-				todayBtn: true
+				todayHighlight: true				
 			});
         });	
 	</script>

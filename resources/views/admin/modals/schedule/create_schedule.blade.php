@@ -28,8 +28,17 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								{!! Form::input('text', 'on', null, ['class' => 'form-control modal_schedule_date date_mask', 'data-inputmask' => '"alias" : "date"']) !!}								
-								<label for="value[1]">Tanggal</label>
+								<div class="input-daterange input-group">
+									<div class="input-group-content">
+										{!! Form::input('text', 'date_start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
+										<label>Tanggal</label>
+									</div>
+									<span class="input-group-addon">to</span>
+									<div class="input-group-content">
+										{!! Form::input('text', 'date_end', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
+										<div class="form-control-line"></div>
+									</div>									
+								</div>
 							</div>
 						</div>
 					</div>					
