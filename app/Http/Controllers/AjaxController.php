@@ -82,4 +82,26 @@ class AjaxController extends Controller {
 
 		return Response::json($contents->data);
 	}		
+
+	function searchFollow($id)
+	{
+		$search 									= [];
+		if(Input::has('term'))
+		{
+			$search									= ['chartid' => Input::get('term')];
+		}
+
+		$sort 										= ['chart_id' => 'asc'];
+
+		$results 									= API::calendar()->followIndex(1, $search, $sort);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			return Response::json(NULL,500);
+		}
+
+		return Response::json($contents->data);
+	}
 }

@@ -61,8 +61,9 @@ class RouteServiceProvider extends ServiceProvider {
 				Session::put('user.avatar', $contents->data->avatar);
 				
 				//check access
-				$access 										= explode('-', app('hr_acl')[Route::currentRouteName()]);
-				$results 										= API::application()->authenticate($menu = $access[0], $access = $access[1], $personid = Session::get('loggedUser'), $apps = 'web');
+				$menuid 										= app('hr_acl')[Route::currentRouteName()];
+				
+				$results 										= API::application()->authenticate($menuid, $personid = Session::get('loggedUser'), $contents->data->works[0]->id);
 
 				$contents 										= json_decode($results);
 
@@ -87,107 +88,118 @@ class RouteServiceProvider extends ServiceProvider {
 		App::singleton('hr_acl', function()
 		{
 			$routes_acl = [
-							'hr.dashboard.overview'							=> 'dashboard-is_read',
-							'hr.dashboard.widgets.delete'					=> 'dashboard-is_create',
-							'hr.dashboard.widgets.store'					=> 'dashboard-is_create',
-							'hr.password.get'								=> 'password-is_update',
-							'hr.password.post'								=> 'password-is_update',
+							'hr.applications.index'							=> '1',
+							'hr.applications.show'							=> '1',
+							'hr.applications.create'						=> '1',
+							'hr.applications.store'							=> '1',
+							'hr.applications.edit'							=> '1',
+							'hr.applications.update'						=> '1',
+							'hr.applications.delete'						=> '1',
+
+							'hr.applications.menus.index'					=> '1',
+							'hr.applications.menus.show'					=> '1',
+							'hr.applications.menus.create'					=> '1',
+							'hr.applications.menus.store'					=> '1',
+							'hr.applications.menus.edit'					=> '1',
+							'hr.applications.menus.update'					=> '1',
+							'hr.applications.menus.delete'					=> '1',
+
+							'hr.dashboard.overview'							=> '3',
+							'hr.dashboard.widgets.delete'					=> '3',
+							'hr.dashboard.widgets.store'					=> '3',
+							'hr.password.get'								=> '3',
+							'hr.password.post'								=> '3',
+
+							'hr.organisations.index'						=> '2',
+							'hr.organisations.show'							=> '2',
+							'hr.organisations.create'						=> '2',
+							'hr.organisations.store'						=> '2',
+							'hr.organisations.edit'							=> '2',
+							'hr.organisations.update'						=> '2',
+							'hr.organisations.delete'						=> '2',
+
+							'hr.organisation.branches.index'				=> '4',
+							'hr.organisation.branches.show'					=> '4',
+							'hr.organisation.branches.create'				=> '4',
+							'hr.organisation.branches.store'				=> '4',
+							'hr.organisation.branches.update'				=> '4',
+							'hr.organisation.branches.edit'					=> '4',
+							'hr.organisation.branches.delete'				=> '4',
+
+							'hr.branches.contacts.index'					=> '4',
+							'hr.branches.contacts.show'						=> '4',
+							'hr.branches.contacts.store'					=> '4',
+							'hr.branches.contacts.delete'					=> '4',
+
+							'hr.organisation.charts.create'					=> '4',
+							'hr.organisation.charts.show'					=> '4',
+							'hr.organisation.charts.store'					=> '4',
+							'hr.organisation.charts.edit'					=> '4',
+							'hr.organisation.charts.update'					=> '4',
+							'hr.organisation.charts.delete'					=> '4',
 							
-							'hr.organisation.branches.index'				=> 'branch-is_read',
-							'hr.organisation.branches.show'					=> 'branch-is_read',
-							'hr.organisation.branches.create'				=> 'branch-is_create',
-							'hr.organisation.branches.store'				=> 'branch-is_create',
-							'hr.organisation.branches.update'				=> 'branch-is_update',
-							'hr.organisation.branches.edit'					=> 'branch-is_update',
-							'hr.organisation.branches.delete'				=> 'branch-is_delete',
+							'hr.documents.index'							=> '5',
+							'hr.documents.show'								=> '5',
+							'hr.documents.create'							=> '5',
+							'hr.documents.store'							=> '5',
+							'hr.documents.update'							=> '5',
+							'hr.documents.edit'								=> '5',
+							'hr.documents.delete'							=> '5',
 
-							'hr.branches.contacts.index'					=> 'branch-is_read',
-							'hr.branches.contacts.show'						=> 'branch-is_read',
-							'hr.branches.contacts.store'					=> 'branch-is_create',
-							'hr.branches.contacts.delete'					=> 'branch-is_delete',
+							'hr.document.persons.index'						=> '5',
+							'hr.document.templates.delete'					=> '5',
+
+							'hr.calendars.index'							=> '6',
+							'hr.calendars.show'								=> '6',
+							'hr.calendars.create'							=> '6',
+							'hr.calendars.store'							=> '6',
+							'hr.calendars.update'							=> '6',
+							'hr.calendars.edit'								=> '6',
+							'hr.calendars.delete'							=> '6',
+
+							'hr.calendars.schedules.store'					=> '6',
+							'hr.calendars.persons.store'					=> '6',
+							'hr.calendars.charts.store'						=> '6',
+
+							'hr.persons.index'								=> '7',
+							'hr.persons.show'								=> '7',
+							'hr.persons.create'								=> '7',
+							'hr.persons.store'								=> '7',
+							'hr.persons.edit'								=> '7',
+							'hr.persons.update'								=> '7',
+							'hr.persons.delete'								=> '7',
 							
-							'hr.documents.index'							=> 'document-is_read',
-							'hr.documents.show'								=> 'document-is_read',
-							'hr.documents.create'							=> 'document-is_create',
-							'hr.documents.store'							=> 'document-is_create',
-							'hr.documents.update'							=> 'document-is_update',
-							'hr.documents.edit'								=> 'document-is_update',
-							'hr.documents.delete'							=> 'document-is_delete',
+							'hr.persons.relatives.index'					=> '7',
+							'hr.persons.relatives.show'						=> '7',
+							'hr.persons.relatives.store'					=> '7',
+							'hr.persons.relatives.delete'					=> '7',
 
-							'hr.document.persons.index'						=> 'document-is_read',
-							'hr.document.templates.delete'					=> 'document-is_delete',
+							'hr.persons.documents.index'					=> '7',
+							'hr.persons.documents.show'						=> '7',
+							'hr.persons.documents.store'					=> '7',
+							'hr.persons.documents.delete'					=> '7',
 
-							'hr.organisation.charts.create'					=> 'branch-is_create',
-							'hr.organisation.charts.show'					=> 'branch-is_create',
-							'hr.organisation.charts.store'					=> 'branch-is_create',
-							'hr.organisation.charts.edit'					=> 'branch-is_create',
-							'hr.organisation.charts.update'					=> 'branch-is_create',
-							'hr.organisation.charts.delete'					=> 'branch-is_create',
-
-							'hr.calendars.index'							=> 'branch-is_read',
-							'hr.calendars.show'								=> 'branch-is_read',
-							'hr.calendars.create'							=> 'branch-is_create',
-							'hr.calendars.store'							=> 'branch-is_create',
-							'hr.calendars.update'							=> 'branch-is_update',
-							'hr.calendars.edit'								=> 'branch-is_update',
-							'hr.calendars.delete'							=> 'branch-is_delete',
-
-							'hr.calendars.schedules.store'					=> 'branch-is_create',
-							'hr.calendars.persons.store'					=> 'branch-is_create',
-							'hr.calendars.charts.store'						=> 'branch-is_create',
-
-							'hr.persons.index'								=> 'person-is_read',
-							'hr.persons.show'								=> 'person-is_read',
-							'hr.persons.create'								=> 'person-is_create',
-							'hr.persons.store'								=> 'person-is_create',
-							'hr.persons.edit'								=> 'person-is_update',
-							'hr.persons.update'								=> 'person-is_update',
-							'hr.persons.delete'								=> 'person-is_delete',
+							'hr.persons.works.index'						=> '7',
+							'hr.persons.works.store'						=> '7',
+							'hr.persons.works.edit'							=> '7',
+							'hr.persons.works.update'						=> '7',
 							
-							'hr.persons.relatives.index'					=> 'person-is_read',
-							'hr.persons.relatives.show'						=> 'person-is_read',
-							'hr.persons.relatives.store'					=> 'person-is_create',
-							'hr.persons.relatives.delete'					=> 'person-is_delete',
+							'hr.persons.contacts.index'						=> '7',
+							'hr.persons.contacts.store'						=> '7',
+							'hr.persons.contacts.edit'						=> '7',
+							'hr.persons.contacts.update'					=> '7',
 
-							'hr.persons.documents.index'					=> 'person-is_read',
-							'hr.persons.documents.show'						=> 'person-is_read',
-							'hr.persons.documents.store'					=> 'person-is_create',
-							'hr.persons.documents.delete'					=> 'person-is_delete',
+							'hr.persons.schedules.index'					=> '7',
+							'hr.persons.schedules.store'					=> '7',
+							'hr.persons.schedules.delete'					=> '7',
 
-							'hr.persons.works.index'						=> 'person-is_read',
-							'hr.persons.works.store'						=> 'person-is_create',
-							'hr.persons.works.edit'							=> 'person-is_create',
-							'hr.persons.works.update'						=> 'person-is_create',
-							
-							'hr.persons.contacts.index'						=> 'person-is_read',
-							'hr.persons.contacts.store'						=> 'person-is_create',
-							'hr.persons.contacts.edit'						=> 'person-is_create',
-							'hr.persons.contacts.update'					=> 'person-is_create',
+							'hr.report.attendance.get'						=> '8',
+							'hr.report.performance.get'						=> '8',
+							'hr.report.attendance.detail'					=> '8',
+							'hr.report.attendance.post'						=> '8',
+							'hr.report.performance.post'					=> '8',
 
-							'hr.persons.schedules.index'					=> 'person-is_read',
-							'hr.persons.schedules.store'					=> 'person-is_create',
-							'hr.persons.schedules.delete'					=> 'person-is_create',
-
-							'hr.images.upload'								=> 'person-is_create',
-							
-							'hr.organisations.index'						=> ['organisation-is_read'],
-							'hr.organisations.show'							=> ['organisation-is_read'],
-							'hr.organisations.create'						=> ['organisation-is_create'],
-							'hr.organisations.store'						=> ['organisation-is_create'],
-							'hr.organisations.edit'							=> ['organisation-is_update'],
-							'hr.organisations.update'						=> ['organisation-is_update'],
-							'hr.organisations.delete'						=> ['organisation-is_delete'],
-
-							'hr.report.attendance.get'						=> 'branch-is_read',
-							'hr.report.performance.get'						=> 'branch-is_read',
-							'hr.report.attendance.detail'					=> 'branch-is_read',
-							'hr.report.attendance.post'						=> 'branch-is_read',
-							'hr.report.performance.post'					=> 'branch-is_read',
-							// 'hr.organisations.apis.create'					=> ['organisation-is_read', 'CEO'],
-							// 'hr.organisations.apis.store'					=> ['organisation-is_read', 'CEO'],
-							// 'hr.organisations.apis.edit'					=> ['organisation-is_read', 'CEO'],
-							// 'hr.organisations.apis.update'					=> ['organisation-is_read', 'CEO'],
-							// 'hr.organisations.apis.delete'					=> ['organisation-is_read', 'CEO'],
+							'hr.images.upload'								=> '9',
 						];
 			return $routes_acl;
 		});

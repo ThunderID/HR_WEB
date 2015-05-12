@@ -4,9 +4,9 @@ use Session;
 
 class APIApplication {
 
-	function authenticate($menu, $access, $personid, $apps)
+	function authenticate($menuid, $personid, $chartid)
 	{
 		$data = new \ThunderID\Chauth\Controllers\AuthController;
-		return $data->application($menu, $access, $personid, $apps);
+		return $data->application($menuid, $personid, $chartid);
 	}
 }

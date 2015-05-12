@@ -27,4 +27,10 @@ class APICalendar {
 		$data = new \ThunderID\Schedule\Controllers\CalenderController;
 		return $data->destroy(Session::get('user.organisation'), $id);
 	}
+
+	function followIndex($page, $search, $sort, $all = false)
+	{
+		$data = new \ThunderID\Schedule\Controllers\CalenderController;
+		return $data->followIndex($page, $search, $sort, $all = false);
+	}
 }

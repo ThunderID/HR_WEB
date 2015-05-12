@@ -11,9 +11,9 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. Updating crud for follow start, changing version of package chart to 1.2.2
-2. Rule of log file: USING EMAIL!
-3. Updating API For Tracker 
+1. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
+2. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed. Remember to run composer update
+3. Rule of log file: USING EMAIL!
 4. Running HR WEB in 2 port, first port (primary port), second port (8400 for api)
 5. Please check app/Http/routes.api.php for test api, for test api running in primary port
 

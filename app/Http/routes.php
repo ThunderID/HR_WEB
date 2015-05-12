@@ -640,6 +640,8 @@ Route::group(['prefix' => 'cms'], function(){
 
 	Route::get('company/search', 							[	'as' 	=> 'hr.ajax.company', 	'uses' => 'AjaxController@searchCompany']);
 	
+	Route::get('follow/search', 							[	'as'	=> 'hr.ajax.follow', 	'uses' => 'AjaxController@searchFollow']);
+
 	Route::any('/image/upload', 							[	'as' 	=> 'hr.images.upload',	'uses' => 'GalleryController@upload']);
 
 	Route::get('chart/search/{id}/{parent?}',				[	'as' 	=> 'hr.ajax.chart',		'uses' => 'AjaxController@searchChart']);

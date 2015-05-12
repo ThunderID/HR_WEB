@@ -18,9 +18,6 @@
 				<a href="{{route('hr.calendars.edit', $data['id'])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
-				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#personCreate">
-					<i class="fa fa-plus-circle"></i>&nbsp;Karyawan
-				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#chartCreate">
 					<i class="fa fa-plus-circle"></i>&nbsp;Chart
 				</a>
@@ -79,10 +76,6 @@
 
 	{!! Form::open(array('url' => route('hr.calendars.schedules.store', $data['id']),'method' => 'POST')) !!}
 		@include('admin.modals.schedule.create_schedule')
-	{!! Form::close() !!}	
-
-	{!! Form::open(array('url' => route('hr.calendars.persons.store', $data['id']),'method' => 'POST')) !!}
-		@include('admin.modals.schedule.create_person')
 	{!! Form::close() !!}	
 
 	{!! Form::open(array('url' => route('hr.calendars.charts.store', $data['id']),'method' => 'POST')) !!}
