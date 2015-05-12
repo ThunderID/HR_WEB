@@ -4,10 +4,10 @@ use Session;
 
 class APISchedule {
 
-	function index($page, $search, $sort, $all = false)
+	function index($page, $search, $sort, $all)
 	{
 		$data = new \ThunderID\Schedule\Controllers\ScheduleController;
-		return $data->index($page, $search, $sort, $all = false);
+		return $data->index($page, $search, $sort, $all);
 	}
 
 	function show($id)

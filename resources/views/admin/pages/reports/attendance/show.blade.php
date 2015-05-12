@@ -7,17 +7,25 @@
 	<div class="card">
 		<!-- BEGIN SEARCH HEADER -->
 		<div class="card-head style-primary">
-			<div class="col-md-6 col-xs-6" style="padding-left:0px; margin-top: 3px">
-				<div class="tools pull-left">
-					<form class="navbar-search" role="search">
-						{!! Form::open(['route' => ('hr.persons.index'), 'method' => 'get']) !!}
-						<div class="form-group">
-							<input type="text" class="form-control" name="q" placeholder="Ketik kata kunci">
-						</div>
-						<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
-						{!! Form::close() !!}
-					</form>
-				</div>
+			<div class="col-xs-12 pt-5 ">
+				<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction pull-left">
+					<i class="md md-reply"></i> Kembali
+				</a>
+				<?php
+					switch (Input::get('case')) 
+					{
+						case 'late': case 'earlier':
+						echo '<a class="btn btn-flat ink-reaction pull-right" href="'.route('hr.persons.documents.index', ['page' => 1,'personid' => Input::get('personid'), 'tag' => 'SP']).'"">
+									<i class="fa fa-pencil"></i> Tulis SP
+								</a>';
+						break;
+						case 'overtime': case 'ontime':
+						echo '<a class="btn btn-flat ink-reaction pull-right" href="'.route('hr.persons.documents.index', ['page' => 1,'personid' => Input::get('personid'), 'tag' => 'Appraisal']).'"">
+									<i class="fa fa-pencil"></i> Tulis AP
+								</a>';
+						break;
+					};
+				?>
 			</div>
 		</div><!--end .card-head -->
 		<!-- END SEARCH HEADER -->
@@ -57,8 +65,10 @@
 							<tr>
 								<th>Nama</th>
 								<th>Tanggal</th>
+								<th>Jam Masuk</th>
+								<th>Jam Keluar</th>
 								<th>Total Idle</th>
-								<th>Total Jam Kerja / Hari</th>
+								<th>Total Jam Kerja</th>
 								<th>@if(Input::has('case') && Input::get('case')!='ontime') {{ucwords(Input::get('case'))}} (Hi - Lo) @endif</th>
 							</tr>
 						</thead>
@@ -70,6 +80,12 @@
 									</td>
 									<td>
 										{{date('d-m-Y',strtotime($value['on']))}}
+									</td>
+									<td>
+										{{date('H:i:s',strtotime($value['start']))}}
+									</td>
+									<td>
+										{{date('H:i:s',strtotime($value['end']))}}
 									</td>
 									<td>
 										{{gmdate("H:i:s", $value['total_idle'])}}
