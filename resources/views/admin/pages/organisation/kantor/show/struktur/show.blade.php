@@ -137,36 +137,23 @@
 					<table class="table no-margin">
 						<thead>
 							<tr class="row">
-								<th class="col-sm-4">
+								<th class="col-sm-5">
 									Perangkat
 								</th>
-								<th class="col-sm-4">
+								<th class="col-sm-5">
 									Menu
-								</th class="col-sm-1">
-								<th>
-									C
 								</th>
-								<th class="col-sm-1">
-									R
-								</th>
-								<th class="col-sm-1">
-									U
-								</th>
-								<th class="col-sm-1">
-									D
+								<th class="col-sm-2">
 								</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($applications as $key => $value)
 								<tr class="row">
-									<td class="col-sm-4">{{$value['application']['name']}}</td>
-									<td class="col-sm-4">{{$value['application']['menu']}}</td>
-									<td class="col-sm-1"> <label class="checkbox-inline checkbox-styled checkbox-info">{!!Form::checkbox('is_create['.$key.']', 'value', $value['is_create'])!!}</label></td>
-									<td class="col-sm-1"> <label class="checkbox-inline checkbox-styled checkbox-info">{!!Form::checkbox('is_read['.$key.']', 'value', $value['is_read'])!!}</label></td>
-									<td class="col-sm-1"> <label class="checkbox-inline checkbox-styled checkbox-info">{!!Form::checkbox('is_update['.$key.']', 'value', $value['is_update'])!!}</label></td>
-									<td class="col-sm-1"> <label class="checkbox-inline checkbox-styled checkbox-info">{!!Form::checkbox('is_delete['.$key.']', 'value', $value['is_delete'])!!}</label></td>
-									{!!Form::input('hidden', 'application_id['.$key.']', $value['application_id'])!!}
+									<td class="col-sm-5">{{$value['menu']['application']['name']}}</td>
+									<td class="col-sm-5">{{$value['menu']['name']}}</td>
+									<td class="col-sm-2"> <label class="checkbox-inline checkbox-styled checkbox-info">{!!Form::checkbox('is_true['.$key.']', 'value', 'checked')!!}</label></td>
+									{!!Form::input('hidden', 'application_id['.$key.']', $value['menu']['application_id'])!!}
 									{!!Form::input('hidden', 'id['.$key.']', $value['id'])!!}
 								</tr>
 							@endforeach

@@ -58,11 +58,11 @@ class ChartController extends Controller {
 
 		$charts 									= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['chartid' => $id, 'withattributes' => ['application']];
+		$search 									= ['chartid' => $id, 'withattributes' => ['menu', 'menu.application']];
 		$sort 										= ['chart_id' => 'asc'];
 			
 		$results_4 									= API::chart()->appsIndex($page, $search, $sort);
-
+		
 		$contents 									= json_decode($results_4);
 
 		if(!$contents->meta->success)
@@ -71,6 +71,7 @@ class ChartController extends Controller {
 		}
 
 		$applications 								= json_decode(json_encode($contents->data), true);
+
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
