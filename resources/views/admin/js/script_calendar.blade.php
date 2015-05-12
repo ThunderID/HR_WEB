@@ -135,10 +135,10 @@
 			var y = date.getFullYear();
 			// var curSource = new Array();
 
-			var curSource = "{{ route('hr.schedule.list', ['id' => $data['id'], '1']) }}";
+			var curSource = cal_link;
 
 			$('#calendar').fullCalendar({
-				height: 700,
+				height: cal_height,
 				header: false,
 				editable: true,
 				droppable: true,

@@ -9,48 +9,21 @@
 	</div>
 	<div class="tab-content">
 		<div class="tab-pane active" id="details">
-			<br/>
-			<br/>
-			<div class="list-results" style="margin-bottom:0px;">
-				<table>
-					<thead>
-						<th>
-							Tanggal
-						</th>
-						<th>
-							Keterangan
-						</th>
-						<th>
-						</th>
-					</thead>
-					<tbody>
-						@foreach($schedules as $key => $value)	
-							<tr>
-								<td>
-									{{$value['on']}}
-								</td>
-								<td>
-									{{$value['name']}}
-								</td>
-								<td>
-									<a class="btn pull-right ink-reaction btn-icon-toggle del-modal" type="button" data-toggle="modal" data-target="#del_modal_2_{{$value['id']}}">
-										<i class="fa fa-trash"></i>
-									</a>
-								</td>
-							</tr>
-						@endforeach	
-					</tbody>
-				</table>
-			</div>
-			@if(count($schedules))
-				@include('admin.helpers.pagination')
-			@else
+			<div class="col-md-12">
 				<div class="row">
-					<div class="col-sm-12 text-center">
-						<p>Tidak ada data</p>
+					<div class="margin-bottom-xxl">
+						<h3 class="text-light no-margin pt-20">
+							<span class="selected-day">&nbsp;</span> &nbsp;<small class="selected-date">&nbsp;</small>
+							<span class="pull-right">
+								<a id="calender-prev" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-left"></i></a>
+								<a id="calender-next" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-right"></i></a>
+							</span>
+						</h3>
+						
+						<div id="calendar" class="pt-30"></div>
 					</div>
 				</div>
-			@endif
+			</div>
 		</div>
 	</div>
 
@@ -79,6 +52,9 @@
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
 
 	<script type="text/javascript">
+		var cal_height 	= 500;
+		var cal_link 	= "{{ route('hr.schedule.list', ['id' => $data['id'], '1']) }}";
+		
 		$(document).ready(function () {
 			$(".date_mask").inputmask();
 			$('.del-modal').click(function() {
@@ -113,4 +89,5 @@
         });
 
 	</script>
+	@include('admin.js.script_calendar')
 @stop

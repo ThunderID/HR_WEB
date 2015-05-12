@@ -91,7 +91,9 @@
 	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 
 	<script type="text/javascript">		
-		
+		// spesification for fullcalendar
+		var cal_height 	= 700; 
+		var cal_link 	= "{{ route('hr.schedule.list', ['id' => $data['id'], '1']) }}";		
 
 		$('.modalSchedule').on('show.bs.modal', function(e) {
 			var id 		= $(e.relatedTarget).attr('data-id');

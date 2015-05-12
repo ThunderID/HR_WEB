@@ -18552,7 +18552,7 @@ be a descendant of the grid when it is being dragged.
   white-space: nowrap;
   overflow: hidden;
 }
-.fc-day-grid-event .fc-time {
+.fc-day-grid-event .fc-title {
   font-weight: bold;
 }
 /* resize handle (outside of fc-content, so can go outside of bounds) */
