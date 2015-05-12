@@ -326,7 +326,7 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.calendars.delete'
 						]
 					);
-		Route::any('schedules/list/{id}/{page?}', 		['as' => 'hr.sch', 'uses' => 'Schedule\CalendarController@ajaxSchedule']);
+		Route::any('schedules/list/{id}/{page?}', 		['as' => 'hr.schedule.list', 'uses' => 'Schedule\CalendarController@ajaxSchedule']);
 
 	});
 

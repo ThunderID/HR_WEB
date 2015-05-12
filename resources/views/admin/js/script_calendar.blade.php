@@ -135,7 +135,7 @@
 			var y = date.getFullYear();
 			// var curSource = new Array();
 
-			var curSource = '/cms/calendars/schedules/list/{!! $data["id"] !!}/1/';
+			var curSource = "{{ route('hr.schedule.list', ['id' => $data['id'], '1']) }}";
 
 			$('#calendar').fullCalendar({
 				height: 700,
