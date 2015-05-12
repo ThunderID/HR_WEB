@@ -55,14 +55,11 @@
 										<a id="calender-next" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-right"></i></a>
 									</span>
 								</h3>
-								<h5>
-									<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
-										<li data-mode="month" class="active"><a href="#">Month</a></li>
-										<li data-mode="agendaWeek"><a href="#">Week</a></li>										
-									</ul>
-								</h5>
-								<div id="calendar"></div>
+								
+								<div id="calendar" class="pt-30"></div>
 							</div>
+								<!-- <div id="calendar"></div> -->
+
 						</div>
 					</div>
 				</div>
@@ -94,18 +91,7 @@
 	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 
 	<script type="text/javascript">		
-		<?php $schedule = []; ?>
-		@foreach($schedules as $i => $sh)		
-			<?php 
-				$schedule[$i]['id']		= $sh['id'];
-				$schedule[$i]['title'] 	= $sh['name'];
-				$schedule[$i]['start']	= $sh['on'].'T'.$sh['start'];
-				$schedule[$i]['end']	= $sh['on'].'T'.$sh['end'];
-			?>
-		@endforeach
-		<?php $sch = json_encode($schedule); ?>
 		
-		var schedule = {!! $sch !!};		
 
 		$('.modalSchedule').on('show.bs.modal', function(e) {
 			var id 		= $(e.relatedTarget).attr('data-id');
@@ -161,6 +147,7 @@
                 }
             }
         });
+
 		$('.getCompany').select2({
 			tokenSeparators: [","],
 			tags: [],
@@ -188,6 +175,29 @@
                 }
             }
         });
+
+        // var curSource = new Array();
+        // //first source uses querystring to determine what events to pull back
+        // // curSource[0] = '/hackyjson/cal?e1=' +  $('#e1').is(':checked') + '&e2='+ $('#e2').is(':checked');
+        // //second source just returns all events
+        // curSource[0] = 'http://localhost:8000/cms/test/{!! $data["id"] !!}/1/';
+
+        // var newSource = new Array(); //we'll use this later
+
+        // $(document).ready(function() {     
+        //     $('#calendar').fullCalendar({
+        //         eventSources: [curSource[0]],
+        //         header: {
+        //             left: '',
+        //             center: 'prev title next',
+        //             right: ''
+        //         },
+        //         theme:true,
+        //         eventRender: function (event, element) {
+        //             element.attr('href', 'javascript:void(0);');
+        //         }
+        //     });
+        // });
     </script>
 
 	@include('admin.js.script_calendar')

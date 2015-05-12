@@ -326,6 +326,8 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.calendars.delete'
 						]
 					);
+		Route::any('schedules/list/{id}/{page?}', 		['as' => 'hr.sch', 'uses' => 'Schedule\CalendarController@ajaxSchedule']);
+
 	});
 
 	Route::group(['prefix' => 'calendars/schedules/', 'before' => 'hr_acl'], function(){
@@ -643,10 +645,10 @@ Route::group(['prefix' => 'cms'], function(){
 	Route::any('/image/upload', 							[	'as' 	=> 'hr.images.upload',	'uses' => 'GalleryController@upload']);
 
 	Route::get('chart/search/{id}/{parent?}',				[	'as' 	=> 'hr.ajax.chart',		'uses' => 'AjaxController@searchChart']);
-
 	
 	/* ---------------------------------------------------------------------------- END AJAX ----------------------------------------------------------------------------*/
 });
+
 
 Blade::extend(function ($value, $compiler)
 {

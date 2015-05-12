@@ -41,7 +41,7 @@ elixir(function(mix) {
 				'libs/select2/select2.min.js',
 				'libs/bootstrap-datepicker/bootstrap-datepicker.js',
 				'libs/moment/moment.min.js',
-				'libs/fullcalendar/fullcalendar.min.js',
+				'libs/fullcalendar/fullcalendar.js',
 				'core/source/App.min.js',
 				'core/source/AppNavigation.js',
 				'core/source/AppCard.js',

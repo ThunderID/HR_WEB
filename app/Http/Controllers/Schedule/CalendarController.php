@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Schedule;
 
-use Input, Session, App, Redirect, Paginator;
+use Input, Session, App, Redirect, Paginator, Response;
 use API;
 use App\Http\Controllers\Controller;
 
@@ -271,5 +271,59 @@ class CalendarController extends Controller {
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+	}
+
+	function ajaxSchedule($id, $page = 1)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$results 									= API::calendar()->show($id);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+		
+		$search 									= ['calendarid' => $id, 'ondate' => [Input::get('start'), Input::get('end')]];
+
+		if(Input::has('branch'))
+		{
+			$search['branchname'] 					= Input::get('branch');
+		}
+
+		if(Input::has('chart'))
+		{
+			$search['chartname'] 					= Input::get('chart');
+		}
+
+		$sort 										= ['name' => 'asc'];
+
+		$results 									= API::schedule()->index($page, $search, $sort, true);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$schedules 									= json_decode(json_encode($contents->data), true);
+		
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+
+		$schedule = [];
+		foreach($schedules as $i => $sh)	
+		{
+
+				$schedule[$i]['id']		= $sh['id'];
+				$schedule[$i]['title'] 	= $sh['name'];
+				$schedule[$i]['start']	= $sh['on'].'T'.$sh['start'];
+				$schedule[$i]['end']	= $sh['on'].'T'.$sh['end'];
+		}
+
+		return Response::json($schedule);		
 	}
 }
