@@ -54,7 +54,9 @@
 	};
 	p._handleCalendarNextClick = function (e) {
 		// $('#calendar').fullCalendar('next');
-		this._displayDate();
+		var a = $('#calendar').fullCalendar('getView');
+		// this._displayDate();
+		console.log(a.type);
 	};
 	p._handleCalendarMode = function (e) {
 		$('#calendar').fullCalendar('changeView', $(e.currentTarget).data('mode'));
@@ -62,7 +64,7 @@
 
 	p._displayDate = function () {
 		var selectedDate = $('#calendar').fullCalendar('getDate');
-		console.log(selectedDate);
+		// console.log(selectedDate);
 		$('.selected-day').html(moment(selectedDate).format("dddd"));
 		$('.selected-date').html(moment(selectedDate).format("DD MMMM YYYY"));
 		$('.selected-year').html(moment(selectedDate).format("YYYY"));
@@ -97,6 +99,20 @@
 			});
 		});
 	};
+
+	function getUrlParameter(sParam)
+	{
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) 
+	    {
+	        var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam) 
+	        {
+	            return sParameterName[1];
+	        }
+	    }
+	}  
 
 	// =========================================================================
 	// CALENDAR

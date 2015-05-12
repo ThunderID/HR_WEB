@@ -184,6 +184,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.persons.works.edit'							=> '7',
 							'hr.persons.works.update'						=> '7',
 							
+<<<<<<< HEAD
 							'hr.persons.contacts.index'						=> '7',
 							'hr.persons.contacts.store'						=> '7',
 							'hr.persons.contacts.edit'						=> '7',
@@ -200,6 +201,27 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.report.performance.post'					=> '8',
 
 							'hr.images.upload'								=> '9',
+=======
+							'hr.organisations.index'						=> ['organisation-is_read'],
+							'hr.organisations.show'							=> ['organisation-is_read'],
+							'hr.organisations.create'						=> ['organisation-is_create'],
+							'hr.organisations.store'						=> ['organisation-is_create'],
+							'hr.organisations.edit'							=> ['organisation-is_update'],
+							'hr.organisations.update'						=> ['organisation-is_update'],
+							'hr.organisations.delete'						=> ['organisation-is_delete'],
+
+							'hr.report.attendance.get'						=> 'branch-is_read',
+							'hr.report.performance.get'						=> 'branch-is_read',
+							'hr.report.attendance.detail'					=> 'branch-is_read',
+							'hr.report.attendance.post'						=> 'branch-is_read',
+							'hr.report.performance.post'					=> 'branch-is_read',
+							'hr.schedule.list'								=> 'branch-is_read',
+							// 'hr.organisations.apis.create'					=> ['organisation-is_read', 'CEO'],
+							// 'hr.organisations.apis.store'					=> ['organisation-is_read', 'CEO'],
+							// 'hr.organisations.apis.edit'					=> ['organisation-is_read', 'CEO'],
+							// 'hr.organisations.apis.update'					=> ['organisation-is_read', 'CEO'],
+							// 'hr.organisations.apis.delete'					=> ['organisation-is_read', 'CEO'],
+>>>>>>> 1b909293f7819f88decde9ff2673d5f81c4c6e90
 						];
 			return $routes_acl;
 		});

@@ -50,33 +50,19 @@
 		// =========================================================================
 
 		p._handleCalendarPrevClick = function (e) {
-			var cd = $('#calendar').fullCalendar('getView');
-			var type = cd.type;
-
-			if (type === 'month')
-			{
-				window.location.href = "{!! route('hr.calendars.show', ['id' => $data['id'], 'page' => '1', 'start' => 'first day of prev month', 'end' => 'last day of prev month']) !!}"
-			}
-			else 
-			{
-				window.location.href = "{!! route('hr.calendars.show', ['id' => $data['id'], 'page' => '1', 'start' => 'first day of prev week', 'end' => 'last day of prev week']) !!}"
-			}
+			$('#calendar').fullCalendar('prev');
+			this._displayDate();			
 		};
 		
 		p._handleCalendarNextClick = function (e) {
-			// $('#calendar').fullCalendar('next');
-			var cd = $('#calendar').fullCalendar('getView');
-			var type = cd.type;
+			$('#calendar').fullCalendar('next');
+			this._displayDate();
 
-			if (type === 'month')
-			{
-				window.location.href = "{!! route('hr.calendars.show', ['id' => $data['id'], 'page' => '1', 'start' => 'first day of next month', 'end' => 'last day of next month']) !!}"
-
-			}
-			else 
-			{
-				window.location.href = "{!! route('hr.calendars.show', ['id' => $data['id'], 'page' => '1', 'start' => 'first day of next week', 'end' => 'last day of next week']) !!}"
-			}
+			// var mode 		= $('#calendar').fullCalendar('getView');
+			// var type 		= mode.type;
+			// var date 		= $('#calendar').fullCalendar('getDate');
+			// var datetime 	= date.format().split('T');
+			// var start 		= datetime[0].toString();
 		};
 
 		p._handleCalendarMode = function (e) {
@@ -147,12 +133,17 @@
 			var d = date.getDate();
 			var m = date.getMonth();
 			var y = date.getFullYear();
+			// var curSource = new Array();
+
+			var curSource = cal_link;
 
 			$('#calendar').fullCalendar({
-				height: 700,
+				height: cal_height,
 				header: false,
 				editable: true,
 				droppable: true,
+				timeFormat: 'HH:mm',
+				displayEventEnd: true,
 				drop: function (date, allDay) { // this function is called when something is dropped
 					// retrieve the dropped element's stored Event Object
 					var originalEventObject = $(this).data('eventObject');
@@ -175,11 +166,12 @@
 						$(this).remove();
 					}
 				},
-				events: schedule,
+
+				events: curSource,
 				eventRender: function (event, element) {
 					var datetime_start 	= event.start._i.split('T');
 					var datetime_end 	= event.end._i.split('T');
-					var date_start 		= datetime_start[0].split(/-/);
+					var date_start 		= datetime_start[0].split(/-/);					
 					
 					date_start 			= date_start[2]+'-'+date_start[1]+'-'+date_start[0];
 
@@ -192,6 +184,7 @@
 					element.attr('data-start', datetime_start[1]);
 					element.attr('data-end', datetime_end[1]);				
 					element.attr('data-action', 'http://localhost:8000/cms/calendars/schedules/store/1');
+					element.find('.fc-title').append("<br/>"); 
 				},
 				eventAfterRender: function(event, $el, view ) {
 					var datetime_start 	= event.start._i.split('T');
@@ -220,12 +213,13 @@
 				//         // $(this).css('border-color', 'red');
 
 			 //    },
-				dayClick: function(date, jsEvent, view) {
-			        // change the day's background color just for fun
-			        $(this).css('background-color', 'rgba(33, 150, 243, 0.07)');
-			        $('.fc-day').not($(this)).css('background-color', 'white');
+				// dayClick: function(date, jsEvent, view) {
+			 //        // change the day's background color just for fun
+			 //        $(this).css('background-color', 'rgba(33, 150, 243, 0.07)');
+			 //        $('.fc-day').not($(this)).css('background-color', 'white');
+			 //        console.log(date);
 
-			    }		    
+			 //    }			    
 			});
 		};
 

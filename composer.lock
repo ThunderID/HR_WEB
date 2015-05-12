@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f52dd8129f20f06e4aa149d2163c0831",
+    "hash": "b06d0fe7b9220007ce32906b8a511928",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -374,12 +374,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "9c26a834ff7d1c2bb4e88f98228030eed26960d4"
+                "reference": "6626d7624ac0895137a38c123943afedd0827efc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/9c26a834ff7d1c2bb4e88f98228030eed26960d4",
-                "reference": "9c26a834ff7d1c2bb4e88f98228030eed26960d4",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/6626d7624ac0895137a38c123943afedd0827efc",
+                "reference": "6626d7624ac0895137a38c123943afedd0827efc",
                 "shasum": ""
             },
             "require": {
@@ -422,7 +422,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2015-04-22 16:05:20"
+            "time": "2015-04-24 14:50:48"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -612,16 +612,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.0.28",
+            "version": "5.0.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "06a09429322cf53e5bd4587db1060f02a291562e"
+                "reference": "c7ffbf1fd4895ac4cdac551265d635d995346d97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/06a09429322cf53e5bd4587db1060f02a291562e",
-                "reference": "06a09429322cf53e5bd4587db1060f02a291562e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c7ffbf1fd4895ac4cdac551265d635d995346d97",
+                "reference": "c7ffbf1fd4895ac4cdac551265d635d995346d97",
                 "shasum": ""
             },
             "require": {
@@ -734,7 +734,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-04-21 01:44:32"
+            "time": "2015-05-08 19:11:13"
         },
         {
             "name": "league/flysystem",
@@ -994,21 +994,21 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.18.0",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "99e2f69f7bdc2cc4334b2d00f1e0ba450623ea36"
+                "reference": "68868e0b02d2d803d0052a59d4e5003cccf87320"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/99e2f69f7bdc2cc4334b2d00f1e0ba450623ea36",
-                "reference": "99e2f69f7bdc2cc4334b2d00f1e0ba450623ea36",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/68868e0b02d2d803d0052a59d4e5003cccf87320",
+                "reference": "68868e0b02d2d803d0052a59d4e5003cccf87320",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "symfony/translation": "2.6.*"
+                "symfony/translation": "~2.6"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0"
@@ -1037,20 +1037,20 @@
                 "datetime",
                 "time"
             ],
-            "time": "2015-03-26 03:05:57"
+            "time": "2015-05-09 03:23:44"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v1.2.2",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "08f97eb4efa029e2fafb6d8c98b71731bf0cf621"
+                "reference": "dff239267fd1befa1cd40430c9ed12591aa720ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/08f97eb4efa029e2fafb6d8c98b71731bf0cf621",
-                "reference": "08f97eb4efa029e2fafb6d8c98b71731bf0cf621",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/dff239267fd1befa1cd40430c9ed12591aa720ca",
+                "reference": "dff239267fd1befa1cd40430c9ed12591aa720ca",
                 "shasum": ""
             },
             "require": {
@@ -1060,7 +1060,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -1082,7 +1082,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2015-04-03 14:33:59"
+            "time": "2015-05-02 15:40:40"
         },
         {
             "name": "psr/log",
@@ -1996,12 +1996,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Chauth.git",
-                "reference": "1a658925a1fa40cfa69912d9c7e90511b41c90c4"
+                "reference": "a1a597205cd4f3e217f2e224a50311865f45c827"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Chauth/zipball/1a658925a1fa40cfa69912d9c7e90511b41c90c4",
-                "reference": "1a658925a1fa40cfa69912d9c7e90511b41c90c4",
+                "url": "https://api.github.com/repos/ThunderID/Chauth/zipball/a1a597205cd4f3e217f2e224a50311865f45c827",
+                "reference": "a1a597205cd4f3e217f2e224a50311865f45c827",
                 "shasum": ""
             },
             "require": {
@@ -2024,7 +2024,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-04-21 16:50:23"
+            "time": "2015-04-25 06:37:36"
         },
         {
             "name": "thunderid/commoquent",
@@ -2032,12 +2032,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/commoquent.git",
-                "reference": "c2434474b45a5e9bccf128c851b4b18559417895"
+                "reference": "11f2f84205706e0d8f9f3e36d29eeedee743fe33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/commoquent/zipball/c2434474b45a5e9bccf128c851b4b18559417895",
-                "reference": "c2434474b45a5e9bccf128c851b4b18559417895",
+                "url": "https://api.github.com/repos/ThunderID/commoquent/zipball/11f2f84205706e0d8f9f3e36d29eeedee743fe33",
+                "reference": "11f2f84205706e0d8f9f3e36d29eeedee743fe33",
                 "shasum": ""
             },
             "require": {
@@ -2057,7 +2057,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-04-23 16:12:35"
+            "time": "2015-05-07 13:39:12"
         },
         {
             "name": "thunderid/contact",
@@ -2065,12 +2065,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Contact.git",
-                "reference": "8920d9f00203e4fcc676c37df8403ef2dc94d013"
+                "reference": "453826f32bc7501f64d87da0cfe3fdd4a8cde0d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Contact/zipball/8920d9f00203e4fcc676c37df8403ef2dc94d013",
-                "reference": "8920d9f00203e4fcc676c37df8403ef2dc94d013",
+                "url": "https://api.github.com/repos/ThunderID/Contact/zipball/453826f32bc7501f64d87da0cfe3fdd4a8cde0d0",
+                "reference": "453826f32bc7501f64d87da0cfe3fdd4a8cde0d0",
                 "shasum": ""
             },
             "require": {
@@ -2093,7 +2093,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-04-23 16:17:15"
+            "time": "2015-04-29 04:50:06"
         },
         {
             "name": "thunderid/doclate",
@@ -2101,12 +2101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Doclate.git",
-                "reference": "175f8156621ea10f270fd8c983a822eb12379140"
+                "reference": "81ad824f9961b5b791093d90aabdca3650f7415b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Doclate/zipball/175f8156621ea10f270fd8c983a822eb12379140",
-                "reference": "175f8156621ea10f270fd8c983a822eb12379140",
+                "url": "https://api.github.com/repos/ThunderID/Doclate/zipball/81ad824f9961b5b791093d90aabdca3650f7415b",
+                "reference": "81ad824f9961b5b791093d90aabdca3650f7415b",
                 "shasum": ""
             },
             "require": {
@@ -2129,7 +2129,43 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-04-23 15:03:50"
+            "time": "2015-04-29 03:24:39"
+        },
+        {
+            "name": "thunderid/log",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Log.git",
+                "reference": "3fd77e8526e9ca9d64740857ccd1c051e1d8d132"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Log/zipball/3fd77e8526e9ca9d64740857ccd1c051e1d8d132",
+                "reference": "3fd77e8526e9ca9d64740857ccd1c051e1d8d132",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Log\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-05-09 05:51:12"
         },
         {
             "name": "thunderid/menu",
@@ -2169,16 +2205,16 @@
         },
         {
             "name": "thunderid/organisation",
-            "version": "1.2.0.x-dev",
+            "version": "1.2.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Organisation.git",
-                "reference": "a64d88be3ff682acf2e1fbab2c816533e39981f2"
+                "reference": "4ed57114104e4525ed93993cd741f117a505d9bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Organisation/zipball/a64d88be3ff682acf2e1fbab2c816533e39981f2",
-                "reference": "a64d88be3ff682acf2e1fbab2c816533e39981f2",
+                "url": "https://api.github.com/repos/ThunderID/Organisation/zipball/4ed57114104e4525ed93993cd741f117a505d9bf",
+                "reference": "4ed57114104e4525ed93993cd741f117a505d9bf",
                 "shasum": ""
             },
             "require": {
@@ -2201,20 +2237,20 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-04-23 14:45:53"
+            "time": "2015-05-09 05:42:57"
         },
         {
             "name": "thunderid/person",
-            "version": "1.2.0.x-dev",
+            "version": "1.2.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Person.git",
-                "reference": "5d8468dd7093b6e23d233326ab02cc5f66e9cf23"
+                "reference": "72204e8c8c3d8ab4d053689d31e8f049957eb5de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Person/zipball/5d8468dd7093b6e23d233326ab02cc5f66e9cf23",
-                "reference": "5d8468dd7093b6e23d233326ab02cc5f66e9cf23",
+                "url": "https://api.github.com/repos/ThunderID/Person/zipball/72204e8c8c3d8ab4d053689d31e8f049957eb5de",
+                "reference": "72204e8c8c3d8ab4d053689d31e8f049957eb5de",
                 "shasum": ""
             },
             "require": {
@@ -2237,7 +2273,76 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-04-23 16:16:21"
+            "time": "2015-05-09 05:52:22"
+        },
+        {
+            "name": "thunderid/schedule",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Schedule.git",
+                "reference": "ae6d08c7eb13bdd82e02b4aca24d3aceb6312c23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Schedule/zipball/ae6d08c7eb13bdd82e02b4aca24d3aceb6312c23",
+                "reference": "ae6d08c7eb13bdd82e02b4aca24d3aceb6312c23",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Schedule\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-05-09 05:46:34"
+        },
+        {
+            "name": "thunderid/template",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Template.git",
+                "reference": "c99d91b405f343f01b7fd1a66d65cb6595c6bbbe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Template/zipball/c99d91b405f343f01b7fd1a66d65cb6595c6bbbe",
+                "reference": "c99d91b405f343f01b7fd1a66d65cb6595c6bbbe",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ThunderID\\Template\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-04-29 10:13:32"
         },
         {
             "name": "thunderid/widboard",
@@ -2277,16 +2382,16 @@
         },
         {
             "name": "thunderid/work",
-            "version": "dev-master",
+            "version": "1.2.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Work.git",
-                "reference": "70c4fda14336005974ae2e91f4d7219e6bdc96e7"
+                "reference": "d6a647fa83c2ae9da8df6b93edc9bd702c33ac2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Work/zipball/70c4fda14336005974ae2e91f4d7219e6bdc96e7",
-                "reference": "70c4fda14336005974ae2e91f4d7219e6bdc96e7",
+                "url": "https://api.github.com/repos/ThunderID/Work/zipball/d6a647fa83c2ae9da8df6b93edc9bd702c33ac2e",
+                "reference": "d6a647fa83c2ae9da8df6b93edc9bd702c33ac2e",
                 "shasum": ""
             },
             "require": {
@@ -2309,7 +2414,43 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-04-23 12:26:35"
+            "time": "2015-04-29 11:24:42"
+        },
+        {
+            "name": "thunderid/workleave",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThunderID/Workleave.git",
+                "reference": "bc04128b1198da7e0dc279e2d06769c425a3df21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThunderID/Workleave/zipball/bc04128b1198da7e0dc279e2d06769c425a3df21",
+                "reference": "bc04128b1198da7e0dc279e2d06769c425a3df21",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.0.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations/"
+                ],
+                "psr-4": {
+                    "ThunderID\\Workleave\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "chelsy",
+                    "email": "chelsymooy1108@gmail.com"
+                }
+            ],
+            "time": "2015-05-08 08:15:05"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2581,16 +2722,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5"
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
                 "shasum": ""
             },
             "require": {
@@ -2637,7 +2778,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-03-27 19:31:25"
+            "time": "2015-04-27 22:15:08"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2887,16 +3028,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.6.4",
+            "version": "4.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "163232991e652e6efed2f8470326fffa61e848e2"
+                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/163232991e652e6efed2f8470326fffa61e848e2",
-                "reference": "163232991e652e6efed2f8470326fffa61e848e2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3afe303d873a4d64c62ef84de491b97b006fbdac",
+                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac",
                 "shasum": ""
             },
             "require": {
@@ -2955,7 +3096,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-04-11 05:23:21"
+            "time": "2015-04-29 15:18:52"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3448,6 +3589,10 @@
         "thunderid/commoquent": 20,
         "thunderid/chauth": 20,
         "thunderid/widboard": 20,
+        "thunderid/template": 20,
+        "thunderid/schedule": 20,
+        "thunderid/log": 20,
+        "thunderid/workleave": 20,
         "fzaninotto/faker": 20
     },
     "prefer-stable": false,

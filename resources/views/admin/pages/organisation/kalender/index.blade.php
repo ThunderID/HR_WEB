@@ -63,7 +63,6 @@
 				<!-- END SEARCH NAV -->
 
 				<div class="col-sm-8 col-md-9 col-lg-10">
-
 					<!-- BEGIN SEARCH RESULTS LIST -->
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">
