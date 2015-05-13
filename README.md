@@ -11,7 +11,7 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. There is new package (finger). Please run composer update first!
+1. There is new package (finger). Please run composer update first! Update for enroll finger see below
 2. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed.
 3. Add new controller for authentication setting
 4. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
@@ -26,7 +26,7 @@
 			Format 			=> Json
 			Variable Input 	=> 
 								[
-									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789', 'email' => 'hr@thunderid.com', 'password' => 'admin']],
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789'],
 								]
 			Return Format 	=> JSON
 			Variable Return	=> message
@@ -39,7 +39,21 @@
 			Format 			=> Json
 			Variable Input 	=> 
 								[
-									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789', 'email' => 'hr@thunderid.com', 'password' => 'admin']],
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789'],
+								]
+			Return Format 	=> JSON
+			Variable Return	=> message
+			Status Return 	=> 200 (ok) or 500 (error), 404 (not found)
+
+### Enroll for fp
+1. Route : 
+			URL 			=> (base_url)/api/fp/new/finger/
+			Method			=> POST
+			Format 			=> Json
+			Variable Input 	=> 
+								[
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789'],
+									'template'		=> ['email', 'left_thumb', ...(8 fingers)..., 'right_little_finger']
 								]
 			Return Format 	=> JSON
 			Variable Return	=> message
@@ -52,7 +66,8 @@
 			Format 			=> Json
 			Variable Input 	=> 
 								[
-									'application'	=> ['api' => ['client' => '', 'secret' => '']],
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789'],
+									'log' 			=> json in format ['event' | 'on' | 'pc' ],
 								]
 			Return Format 	=> JSON
 			Variable Return	=> message
@@ -65,7 +80,7 @@
 			Format 			=> Json
 			Variable Input 	=> 
 								[
-									'application'	=> ['api' => ['client' => '', 'secret' => '']],
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789'],
 									'log' 			=> json in format ['event' | 'on' | 'pc' ],
 								]
 			Return Format 	=> JSON
