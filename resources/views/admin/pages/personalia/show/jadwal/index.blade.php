@@ -5,7 +5,7 @@
 	</ul>
 	<div class="page-header no-border holder" style="margin-top:0px;">
 		<br/>
-		<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#scheduleCreate">Tambah Data</button>
+		<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#scheduleCreate" data-id="0">Tambah Data</button>
 	</div>
 	<div class="tab-content">
 		<div class="tab-pane active" id="details">
@@ -31,15 +31,13 @@
 	{!! Form::open(array('route' => array('hr.persons.schedules.store',  $data['id']),'method' => 'POST')) !!}
 		@include('admin.modals.schedule.create_schedule')
 	{!! Form::close() !!}	
-
-
-	@foreach($schedules as $key => $value)	
-	{!! Form::open(array('route' => array('hr.persons.schedules.delete',  $data['id'],$value['id']),'method' => 'POST')) !!}
-		<div class="modal fade" id="del_modal_2_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal_2_{{$value['id']}}" aria-hidden="true">
+	
+	{!! Form::open(array('route' => array('hr.persons.schedules.delete', 0, 0),'method' => 'POST')) !!}
+		<div class="modal fade modalScheduleDelete" id="del_schedule_modal" tabindex="-1" role="dialog" aria-labelledby="del_schedule_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	
 	{!! Form::close() !!}	
-	@endforeach
+	
 @stop
 
 
@@ -49,12 +47,57 @@
 
 @section('js')
 	{!! HTML::script('js/jquery.inputmask.min.js')!!}
-	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
 
 	<script type="text/javascript">
+		// spesification for fullcalendar
 		var cal_height 	= 500;
-		var cal_link 	= "{{ route('hr.schedule.list', ['id' => $data['id'], '1']) }}";
+		var cal_link 	= "{{ route('hr.schedule.person.list', ['person_id' => $data['id'], '1']) }}";
+
+		// modal schedule
+		$('.modalSchedule').on('show.bs.modal', function(e) {
+			var id 				= $(e.relatedTarget).attr('data-id');
+			var title 			= $(e.relatedTarget).attr('data-title');
+			var date_start 		= $(e.relatedTarget).attr('data-date');
+			var date_end 		= $(e.relatedTarget).attr('data-date');
+			var start 			= $(e.relatedTarget).attr('data-start');
+			var end 			= $(e.relatedTarget).attr('data-end');
+			var status 			= $(e.relatedTarget).attr('data-status');
+			var delete_action	= $(e.relatedTarget).attr('data-delete-action');
+
+
+			if (id != 0) 
+			{
+				$('.modal_schedule_id').val(id);
+				$('.modal_schedule_name').val(title);
+				$('.modal_schedule_date_start').val(date_start);
+				$('.modal_schedule_date_end').val(date_end);
+				$('.modal_schedule_start').val(start);
+				$('.modal_schedule_end').val(end);
+				$('.modal_schedule_status').val(status);
+				$('.modal_schedule_btn_del').attr('data-delete-action', delete_action);
+				$('.modal_schedule_btn_del').removeClass('hide');
+				$(this).find('.modal_schedule_btn_save').text('Edit');
+			}
+			else
+			{
+				$('.modal_schedule_id').val(null);
+				$('.modal_schedule_name').val('');
+				$('.modal_schedule_date_start').val('');
+				$('.modal_schedule_date_end').val('');
+				$('.modal_schedule_start').val('');
+				$('.modal_schedule_end').val('');
+				$('.modal_schedule_status').val('');
+				$('.modal_schedule_btn_del').addClass('hide');
+				$(this).find('.modal_schedule_btn_save').text('Tambah');
+			}
+		});
 		
+		// modal delete
+		$('.modalScheduleDelete').on('show.bs.modal', function(e) {
+			var action 		= $(e.relatedTarget).attr('data-delete-action');
+			$(this).parent().attr('action', action);
+		});
+
 		$(document).ready(function () {
 			$(".date_mask").inputmask();
 			$('.del-modal').click(function() {

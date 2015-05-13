@@ -181,10 +181,12 @@
 					element.attr('data-id', event.id);
 					element.attr('data-title', event.title);
 					element.attr('data-date', date_start);
+					element.attr('data-status', event.status);
 					element.attr('data-start', datetime_start[1]);
 					element.attr('data-end', datetime_end[1]);				
-					element.attr('data-action', 'http://localhost:8000/cms/calendars/schedules/store/1');
-					element.find('.fc-title').append("<br/>"); 
+					element.attr('data-delete-action', event.del_action);
+
+					element.find('.fc-title').append('<br>');
 				},
 				eventAfterRender: function(event, $el, view ) {
 					var datetime_start 	= event.start._i.split('T');

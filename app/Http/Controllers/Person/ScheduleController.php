@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Person;
 
-use Input, Session, App, Config, Paginator, Redirect, Validator;
+use Input, Session, App, Config, Paginator, Redirect, Validator, Response;
 use API;
 use App\Http\Controllers\Controller;
 
@@ -136,5 +136,36 @@ class ScheduleController extends Controller {
 		{
 			return Redirect::route('hr.persons.schedules.index', [$personid])->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
+	}
+
+	function ajaxSchedulePerson($personid, $page = 1)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$search 									= ['personid' => $personid, 'ondate' => [Input::get('start'), Input::get('end')]];
+		$sort 										= ['on' => 'asc'];
+
+		$results 									= API::person()->scheduleIndex($page, $search, $sort);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$schedules 									= json_decode(json_encode($contents->data), true);
+
+		$schedule = [];
+		foreach($schedules as $i => $sh)	
+		{
+
+				$schedule[$i]['id']			= $sh['id'];
+				$schedule[$i]['title'] 		= $sh['name'];
+				$schedule[$i]['start']		= $sh['on'].'T'.$sh['start'];
+				$schedule[$i]['end']		= $sh['on'].'T'.$sh['end'];
+				$schedule[$i]['status']		= $sh['status'];
+				$schedule[$i]['del_action']	= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+		}
+
+		return Response::json($schedule);		
 	}
 }

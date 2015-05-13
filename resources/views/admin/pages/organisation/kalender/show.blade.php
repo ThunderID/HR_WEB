@@ -5,14 +5,13 @@
 
 @section('content')
 	<div class="card">
-
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
 				<a href="{{route('hr.calendars.index')}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i>&nbsp;Kembali
 				</a>
-				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
+				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal" data-action="{{ route('hr.calendars.delete', $data['id']) }}">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
 				<a href="{{route('hr.calendars.edit', $data['id'])}}" class="btn btn-flat ink-reaction pull-right">
@@ -52,11 +51,8 @@
 										<a id="calender-next" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-right"></i></a>
 									</span>
 								</h3>
-								
 								<div id="calendar" class="pt-30"></div>
 							</div>
-								<!-- <div id="calendar"></div> -->
-
 						</div>
 					</div>
 				</div>
@@ -66,7 +62,7 @@
 	</div>
 
 	{!! Form::open(array('route' => array('hr.calendars.delete', $data['id']),'method' => 'POST')) !!}
-		<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
+		<div class="modal fade modalDelete" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	
 	{!! Form::close() !!}
@@ -80,6 +76,10 @@
 	{!! Form::close() !!}	
 @stop
 
+@section('css')
+	{!! HTML::style('css/datepicker3.css')!!}
+@stop
+
 @section('js')
 	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 
@@ -88,28 +88,34 @@
 		var cal_height 	= 700; 
 		var cal_link 	= "{{ route('hr.schedule.list', ['id' => $data['id'], '1']) }}";		
 
+		// modal schedule
 		$('.modalSchedule').on('show.bs.modal', function(e) {
-			var id 		= $(e.relatedTarget).attr('data-id');
-			var title 	= $(e.relatedTarget).attr('data-title');
-			var date 	= $(e.relatedTarget).attr('data-date');
-			var start 	= $(e.relatedTarget).attr('data-start');
-			var end 	= $(e.relatedTarget).attr('data-end');
+			var id 			= $(e.relatedTarget).attr('data-id');
+			var title 			= $(e.relatedTarget).attr('data-title');
+			var date_start 		= $(e.relatedTarget).attr('data-date');
+			var date_end 		= $(e.relatedTarget).attr('data-date');
+			var start 			= $(e.relatedTarget).attr('data-start');
+			var end 			= $(e.relatedTarget).attr('data-end');
 
-			if (id !== 0) 
+			if (id != 0) 
 			{
 				$('.modal_schedule_id').val(id);
 				$('.modal_schedule_name').val(title);
-				$('.modal_schedule_date').val(date);
+				$('.modal_schedule_date_start').val(date_start);
+				$('.modal_schedule_date_end').val(date_end);
 				$('.modal_schedule_start').val(start);
 				$('.modal_schedule_end').val(end);
+				$(this).find('.modal_schedule_btn_save').text('Edit');
 			}
 			else
 			{
 				$('.modal_schedule_id').val(null);
 				$('.modal_schedule_name').val('');
-				$('.modal_schedule_date').val('');
+				$('.modal_schedule_date_start').val('');
+				$('.modal_schedule_date_end').val('');
 				$('.modal_schedule_start').val('');
 				$('.modal_schedule_end').val('');
+				$(this).find('.modal_schedule_btn_save').text('Tambah');
 			}
 		});
 
