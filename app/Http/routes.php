@@ -83,6 +83,56 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- END OF DEVELOPER AREA ----------------------------------------------------------------------------*/
 
+	/* ---------------------------------------------------------------------------- BEGIN APPLICATIONS ----------------------------------------------------------------------------*/
+	Route::group(['prefix' => 'authentications', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'Application\AuthenticationController@getIndex', 
+							'as' 	=> 'hr.authentications.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'Application\AuthenticationController@getCreate', 
+							'as' 	=> 'hr.authentications.create'
+						]
+					);
+
+		Route::post('store', 
+						[
+							'uses' 	=> 'Application\AuthenticationController@postStore', 
+							'as' 	=> 'hr.authentications.store'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'Application\AuthenticationController@getShow', 
+							'as' 	=> 'hr.authentications.show'
+						]
+					);
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'Application\AuthenticationController@getEdit', 
+							'as' 	=> 'hr.authentications.edit'
+						]
+					);		
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'Application\AuthenticationController@postUpdate', 
+							'as' 	=> 'hr.authentications.update'
+						]
+					);	
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'Application\AuthenticationController@anyDelete', 
+							'as' 	=> 'hr.applications.delete'
+						]
+					);	
+	});
+
+	/* ---------------------------------------------------------------------------- END OF APPLICATIONS ----------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 

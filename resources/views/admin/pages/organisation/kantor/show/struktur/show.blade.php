@@ -2,8 +2,6 @@
 @section('kantor.show')
 <ul class="nav nav-tabs" data-toggle="tabs">
 	<li class="active"><a href="#details">{{$chart['name']}}</a></li>
-	<li><a href="#stats">Stats</a></li>
-	<li><a href="#access">Akses</a></li>
 </ul>
 <div class="tab-content">
 	<div class="tab-pane active" id="details">
@@ -14,7 +12,7 @@
 			<form class="form" role="form" action="{{route('hr.organisation.charts.store', [$data['id']])}}" method="post">
 		@endif
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="form-group">
 						<select class="form-control" id="path" name="path" value="{{$chart['chart']['path']}}">
 							@foreach($charts as $key => $value)
@@ -24,7 +22,9 @@
 						<label for="path">Atasan</label>
 					</div>
 				</div>
-				<div class="col-md-6">
+			</div>
+			<div class="row">
+				<div class="col-md-12">
 					<div class="form-group">	
 						<input type="text" class="form-control" id="grade" name="tag" value="{{$chart['tag']}}">
 						<label for="grade">Departemen</label>
@@ -128,52 +128,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="tab-pane" id="access">
-		<div class="clearfix">&nbsp;</div>
-		<form class="form" role="form" action="{{route('hr.organisation.charts.update', [$chart['branch']['id'], $chart['id']])}}" method="post">
-			<div class="row">
-				<div class="col-sm-12">
-					<table class="table no-margin">
-						<thead>
-							<tr class="row">
-								<th class="col-sm-5">
-									Perangkat
-								</th>
-								<th class="col-sm-5">
-									Menu
-								</th>
-								<th class="col-sm-2">
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($applications as $key => $value)
-								<tr class="row">
-									<td class="col-sm-5">{{$value['menu']['application']['name']}}</td>
-									<td class="col-sm-5">{{$value['menu']['name']}}</td>
-									<td class="col-sm-2"> <label class="checkbox-inline checkbox-styled checkbox-info">{!!Form::checkbox('is_true['.$key.']', 'value', 'checked')!!}</label></td>
-									{!!Form::input('hidden', 'application_id['.$key.']', $value['menu']['application_id'])!!}
-									{!!Form::input('hidden', 'id['.$key.']', $value['id'])!!}
-								</tr>
-							@endforeach
-						<tbody>
-					</table>
-					{!!Form::input('hidden', 'chart_id', $chart['id'])!!}
-				</div>
-			</div>
-			@if(count($applications))
-				@include('admin.helpers.pagination')
-			@endif
-			<div class="clearfix">&nbsp;</div>
-			<!-- BEGIN FORM FOOTER -->
-			<div class="card-actionbar">
-				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
-					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
-				</div><!--end .card-actionbar-row -->
-			</div><!--end .card-actionbar -->
-		</form>
 	</div>
 </div>
 <!-- END MIDDLE -->

@@ -26,6 +26,7 @@ abstract class Controller extends BaseController {
 			$nav->add('dashboard', 'Dashboard', route('hr.dashboard.overview'), 'md md-home');
 			$nav->add('setting', 'Setting', 'javascript:;', 'fa fa-gear');
 			$nav->add('setting_branch', 'Branch', route('hr.organisation.branches.index'), null, 'setting');
+			$nav->add('setting_application', 'Application', route('hr.authentications.index'), null, 'setting');
 			$nav->add('setting_calendar', 'Kalender', route('hr.calendars.index'), null, 'setting');
 			$nav->add('setting_cuti', 'Cuti', route('hr.workleaves.index'), null, 'setting');
 			$nav->add('setting_document', 'Dokumen Personalia', route('hr.documents.index'), null, 'setting');

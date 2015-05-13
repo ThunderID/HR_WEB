@@ -91,7 +91,7 @@
                     return {
                         results: $.map(data, function (item) {
                             return {
-                                text: item.name +' di '+ item.branch.name,
+                                text: item.name + ' department '+ item.tag + ' di '+ item.branch.name,
                                 id: item.id
                             }
                         })

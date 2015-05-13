@@ -2,7 +2,7 @@
 			<div class="hbox-column col-md-2" id="sidebar_left">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary">CATEGORIES</li>
-					<li @if(!Input::has('tag') && !Input::has('item')) class="active" @endif><a href="{{route('hr.organisation.branches.show', [$data['id']])}}">@if(!count($data['charts'])) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					<li @if(!Input::has('messageService') && !Input::has('tag') && !Input::has('item')) class="active" @endif><a href="{{route('hr.organisation.branches.show', [$data['id']])}}">@if(!count($data['charts'])) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 				<ul class="nav nav-pills nav-stacked">
 					<li class="text-primary">CONTACTS</li>

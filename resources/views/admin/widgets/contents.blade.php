@@ -69,6 +69,24 @@
 			</div>
 		@endif
 
+		@if (isset($toggle['menu']))
+			<div class="clearfix">
+				<div class="col-xs-1">
+					<span class="opacity-50"><i class = "fa fa-tags"></i></span>
+				</div>
+				<div class="col-xs-11">
+					@if(isset($data_content['authentications']))
+						@if(isset($data_content['application']))
+							<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data_content['application']['name']}}</span>
+						@endif
+						@foreach($data_content['authentications'] as $key => $value)
+							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['chart']['name']}} - {{$value['chart']['tag']}} - {{$value['chart']['branch']['name']}}</span>
+						@endforeach
+					@endif
+				</div>
+			</div>
+		@endif
+
 		@if (isset($toggle['branch']))
 			<div class="clearfix">
 				<div class="col-lg-12">

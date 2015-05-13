@@ -104,6 +104,14 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.applications.menus.update'					=> '1',
 							'hr.applications.menus.delete'					=> '1',
 
+							'hr.authentications.index'						=> '1',
+							'hr.authentications.show'						=> '1',
+							'hr.authentications.create'						=> '1',
+							'hr.authentications.store'						=> '1',
+							'hr.authentications.edit'						=> '1',
+							'hr.authentications.update'						=> '1',
+							'hr.authentications.delete'						=> '1',
+
 							'hr.dashboard.overview'							=> '3',
 							'hr.dashboard.widgets.delete'					=> '3',
 							'hr.dashboard.widgets.store'					=> '3',
