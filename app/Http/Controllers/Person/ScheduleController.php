@@ -17,9 +17,11 @@ class ScheduleController extends Controller {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['personid' => $personid, 'ondate' => [Input::get('start'), Input::get('end')]];
+		
 		$sort 										= ['on' => 'asc'];
 
 		$results 									= API::person()->scheduleIndex($page, $search, $sort);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -28,9 +30,11 @@ class ScheduleController extends Controller {
 		}
 
 		$schedules 									= json_decode(json_encode($contents->data), true);
+
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$results 									= API::person()->show($personid);
+
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -106,6 +110,7 @@ class ScheduleController extends Controller {
 	function anyDelete($personid, $id)
 	{
 		$username 					= Session::get('user.email');
+	
 		$password 					= Input::get('password');
 
 		$results 					= API::person()->authenticate($username, $password);

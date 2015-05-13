@@ -28,7 +28,7 @@
 				<div class="hbox-column col-md-2" id="sidebar_left">
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary" style="text-transform: uppercase;">CATEGORIES</li>
-						<li @if(!Input::has('tag') && !isset($contacts) && !isset($relatives) && !isset($works)) class="active" @endif><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(!Input::has('tag') && !isset($schedules) && !isset($contacts) && !isset($relatives) && !isset($works)) class="active" @endif><a href="{{route('hr.persons.show', [$data['id']])}}">Profil  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(isset($relatives)) class="active" @endif><a href="{{route('hr.persons.relatives.index', [$data['id']])}}"> @if(!$data['has_relatives']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Kerabat </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(isset($works)) class="active" @endif><a href="{{route('hr.persons.works.index', [$data['id']])}}">@if(!$data['has_works']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Pekerjaan </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(isset($schedules)) class="active" @endif><a href="{{route('hr.persons.schedules.index', [$data['id']])}}"> Jadwal </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
@@ -99,7 +99,7 @@
 							<h5>
 								@if(isset($data['works']))
 									@foreach($data['works'] as $key => $value)
-										<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['branch']['name']}}</span>
+										<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['tag']}} - {{$value['branch']['name']}}</span>
 									@endforeach
 								@endif
 							</h5>

@@ -6,7 +6,7 @@ class APIApplication {
 
 	function authenticate($menuid, $personid, $chartid)
 	{
-		$data = new \ThunderID\Chauth\Controllers\AuthController;
+		$data = new \ThunderID\Chauth\Controllers\AuthenticationController;
 		return $data->application($menuid, $personid, $chartid);
 	}
 
