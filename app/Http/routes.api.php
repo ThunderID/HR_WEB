@@ -5,8 +5,20 @@ Route::group(['prefix' => 'api'], function(){
 	Route::post('/presence', 					['as' => 'hr.api.presence.post', 		'uses' => '\ThunderID\Log\Controllers\PresenceController@store']);
 	
 	Route::post('/activity/logs', 				['as' => 'hr.api.logs.post', 			'uses' => '\ThunderID\Log\Controllers\LogController@store']);
+	
+	Route::post('/login', 						['as' => 'hr.api.login.post', 			'uses' => 'Api\AuthController@store']);
 
 });
+
+
+Route::get('test/login', function()
+{
+	$api 										= new \App\APIConnector\OUTENGINE\API;
+	$input['application'] 						= ['api' => ['client' => '123456789', 'secret' => '123456789', 'username' => 'admin', 'password' => '123456789']];
+
+	return $api->runPost($api->basic_url . 'api/login', $input);
+});
+
 
 Route::get('test/presence', function()
 {

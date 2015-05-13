@@ -11,13 +11,26 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
-2. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed. Remember to run composer update
-3. Rule of log file: USING EMAIL!
+1. Update route for tracker login look api for tracker login
+2. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
+3. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed. Remember to run composer update
 4. Running HR WEB in 2 port, first port (primary port), second port (8400 for api)
 5. Please check app/Http/routes.api.php for test api, for test api running in primary port
 
 ## 	API For Tracker
+### Absensi (Sidik Jari)
+1. Route : 
+			URL 			=> (base_url)/api/login/
+			Method			=> POST
+			Format 			=> Json
+			Variable Input 	=> 
+								[
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789', 'username' => 'admin', 'password' => '123456789']],
+								]
+			Return Format 	=> JSON
+			Variable Return	=> message
+			Status Return 	=> 200 (ok) or 500 (error), 404 (not found)
+
 ### Absensi (Sidik Jari)
 1. Route : 
 			URL 			=> (base_url)/api/presence/
