@@ -57,10 +57,10 @@
 				<div class="col-xs-11">
 					@if(isset($data_content['charts']))
 						@foreach($data_content['charts'] as $key => $value)
-							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['branch']['name']}}</span>
+							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['tag']}} - {{$value['branch']['name']}}</span>
 						@endforeach
 					@elseif(isset($data_content['chart']))
-						<span class="badge style-info text-sm opacity-75 mt-5">{{$data_content['chart']['name']}} - {{$value['chart']['branch']['name']}}</span>
+						<span class="badge style-info text-sm opacity-75 mt-5">{{$data_content['chart']['name']}} - {{$data_content['chart']['tag']}} - {{$value['chart']['branch']['name']}}</span>
 						@if(isset($data_content['quota']))
 							<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data_content['quota']}}</span>
 						@endif

@@ -160,6 +160,7 @@ return [
 		'ThunderID\Log\LogServiceProvider',
 		'ThunderID\Workleave\WorkleaveServiceProvider',
 		'ThunderID\Template\TemplateServiceProvider',
+		'ThunderID\Finger\FingerServiceProvider',
 
 	],
 

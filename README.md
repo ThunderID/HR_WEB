@@ -11,10 +11,10 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. Add new controller for authentication setting
-2. Update route for tracker login look api for tracker login. Please import database first and run composer update (if needed)
-3. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
-4. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed. Remember to run composer update
+1. There is new package (finger). Please run composer update first!
+2. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed.
+3. Add new controller for authentication setting
+4. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
 5. Running HR WEB in 2 port, first port (primary port), second port (8400 for api)
 6. Please check app/Http/routes.api.php for test api, for test api running in primary port
 
