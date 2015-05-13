@@ -11,21 +11,34 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. Update route for tracker login look api for tracker login
+1. Update route for tracker login look api for tracker login. Please import database first and run composer update (if needed)
 2. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
 3. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed. Remember to run composer update
 4. Running HR WEB in 2 port, first port (primary port), second port (8400 for api)
 5. Please check app/Http/routes.api.php for test api, for test api running in primary port
 
-## 	API For Tracker
-### Absensi (Sidik Jari)
+## 	API For Foreign Ware
+### Setting for tracker
 1. Route : 
-			URL 			=> (base_url)/api/login/
+			URL 			=> (base_url)/api/tracker/setting
 			Method			=> POST
 			Format 			=> Json
 			Variable Input 	=> 
 								[
-									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789', 'username' => 'admin', 'password' => '123456789']],
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789', 'email' => 'hr@thunderid.com', 'password' => 'admin']],
+								]
+			Return Format 	=> JSON
+			Variable Return	=> message
+			Status Return 	=> 200 (ok) or 500 (error), 404 (not found)
+
+### Setting for fp
+1. Route : 
+			URL 			=> (base_url)/api/fp/setting
+			Method			=> POST
+			Format 			=> Json
+			Variable Input 	=> 
+								[
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789', 'email' => 'hr@thunderid.com', 'password' => 'admin']],
 								]
 			Return Format 	=> JSON
 			Variable Return	=> message

@@ -6,17 +6,19 @@ Route::group(['prefix' => 'api'], function(){
 	
 	Route::post('/activity/logs', 				['as' => 'hr.api.logs.post', 			'uses' => '\ThunderID\Log\Controllers\LogController@store']);
 	
-	Route::post('/login', 						['as' => 'hr.api.login.post', 			'uses' => 'Api\AuthController@store']);
+	Route::post('/tracker/setting', 			['as' => 'hr.api.tracker.post', 		'uses' => 'Api\AuthController@tracker']);
+	
+	Route::post('/fp/setting', 					['as' => 'hr.api.fp.post', 		'uses' => 'Api\AuthController@fp']);
 
 });
 
 
-Route::get('test/login', function()
+Route::get('test/tracker', function()
 {
 	$api 										= new \App\APIConnector\OUTENGINE\API;
-	$input['application'] 						= ['api' => ['client' => '123456789', 'secret' => '123456789', 'username' => 'admin', 'password' => '123456789']];
+	$input['application'] 						= ['api' => ['client' => '123456789', 'secret' => '123456789', 'email' => 'hr@thunderid.com', 'password' => 'admin']];
 
-	return $api->runPost($api->basic_url . 'api/login', $input);
+	return $api->runPost($api->basic_url . 'api/tracker/setting/', $input);
 });
 
 
