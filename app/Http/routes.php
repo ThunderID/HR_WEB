@@ -21,68 +21,6 @@ Route::group(['prefix' => 'cms'], function(){
 	});
 	/* ---------------------------------------------------------------------------- END OF PRIVATE AREA ----------------------------------------------------------------------------*/
 	
-	/* ---------------------------------------------------------------------------- DEVELOPER AREA ----------------------------------------------------------------------------*/
-	//Organisation
-	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@getIndex', 
-							'as' 	=> 'hr.organisations.index'
-						]
-					);
-
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@getCreate', 
-							'as' 	=> 'hr.organisations.create'
-						]
-					);
-
-		Route::post('store', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@postStore', 
-							'as' 	=> 'hr.organisations.store'
-						]
-					);
-
-		Route::get('show/{id}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@getShow', 
-							'as' 	=> 'hr.organisations.show'
-						]
-					);
-		Route::get('edit/{id}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@getEdit', 
-							'as' 	=> 'hr.organisations.edit'
-						]
-					);		
-		Route::post('update/{id}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@postUpdate', 
-							'as' 	=> 'hr.organisations.update'
-						]
-					);	
-		Route::any('delete/{id}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@anyDelete', 
-							'as' 	=> 'hr.organisations.delete'
-						]
-					);	
-	});
-
-	//api key
-	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
-		Route::get('{id}/create/new', 
-						[
-							'uses' 	=> 'Organisation\APIKeyController@getCreate', 
-							'as' 	=> 'hr.organisations.apis.create'
-						]
-					);
-	});
-
-	/* ---------------------------------------------------------------------------- END OF DEVELOPER AREA ----------------------------------------------------------------------------*/
-
 	/* ---------------------------------------------------------------------------- BEGIN APPLICATIONS ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'authentications', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
@@ -376,8 +314,12 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.calendars.delete'
 						]
 					);
-		Route::any('schedules/list/{id}/{page?}', 		['as' => 'hr.schedule.list', 'uses' => 'Schedule\CalendarController@ajaxSchedule']);
-
+		Route::any('schedules/list/{id}/{page?}',
+						[
+							'uses' 	=> 'Schedule\CalendarController@ajaxSchedule',
+							'as' 	=> 'hr.schedule.list'
+						]
+					);
 	});
 
 	Route::group(['prefix' => 'calendars/schedules/', 'before' => 'hr_acl'], function(){

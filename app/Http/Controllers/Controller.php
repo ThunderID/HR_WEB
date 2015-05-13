@@ -24,12 +24,16 @@ abstract class Controller extends BaseController {
 			$nav = new MaterialAdminSideMenu();
 			//check access
 			$nav->add('dashboard', 'Dashboard', route('hr.dashboard.overview'), 'md md-home');
+
 			$nav->add('setting', 'Setting', 'javascript:;', 'fa fa-gear');
 			$nav->add('setting_branch', 'Branch', route('hr.organisation.branches.index'), null, 'setting');
-			$nav->add('setting_application', 'Application', route('hr.authentications.index'), null, 'setting');
-			$nav->add('setting_calendar', 'Kalender', route('hr.calendars.index'), null, 'setting');
-			$nav->add('setting_cuti', 'Cuti', route('hr.workleaves.index'), null, 'setting');
 			$nav->add('setting_document', 'Dokumen Personalia', route('hr.documents.index'), null, 'setting');
+			$nav->add('setting_application', 'Apps Authentication', route('hr.authentications.index'), null, 'setting');
+			
+			$nav->add('calendar', 'Kalender', 'javascript:;', 'fa fa-calendar');
+			$nav->add('calendar_schedule', 'Jadwal', route('hr.calendars.index'), null, 'calendar');
+			$nav->add('calendar_workleave', 'Cuti', route('hr.workleaves.index'), null, 'calendar');
+			
 			$nav->add('data', 'Data', 'javascript:;', 'fa fa-archive');
 			$nav->add('data_personalia', 'Personalia', route('hr.persons.index', ['page' => 1, 'q' => '', 'karyawan' => 'active']), null, 'data');
 
