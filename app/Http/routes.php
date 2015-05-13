@@ -595,6 +595,13 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.schedules.delete'
 						]
 					);
+
+		Route::any('show/{person_id}/schedules/{page?}/list',
+						[
+							'uses'	=> 'Person\ScheduleController@ajaxSchedulePerson',
+							'as'	=> 'hr.schedule.person.list'
+						]
+					);
 		/* ---------------------------------------------------------------------------- END PERSON SCHEDULES----------------------------------------------------------------------------*/
 	});
 	/* ---------------------------------------------------------------------------- END PERSON ----------------------------------------------------------------------------*/
