@@ -25,12 +25,6 @@
 								<label for="chart">Nama</label>
 							</div>
 						</div>
-						<div class="col-md-12">
-							<div class="form-group">
-								<input type="text" class="form-control modal_when_tgl date_mask" id="when" name="when" data-inputmask="'alias':'date'">
-								<label for="when">Mulai Tanggal</label>
-							</div>
-						</div>
 					</div>					
 				</div>	
 				<input class="modal_contact_input_id" type="hidden" name="id_item[1]">

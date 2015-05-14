@@ -80,7 +80,7 @@
 							<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data_content['application']['name']}}</span>
 						@endif
 						@foreach($data_content['authentications'] as $key => $value)
-							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['chart']['name']}} - {{$value['chart']['tag']}} - {{$value['chart']['branch']['name']}}</span>
+							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['chart']['name']}} - {{$value['chart']['tag']}} - {{$value['chart']['branch']['name']}} <a data-toggle="modal" data-target="#del_modal"><i class="fa fa-trash text-danger"></i></a></span>
 						@endforeach
 					@endif
 				</div>

@@ -68,12 +68,18 @@
 							@endif											
 							<div class="col-xs-12 col-lg-6 hbox-xs">
 								@include('admin.widgets.contents', [
-									'route'				=> route('hr.authentications.show', $value['id']),
+									'route'				=> '',
 									'mode'				=> 'list',
 									'data_content'		=> $value,
 									'toggle'			=> ['menu' => true],
 									'class'				=> ['top'		=> 'height-2']
 								])
+
+								{!! Form::open(array('route' => array('hr.authentications.delete', $value['id']),'method' => 'POST')) !!}
+									<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
+										@include('admin.modals.delete.delete')
+									</div>	
+								{!! Form::close() !!}	
 							</div>
 						@endforeach
 					</div>
@@ -87,7 +93,7 @@
 
 	{!! Form::open(array('url' => route('hr.authentications.store'),'method' => 'POST')) !!}
 		@include('admin.modals.application.create_authentication')
-	{!! Form::close() !!}	
+	{!! Form::close() !!}
 @stop
 
 @section('js')

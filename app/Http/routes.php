@@ -65,7 +65,7 @@ Route::group(['prefix' => 'cms'], function(){
 		Route::any('delete/{id}', 
 						[
 							'uses' 	=> 'Application\AuthenticationController@anyDelete', 
-							'as' 	=> 'hr.applications.delete'
+							'as' 	=> 'hr.authentications.delete'
 						]
 					);	
 	});
