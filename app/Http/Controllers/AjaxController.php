@@ -63,7 +63,7 @@ class AjaxController extends Controller {
 		$search 									= [];
 		if(Input::has('term'))
 		{
-			$search									= ['name' => Input::get('term'), 'parentbranch' => $id, 'WithAttributes' => ['calendar']];
+			$search									= ['name' => Input::get('term'), 'parentbranch' => $id];
 		}
 		if(!is_null($path))
 		{
@@ -89,7 +89,7 @@ class AjaxController extends Controller {
 		$search 									= [];
 		if(Input::has('term'))
 		{
-			$search									= ['chartid' => Input::get('term')];
+			$search									= ['chartid' => Input::get('term'), 'WithAttributes' => ['calendar']];
 		}
 
 		$sort 										= ['chart_id' => 'asc'];
