@@ -77,10 +77,13 @@
 				<div class="col-xs-11">
 					@if(isset($data_content['authentications']))
 						@if(isset($data_content['application']))
-							<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data_content['application']['name']}}</span>
+							<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data_content['application']['name']}}</span><br>
 						@endif
 						@foreach($data_content['authentications'] as $key => $value)
-							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['chart']['name']}} - {{$value['chart']['tag']}} - {{$value['chart']['branch']['name']}} <a data-toggle="modal" data-target="#del_modal"><i class="fa fa-trash text-danger"></i></a></span>
+							<span class="badge style-info text-sm opacity-75 mt-5">
+								{{$value['chart']['name']}} - {{$value['chart']['tag']}} - {{$value['chart']['branch']['name']}}
+								<a class="ml-5" data-toggle="modal" data-target="#del_modal" data-action="{{ route('hr.authentications.delete', $value['id']) }}" title="Hapus Menu Otentikasi"><i class="fa fa-trash"></i></a>
+							</span><br>
 						@endforeach
 					@endif
 				</div>

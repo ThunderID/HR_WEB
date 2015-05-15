@@ -100,6 +100,7 @@
 
 		$(document).ready(function () {
 			$(".date_mask").inputmask();
+			$('.time_mask').inputmask('h:s', {placeholder: 'hh:mm'});
 			$('.del-modal').click(function() {
 				$('#del-modal').modal('show');
 			});
