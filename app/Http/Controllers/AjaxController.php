@@ -63,7 +63,7 @@ class AjaxController extends Controller {
 		$search 									= [];
 		if(Input::has('term'))
 		{
-			$search									= ['name' => Input::get('term'), 'parentbranch' => $id];
+			$search									= ['name' => Input::get('term'), 'parentbranch' => $id, 'WithAttributes' => ['calendar']];
 		}
 		if(!is_null($path))
 		{
