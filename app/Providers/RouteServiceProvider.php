@@ -208,6 +208,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.report.performance.post'					=> '8',
 
 							'hr.schedule.list'								=> '6',
+							'hr.schedule.person.list'						=> '6',
 							'hr.images.upload'								=> '7',
 						];
 			return $routes_acl;

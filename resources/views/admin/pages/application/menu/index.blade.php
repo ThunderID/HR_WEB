@@ -74,15 +74,16 @@
 									'toggle'			=> ['menu' => true],
 									'class'				=> ['top'		=> 'height-2']
 								])
-
-								{!! Form::open(array('route' => array('hr.authentications.delete', $value['id']),'method' => 'POST')) !!}
-									<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
-										@include('admin.modals.delete.delete')
-									</div>	
-								{!! Form::close() !!}	
 							</div>
 						@endforeach
 					</div>
+
+					{!! Form::open(array('route' => array('hr.authentications.delete', '0'),'method' => 'POST')) !!}
+						<div class="modal fade modalAuthenMenu" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
+							@include('admin.modals.delete.delete')
+						</div>	
+					{!! Form::close() !!}	
+
 					@if(count($data))
 						@include('admin.helpers.pagination')
 					@endif
@@ -98,6 +99,12 @@
 
 @section('js')
 	<script type="text/javascript">		
+		$('.modalAuthenMenu').on('show.bs.modal', function(e) {
+			var action = $(e.relatedTarget).attr('data-action');
+
+			$(this).parent().attr('action', action);
+		});
+
 		$('.getCompany').select2({
 			tokenSeparators: [","],
 			tags: [],

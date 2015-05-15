@@ -18,7 +18,7 @@
 				{!! Form::open(array('route' => ['hr.report.performance.post', 'page' => 1], 'class' => 'form', 'method' => 'get')) !!}
 			@endif
 				<div class="form-group">
-					<div class="input-daterange input-group date_picker">
+					<div class="input-daterange input-group">
 						<div class="input-group-content">
 							{!! Form::input('text', 'start', null, ['class' => 'form-control date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
 							<label>Date range</label>
