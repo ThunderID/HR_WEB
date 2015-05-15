@@ -11,6 +11,8 @@ Route::group(['prefix' => 'api'], function(){
 	Route::post('/fp/setting', 					['as' => 'hr.api.fp.post', 				'uses' => 'Api\AuthController@fp']);
 	
 	Route::post('/fp/new/finger', 				['as' => 'hr.api.fp.enroll', 			'uses' => '\ThunderID\Finger\Controllers\FingerController@store']);
+	
+	Route::post('/fp/sync/finger', 				['as' => 'hr.api.fp.sync', 				'uses' => '\ThunderID\Finger\Controllers\FingerController@update']);
 
 });
 
@@ -20,6 +22,15 @@ Route::get('test/tracker', function()
 	$input['application'] 						= ['api' => ['client' => '123456789', 'secret' => '123456789', 'email' => 'hr@thunderid.com', 'password' => 'admin']];
 
 	return $api->runPost($api->basic_url . 'api/tracker/setting/', $input);
+});
+
+Route::get('test/sync', function()
+{
+	$api 										= new \App\APIConnector\OUTENGINE\API;
+	$input['application'] 						= ['api' => ['client' => '123456789', 'secret' => '123456789']];
+	$input['update'] 							= '05-05-2015';
+
+	return $api->runPost($api->basic_url . 'api/fp/sync/finger', $input);
 });
 
 Route::get('test/finger', function()
