@@ -40,7 +40,8 @@ class AjaxController extends Controller {
 		$search 									= [];
 		if(Input::has('term'))
 		{
-			$search									= ['name' => Input::get('term'), 'WithAttributes' => ['branch']];			
+			$keyword 								= explode(' ', Input::get('term'));
+			$search									= ['orname' => $keyword, 'ortag' => $keyword, 'orbranchname' => $keyword, 'WithAttributes' => ['branch']];			
 		}
 
 		$sort 										= ['created_at' => 'asc'];
