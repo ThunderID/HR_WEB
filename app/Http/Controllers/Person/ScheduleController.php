@@ -88,8 +88,17 @@ class ScheduleController extends Controller {
 			unset($schedule['id']);
 		}
 		unset($schedule['on']);
-		$schedule['on'][]							= date('Y-m-d', strtotime(Input::get('date_start')));
-		$schedule['on'][]							= date('Y-m-d', strtotime(Input::get('date_end')));
+		list($d,$m,$y) 								= explode('/', Input::get('date_start'));
+		if(Input::has('date_end'))
+		{
+			$schedule['on'][]						= date('Y-m-d', strtotime("$y-$m-$d"));
+			list($d,$m,$y) 							= explode('/', Input::get('date_end'));
+			$schedule['on'][]						= date('Y-m-d', strtotime("$y-$m-$d"));
+		}
+		else
+		{
+			$schedule['on']							= date('Y-m-d', strtotime("$y-$m-$d"));
+		}
 
 		// $schedule['on']								= date('Y-m-d', strtotime($schedule['on']));
 		$schedule['start']							= date('H:i:s', strtotime($schedule['start']));

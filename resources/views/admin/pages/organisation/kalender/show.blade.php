@@ -40,7 +40,7 @@
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
 									@if(isset($data['charts']))
 										@foreach($data['charts'] as $key => $value)
-											<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['branch']['name']}}</span>
+											<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['tag']}} - {{$value['branch']['name']}}</span>
 										@endforeach
 									@endif
 								</h5>

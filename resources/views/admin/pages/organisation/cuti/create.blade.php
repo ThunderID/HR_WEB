@@ -37,13 +37,13 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control input-lg" id="apply" name="apply" value="{{$data['apply']}}">
+										{!! Form::input('text', 'apply', $data['apply'], ['class' => 'form-control modal_schedule_date_start date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
 									<label for="apply">Mulai Berlaku</label>
 								</div>
 							</div><!--end .col -->
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control input-lg" id="expired" name="expired" value="{{$data['expired']}}">
+										{!! Form::input('text', 'expired', $data['expired'], ['class' => 'form-control modal_schedule_date_start date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
 									<label for="expired">Expire</label>
 								</div>
 							</div><!--end .col -->
@@ -70,8 +70,15 @@
 	</div>
 @stop
 
+@section('css')
+	{!! HTML::style('css/datepicker3.css')!!}
+@stop
+
 @section('js')
+	{!! HTML::script('js/jquery.inputmask.min.js')!!}
+
 	<script type="text/javascript">
+		$(".date_mask").inputmask();
 		$('.getCompany').select2({
 			tokenSeparators: [","],
 			tags: [],

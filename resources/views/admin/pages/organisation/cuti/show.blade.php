@@ -33,11 +33,11 @@
 								<h1 class="text-light no-margin">{{$data['name']}}</h1>
 								<h5 class="pb-10 border-bottom">
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
-									<span class="badge style-info text-sm opacity-75 mt-5">{{$data['chart']['name']}} - {{$data['chart']['branch']['name']}}</span>
+									<a href="{{route('hr.workleaves.show', [$data['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'branch' => $data['chart']['branch']['name'], 'chart' => $data['chart']['tag']])}}"><span class="badge style-info text-sm opacity-75 mt-5">{{$data['chart']['name']}} - {{$data['chart']['tag']}} - {{$data['chart']['branch']['name']}}</span></a>
 									<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data['quota']}}</span>
 								</h5>
 								<div class="pb-20">
-									{!! Form::open(['class' => 'form-inline', 'url' => '']) !!}
+									{!! Form::open(['class' => 'form-inline', 'url' => route('hr.workleaves.show', [$data['id'], 1]), 'method' => 'get']) !!}
 										<div class="form-group">
 											<h4 class="text-lg text-medium">Filter</h4>
 										</div>
@@ -50,7 +50,7 @@
 											<label>End</label>
 										</div>
 										<div class="form-group">
-											{!! Form::input('submit', 'Check', null, ['class' => 'btn btn-primary btn-default ink-reaction']) !!}
+											{!! Form::input('submit', 'Check', 'Tampilkan', ['class' => 'btn btn-primary btn-default ink-reaction']) !!}
 										</div>
 									{!! Form::close() !!}
 								</div>

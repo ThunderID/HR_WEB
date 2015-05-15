@@ -101,8 +101,11 @@ class WorkleaveController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['workleave'] 						= Input::only('name', 'quota');
 
-		$input['workleave']['apply']				= date('Y-m-d', strtotime(Input::get('apply')));
-		$input['workleave']['expired']				= date('Y-m-d', strtotime(Input::get('expired')));
+		list($d,$m,$y) 								= explode('/', Input::get('apply'));
+		$input['workleave']['apply']				= date('Y-m-d', strtotime("$y-$m-$d"));
+
+		list($d,$m,$y) 								= explode('/', Input::get('expired'));
+		$input['workleave']['expired']				= date('Y-m-d', strtotime("$y-$m-$d"));
 
 		$input['workleave']['id'] 					= $id;
 
@@ -138,17 +141,33 @@ class WorkleaveController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 		
-		$search 									= ['workleave' => ['on' => [$data['apply'], $data['expired']], 'status' => 'workleave', 'chartid' => $data['chart_id']], 'withattributes' => ['workleaves']];
+		$search 									= ['workleave' => ['on' => [$data['apply'], $data['expired']], 'status' => 'workleave', 'chartid' => $data['chart_id']]];
 
-		// if(Input::has('branch'))
-		// {
-		// 	$search['branchname'] 					= Input::get('branch');
-		// }
+		if(Input::has('branch'))
+		{
+			$search['branchname'] 					= Input::get('branch');
+		}
 
-		// if(Input::has('chart'))
-		// {
-		// 	$search['chartname'] 					= Input::get('chart');
-		// }
+		if(Input::has('chart'))
+		{
+			$search['charttag'] 					= Input::get('chart');
+		}
+
+		if(Input::has('start'))
+		{
+			list($d,$m,$y) 							= explode('/', Input::get('start'));
+
+			$start 									= "$y-$m-$d";
+			$search['workleave'] 					= ['on' => [$start, $start], 'status' => 'workleave', 'chartid' => $data['chart_id']];
+
+			if(Input::has('end'))
+			{
+				list($d,$m,$y) 						= explode('/', Input::get('end'));
+
+				$end 								= "$y-$m-$d";
+				$search['workleave'] 				= ['on' => [$start, $end], 'status' => 'workleave', 'chartid' => $data['chart_id']];
+			}
+		}
 
 		$sort 										= ['name' => 'asc'];
 

@@ -18,7 +18,12 @@ class ReportController extends Controller {
 		// ---------------------- LOAD DATA ----------------------
 		if(Input::has('start'))
 		{
-			$search 								= ['global' => true,'WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
+			list($d,$m,$y) 							= explode('/', Input::get('start'));
+			$start 									= "$y-$m-$d";
+			list($d,$m,$y) 							= explode('/', Input::get('end'));
+			$end 									= "$y-$m-$d";
+
+			$search 								= ['global' => true,'WithAttributes' => ['person'], 'ondate'=> [$start, $end]];
 		}
 		else
 		{
@@ -134,7 +139,12 @@ class ReportController extends Controller {
 		
 		if(Input::has('start'))
 		{
-			$search 								= ['personid' => $personid,'local' => true,'WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
+			list($d,$m,$y) 							= explode('/', Input::get('start'));
+			$start 									= "$y-$m-$d";
+			list($d,$m,$y) 							= explode('/', Input::get('end'));
+			$end 									= "$y-$m-$d";
+
+			$search 								= ['personid' => $personid,'local' => true,'WithAttributes' => ['person'], 'ondate'=> [$start, $end]];
 		}
 		else
 		{

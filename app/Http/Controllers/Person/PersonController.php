@@ -33,7 +33,7 @@ class PersonController extends Controller {
 
 		if(Input::has('branch'))
 		{
-			$search['CurrentWorkOn']				= Input::get('branch');			
+			$search['branchname']					= Input::get('branch');			
 		}
 		if(Input::has('q'))
 		{
@@ -41,7 +41,7 @@ class PersonController extends Controller {
 		}
 		if(Input::has('tag'))
 		{
-			$search['CurrentWorkOn']				= [Input::get('branch'), Input::get('tag')];			
+			$search['charttag']						= Input::get('tag');			
 		}
 
 		if(Input::has('sort_firstname'))
