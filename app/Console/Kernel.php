@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel {
 		'App\Console\Commands\Inspire',
 		'App\Console\Commands\MigrateHR',
 		'App\Console\Commands\SeedHR',
+		'App\Console\Commands\ReportCommand',
 	];
 
 	/**
@@ -24,8 +25,12 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-		$schedule->call('\ThunderID\Log\Controllers\AbsenceController@index@index')
-				 ->everyFiveMinutes();
+		//scheduled report every week
+		$schedule->command('hr:report')
+				 ->cron('* * * * */0 *');
+				 // ->everyFiveMinutes();
+		// $schedule->call('\ThunderID\Log\Controllers\AbsenceController@index')
+		// 		 ->everyFiveMinutes();
 	}
 
 }
