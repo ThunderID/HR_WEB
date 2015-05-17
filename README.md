@@ -11,12 +11,13 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. There is new package (finger). Please run composer update first! Update for enroll and sync finger see below
-2. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed.
-3. Add new controller for authentication setting
-4. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
-5. Running HR WEB in 2 port, first port (primary port), second port (8400 for api)
-6. Please check app/Http/routes.api.php for test api, for test api running in primary port
+1. There is new function. Please run composer update and import databases (please check your mail)
+2. There is new package (finger). Please run composer update first! Update for enroll and sync finger see below
+3. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed.
+4. Add new controller for authentication setting
+5. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
+6. Running HR WEB in 2 port, first port (primary port), second port (8400 for api)
+7. Please check app/Http/routes.api.php for test api, for test api running in primary port
 
 ## 	API For Foreign Ware
 ### Enroll for fp
