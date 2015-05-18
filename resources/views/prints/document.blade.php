@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
-
 		<style>
 			body {
 				margin: 0;
@@ -13,18 +12,16 @@
 				font-weight: 100;
 				font-family: 'Lato';
 			}
-
 			.container {
 				text-align: center;
 				display: table-cell;
 				vertical-align: middle;
 			}
-
 			.content {
 				text-align: center;
 				display: inline-block;
+				width: 60%;
 			}
-
 			.title {
 				font-size: 72px;
 				margin-bottom: 40px;
@@ -34,16 +31,8 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<h1>{{ucwords($document['document']['name'])}}</h1>
-				<h3 style="text-align:left;">
-					{{strtoupper($document['document_number'])}}
-				</h3>
-				<h3 style="text-align:right;">
-					{{date('Y-m-d',strtotime($document['created_at']))}}
-				</h3>
-				<p>
-					{!!$template!!}
-				</p>
+				<h1> @uppercase($document['document']['name']) </h1>
+				@include('prints.template.no_center')
 			</div>
 		</div>
 	</body>
