@@ -512,6 +512,12 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.documents.delete'
 						]
 					);
+		Route::get('show/{person_id}/documents/print/{id}', 
+						[
+							'uses' 	=> 'Person\DocumentController@getPrint', 
+							'as' 	=> 'hr.persons.documents.print'
+						]
+					);
 		/* ---------------------------------------------------------------------------- END PERSON DOCUMENTS----------------------------------------------------------------------------*/
 	
 		/* ---------------------------------------------------------------------------- PERSON WORKS----------------------------------------------------------------------------*/

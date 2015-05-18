@@ -106,7 +106,7 @@
 							<div class="col-md-12">
 								<div class="form-group" style="padding-top:30px">
 									<textarea name="template" id="content_document" class="form-control" rows="8" placeholder="">{{$data['template']}}</textarea>
-									<label for="textarea1">Template Surat <small>*untuk mengganti nama dengan nama karyawan gunanakan //nama// , untuk posisi gunakan //position// *</small></label>
+									<label for="textarea1">Template Surat <small>*untuk mengganti nama dengan nama karyawan gunanakan //name// , untuk posisi gunakan //position//, untuk informasi lain per dokument gunakan //(nama_field_huruf_kecil)// *</small></label>
 								</div>
 							</div>
 						</div>

@@ -19,6 +19,9 @@
 			<a class="btn pull-right ink-reaction btn-flat btn-danger del_modal_2 mt-5" type="button" data-toggle="modal" data-target="#del_modal_2">
 				<i class="fa fa-trash"></i>&nbsp;HAPUS
 			</a>
+			<a class="btn pull-right ink-reaction btn-flat btn-primary mt-5" type="button" href="{{route('hr.persons.documents.print', [$data['id'], $person_document['id']])}}">
+				<i class="fa fa-print"></i>&nbsp;PRINT
+			</a>
 		</div>
 	</div>
 

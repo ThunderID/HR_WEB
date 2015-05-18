@@ -186,6 +186,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.persons.documents.show'						=> '7',
 							'hr.persons.documents.store'					=> '7',
 							'hr.persons.documents.delete'					=> '7',
+							'hr.persons.documents.print'					=> '7',
 
 							'hr.persons.works.index'						=> '7',
 							'hr.persons.works.store'						=> '7',

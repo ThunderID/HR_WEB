@@ -210,6 +210,7 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+		'Str'		=> 'Illuminate\Support\Str',
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML' 		=> 'Illuminate\Html\HtmlFacade',
 		'Faker'		=> 'Faker\Factory',
