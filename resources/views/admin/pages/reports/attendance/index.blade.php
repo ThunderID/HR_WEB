@@ -89,9 +89,11 @@
 						<thead>
 							<tr>
 								<th>Nama</th>
+								<th colspan="2">In</th>
+								<th colspan="2">Out</th>
 								<th>Total Idle</th>
-								<th>Total Jam Kerja</th>
-								<th>Rata - Rata Jam Kerja</th>
+								<th>Total Sleep</th>
+								<th>Total Active</th>
 								<th>@if(Input::has('case') && Input::get('case')!='ontime') {{ucwords(Input::get('case'))}} (Hi - Lo) @endif</th>
 							</tr>
 						</thead>
@@ -102,13 +104,25 @@
 										{{$value['person']['name']}}
 									</td>
 									<td>
+										{{date("H:i:s", strtotime($value['fp_start']))}}
+									</td>
+									<td>
+										{{date("H:i:s", strtotime($value['start']))}}
+									</td>
+									<td>
+										{{date("H:i:s", strtotime($value['fp_end']))}}
+									</td>
+									<td>
+										{{date("H:i:s", strtotime($value['end']))}}
+									</td>
+									<td>
 										{{gmdate("H:i:s", $value['total_idle'])}}
 									</td>
 									<td>
-										{{gmdate("H:i:s", $value['total_workhour'])}}
+										{{gmdate("H:i:s", $value['total_sleep'])}}
 									</td>
 									<td>
-										{{gmdate("H:i:s", $value['average_workhour'])}}
+										{{gmdate("H:i:s", $value['total_active'])}}
 									</td>
 									<td>
 										<?php 
@@ -146,7 +160,7 @@
 												@if(!is_null($margin))
 													{{gmdate("H:i:s", $margin)}}
 												@else
-													Tidak ada dalam jadwal
+													NOS
 												@endif
 											</span>
 										@endif
