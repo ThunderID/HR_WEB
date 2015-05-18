@@ -84,7 +84,7 @@ class AjaxController extends Controller {
 		return Response::json($contents->data);
 	}		
 
-	function searchFollow($id)
+	function searchFollow()
 	{
 		$search 									= [];
 		if(Input::has('term'))

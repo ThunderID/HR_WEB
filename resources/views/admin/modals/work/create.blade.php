@@ -39,7 +39,7 @@
 									{{-- @if($isNew == false) --}}
 										{{-- <input name="work_company" id="work_company[{{$key}}]" class="form-control getExtCompany{{$key}}" data-comp="" value="">											 --}}
 									{{-- @else --}}
-										<input name="work_company" id="work_company" class="form-control getCompany modal_work_company" data-comp="">											
+										<input name="work_company" id="work_company" class="form-control getCompany getAjax modal_work_company" data-comp="" tab-index="1">
 									{{-- @endif --}}
 									<label for="work_company">Posisi</label>
 								</div>
@@ -52,7 +52,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									{!! Form::input('text', 'work_organisation', '', ['class' => 'form-control modal_work_organisation']) !!}
+									{!! Form::input('text', 'work_organisation', '', ['class' => 'form-control modal_work_organisation', 'tab-index' => '2']) !!}
 
 									{{-- {!! Form::input('text', 'work_organisation', (isset($value['organisation']) ? $value['organisation'] : null), ['class' => 'form-control']) !!} --}}
 									<label for="work_organisation">Perusahaan</label>
@@ -60,7 +60,7 @@
 							</div><!--end .col -->
 							<div class="col-md-6">
 								<div class="form-group @if ($errors->first('position')) has-error @endif">
-									{!! Form::input('text', 'work_position', '', ['class' => 'form-control modal_work_position']) !!}
+									{!! Form::input('text', 'work_position', '', ['class' => 'form-control modal_work_position', 'tab-index' => '3']) !!}
 									{{-- {!! Form::input('text', 'work_position', (isset($value['position']) ? $value['position'] : null), ['class' => 'form-control']) !!} --}}
 									<label for="work_position">Posisi</label>
 								</div>
@@ -68,6 +68,16 @@
 						</div>
 					</div>
 
+					<div class="col-md-12">
+						<div class="row">
+							<div class="form-group">
+								<select name="calendar" id="getCalendar" class="form-control" tab-index="4">
+									<option value="">Pilih</option>
+								</select>
+								<label>Kalender</label>
+							</div>
+						</div>
+					</div>
 					<div class="col-md-12">
 						<div class="row">
 							<div class="form-group">

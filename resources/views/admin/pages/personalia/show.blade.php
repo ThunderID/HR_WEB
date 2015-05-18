@@ -259,8 +259,7 @@
 
 		$('.getCompany').select2({
 			tokenSeparators: [",", " "],
-			tags: [],
-			minimumInputLength: 1,
+			minimumInputLength: 0,
 			placeholder: "",
 			maximumSelectionSize: 1,
 			selectOnBlur: true,
@@ -286,6 +285,22 @@
             }
         });
 
+		$('.getAjax').change( function() {
+			var chart_id = $(this).select2("val");
+			var select = [];
+			$.ajax({
+				url: "{{ route('hr.ajax.follow') }}",
+				dataType: 'json',
+				data: 'term='+chart_id,
+				success: function (data){
+					console.log(chart_id);
+					for (var i=0;i<data.length;i++) {
+						select += '<option value="'+data[i].id+'">'+data[i].id+'</option>';
+					}
+					$('#getCalendar').html(select);
+				}
+			});
+		});
 
         $("#document_upload").dropzone({ 
 			url: '{{ route("hr.images.upload") }}' ,
