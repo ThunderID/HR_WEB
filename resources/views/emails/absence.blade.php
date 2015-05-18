@@ -1,60 +1,40 @@
 <html>
 	<head>
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
-
+		<link type="text/css" rel="stylesheet" href="{{ elixir('css/admin.css') }}" />
 		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				width: 100%;
-				height: 100%;
-				color: #000;
-				display: table;
-				font-weight: 100;
-				font-family: 'Lato';
-			}
-
-			.container {
-				text-align: center;
-				display: table-cell;
-				vertical-align: middle;
-			}
-
-			.content {
-				text-align: center;
-				display: inline-block;
-			}
-
-			.title {
-				font-size: 72px;
-				margin-bottom: 40px;
-			}
+			
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<div class="content">
-				@foreach($data as $key => $value)
-					<h1>{{$key}}</h1>
-					<table width="100%">
-						<thead>
-							<tr>
-								<th>
-									Nama
-								</th>
-							</tr>	
-						</thead>
-						<tbody>
-							@foreach($value as $key2 => $value2)
-								<tr>
-									<td>
-										{{$value2['name']}}
-									</td>
-								</tr>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="card">
+						<div class="card-body">
+							@foreach($data as $key => $value)
+								<h2 class="text-left">Absensi</h2>
+								<h4 class="pull-right text-light text-default-light">Per tanggal : @date_indo($key)</h4>
+								<table class="table">
+									<thead>
+										<tr>
+											<th class="text-sm text-default-light">Nama</th>
+											<th class="text-sm text-default-light text-right">Status</th>
+										</tr>	
+									</thead>
+									<tbody>
+										@foreach($value as $key2 => $value2)
+											<tr>
+												<td class="text-sm">{{$value2['name']}}</td>
+												<td class="text-sm text-right">Hadir</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
 							@endforeach
-						</tbody>
-					</table>
-				@endforeach
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>

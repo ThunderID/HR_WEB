@@ -656,6 +656,13 @@ Route::group(['prefix' => 'cms'], function(){
 	/* ---------------------------------------------------------------------------- END AJAX ----------------------------------------------------------------------------*/
 });
 
+Blade::extend(function ($value, $compiler)
+{
+	$pattern = $compiler->createMatcher('date_indo');
+	$replace = '<?php echo date("d-m-Y", strtotime($2)); ?>';
+
+	return preg_replace($pattern, '$1'.$replace, $value);
+});
 
 Blade::extend(function ($value, $compiler)
 {
