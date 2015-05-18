@@ -666,6 +666,14 @@ Blade::extend(function ($value, $compiler)
 
 Blade::extend(function ($value, $compiler)
 {
+	$pattern = $compiler->createMatcher('uppercase');
+	$replace = '<?php echo strtoupper($2); ?>';
+
+	return preg_replace($pattern, '$1'.$replace, $value);
+});
+
+Blade::extend(function ($value, $compiler)
+{
 	$pattern = $compiler->createMatcher('ucwords');
 	$replace = '<?php echo ucwords($2); ?>';
 
