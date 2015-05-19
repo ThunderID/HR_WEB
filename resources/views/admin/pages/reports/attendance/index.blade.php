@@ -69,7 +69,7 @@
 							@if (Input::get('q'))
 								<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end')]) }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
 							@endif
-							<button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
+							<!-- <button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
 								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
@@ -81,28 +81,65 @@
 								<li @if(Input::get('sort_workhour')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_workhour' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Jumlah Jam Kerja [Z-A]</a></li>
 								<li @if(Input::get('sort_idle')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_idle' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Jumlah Idle [A-Z]</a></li>
 								<li @if(Input::get('sort_idle')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_idle' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Jumlah Idle [Z-A]</a></li>
-							</ul>
+							</ul> -->
 						</div>
 					</div><!--end .margin-bottom-xxl -->
 
-					<table class="table no-margin">
+					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th>Nama</th>
+								<th rowspan="2">Nama</th>
+								<th rowspan="2">Tanggal</th>
 								<th colspan="2">In</th>
 								<th colspan="2">Out</th>
-								<th>Total Idle</th>
-								<th>Total Sleep</th>
-								<th>Total Active</th>
-								<th>@if(Input::has('case') && Input::get('case')!='ontime') {{ucwords(Input::get('case'))}} (Hi - Lo) @endif</th>
+								<th rowspan="2">Total Idle</th>
+								<th rowspan="2">Total Sleep</th>
+								<th rowspan="2">Total Active</th>
+								@if(Input::has('case') && Input::get('case')!='ontime')
+									<th rowspan="2"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
+								@else
+									<th rowspan="2"> </th>
+								@endif
+							</tr>
+							<tr>
+								<th>
+									FP
+								</th>
+								<th>
+									TR
+								</th>
+								<th>
+									FP
+								</th>
+								<th>
+									TR
+								</th>
 							</tr>
 						</thead>
 						<tbody>
+							<?php $prev = 0;?>
+							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
 							@foreach($data as $key => $value)
 								<tr>
 									<td>
-										{{$value['person']['name']}}
+										@if($value['person_id']!=$prev)
+											{{$value['person']['name']}}
+											<?php $prev = $value['person_id'];?>
+										@else
+											<?php $prev = $value['person_id'];?>
+										@endif
 									</td>
+									<td>
+										@if($value['has_schedule'])
+											<span class ="badge style-info text-sm">
+												{{date('Y-m-d', strtotime($value['on']))}}
+											</span>
+										@else
+											<span class ="badge style-warning text-sm">
+												{{date('Y-m-d', strtotime($value['on']))}}
+											</span>
+										@endif
+									</td>	
 									<td>
 										{{date("H:i:s", strtotime($value['fp_start']))}}
 									</td>
@@ -124,48 +161,39 @@
 									<td>
 										{{gmdate("H:i:s", $value['total_active'])}}
 									</td>
-									<td>
-										<?php 
-										switch (Input::get('case')) 
-										{
-											case 'late':
-												$margin = 0 - ($value['margin_start']);
-												break;
-											case 'ontime':
-												$margin = null;
-												break;
-											case 'earlier':
-												$margin = 0 - ($value['margin_end']);
-												break;
-											case 'overtime':
-												$margin = ($value['margin_end']);
-												break;
-											default:
-												$margin = null;
-												break;
-										}
-
-										;?>
-										<a href="{{route('hr.report.attendance.detail', ['personid' => $value['person_id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}">
-										@if($value['has_schedule'])
-											<span class ="badge style-info text-sm">
-												@if(!is_null($margin))
-													{{gmdate("H:i:s", $margin)}}
-												@else
-													Terjadwal
-												@endif
-											</span>
-										@else
-											<span class ="badge style-warning text-sm">
-												@if(!is_null($margin))
-													{{gmdate("H:i:s", $margin)}}
-												@else
-													NOS
-												@endif
-											</span>
-										@endif
-										</a>
-									</td>
+									@if(Input::has('case') && Input::get('case')!='ontime')
+										<td>
+											<?php 
+												switch (Input::get('case')) 
+												{
+													case 'late':
+														$margin = 0 - ($value['margin_start']);
+														break;
+													case 'ontime':
+														$margin = null;
+														break;
+													case 'earlier':
+														$margin = 0 - ($value['margin_end']);
+														break;
+													case 'overtime':
+														$margin = ($value['margin_end']);
+														break;
+													default:
+														$margin = null;
+														break;
+												}
+											;?>
+											{{gmdate("H:i:s", $margin)}}
+										</td>
+									@else
+										<td>
+											@foreach($value['notes'] as $key2 => $value2)
+												<span class ="badge style-{{$label[$value2]}} text-sm mt-5">
+													{{$value2}}
+												</span>
+											@endforeach
+										</td>
+									@endif
 								</tr>
 							@endforeach
 						</tbody>

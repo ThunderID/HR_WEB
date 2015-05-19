@@ -38,19 +38,15 @@ class ReportController extends Controller {
 			{
 				case 'late':
 					$search['late']					= true;
-					$sort 							= ['margin_start' => 'asc'];
 					break;
 				case 'ontime':
 					$search['ontime']				= true;
-					$sort 							= ['margin_start' => 'desc'];
 					break;
 				case 'earlier':
 					$search['earlier']				= true;
-					$sort 							= ['margin_end' => 'asc'];
 					break;
 				case 'overtime':
 					$search['overtime']				= true;
-					$sort 							= ['margin_end' => 'desc'];
 					break;
 				default:
 					App::abort('404');
