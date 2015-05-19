@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Input, Session, App, Config, Paginator, Redirect, Validator;
-use API;
+use API, Excel;
 use App\Http\Controllers\Controller;
 
 class ReportController extends Controller {
@@ -322,8 +322,14 @@ class ReportController extends Controller {
 		return $this->layout;
 	}
 
+<<<<<<< HEAD
 	function getWages($page = null)
 	{
+=======
+	function getAttendanceCSV($page = null)
+	{
+		
+>>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 		// ---------------------- LOAD DATA ----------------------
 		if(Input::has('start'))
 		{
@@ -332,6 +338,7 @@ class ReportController extends Controller {
 			list($d,$m,$y) 							= explode('/', Input::get('end'));
 			$end 									= "$y-$m-$d";
 
+<<<<<<< HEAD
 			$search 								= ['quotas' => ['ondate'=> [$start, $end]]];
 		}
 		else
@@ -339,6 +346,16 @@ class ReportController extends Controller {
 			$search 								= ['quotas' => ['ondate'=> '']];
 		}
 		$sort 										= ['persons.id' => 'desc'];
+=======
+			$search 								= ['WithAttributes' => ['person'], 'ondate'=> [$start, $end]];
+		}
+		else
+		{
+			$search 								= ['WithAttributes' => ['person']];
+		}
+		
+		$sort 										= ['person_id' => 'desc'];
+>>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 
 		if(Input::has('case'))
 		{
@@ -346,6 +363,7 @@ class ReportController extends Controller {
 			{
 				case 'late':
 					$search['late']					= true;
+<<<<<<< HEAD
 					$sort 							= ['margin_start' => 'asc'];
 					break;
 				case 'ontime':
@@ -359,6 +377,17 @@ class ReportController extends Controller {
 				case 'overtime':
 					$search['overtime']				= true;
 					$sort 							= ['margin_end' => 'desc'];
+=======
+					break;
+				case 'ontime':
+					$search['ontime']				= true;
+					break;
+				case 'earlier':
+					$search['earlier']				= true;
+					break;
+				case 'overtime':
+					$search['overtime']				= true;
+>>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 					break;
 				default:
 					App::abort('404');
@@ -366,6 +395,29 @@ class ReportController extends Controller {
 			}
 		}
 
+<<<<<<< HEAD
+=======
+		// if(Input::has('sort_margin_start'))
+		// {
+		// 	$sort 									= ['margin_start' => Input::get('sort_margin_start')];
+		// }
+
+		// if(Input::has('sort_margin_end'))
+		// {
+		// 	$sort 									= ['margin_end' => Input::get('sort_margin_end')];
+		// }
+
+		// if(Input::has('sort_idle'))
+		// {
+		// 	$sort 									= ['total_idle' => Input::get('sort_idle')];
+		// }
+
+		// if(Input::has('sort_workhour'))
+		// {
+		// 	$search['orderworkhour'] 				= Input::get('sort_workhour');
+		// }
+		
+>>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 		if(Input::has('branch'))
 		{
 			$search['branchname'] 					= Input::get('branch');
@@ -376,7 +428,11 @@ class ReportController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
+<<<<<<< HEAD
 		$results 									= API::person()->index($page, $search, $sort, true);
+=======
+		$results 									= API::log()->ProcessLogIndex($page, $search, $sort, true);
+>>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 		
 		$contents 									= json_decode($results);
 		if(!$contents->meta->success)
@@ -386,6 +442,7 @@ class ReportController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
+<<<<<<< HEAD
 		unset($search);
 		foreach ($data as $key => $value) 
 		{
@@ -428,6 +485,9 @@ class ReportController extends Controller {
 			$compelete[$key]['residue_quota']		= $compelete[$key]['quota'] + $compelete[$key]['plus_quota'] - $compelete[$key]['minus_quota'];
 			$compelete[$key]['status']				= $status;
 		}
+=======
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+>>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 
 		$search 									= ['organisationid' => Session::get('user.organisation')];
 
@@ -447,6 +507,7 @@ class ReportController extends Controller {
 		{
 			App::abort(404);
 		}
+<<<<<<< HEAD
 		
 		$branches 									= json_decode(json_encode($contents_2->data), true);
 
@@ -460,5 +521,24 @@ class ReportController extends Controller {
 		$this->layout->content->branches 			= $branches;
 
 		return $this->layout;
+=======
+
+		$case 										= Input::get('case');
+
+		Excel::create('Attendance Reports', function($excel) use ($data, $case) {			
+		    // Set the title
+		    $excel->setTitle('Our new awesome title');
+		    // Call them separately
+		    $excel->setDescription('A demonstration to change the file properties');
+
+		    $excel->sheet('Sheetname', function ($sheet) use ($data, $case) {
+		    	$c = count($data);
+			    $sheet->setBorder('A1:J'.($c+2), 'thin');
+			    $sheet->setWidth(['A' => 30, 'B' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14]);
+				$sheet->loadView('admin.pages.reports.attendance.template_csv')->with('data', $data)->with('case', $case);
+		    });
+
+		})->export('xls');
+>>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 	}
 }

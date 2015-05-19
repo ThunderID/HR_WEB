@@ -624,12 +624,14 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- END DASHBOARD ----------------------------------------------------------------------------*/
 	
-	/* ---------------------------------------------------------------------------- BEGIN DASHBOARD ----------------------------------------------------------------------------*/
+	/* ---------------------------------------------------------------------------- BEGIN REPORT ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'report', 'before' => 'hr_acl'], function(){
 
 		Route::get('/attendance', 							[	'as' 	=> 'hr.report.attendance.get', 		'uses' 	=> 'ReportController@getForm']);
 		
 		Route::get('/attendance/generate/{page}', 			[	'as' 	=> 'hr.report.attendance.post', 	'uses' 	=> 'ReportController@getAttendance']);
+
+		Route::get('/attendance/csv/{page}', 				[	'as' 	=> 'hr.report.attendance.csv', 		'uses' 	=> 'ReportController@getAttendanceCSV']);
 		
 		Route::get('/attendance/generate/detail/person',	[	'as' 	=> 'hr.report.attendance.detail', 	'uses' 	=> 'ReportController@detailAttendance']);
 
@@ -642,7 +644,7 @@ Route::group(['prefix' => 'cms'], function(){
 		Route::get('/wages/generate/{page}', 				[	'as' 	=> 'hr.report.wages.post', 			'uses' 	=> 'ReportController@getWages']);
 	});
 
-	/* ---------------------------------------------------------------------------- END DASHBOARD ----------------------------------------------------------------------------*/
+	/* ---------------------------------------------------------------------------- END REPORT ----------------------------------------------------------------------------*/
 	
 
 	/* ---------------------------------------------------------------------------- AJAX ----------------------------------------------------------------------------*/

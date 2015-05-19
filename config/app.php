@@ -149,6 +149,7 @@ return [
 		
 		'Intervention\Image\ImageServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
 
 		'ThunderID\Person\PersonServiceProvider',
 		'ThunderID\Doclate\DocumentServiceProvider',
@@ -216,6 +217,7 @@ return [
 		'Faker'		=> 'Faker\Factory',
 		'Image' 	=> 'Intervention\Image\Facades\Image',
 		'API'		=> 'App\APIConnector\INENGINE\API',
+		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 	],
 
 ];
