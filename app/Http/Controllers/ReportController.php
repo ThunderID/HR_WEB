@@ -322,223 +322,217 @@ class ReportController extends Controller {
 		return $this->layout;
 	}
 
-<<<<<<< HEAD
-	function getWages($page = null)
-	{
-=======
+
 	function getAttendanceCSV($page = null)
 	{
-		
->>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 		// ---------------------- LOAD DATA ----------------------
 		if(Input::has('start'))
 		{
-			list($d,$m,$y) 							= explode('/', Input::get('start'));
-			$start 									= "$y-$m-$d";
-			list($d,$m,$y) 							= explode('/', Input::get('end'));
-			$end 									= "$y-$m-$d";
-
-<<<<<<< HEAD
-			$search 								= ['quotas' => ['ondate'=> [$start, $end]]];
+		list($d,$m,$y) = explode('/', Input::get('start'));
+		$start = "$y-$m-$d";
+		list($d,$m,$y) = explode('/', Input::get('end'));
+		$end = "$y-$m-$d";
+		$search = ['WithAttributes' => ['person'], 'ondate'=> [$start, $end]];
 		}
 		else
 		{
-			$search 								= ['quotas' => ['ondate'=> '']];
+		$search = ['WithAttributes' => ['person']];
 		}
-		$sort 										= ['persons.id' => 'desc'];
-=======
-			$search 								= ['WithAttributes' => ['person'], 'ondate'=> [$start, $end]];
-		}
-		else
-		{
-			$search 								= ['WithAttributes' => ['person']];
-		}
-		
-		$sort 										= ['person_id' => 'desc'];
->>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
-
+		$sort = ['person_id' => 'desc'];
 		if(Input::has('case'))
 		{
-			switch (Input::get('case')) 
-			{
-				case 'late':
-					$search['late']					= true;
-<<<<<<< HEAD
-					$sort 							= ['margin_start' => 'asc'];
-					break;
-				case 'ontime':
-					$search['ontime']				= true;
-					$sort 							= ['margin_start' => 'desc'];
-					break;
-				case 'earlier':
-					$search['earlier']				= true;
-					$sort 							= ['margin_end' => 'asc'];
-					break;
-				case 'overtime':
-					$search['overtime']				= true;
-					$sort 							= ['margin_end' => 'desc'];
-=======
-					break;
-				case 'ontime':
-					$search['ontime']				= true;
-					break;
-				case 'earlier':
-					$search['earlier']				= true;
-					break;
-				case 'overtime':
-					$search['overtime']				= true;
->>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
-					break;
-				default:
-					App::abort('404');
-				break;
-			}
+		switch (Input::get('case'))
+		{
+		case 'late':
+		$search['late'] = true;
+		break;
+		case 'ontime':
+		$search['ontime'] = true;
+		break;
+		case 'earlier':
+		$search['earlier'] = true;
+		break;
+		case 'overtime':
+		$search['overtime'] = true;
+		break;
+		default:
+		App::abort('404');
+		break;
 		}
-
-<<<<<<< HEAD
-=======
+		}
 		// if(Input::has('sort_margin_start'))
 		// {
-		// 	$sort 									= ['margin_start' => Input::get('sort_margin_start')];
+		// $sort = ['margin_start' => Input::get('sort_margin_start')];
 		// }
-
 		// if(Input::has('sort_margin_end'))
 		// {
-		// 	$sort 									= ['margin_end' => Input::get('sort_margin_end')];
+		// $sort = ['margin_end' => Input::get('sort_margin_end')];
 		// }
-
 		// if(Input::has('sort_idle'))
 		// {
-		// 	$sort 									= ['total_idle' => Input::get('sort_idle')];
+		// $sort = ['total_idle' => Input::get('sort_idle')];
 		// }
-
 		// if(Input::has('sort_workhour'))
 		// {
-		// 	$search['orderworkhour'] 				= Input::get('sort_workhour');
+		// $search['orderworkhour'] = Input::get('sort_workhour');
 		// }
-		
->>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
 		if(Input::has('branch'))
 		{
-			$search['branchname'] 					= Input::get('branch');
+		$search['branchname'] = Input::get('branch');
 		}
-
 		if(Input::has('tag'))
 		{
-			$search['charttag'] 					= Input::get('tag');
+		$search['charttag'] = Input::get('tag');
 		}
-
-<<<<<<< HEAD
-		$results 									= API::person()->index($page, $search, $sort, true);
-=======
-		$results 									= API::log()->ProcessLogIndex($page, $search, $sort, true);
->>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
-		
-		$contents 									= json_decode($results);
+		$results = API::log()->ProcessLogIndex($page, $search, $sort, true);
+		$contents = json_decode($results);
 		if(!$contents->meta->success)
 		{
-			App::abort(404);
+		App::abort(404);
 		}
-
-		$data 										= json_decode(json_encode($contents->data), true);
-
-<<<<<<< HEAD
-		unset($search);
-		foreach ($data as $key => $value) 
-		{
-			$ids[]									= $value['id'];
-		}
-
-		$search 									= ['minusquotas' => ['ondate'=> [$start, $end], 'ids' => $ids]];
-	
-		$sort 										= ['persons.id' => 'desc'];
-		
-		$results 									= API::person()->index($page, $search, $sort, true);
-		
-		$contents 									= json_decode($results);
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}	
-		$data2 										= json_decode(json_encode($contents->data), true);
-		
-		$currentstatus 								= [];
-
-		foreach ($data as $key => $value) 
-		{
-			$minus 									= 0;
-			$status 								= null;
-			foreach ($data2 as $key2 => $value2) 
-			{
-				if($value2['person_id']==$value['id'])
-				{
-					$status[$value2['status']]		= $value2['minus_quota'];
-					$minus 							= $minus + $value2['minus_quota'];
-					if(!in_array($value2['status'], $currentstatus))
-					{
-						$currentstatus[] 			= $value2['status'];
-					}
-				}
-			}
-			$compelete[$key]						= $value;
-			$compelete[$key]['minus_quota']			= $minus;
-			$compelete[$key]['residue_quota']		= $compelete[$key]['quota'] + $compelete[$key]['plus_quota'] - $compelete[$key]['minus_quota'];
-			$compelete[$key]['status']				= $status;
-		}
-=======
-		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
->>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
-
-		$search 									= ['organisationid' => Session::get('user.organisation')];
-
+		$data = json_decode(json_encode($contents->data), true);
+		$paginator = new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+		$search = ['organisationid' => Session::get('user.organisation')];
 		if(Input::has('branch'))
 		{
-			$search['name']							= Input::get('branch');
-			$search['DisplayDepartments']			= '';
+		$search['name'] = Input::get('branch');
+		$search['DisplayDepartments'] = '';
 		}
-
-		$sort 										= ['name' => 'asc'];
-
-		$results_2 									= API::branch()->index(1, $search, $sort);
-
-		$contents_2 								= json_decode($results_2);
-
+		$sort = ['name' => 'asc'];
+		$results_2 = API::branch()->index(1, $search, $sort);
+		$contents_2 = json_decode($results_2);
 		if(!$contents_2->meta->success)
 		{
-			App::abort(404);
+		App::abort(404);
 		}
-<<<<<<< HEAD
-		
-		$branches 									= json_decode(json_encode($contents_2->data), true);
-
-		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= ucwords('Generate Wages Report');
-
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.wages.index');
-		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= $compelete;
-		$this->layout->content->status 		 		= $currentstatus;
-		$this->layout->content->branches 			= $branches;
-
-		return $this->layout;
-=======
-
-		$case 										= Input::get('case');
-
-		Excel::create('Attendance Reports', function($excel) use ($data, $case) {			
-		    // Set the title
-		    $excel->setTitle('Our new awesome title');
-		    // Call them separately
-		    $excel->setDescription('A demonstration to change the file properties');
-
-		    $excel->sheet('Sheetname', function ($sheet) use ($data, $case) {
-		    	$c = count($data);
-			    $sheet->setBorder('A1:J'.($c+2), 'thin');
-			    $sheet->setWidth(['A' => 30, 'B' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14]);
-				$sheet->loadView('admin.pages.reports.attendance.template_csv')->with('data', $data)->with('case', $case);
-		    });
-
+		$case = Input::get('case');
+		Excel::create('Attendance Reports', function($excel) use ($data, $case) {
+		// Set the title
+		$excel->setTitle('Our new awesome title');
+		// Call them separately
+		$excel->setDescription('A demonstration to change the file properties');
+		$excel->sheet('Sheetname', function ($sheet) use ($data, $case) {
+		$c = count($data);
+		$sheet->setBorder('A1:J'.($c+2), 'thin');
+		$sheet->setWidth(['A' => 30, 'B' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14]);
+		$sheet->loadView('admin.pages.reports.attendance.template_csv')->with('data', $data)->with('case', $case);
+		});
 		})->export('xls');
->>>>>>> 9a71a06796309a8c003774e704ec896fbe752aed
+	}
+
+	function getWages($page = null)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('start'))
+		{
+		list($d,$m,$y) = explode('/', Input::get('start'));
+		$start = "$y-$m-$d";
+		list($d,$m,$y) = explode('/', Input::get('end'));
+		$end = "$y-$m-$d";
+		$search = ['quotas' => ['ondate'=> [$start, $end]]];
+		}
+		else
+		{
+		$search = ['quotas' => ['ondate'=> '']];
+		}
+		$sort = ['persons.id' => 'desc'];
+		if(Input::has('case'))
+		{
+		switch (Input::get('case'))
+		{
+		case 'late':
+		$search['late'] = true;
+		$sort = ['margin_start' => 'asc'];
+		break;
+		case 'ontime':
+		$search['ontime'] = true;
+		$sort = ['margin_start' => 'desc'];
+		break;
+		case 'earlier':
+		$search['earlier'] = true;
+		$sort = ['margin_end' => 'asc'];
+		break;
+		case 'overtime':
+		$search['overtime'] = true;
+		$sort = ['margin_end' => 'desc'];
+		break;
+		default:
+		App::abort('404');
+		break;
+		}
+		}
+		if(Input::has('branch'))
+		{
+		$search['branchname'] = Input::get('branch');
+		}
+		if(Input::has('tag'))
+		{
+		$search['charttag'] = Input::get('tag');
+		}
+		$results = API::person()->index($page, $search, $sort, true);
+		$contents = json_decode($results);
+		if(!$contents->meta->success)
+		{
+		App::abort(404);
+		}
+		$data = json_decode(json_encode($contents->data), true);
+		unset($search);
+		foreach ($data as $key => $value)
+		{
+		$ids[] = $value['id'];
+		}
+		$search = ['minusquotas' => ['ondate'=> [$start, $end], 'ids' => $ids]];
+		$sort = ['persons.id' => 'desc'];
+		$results = API::person()->index($page, $search, $sort, true);
+		$contents = json_decode($results);
+		if(!$contents->meta->success)
+		{
+		App::abort(404);
+		}
+		$data2 = json_decode(json_encode($contents->data), true);
+		$currentstatus = [];
+		foreach ($data as $key => $value)
+		{
+		$minus = 0;
+		$status = null;
+		foreach ($data2 as $key2 => $value2)
+		{
+		if($value2['person_id']==$value['id'])
+		{
+		$status[$value2['status']] = $value2['minus_quota'];
+		$minus = $minus + $value2['minus_quota'];
+		if(!in_array($value2['status'], $currentstatus))
+		{
+		$currentstatus[] = $value2['status'];
+		}
+		}
+		}
+		$compelete[$key] = $value;
+		$compelete[$key]['minus_quota'] = $minus;
+		$compelete[$key]['residue_quota'] = $compelete[$key]['quota'] + $compelete[$key]['plus_quota'] - $compelete[$key]['minus_quota'];
+		$compelete[$key]['status'] = $status;
+		}
+		$search = ['organisationid' => Session::get('user.organisation')];
+		if(Input::has('branch'))
+		{
+		$search['name'] = Input::get('branch');
+		$search['DisplayDepartments'] = '';
+		}
+		$sort = ['name' => 'asc'];
+		$results_2 = API::branch()->index(1, $search, $sort);
+		$contents_2 = json_decode($results_2);
+		if(!$contents_2->meta->success)
+		{
+		App::abort(404);
+		}
+		$branches = json_decode(json_encode($contents_2->data), true);
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title = ucwords('Generate Wages Report');
+		$this->layout->content = view('admin.pages.'.$this->controller_name.'.wages.index');
+		$this->layout->content->controller_name = $this->controller_name;
+		$this->layout->content->data = $compelete;
+		$this->layout->content->status = $currentstatus;
+		$this->layout->content->branches = $branches;
+		return $this->layout;
 	}
 }
