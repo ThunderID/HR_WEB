@@ -13,7 +13,17 @@ Route::group(['prefix' => 'api'], function(){
 	Route::post('/fp/new/finger', 				['as' => 'hr.api.fp.enroll', 			'uses' => '\ThunderID\Finger\Controllers\FingerController@store']);
 	
 	Route::post('/fp/sync/finger', 				['as' => 'hr.api.fp.sync', 				'uses' => '\ThunderID\Finger\Controllers\FingerController@update']);
+	
+	Route::post('/fp/random/finger', 			['as' => 'hr.api.fp.random', 			'uses' => '\ThunderID\Finger\Controllers\FingerController@random']);
 
+});
+
+Route::get('test/random', function()
+{
+	$api 										= new \App\APIConnector\OUTENGINE\API;
+	$input['application'] 						= ['api' => ['client' => '123456789', 'secret' => '123456789', 'email' => 'hr@thunderid.com', 'password' => 'admin']];
+
+	return $api->runPost($api->basic_url . 'api/fp/random/finger', $input);
 });
 
 Route::get('test/tracker', function()
