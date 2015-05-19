@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class ReportController extends Controller {
 
-	protected $controller_name = 'attendance';
+	protected $controller_name = 'reports';
 
 	function __construct() 
 	{
@@ -120,7 +120,7 @@ class ReportController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= ucwords('Generate Attendance Report');
 
-		$this->layout->content 						= view('admin.pages.reports.'.$this->controller_name.'.index');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.attendance.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
@@ -211,7 +211,7 @@ class ReportController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= ucwords('Generate Attendance Report');
 
-		$this->layout->content 						= view('admin.pages.reports.'.$this->controller_name.'.show');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.attendance.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
@@ -225,7 +225,7 @@ class ReportController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= ucwords('Generate Report');
 
-		$this->layout->content 						= view('admin.pages.reports.'.$this->controller_name.'.form');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.attendance.form');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= null;
 
@@ -237,13 +237,13 @@ class ReportController extends Controller {
 		// ---------------------- LOAD DATA ----------------------
 		if(Input::has('start'))
 		{
-			$search 								= ['global' => true,'WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
+			$search 								= ['WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
 		}
 		else
 		{
-			$search 								= ['global' => true,'WithAttributes' => ['person']];
+			$search 								= ['WithAttributes' => ['person']];
 		}
-		$sort 										= [];
+		$sort 										= ['person_id' => 'desc'];
 
 		if(Input::has('case'))
 		{
@@ -251,19 +251,15 @@ class ReportController extends Controller {
 			{
 				case 'late':
 					$search['late']					= true;
-					$sort 							= ['margin_start' => 'asc'];
 					break;
 				case 'ontime':
 					$search['ontime']				= true;
-					$sort 							= ['margin_start' => 'desc'];
 					break;
 				case 'earlier':
 					$search['earlier']				= true;
-					$sort 							= ['margin_end' => 'asc'];
 					break;
 				case 'overtime':
 					$search['overtime']				= true;
-					$sort 							= ['margin_end' => 'desc'];
 					break;
 				default:
 					App::abort('404');
@@ -317,10 +313,150 @@ class ReportController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= ucwords('Generate Attendance Report');
 
-		$this->layout->content 						= view('admin.pages.reports.'.$this->controller_name.'.index');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.attendance.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
+		$this->layout->content->branches 			= $branches;
+
+		return $this->layout;
+	}
+
+	function getWages($page = null)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('start'))
+		{
+			list($d,$m,$y) 							= explode('/', Input::get('start'));
+			$start 									= "$y-$m-$d";
+			list($d,$m,$y) 							= explode('/', Input::get('end'));
+			$end 									= "$y-$m-$d";
+
+			$search 								= ['quotas' => ['ondate'=> [$start, $end]]];
+		}
+		else
+		{
+			$search 								= ['quotas' => ['ondate'=> '']];
+		}
+		$sort 										= ['persons.id' => 'desc'];
+
+		if(Input::has('case'))
+		{
+			switch (Input::get('case')) 
+			{
+				case 'late':
+					$search['late']					= true;
+					$sort 							= ['margin_start' => 'asc'];
+					break;
+				case 'ontime':
+					$search['ontime']				= true;
+					$sort 							= ['margin_start' => 'desc'];
+					break;
+				case 'earlier':
+					$search['earlier']				= true;
+					$sort 							= ['margin_end' => 'asc'];
+					break;
+				case 'overtime':
+					$search['overtime']				= true;
+					$sort 							= ['margin_end' => 'desc'];
+					break;
+				default:
+					App::abort('404');
+				break;
+			}
+		}
+
+		if(Input::has('branch'))
+		{
+			$search['branchname'] 					= Input::get('branch');
+		}
+
+		if(Input::has('tag'))
+		{
+			$search['charttag'] 					= Input::get('tag');
+		}
+
+		$results 									= API::person()->index($page, $search, $sort, true);
+		
+		$contents 									= json_decode($results);
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		unset($search);
+		foreach ($data as $key => $value) 
+		{
+			$ids[]									= $value['id'];
+		}
+
+		$search 									= ['minusquotas' => ['ondate'=> [$start, $end], 'ids' => $ids]];
+	
+		$sort 										= ['persons.id' => 'desc'];
+		
+		$results 									= API::person()->index($page, $search, $sort, true);
+		
+		$contents 									= json_decode($results);
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}	
+		$data2 										= json_decode(json_encode($contents->data), true);
+		
+		$currentstatus 								= [];
+
+		foreach ($data as $key => $value) 
+		{
+			$minus 									= 0;
+			$status 								= null;
+			foreach ($data2 as $key2 => $value2) 
+			{
+				if($value2['person_id']==$value['id'])
+				{
+					$status[$value2['status']]		= $value2['minus_quota'];
+					$minus 							= $minus + $value2['minus_quota'];
+					if(!in_array($value2['status'], $currentstatus))
+					{
+						$currentstatus[] 			= $value2['status'];
+					}
+				}
+			}
+			$compelete[$key]						= $value;
+			$compelete[$key]['minus_quota']			= $minus;
+			$compelete[$key]['residue_quota']		= $compelete[$key]['quota'] + $compelete[$key]['plus_quota'] - $compelete[$key]['minus_quota'];
+			$compelete[$key]['status']				= $status;
+		}
+
+		$search 									= ['organisationid' => Session::get('user.organisation')];
+
+		if(Input::has('branch'))
+		{
+			$search['name']							= Input::get('branch');
+			$search['DisplayDepartments']			= '';
+		}
+
+		$sort 										= ['name' => 'asc'];
+
+		$results_2 									= API::branch()->index(1, $search, $sort);
+
+		$contents_2 								= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
+		{
+			App::abort(404);
+		}
+		
+		$branches 									= json_decode(json_encode($contents_2->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= ucwords('Generate Wages Report');
+
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.wages.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $compelete;
+		$this->layout->content->status 		 		= $currentstatus;
 		$this->layout->content->branches 			= $branches;
 
 		return $this->layout;

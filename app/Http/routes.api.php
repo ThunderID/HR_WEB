@@ -47,7 +47,7 @@ Route::get('test/finger', function()
 {
 	$api 										= new \App\APIConnector\OUTENGINE\API;
 
-	$json										= '{"application":{"api":{"client":"123456789","secret":"123456789"}},"person":{"id":"1","email":"hr@thunderid.com"},"template":[["hr@thunderisd.com","1","1","1","","","","","","",""]]}';
+	$json										= '{"application":{"api":{"client":"123456789","secret":"123456789"}},"person":{"id":"1","email":"hr@thunderid.com"},"template":[["hr@thunderid.com","1","null","","","","","","","",""]]}';
 
 	$new 										= json_decode($json);
 

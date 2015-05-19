@@ -204,8 +204,10 @@ class RouteServiceProvider extends ServiceProvider {
 
 							'hr.report.attendance.get'						=> '8',
 							'hr.report.performance.get'						=> '8',
+							'hr.report.wages.get'							=> '8',
 							'hr.report.attendance.detail'					=> '8',
 							'hr.report.attendance.post'						=> '8',
+							'hr.report.wages.post'							=> '8',
 							'hr.report.performance.post'					=> '8',
 
 							'hr.schedule.list'								=> '6',

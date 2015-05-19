@@ -8,7 +8,7 @@
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<header>
-				<h3>Attendance Report</h3>
+				<h3>Report</h3>
 			</header>
 		</div>
 		<div class="card-body">
@@ -16,6 +16,8 @@
 				{!! Form::open(array('route' => ['hr.report.attendance.post', 'page' => 1], 'class' => 'form', 'method' => 'get')) !!}
 			@elseif(Route::currentRouteName()=='hr.report.performance.get')
 				{!! Form::open(array('route' => ['hr.report.performance.post', 'page' => 1], 'class' => 'form', 'method' => 'get')) !!}
+			@elseif(Route::currentRouteName()=='hr.report.wages.get')
+				{!! Form::open(array('route' => ['hr.report.wages.post', 'page' => 1], 'class' => 'form', 'method' => 'get')) !!}
 			@endif
 				<div class="form-group">
 					<div class="input-daterange input-group">

@@ -39,6 +39,7 @@ abstract class Controller extends BaseController {
 
 			$nav->add('report', 'Report', 'javascript:;', 'fa fa-copy');
 			$nav->add('report_attendance', 'Attendance', route('hr.report.attendance.get'), null, 'report');
+			$nav->add('report_wages', 'Wages', route('hr.report.wages.get'), null, 'report');
 			// $nav->add('report_performance', 'Performance', route('hr.report.performance.get'), null, 'report');
 
 
