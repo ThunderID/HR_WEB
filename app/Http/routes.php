@@ -636,6 +636,10 @@ Route::group(['prefix' => 'cms'], function(){
 		Route::get('/performance', 							[	'as' 	=> 'hr.report.performance.get', 	'uses' 	=> 'ReportController@getForm']);
 		
 		Route::get('/performance/generate/{page}', 			[	'as' 	=> 'hr.report.performance.post', 	'uses' 	=> 'ReportController@getPerformance']);
+
+		Route::get('/wages', 								[	'as' 	=> 'hr.report.wages.get', 			'uses' 	=> 'ReportController@getForm']);
+	
+		Route::get('/wages/generate/{page}', 				[	'as' 	=> 'hr.report.wages.post', 			'uses' 	=> 'ReportController@getWages']);
 	});
 
 	/* ---------------------------------------------------------------------------- END DASHBOARD ----------------------------------------------------------------------------*/
