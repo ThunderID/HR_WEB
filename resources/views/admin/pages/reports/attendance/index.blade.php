@@ -65,6 +65,9 @@
 						<span class="text-light text-lg">
 							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif
 						</span>
+						<div class="pull-right">
+							<a href="{{ route('hr.report.attendance.csv', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a>
+						</div>
 						<div class="btn-group btn-group-sm pull-right">
 							@if (Input::get('q'))
 								<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end')]) }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
@@ -89,9 +92,9 @@
 						<thead>
 							<tr>
 								<th rowspan="2">Nama</th>
-								<th rowspan="2">Tanggal</th>
-								<th colspan="2">In</th>
-								<th colspan="2">Out</th>
+								<th class="text-center" rowspan="2">Tanggal</th>
+								<th class="text-center" colspan="2">In</th>
+								<th class="text-center" colspan="2">Out</th>
 								<th rowspan="2">Total Idle</th>
 								<th rowspan="2">Total Sleep</th>
 								<th rowspan="2">Total Active</th>
@@ -102,16 +105,16 @@
 								@endif
 							</tr>
 							<tr>
-								<th>
+								<th class="text-center">
 									FP
 								</th>
-								<th>
+								<th class="text-center">
 									TR
 								</th>
-								<th>
+								<th class="text-center">
 									FP
 								</th>
-								<th>
+								<th class="text-center">
 									TR
 								</th>
 							</tr>
