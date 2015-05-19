@@ -11,8 +11,8 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. There is new function. Please run composer update and import databases (please check your mail)
-2. There is new package (finger). Please run composer update first! Update for enroll and sync finger see below
+1. Please run composer update first! Update for random finger see below
+2. There is new function. Please run composer update and import databases (please check your mail)
 3. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed.
 4. Add new controller for authentication setting
 5. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2
@@ -20,6 +20,19 @@
 7. Please check app/Http/routes.api.php for test api, for test api running in primary port
 
 ## 	API For Foreign Ware
+### Random for fp
+1. Route : 
+			URL 			=> (base_url)/api/fp/random/finger/
+			Method			=> POST
+			Format 			=> Json
+			Variable Input 	=> 
+								[
+									'application'	=> ['api' => ['client' => '123456789', 'secret' => '123456789']
+								]
+			Return Format 	=> JSON
+			Variable Return	=> message
+			Status Return 	=> 200 (ok) or 500 (error), 404 (not found)
+
 ### Enroll for fp
 1. Route : 
 			URL 			=> (base_url)/api/fp/new/finger/
