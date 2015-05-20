@@ -59,7 +59,7 @@
 				<div class="col-sm-8 col-md-9 col-lg-10">
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">
-							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif
+							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif  per ({{date('d-m-Y', strtotime($start))}} s/d {{date('d-m-Y', strtotime($end))}})
 						</span>
 						<div class="btn-group btn-group-sm pull-right">
 							@if (Input::get('q'))
