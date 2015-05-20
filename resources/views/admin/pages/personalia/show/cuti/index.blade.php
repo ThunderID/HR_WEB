@@ -5,7 +5,7 @@
 	</ul>
 	<div class="page-header no-border holder" style="margin-top:0px;">
 		<br/>
-		<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#workleaveCreate" data-id="0">Tambah Data</button>
+		<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#workleaveCreate" data-id="0" data-workleave-default="0">Tambah Data</button>
 	</div>
 	<div class="tab-content">
 		<div class="tab-pane active" id="details">
@@ -24,6 +24,14 @@
 											<span class="opacity-50">{{date("l, d F Y", strtotime($value['start']))}} - {{date("l, d F Y", strtotime($value['end']))}}</span><br/>
 										</span>
 									</p>
+									<div class="pull-right">
+										<a href="javascript:;" class="btn btn-icon-toggle edit_person_workleave" title="Edit" data-toggle="modal" data-target="#workleaveCreate" data-id="{{ $value['id'] }}" data-workleave-id="{{ $value['workleave_id'] }}" data-workleave-name="{{ $value['workleave']['name'] }}" data-workleave-quota="{{ $value['workleave']['quota'] }}" data-workleave-start="{{ date('d-m-Y', strtotime($value['start'])) }}" data-workleave-end="{{ date('d-m-Y', strtotime($value['end'])) }}" data-workleave-default="{{ $value['is_default'] }}">
+											<i class="fa fa-pencil"></i>
+										</a>
+										<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_workleave_modal" data-delete-action="{{ route('hr.persons.workleaves.delete', ['person_id' => $value['person_id'], 'id' => $value['id']]) }}">
+											<i class="fa fa-trash"></i>
+										</a>
+									</div>
 								</div>
 							</div><!--end .row -->
 						@endforeach
@@ -48,7 +56,7 @@
 	{!! Form::close() !!}	
 	
 	{!! Form::open(array('route' => array('hr.persons.workleaves.delete', 0, 0),'method' => 'POST')) !!}
-		<div class="modal fade modalScheduleDelete" id="del_workleave_modal" tabindex="-1" role="dialog" aria-labelledby="del_workleave_modal" aria-hidden="true">
+		<div class="modal fade modalWorkleaveDelete" id="del_workleave_modal" tabindex="-1" role="dialog" aria-labelledby="del_workleave_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	
 	{!! Form::close() !!}	
@@ -68,40 +76,35 @@
 		var cal_height 	= 500;
 
 		// modal workleave
-		$('.modalSchedule').on('show.bs.modal', function(e) {
-			var id 				= $(e.relatedTarget).attr('data-id');
-			var title 			= $(e.relatedTarget).attr('data-title');
-			var date_start 		= $(e.relatedTarget).attr('data-date');
-			var date_end 		= $(e.relatedTarget).attr('data-date');
-			var start 			= $(e.relatedTarget).attr('data-start');
-			var end 			= $(e.relatedTarget).attr('data-end');
-			var status 			= $(e.relatedTarget).attr('data-status');
-			var delete_action	= $(e.relatedTarget).attr('data-delete-action');
-
+		$('.modalWorkleave').on('show.bs.modal', function(e) {
+			var id 					= $(e.relatedTarget).attr('data-id');
+			var workleave_id 		= $(e.relatedTarget).attr('data-workleave-id');
+			var workleave_name 		= $(e.relatedTarget).attr('data-workleave-name');
+			var workleave_quota 	= $(e.relatedTarget).attr('data-workleave-quota');
+			var workleave_start 	= $(e.relatedTarget).attr('data-workleave-start');
+			var workleave_end 		= $(e.relatedTarget).attr('data-workleave-end');
+			var workleave_default 	= $(e.relatedTarget).attr('data-workleave-default');			
 
 			if (id != 0) 
 			{
-				$('.modal_workleave_id').val(id);
-				$('.modal_workleave_name').val(title);
-				$('.modal_workleave_start').val(start);
-				$('.modal_workleave_end').val(end);
-				$('.modal_workleave_btn_del').attr('data-delete-action', delete_action);
-				$('.modal_workleave_btn_del').removeClass('hide');
-				$(this).find('.modal_workleave_btn_save').text('Edit');
+				$('.modal_workleave_id').val(id);				
+				$('.modal_workleave').select2('data', { id: workleave_id, text: workleave_name+' : '+workleave_quota+' hari'});
+				$('.modal_workleave_start').val(workleave_start);
+				$('.modal_workleave_end').val(workleave_end);								
+				$('.modal_is_default').attr('checked', true);				
 			}
 			else
-			{
-				$('.modal_workleave_id').val(null);
-				$('.modal_workleave_name').val('');
+			{				
+				$('.modal_workleave_id').val(null);				
+				$('.modal_workleave').select2("val", "");
 				$('.modal_workleave_start').val('');
 				$('.modal_workleave_end').val('');
-				$('.modal_workleave_btn_del').addClass('hide');
-				$(this).find('.modal_workleave_btn_save').text('Tambah');
+				$('.modal_is_default').attr('checked', false);				
 			}
 		});
 		
 		// modal delete
-		$('.modalScheduleDelete').on('show.bs.modal', function(e) {
+		$('.modalWorkleaveDelete').on('show.bs.modal', function(e) {
 			var action 		= $(e.relatedTarget).attr('data-delete-action');
 			$(this).parent().attr('action', action);
 		});
