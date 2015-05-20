@@ -299,8 +299,9 @@
 				data: 'term='+chart_id,
 				success: function (data){
 					console.log(chart_id);
-					for (var i=0;i<data.length;i++) {
-						select += '<option value="'+data[i].id+'">'+data[i].id+'</option>';
+					for (var i=0;i<data.length;i++) 
+					{
+						select += '<option value="'+data[i].calendar['id']+'">'+data[i].calendar['name']+'</option>';
 					}
 					$('#getCalendar').html(select);
 				}

@@ -85,6 +85,7 @@ class WorkController extends Controller {
 				list($d,$m,$y) 						= explode('/', Input::get('work_start'));
 				$start 								= "$y-$m-$d";
 				$chart['start'] 					= date("Y-m-d", strtotime($start));
+				$chart['calendar_id'] 				= Input::get('calendar');
 
 				if(Input::get('work_organisation') && Input::get('work_position') != null)
 				{
