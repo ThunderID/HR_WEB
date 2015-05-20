@@ -22,7 +22,7 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<input name="workleave" id="workleave" class="form-control getWorkleave">
+								<input name="workleave" id="workleave" class="form-control getWorkleave modal_workleave">
 								<label for="item[1]">Cuti</label>
 							</div>
 						</div>
@@ -30,12 +30,12 @@
 							<div class="form-group">
 								<div class="input-daterange input-group">
 									<div class="input-group-content">
-										{!! Form::input('text', 'start', null, ['class' => 'form-control modal_workleave_date_start date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
+										{!! Form::input('text', 'start', null, ['class' => 'form-control modal_workleave_start date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
 										<label>Tanggal</label>
 									</div>
 									<span class="input-group-addon">to</span>
 									<div class="input-group-content">
-										{!! Form::input('text', 'end', null, ['class' => 'form-control modal_workleave_date_end date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
+										{!! Form::input('text', 'end', null, ['class' => 'form-control modal_workleave_end date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
 										<div class="form-control-line"></div>
 									</div>									
 								</div>
@@ -48,8 +48,9 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="checkbox checkbox-styled">
-									<input type="checkbox" name="is_default" class="modal_is_default">
-									<label for="is_default">Hak Cuti</label>
+									<label class="checkbox-inline checkbox-styled">
+										<input type="checkbox" name="is_default" class="modal_is_default"><span>Hak Cuti</span>
+									</label>									
 								</div>
 							</div>
 						</div>

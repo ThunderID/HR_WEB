@@ -55,9 +55,9 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'thunder_hr_check',
+			'database'  => 'hr_thunder_check',
 			'username'  => 'root',
-			'password'  => 'vortege',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => 'hr_',
