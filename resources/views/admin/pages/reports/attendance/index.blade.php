@@ -95,9 +95,9 @@
 								<th class="text-center" rowspan="2">Tanggal</th>
 								<th class="text-center" colspan="2">In</th>
 								<th class="text-center" colspan="2">Out</th>
-								<th rowspan="2">Total Idle</th>
-								<th rowspan="2">Total Sleep</th>
-								<th rowspan="2">Total Active</th>
+								<th class="text-center" rowspan="2">Total Idle</th>
+								<th class="text-center" rowspan="2">Total Sleep</th>
+								<th class="text-center" rowspan="2">Total Active</th>
 								@if(Input::has('case') && Input::get('case')!='ontime')
 									<th rowspan="2"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
 								@else

@@ -642,6 +642,9 @@ Route::group(['prefix' => 'cms'], function(){
 		Route::get('/wages', 								[	'as' 	=> 'hr.report.wages.get', 			'uses' 	=> 'ReportController@getForm']);
 	
 		Route::get('/wages/generate/{page}', 				[	'as' 	=> 'hr.report.wages.post', 			'uses' 	=> 'ReportController@getWages']);
+
+		Route::get('/wages/csv/{page}', 					[	'as' 	=> 'hr.report.wages.csv', 			'uses' 	=> 'ReportController@getWagesCSV']);
+
 	});
 
 	/* ---------------------------------------------------------------------------- END REPORT ----------------------------------------------------------------------------*/

@@ -61,6 +61,9 @@
 						<span class="text-light text-lg">
 							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif
 						</span>
+						<div class="pull-right">
+							<a href="{{ route('hr.report.wages.csv', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a>
+						</div>
 						<div class="btn-group btn-group-sm pull-right">
 							@if (Input::get('q'))
 								<a href="{{ route('hr.report.wages.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end')]) }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
@@ -85,11 +88,11 @@
 						<thead>
 							<tr>
 								<th rowspan="2">Nama</th>
-								<th rowspan="2">Hak Cuti</th>
-								<th colspan="{{count($status)}}">Pengurang Cuti</th>
-								<th rowspan="2">Penambah Cuti</th>
-								<th rowspan="2">Sisa Cuti</th>
-								<th rowspan="2">Faktor <br/>Pengurang <br/>Gaji</th>
+								<th class="text-center" rowspan="2">Hak Cuti</th>
+								<th class="text-center" colspan="{{count($status)}}">Pengurang Cuti</th>
+								<th class="text-center" rowspan="2">Penambah Cuti</th>
+								<th class="text-center" rowspan="2">Sisa Cuti</th>
+								<th class="text-center" rowspan="2">Faktor <br/>Pengurang <br/>Gaji</th>
 							</tr>
 							<tr>
 								@foreach($status as $key2 => $value2)
@@ -106,7 +109,7 @@
 									<td>
 										{{$value['name']}}
 									</td>
-									<td>
+									<td class="text-center">
 										{{$value['quota']}}
 									</td>
 									@foreach($status as $key2 => $value2)
@@ -119,7 +122,7 @@
 											{{$value['plus_quota']}}
 										@endif
 									</td>
-									<td>
+									<td class="text-center">
 										{{$value['residue_quota']}}
 									</td>
 									<td>

@@ -1,0 +1,108 @@
+<html> 
+<body> 	
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th rowspan="2" style="vertical-align:middle">Nama</th>
+				<th rowspan="2" style="text-align:center; vertical-align:middle">Tanggal</th>
+				<th colspan="2" style="text-align:center; height:18px">In</th>
+				<th colspan="2" style="text-align:center; height:18px">Out</th>
+				<th rowspan="2" style="text-align:center; vertical-align:middle">Total Idle</th>
+				<th rowspan="2" style="text-align:center; vertical-align:middle">Total Sleep</th>
+				<th rowspan="2" style="text-align:center; vertical-align:middle">Total Active</th>               
+				@if($case && $case!='ontime')
+					<th rowspan="2" style="text-align:center; vertical-align:middle"> {{ ucwords($case) }} <br/> (Hi - Lo) </th>
+				@else
+					<th rowspan="2"> </th>
+				@endif
+			</tr>
+			<tr>
+				<th></th>
+				<th></th>
+				<th style="text-align:center; height:18px">FP</th>
+				<th style="text-align:center; height:18px">TR</th>
+				<th style="text-align:center; height:18px">FP</th>
+				<th style="text-align:center; height:18px">TR</th>
+			</tr>
+		</thead>
+		<tbody>			
+			<?php $prev = 0;?>
+			@foreach($data as $key => $value)
+				<tr style="height:15px">
+					<td>
+						@if($value['person_id']!=$prev)
+							{{ $value['person']['name'] }}
+							<?php $prev = $value['person_id'];?>
+						@else
+							<?php $prev = $value['person_id'];?>
+						@endif
+					</td>
+					<td style="text-align:center">
+						@if($value['has_schedule'])
+							<span class ="badge style-info text-sm">
+								{{ date('Y-m-d', strtotime($value['on'])) }} 
+							</span>
+						@else
+							<span class ="badge style-warning text-sm">
+								{{ date('Y-m-d', strtotime($value['on'])) }}
+							</span>
+						@endif
+					</td>	
+					<td style="text-align:center">
+						{{ date("H:i:s", strtotime($value['fp_start'])) }}
+					</td>
+					<td style="text-align:center">
+						{{ date("H:i:s", strtotime($value['start'])) }}
+					</td>
+					<td style="text-align:center">
+						{{ date("H:i:s", strtotime($value['fp_end'])) }}
+					</td>
+					<td style="text-align:center">
+						{{ date("H:i:s", strtotime($value['end'])) }}
+					</td>
+					<td style="text-align:center">
+						{{ gmdate("H:i:s", $value['total_idle']) }}
+					</td>
+					<td style="text-align:center">
+						{{ gmdate("H:i:s", $value['total_sleep']) }}
+					</td>
+					<td style="text-align:center">
+						{{ gmdate("H:i:s", $value['total_active']) }}
+					</td>					
+					@if($case && $case!='ontime')
+						<td style="text-align:center">
+							<?php 
+								switch ($case) 
+								{
+									case 'late':
+										$margin = 0 - ($value['margin_start']);
+										break;
+									case 'ontime':
+										$margin = null;
+										break;
+									case 'earlier':
+										$margin = 0 - ($value['margin_end']);
+										break;
+									case 'overtime':
+										$margin = ($value['margin_end']);
+										break;
+									default:
+										$margin = null;
+										break;
+								}
+							?>
+							{{ gmdate("H:i:s", $margin) }}
+						</td>
+					@else
+						<td>
+							@foreach($value['notes'] as $key2 => $value2)
+								{{ $value2 }}
+							@endforeach
+						</td>
+					@endif					
+				</tr>
+			@endforeach 
+		</tbody>
+	</table> 
+</body> 
+</html>
