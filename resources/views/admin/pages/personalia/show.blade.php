@@ -28,7 +28,7 @@
 				<div class="hbox-column col-md-2" id="sidebar_left">
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary" style="text-transform: uppercase;">CATEGORIES</li>
-						<li @if(!Input::has('tag') && !isset($contacts) && !isset($relatives) && !isset($works) && !isset($schedules)) class="active" @endif>
+						<li @if(!Input::has('tag') && !isset($workleaves) && !isset($contacts) && !isset($relatives) && !isset($works) && !isset($schedules)) class="active" @endif>
 							<a href="{{route('hr.persons.show', [$data['id']])}}">Profil 
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
@@ -42,6 +42,11 @@
 						</li>
 						<li @if(isset($schedules)) class="active" @endif>
 							<a href="{{route('hr.persons.schedules.index', [$data['id']])}}"> Jadwal 
+							<small class="pull-right text-bold opacity-75"></small></a>
+						</li>
+
+						<li @if(isset($workleaves)) class="active" @endif>
+							<a href="{{route('hr.persons.workleaves.index', [$data['id']])}}"> Cuti 
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 					</ul>

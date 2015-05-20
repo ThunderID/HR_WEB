@@ -202,6 +202,10 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.persons.schedules.store'					=> '7',
 							'hr.persons.schedules.delete'					=> '7',
 
+							'hr.persons.workleaves.index'					=> '7',
+							'hr.persons.workleaves.store'					=> '7',
+							'hr.persons.workleaves.delete'					=> '7',
+
 							'hr.report.attendance.get'						=> '8',
 							'hr.report.performance.get'						=> '8',
 							'hr.report.wages.get'							=> '8',

@@ -58,6 +58,30 @@ class AjaxController extends Controller {
 		return Response::json($contents->data);
 	}
 
+	function searchWorkleave()
+	{
+		$search 									= [];
+		if(Input::has('term'))
+		{
+			$search['name']							= Input::get('term');	
+		}
+
+		$search['organisationid']					= Session::get('user.organisation');	
+
+		$sort 										= ['created_at' => 'asc'];
+
+		$results 									= API::workleave()->index(1, $search, $sort, true);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			return Response::json(NULL,500);
+		}
+
+		return Response::json($contents->data);
+	}
+
 	function searchChart($id, $path=null)
 	{
 		$search 									= [];
