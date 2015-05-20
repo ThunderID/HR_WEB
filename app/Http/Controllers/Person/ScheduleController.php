@@ -82,7 +82,7 @@ class ScheduleController extends Controller {
 
 		//please make sure if the date is in range, make it as an array for every date => single date save in on
 		//consider the id
-		$schedule 									= Input::only('name', 'on', 'start', 'end', 'id', 'status');
+		$schedule 									= Input::only('name', 'on', 'start', 'end', 'id', 'status', 'is_affect_salary');
 		if(isset($schedule['id'])&&$schedule['id']==0)
 		{
 			unset($schedule['id']);
@@ -103,6 +103,16 @@ class ScheduleController extends Controller {
 		// $schedule['on']								= date('Y-m-d', strtotime($schedule['on']));
 		$schedule['start']							= date('H:i:s', strtotime($schedule['start']));
 		$schedule['end']							= date('H:i:s', strtotime($schedule['end']));
+		
+		if(is_null($schedule['is_affect_salary']))
+		{
+			$schedule['is_affect_salary']			= false;
+		}
+		else
+		{
+			$schedule['is_affect_salary']			= true;
+		}
+		
 		$input['schedules'][]						= $schedule;
 
 		$results 									= API::person()->scheduleStore($personid, $input);
