@@ -32,11 +32,9 @@ class WorkleaveController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$search['ondate'] 							= [Input::get('end'), Input::get('start')];
+		$search 									= ['organisationid' => Session::get('user.organisation')];
 
-		$search['withattributes'] 					= ['chart', 'chart.branch'];
-
-		$sort 										= ['apply' => 'asc'];
+		$sort 										= ['created_at' => 'asc'];
 
 		$results 									= API::workleave()->index($page, $search, $sort);
 
@@ -51,26 +49,26 @@ class WorkleaveController extends Controller {
 
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
-		$search 									= ['organisationid' => Session::get('user.organisation')];
+		// $search 									= ['organisationid' => Session::get('user.organisation')];
 
-		if(Input::has('branch'))
-		{
-			$search['name']							= Input::get('branch');
-			$search['DisplayDepartments']			= '';
-		}
+		// if(Input::has('branch'))
+		// {
+		// 	$search['name']							= Input::get('branch');
+		// 	$search['DisplayDepartments']			= '';
+		// }
 
-		$sort 										= ['name' => 'asc'];
+		// $sort 										= ['name' => 'asc'];
 
-		$results_2 									= API::branch()->index(1, $search, $sort);
+		// $results_2 									= API::branch()->index(1, $search, $sort);
 
-		$contents_2 								= json_decode($results_2);
+		// $contents_2 								= json_decode($results_2);
 
-		if(!$contents_2->meta->success)
-		{
-			App::abort(404);
-		}
+		// if(!$contents_2->meta->success)
+		// {
+		// 	App::abort(404);
+		// }
 		
-		$branches 									= json_decode(json_encode($contents_2->data), true);
+		// $branches 									= json_decode(json_encode($contents_2->data), true);
 
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper(($this->controller_name));
@@ -78,7 +76,7 @@ class WorkleaveController extends Controller {
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
-		$this->layout->content->branches 			= $branches;
+		// $this->layout->content->branches 			= $branches;
 		$this->layout->content->paginator 			= $paginator;
 
 		return $this->layout;
@@ -101,20 +99,9 @@ class WorkleaveController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['workleave'] 						= Input::only('name', 'quota');
 
-		list($d,$m,$y) 								= explode('/', Input::get('apply'));
-		$input['workleave']['apply']				= date('Y-m-d', strtotime("$y-$m-$d"));
-
-		list($d,$m,$y) 								= explode('/', Input::get('expired'));
-		$input['workleave']['expired']				= date('Y-m-d', strtotime("$y-$m-$d"));
-
 		$input['workleave']['id'] 					= $id;
 
-		//consider save many chart id
-		$charts 									= explode(',', Input::get('chart'));
-		foreach ($charts as $key => $value) 
-		{
-			$input['charts'][]						= ['chart_id' => $value];
-		}
+		$input['organisation']['id'] 				= Session::get('user.organisation');
 
 		$results 									= API::workleave()->store($id, $input);
 
@@ -130,7 +117,7 @@ class WorkleaveController extends Controller {
 	function getShow($id, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::workleave()->show($id);
+		$results 									= API::workleave()->show(Session::get('user.organisation'), $id);
 
 		$contents 									= json_decode($results);
 
@@ -140,8 +127,8 @@ class WorkleaveController extends Controller {
 		}
 
 		$data 										= json_decode(json_encode($contents->data), true);
-		
-		$search 									= ['workleave' => ['on' => [$data['apply'], $data['expired']], 'status' => 'workleave', 'chartid' => $data['chart_id']]];
+
+		$search 									= ['workleaveid' => $id, 'checkwork' => true, 'takenworkleave' => ['on' => ['first day of january this year', 'last day of december this year'], 'status' => 'workleave']];
 
 		if(Input::has('branch'))
 		{
@@ -158,16 +145,20 @@ class WorkleaveController extends Controller {
 			list($d,$m,$y) 							= explode('/', Input::get('start'));
 
 			$start 									= "$y-$m-$d";
-			$search['workleave'] 					= ['on' => [$start, $start], 'status' => 'workleave', 'chartid' => $data['chart_id']];
+			$search['checktakenworkleave'] 			= ['on' => [$start, $start], 'status' => 'workleave'];
+			$search['takenworkleave'] 				= ['on' => [$start, $start], 'status' => 'workleave'];
 
 			if(Input::has('end'))
 			{
 				list($d,$m,$y) 						= explode('/', Input::get('end'));
 
 				$end 								= "$y-$m-$d";
-				$search['workleave'] 				= ['on' => [$start, $end], 'status' => 'workleave', 'chartid' => $data['chart_id']];
+				$search['checktakenworkleave'] 		= ['on' => [$start, $end], 'status' => 'workleave'];
+				$search['takenworkleave'] 			= ['on' => [$start, $end], 'status' => 'workleave'];
 			}
 		}
+
+		$search['withattributes'] 					= ['works', 'works.branch'];
 
 		$sort 										= ['name' => 'asc'];
 
@@ -199,7 +190,7 @@ class WorkleaveController extends Controller {
 	function getEdit($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::workleave()->show($id);
+		$results 									= API::workleave()->show(Session::get('user.organisation'), $id);
 
 		$contents 									= json_decode($results);
 

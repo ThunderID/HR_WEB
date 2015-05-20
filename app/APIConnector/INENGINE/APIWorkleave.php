@@ -16,10 +16,10 @@ class APIWorkleave {
 		return $data->store($id, $attributes);
 	}
 
-	function show($id)
+	function show($org_id, $id)
 	{		
 		$data = new \ThunderID\Workleave\Controllers\WorkleaveController;
-		return $data->show($id);
+		return $data->show($org_id, $id);
 	}
 
 	function destroy($id)
