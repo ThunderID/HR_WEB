@@ -71,7 +71,7 @@
 					<div class="col-md-12">
 						<div class="row">
 							<div class="form-group">
-								<select name="calendar" id="getCalendar" class="form-control" tab-index="4">
+								<select name="calendar" id="getCalendar" class="form-control modal_calendar" tab-index="4">
 									<option value="">Pilih</option>
 								</select>
 								<label>Kalender</label>

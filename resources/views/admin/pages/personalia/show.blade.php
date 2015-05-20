@@ -224,7 +224,8 @@
 			var work_organisation		= $(e.relatedTarget).attr('data-work-organisation');
 			var work_company_path		= $(e.relatedTarget).attr('data-work-company-path');
 			var work_company_name 		= $(e.relatedTarget).attr('data-work-company-name');
-			var work_branch_name 		= $(e.relatedTarget).attr('data-work-branch-name'); 	
+			var work_branch_name 		= $(e.relatedTarget).attr('data-work-branch-name');
+			var work_calendar_id 		= $(e.relatedTarget).attr('data-work-calendar-id');	
 
 			if (typeof chart_id === "undefined"){
 				$('#tab_chart').removeClass('hide');
@@ -244,6 +245,31 @@
 				$('.modal_work_end').val(work_end);
 				$('.modal_reason_resign').val(reason_resign);
 				$('.modal_btn_work').text('Simpan');
+
+				var select = [];
+				$.ajax({
+					url: "{{ route('hr.ajax.follow') }}",
+					dataType: 'json',
+					data: 'term='+chart_id,
+					success: function (data){
+						if (data.length >= 1){
+							for (var i=0;i<data.length;i++) {
+								if (data[i].id===work_calendar_id) {
+									var ch = "checked='checked'";
+								}
+								else {
+									var ch = "checked=''";	
+								}
+
+								select += '<option value="'+data[i].id+'" '+ch+'>'+data[i].calendar.name+'</option>';
+							}						
+						}
+						else {
+							select += '<option vale="">Tidak ada calendar di chart ini</option>';
+						}
+						$('#getCalendar').html(select);
+					}
+				});
 			}
 			else
 			{
