@@ -64,8 +64,20 @@
 								{!! Form::input('text', 'end', null, ['class' => 'form-control modal_schedule_end time_mask']) !!}
 								<label for="value[1]">End</label>
 							</div>
-						</div>					
+						</div>
 					</div>					
+				</div>	
+				<div class="row">
+					<div class="tabs col-md-12  pt-20">
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="checkbox checkbox-styled">
+									<input type="checkbox" name="is_affect_salary" class="modal_is_affect_salary">
+									<label for="is_affect_salary">Faktor Pengurang Gaji</label>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>	
 			</div>			
 			<div class="modal-footer style-default-light">

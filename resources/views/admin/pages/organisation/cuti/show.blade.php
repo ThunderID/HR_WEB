@@ -33,7 +33,6 @@
 								<h1 class="text-light no-margin">{{$data['name']}}</h1>
 								<h5 class="pb-10 border-bottom">
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
-									<a href="{{route('hr.workleaves.show', [$data['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'branch' => $data['chart']['branch']['name'], 'chart' => $data['chart']['tag']])}}"><span class="badge style-info text-sm opacity-75 mt-5">{{$data['chart']['name']}} - {{$data['chart']['tag']}} - {{$data['chart']['branch']['name']}}</span></a>
 									<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data['quota']}}</span>
 								</h5>
 								<div class="pb-20">
@@ -61,6 +60,9 @@
 									<thead>
 										<tr>
 											<th>Nama</th>
+											<th>Posisi</th>
+											<th>Departmen</th>
+											<th>Kantor</th>
 											<th>Tanggal</th>
 										</tr>
 									</thead>
@@ -71,7 +73,16 @@
 													{{$value['name']}}
 												</td>
 												<td>
-													@foreach($value['workleaves'] as $key2 => $value2)
+													{{$value['works'][0]['name']}}
+												</td>
+												<td>
+													{{$value['works'][0]['tag']}}
+												</td>
+												<td>
+													{{$value['works'][0]['branch']['name']}}
+												</td>
+												<td>
+													@foreach($value['takenworkleaves'] as $key2 => $value2)
 														<span class="badge style-warning text-sm opacity-75 mt-5">{{date('d-m-Y',strtotime($value2['on']))}}</span>
 													@endforeach
 												</td>

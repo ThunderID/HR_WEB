@@ -61,9 +61,9 @@
 						@endforeach
 					@elseif(isset($data_content['chart']))
 						<span class="badge style-info text-sm opacity-75 mt-5">{{$data_content['chart']['name']}} - {{$data_content['chart']['tag']}} - {{$value['chart']['branch']['name']}}</span>
-						@if(isset($data_content['quota']))
-							<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$data_content['quota']}}</span>
-						@endif
+					@endif
+					@if(isset($data_content['quota']))
+						{{$data_content['quota']}} Hari
 					@endif
 				</div>
 			</div>

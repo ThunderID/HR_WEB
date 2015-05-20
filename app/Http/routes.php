@@ -609,6 +609,30 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 		/* ---------------------------------------------------------------------------- END PERSON SCHEDULES----------------------------------------------------------------------------*/
+
+		/* ---------------------------------------------------------------------------- PERSON WORKLEAVES ----------------------------------------------------------------------------*/
+		Route::get('show/{person_id}/workleaves/{page?}', 
+						[
+							'uses' 	=> 'Person\WorkleaveController@getIndex', 
+							'as' 	=> 'hr.persons.workleaves.index'
+						]
+					);
+
+		Route::post('{person_id}/workleaves/store/', 
+						[
+							'uses' 	=> 'Person\WorkleaveController@postStore', 
+							'as' 	=> 'hr.persons.workleaves.store'
+						]
+					);
+		
+		Route::any('show/{person_id}/workleaves/delete/{id}', 
+						[
+							'uses' 	=> 'Person\WorkleaveController@anyDelete', 
+							'as' 	=> 'hr.persons.workleaves.delete'
+						]
+					);
+
+		/* ---------------------------------------------------------------------------- END PERSON WORKLEAVES ----------------------------------------------------------------------------*/
 	});
 	/* ---------------------------------------------------------------------------- END PERSON ----------------------------------------------------------------------------*/
 
@@ -655,6 +679,8 @@ Route::group(['prefix' => 'cms'], function(){
 	Route::get('names/search', 								[	'as'	=> 'hr.ajax.name', 		'uses' => 'AjaxController@searchName']);
 
 	Route::get('company/search', 							[	'as' 	=> 'hr.ajax.company', 	'uses' => 'AjaxController@searchCompany']);
+	
+	Route::get('workleave/search', 							[	'as' 	=> 'hr.ajax.workleave', 'uses' => 'AjaxController@searchWorkleave']);
 	
 	Route::get('follow/search', 							[	'as'	=> 'hr.ajax.follow', 	'uses' => 'AjaxController@searchFollow']);
 

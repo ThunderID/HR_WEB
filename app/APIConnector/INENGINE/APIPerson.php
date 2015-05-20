@@ -99,4 +99,22 @@ class APIPerson {
 		$data = new \ThunderID\Schedule\Controllers\PersonScheduleController;
 		return $data->delete($personid, $id);
 	}
+
+	function workleaveIndex($page, $search, $sort)
+	{
+		$data = new \ThunderID\Workleave\Controllers\PersonWorkleaveController;
+		return $data->index($page, $search, $sort);
+	}
+
+	function workleaveStore($id, $attributes)
+	{		
+		$data = new \ThunderID\Workleave\Controllers\PersonWorkleaveController;
+		return $data->store($id, $attributes);
+	}
+
+	function workleaveDestroy($personid, $id)
+	{		
+		$data = new \ThunderID\Workleave\Controllers\PersonWorkleaveController;
+		return $data->delete($personid, $id);
+	}
 }

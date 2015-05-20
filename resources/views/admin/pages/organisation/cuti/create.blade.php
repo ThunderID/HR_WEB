@@ -34,29 +34,6 @@
 								</div>
 							</div><!--end .col -->
 						</div><!--end .row -->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-										{!! Form::input('text', 'apply', $data['apply'], ['class' => 'form-control modal_schedule_date_start date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
-									<label for="apply">Mulai Berlaku</label>
-								</div>
-							</div><!--end .col -->
-							<div class="col-md-6">
-								<div class="form-group">
-										{!! Form::input('text', 'expired', $data['expired'], ['class' => 'form-control modal_schedule_date_start date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
-									<label for="expired">Expire</label>
-								</div>
-							</div><!--end .col -->
-						</div><!--end .row -->	
-
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<input name="chart" id="chart" class="form-control getCompany">
-									<label for="chart">Posisi</label>
-								</div>
-							</div>
-						</div>				
 					</div>
 				</div>
 			</div>
@@ -68,45 +45,6 @@
 			</div>			
 		</form>
 	</div>
-@stop
-
-@section('css')
-	{!! HTML::style('css/datepicker3.css')!!}
-@stop
-
-@section('js')
-	{!! HTML::script('js/jquery.inputmask.min.js')!!}
-
-	<script type="text/javascript">
-		$(".date_mask").inputmask();
-		$('.getCompany').select2({
-			tokenSeparators: [","],
-			tags: [],
-			placeholder: "",
-			minimumInputLength: 1,
-			selectOnBlur: true,
-            ajax: {
-                url: "{{route('hr.ajax.company')}}",
-                dataType: 'json',
-                quietMillis: 500,
-               	data: function (term) {
-                    return {
-                        term: term
-                    };
-                },
-                results: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {
-                                text: item.name + ' department '+ item.tag + ' di '+ item.branch.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-    </script>
 @stop
 
 @section('Workleave-active')
