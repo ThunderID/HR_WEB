@@ -11,8 +11,7 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. Please run composer update first! Update for random finger see below
-2. There is new function. Please run composer update and import databases
+2. There is new function to generate client and secret. Please run composer update
 3. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed.
 4. Add new controller for authentication setting
 5. Updating table structure, see archives/erd ii, changing version of package work and chauth to 1.2.2

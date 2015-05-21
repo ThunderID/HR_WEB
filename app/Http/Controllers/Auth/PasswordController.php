@@ -63,6 +63,6 @@ class PasswordController extends Controller {
 		}
 
 
-		return Redirect::back()->withInput()->withError($content->meta->errors);
+		return Redirect::back()->withInput()->withErrors($content->meta->errors);
 	}
 }

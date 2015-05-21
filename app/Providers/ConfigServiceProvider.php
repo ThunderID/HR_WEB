@@ -15,6 +15,7 @@ class ConfigServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		require app_path('Http/config.php');
 		config([
 			//
 		]);

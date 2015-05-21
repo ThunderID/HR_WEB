@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Api;
 
-use App, Response, Input, API;
+use App, Response, Input, API, Device;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller {
@@ -22,7 +22,8 @@ class AuthController extends Controller {
 		}
 
 		$api 										= $attributes['application']['api'];
-		if($api['client']!='123456789' || $api['secret']!='123456789')
+		$checking 									= Device::checking($api['client'], $api['secret']);
+		if(!$checking)
 		{
 			return Response::json(['message' => 'Not Found'], 404);
 		}
@@ -66,7 +67,8 @@ class AuthController extends Controller {
 		}
 
 		$api 										= $attributes['application']['api'];
-		if($api['client']!='123456789' || $api['secret']!='123456789')
+		$checking 									= Device::checking($api['client'], $api['secret']);
+		if(!$checking)
 		{
 			return Response::json(['message' => 'Not Found'], 404);
 		}

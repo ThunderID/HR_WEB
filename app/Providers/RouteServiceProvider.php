@@ -88,6 +88,9 @@ class RouteServiceProvider extends ServiceProvider {
 		App::singleton('hr_acl', function()
 		{
 			$routes_acl = [
+							'hr.devices.edit'								=> '1',
+							'hr.devices.update'								=> '1',
+
 							'hr.applications.index'							=> '1',
 							'hr.applications.show'							=> '1',
 							'hr.applications.create'						=> '1',

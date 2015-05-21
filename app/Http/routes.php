@@ -19,8 +19,19 @@ Route::group(['prefix' => 'cms'], function(){
 
 		Route::post('/', 				['as' => 'hr.password.post', 	'uses' => 'Auth\PasswordController@postPassword']);
 	});
+
 	/* ---------------------------------------------------------------------------- END OF PRIVATE AREA ----------------------------------------------------------------------------*/
 	
+	/* ---------------------------------------------------------------------------- SETTING AREA ----------------------------------------------------------------------------*/
+	Route::group(['prefix' => 'devices', 'before' => 'hr_acl'], function(){
+	
+		Route::get('/', 				['as' => 'hr.devices.edit', 	'uses' => 'Auth\DevicesController@getEdit']);
+
+		Route::post('/', 				['as' => 'hr.devices.update', 	'uses' => 'Auth\DevicesController@postUpdate']);
+	});
+
+	/* ---------------------------------------------------------------------------- END OF SETTING AREA ----------------------------------------------------------------------------*/
+
 	/* ---------------------------------------------------------------------------- BEGIN APPLICATIONS ----------------------------------------------------------------------------*/
 	Route::group(['prefix' => 'authentications', 'before' => 'hr_acl'], function(){
 		Route::get('{page?}', 
