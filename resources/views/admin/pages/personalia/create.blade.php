@@ -87,7 +87,7 @@
 										<label>
 											<input name="gender" type="radio" value="male"
 											@if (isset($data['gender']))
-												@if ($data['gender'] = "male")
+												@if ($data['gender'] == "male")
 													 checked="checked"
 												@Endif
 											@endif
@@ -101,7 +101,7 @@
 										<label>
 											<input name="gender" type="radio" value="female"
 											@if (isset($data['gender']))
-												@if ($data['gender'] = "female")
+												@if ($data['gender'] == "female")
 													 checked="checked"
 												@Endif
 											@endif

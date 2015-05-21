@@ -135,7 +135,7 @@
 			var y = date.getFullYear();
 			// var curSource = new Array();
 
-			var curSource = cal_link;
+			var curSource = cal_link;			
 
 			$('#calendar').fullCalendar({
 				height: cal_height,
@@ -170,9 +170,15 @@
 				events: curSource,
 				eventRender: function (event, element) {
 					var datetime_start 	= event.start._i.split('T');
-					var datetime_end 	= event.end._i.split('T');
-					var date_start 		= datetime_start[0].split(/-/);					
-					
+
+					if (event.end_i == '') {
+						var datetime_end 	= event.end._i.split('T');
+					}
+					else {
+						var datetime_end 	= datetime_start;
+					}
+
+					var date_start 		= datetime_start[0].split(/-/);	
 					date_start 			= date_start[2]+'-'+date_start[1]+'-'+date_start[0];
 
 					element.find('#date-title').html(element.find('span.fc-event-title').text());
@@ -185,14 +191,20 @@
 					element.attr('data-start', datetime_start[1]);
 					element.attr('data-end', datetime_end[1]);				
 					element.attr('data-delete-action', event.del_action);
-
 					element.find('.fc-title').append('<br>');
 				},
 				eventAfterRender: function(event, $el, view ) {
 					var datetime_start 	= event.start._i.split('T');
-					var datetime_end 	= event.end._i.split('T');								
 
-			        var formattedTime = $.fullCalendar.formatRange(event.start, event.end, "HH:mm { - HH:mm}");
+					if (event.end_i == '') {
+						var datetime_end 	= event.end._i.split('T');
+				        var formattedTime 	= $.fullCalendar.formatRange(event.start, "HH:mm { - HH:mm}");
+					}
+					else {
+						var datetime_end 	= datetime_start;
+						var formattedTime 	= $.fullCalendar.formatRange(event.start, event.end, "HH:mm { - HH:mm}");
+					}					
+
 			        // If FullCalendar has removed the title div, then add the title to the time div like FullCalendar would do
 			        if($el.find(".fc-event-title").length === 0) {
 			            $el.find(".fc-event-time").text(formattedTime + " - " + event.title);

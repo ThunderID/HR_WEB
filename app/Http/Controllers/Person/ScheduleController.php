@@ -179,8 +179,19 @@ class ScheduleController extends Controller {
 
 				$schedule[$i]['id']			= $sh['id'];
 				$schedule[$i]['title'] 		= $sh['name'];
-				$schedule[$i]['start']		= $sh['on'].'T'.$sh['start'];
-				$schedule[$i]['end']		= $sh['on'].'T'.$sh['end'];
+
+				if ((strtotime($sh['start']) < strtotime($sh['end'])) | (strtotime($sh['start']) != strtotime($sh['end'])))
+				{
+					$schedule[$i]['start']		= $sh['on'].'T'.$sh['start'];
+					$schedule[$i]['end']		= $sh['on'].'T'.$sh['end'];
+					$schedule[$i]['tes']		= 'oke';
+				}
+				else 
+				{
+					$schedule[$i]['start']		= $sh['on'].'T'.$sh['start'];
+					$schedule[$i]['tes']		= 'not';
+				}
+
 				$schedule[$i]['status']		= $sh['status'];
 				$schedule[$i]['del_action']	= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
 		}

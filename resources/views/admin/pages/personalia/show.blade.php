@@ -226,7 +226,7 @@
 			var work_company_name 		= $(e.relatedTarget).attr('data-work-company-name');
 			var work_branch_name 		= $(e.relatedTarget).attr('data-work-branch-name');
 			var work_calendar_id 		= $(e.relatedTarget).attr('data-work-calendar-id');	
-			console.log(e.relatedTarget);
+			
 			if (typeof chart_id === "undefined"){
 				$('#tab_chart').removeClass('hide');
 			}
