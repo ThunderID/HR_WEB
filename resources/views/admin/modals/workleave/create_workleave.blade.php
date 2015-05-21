@@ -62,7 +62,7 @@
 					<a class='delete_workleave modal_workleave_btn_del pull-left btn btn-flat btn-danger hide' data-toggle='modal' data-target='#del_workleave_modal' data-delete-action="0">delete</a>
 				@endif
 				<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
-				<button type="submit" type="button" class="btn btn-flat btn-primary modal_workleave_btn_save">Tambah</button>
+				<button type="submit" type="button" class="btn btn-flat btn-primary modal_workleave_btn">Tambah</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

@@ -226,7 +226,7 @@
 			var work_company_name 		= $(e.relatedTarget).attr('data-work-company-name');
 			var work_branch_name 		= $(e.relatedTarget).attr('data-work-branch-name');
 			var work_calendar_id 		= $(e.relatedTarget).attr('data-work-calendar-id');	
-
+			console.log(e.relatedTarget);
 			if (typeof chart_id === "undefined"){
 				$('#tab_chart').removeClass('hide');
 			}
@@ -236,7 +236,7 @@
 			if (val_id != 0)
 			{
 				$(this).parent().attr('action', action);
-				$('.modal_work_company').select2('data', { id: work_company, text: work_company_name+' di '+work_branch_name});
+				$('.modal_work_company').select2('data', { id: val_id, text: work_company_name+' di '+work_branch_name});
 				$('.modal_work_company').prop('readonly', true);
 				$('.modal_work_organition').val(work_organisation);
 				$('.modal_work_position').val(work_position);
@@ -282,6 +282,7 @@
 				$('.modal_work_start').val('');
 				$('.modal_work_end').val('');
 				$('.modal_reason_resign').val('').empty();
+				$('#getCalendar').html('');
 				$('.modal_btn_work').text('Tambah');
 			}
 		});

@@ -83,7 +83,7 @@
 			var workleave_quota 	= $(e.relatedTarget).attr('data-workleave-quota');
 			var workleave_start 	= $(e.relatedTarget).attr('data-workleave-start');
 			var workleave_end 		= $(e.relatedTarget).attr('data-workleave-end');
-			var workleave_default 	= $(e.relatedTarget).attr('data-workleave-default');			
+			var workleave_default 	= $(e.relatedTarget).attr('data-workleave-default');
 
 			if (id != 0) 
 			{
@@ -91,7 +91,8 @@
 				$('.modal_workleave').select2('data', { id: workleave_id, text: workleave_name+' : '+workleave_quota+' hari'});
 				$('.modal_workleave_start').val(workleave_start);
 				$('.modal_workleave_end').val(workleave_end);								
-				$('.modal_is_default').attr('checked', true);				
+				$('.modal_is_default').attr('checked', true);
+				$('.modal_workleave_btn').text('Edit');
 			}
 			else
 			{				
@@ -100,6 +101,7 @@
 				$('.modal_workleave_start').val('');
 				$('.modal_workleave_end').val('');
 				$('.modal_is_default').attr('checked', false);				
+				$('.modal_workleave_btn').text('Tambah');
 			}
 		});
 		
