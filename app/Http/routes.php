@@ -518,6 +518,12 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.persons.documents.print'
 						]
 					);
+		Route::get('show/{person_id}/documents/pdf/{id}', 
+						[
+							'uses' 	=> 'Person\DocumentController@getPDF', 
+							'as' 	=> 'hr.persons.documents.pdf'
+						]
+					);
 		/* ---------------------------------------------------------------------------- END PERSON DOCUMENTS----------------------------------------------------------------------------*/
 	
 		/* ---------------------------------------------------------------------------- PERSON WORKS----------------------------------------------------------------------------*/

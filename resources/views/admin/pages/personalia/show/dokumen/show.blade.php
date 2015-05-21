@@ -19,8 +19,11 @@
 			<a class="btn pull-right ink-reaction btn-flat btn-danger del_modal_2 mt-5" type="button" data-toggle="modal" data-target="#del_modal_2">
 				<i class="fa fa-trash"></i>&nbsp;HAPUS
 			</a>
-			<a class="btn pull-right ink-reaction btn-flat btn-primary mt-5" type="button" href="{{route('hr.persons.documents.print', [$data['id'], $person_document['id']])}}">
+			<a class="btn pull-right ink-reaction btn-flat btn-primary mt-5" type="button" href="{{route('hr.persons.documents.print', [$data['id'], $person_document['id']])}}" target="_blank">
 				<i class="fa fa-print"></i>&nbsp;PRINT
+			</a>
+			<a class="btn pull-right ink-reaction btn-flat btn-primary mt-5" type="button" href="{{route('hr.persons.documents.pdf', [$data['id'], $person_document['id']])}}" target="_blank">
+				<i class="fa fa-file-pdf-o"></i>&nbsp;PDF
 			</a>
 		</div>
 	</div>

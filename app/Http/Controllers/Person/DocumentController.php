@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Person;
 
-use Input, Session, App, Config, Paginator, Redirect, Validator;
+use Input, Session, App, Config, Paginator, Redirect, Validator, PDF, View;
 use API;
 use App\Http\Controllers\Controller;
 
@@ -235,7 +235,48 @@ class DocumentController extends Controller {
 		}
 
 		// ---------------------- GENERATE CONTENT ----------------------
-
+			
 		return view('prints.document')->with('data', $data)->with('document', $person_document)->with('template', $template);
+	}
+
+	function getPDF($personid, $id)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$results 									= API::person()->documentshow($personid, $id);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$person_document 							= json_decode(json_encode($contents->data), true);
+
+		$results 									= API::person()->show($personid);
+		
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		$template									= $person_document['document']['template'];
+		$template									= str_replace("//name//", $data['name'], $template);
+		$template									= str_replace("//position//", $data['works'][0]['name'], $template);
+		
+		foreach ($person_document['details'] as $key => $value) 
+		{
+			$template								= str_replace("//".strtolower($value['template']['field'])."//", ($value['numeric'] ? $value['numeric'] : $value['text']), $template);
+		}
+
+		// ---------------------- GENERATE CONTENT ----------------------
+
+		$pdf = PDF::loadView('prints.document', ['data' => $data, 'document' => $person_document, 'template' => $template])->setPaper('a4');
+
+		return $pdf->stream();
 	}
 }

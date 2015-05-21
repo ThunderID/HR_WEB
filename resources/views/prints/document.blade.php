@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+		<link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 		<style>
 			body {
 				margin: 0;
@@ -8,19 +8,20 @@
 				width: 100%;
 				height: 100%;
 				color: #000;
-				display: table;
-				font-weight: 100;
+				display: block;
+				font-weight: 300;
 				font-family: 'Lato';
 			}
 			.container {
 				text-align: center;
-				display: table-cell;
+				display: block;
 				vertical-align: middle;
 			}
 			.content {
 				text-align: center;
 				display: inline-block;
-				width: 60%;
+				width: 80%;
+				padding: 40px;
 			}
 			.title {
 				font-size: 72px;
