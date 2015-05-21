@@ -674,7 +674,9 @@ Route::group(['prefix' => 'cms'], function(){
 
 		Route::get('/attendance/csv/{page}', 				[	'as' 	=> 'hr.report.attendance.csv', 		'uses' 	=> 'ReportController@getAttendanceCSV']);
 		
-		Route::get('/attendance/generate/detail/person',	[	'as' 	=> 'hr.report.attendance.detail', 	'uses' 	=> 'ReportController@detailAttendance']);
+		Route::get('/attendance/csv/detail/{id}', 			[	'as' 	=> 'hr.report.attendance.csvd', 	'uses' 	=> 'ReportController@DetailAttendanceCSV']);
+		
+		Route::get('/attendance/generate/detail/{id}',		[	'as' 	=> 'hr.report.attendance.detail', 	'uses' 	=> 'ReportController@detailAttendance']);
 
 		Route::get('/performance', 							[	'as' 	=> 'hr.report.performance.get', 	'uses' 	=> 'ReportController@getForm']);
 		

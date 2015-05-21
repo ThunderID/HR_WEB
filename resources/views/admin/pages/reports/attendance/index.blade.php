@@ -92,7 +92,6 @@
 						<thead>
 							<tr>
 								<th rowspan="2">Nama</th>
-								<th class="text-center" rowspan="2">Tanggal</th>
 								<th class="text-center" colspan="2">In</th>
 								<th class="text-center" colspan="2">Out</th>
 								<th class="text-center" rowspan="2">Total Idle</th>
@@ -133,36 +132,32 @@
 										@endif
 									</td>
 									<td>
-										@if($value['has_schedule'])
-											<span class ="badge style-info text-sm">
-												{{date('Y-m-d', strtotime($value['on']))}}
-											</span>
-										@else
-											<span class ="badge style-warning text-sm">
-												{{date('Y-m-d', strtotime($value['on']))}}
-											</span>
-										@endif
-									</td>	
-									<td>
-										{{date("H:i:s", strtotime($value['fp_start']))}}
+										{{gmdate("H:i:s", $value['avg_fp_start'])}}
+										<!-- {{gmdate("H:i:s", $value['fp_start'])}} -->
 									</td>
 									<td>
-										{{date("H:i:s", strtotime($value['start']))}}
+										{{gmdate("H:i:s", $value['avg_start'])}}
+										<!-- {{gmdate("H:i:s", $value['start'])}} -->
 									</td>
 									<td>
-										{{date("H:i:s", strtotime($value['fp_end']))}}
+										{{gmdate("H:i:s", $value['avg_fp_end'])}}
+										<!-- {{gmdate("H:i:s", $value['fp_end'])}} -->
 									</td>
 									<td>
-										{{date("H:i:s", strtotime($value['end']))}}
+										{{gmdate("H:i:s", $value['avg_end'])}}
+										<!-- {{gmdate("H:i:s", $value['end'])}} -->
 									</td>
 									<td>
-										{{gmdate("H:i:s", $value['total_idle'])}}
+										{{gmdate("H:i:s", $value['avg_idle'])}}
+										<!-- {{gmdate("H:i:s", $value['total_idle'])}} -->
 									</td>
 									<td>
-										{{gmdate("H:i:s", $value['total_sleep'])}}
+										{{gmdate("H:i:s", $value['avg_sleep'])}}
+										<!-- {{gmdate("H:i:s", $value['total_sleep'])}} -->
 									</td>
 									<td>
-										{{gmdate("H:i:s", $value['total_active'])}}
+										{{gmdate("H:i:s", $value['avg_active'])}}
+										<!-- {{gmdate("H:i:s", $value['total_active'])}} -->
 									</td>
 									@if(Input::has('case') && Input::get('case')!='ontime')
 										<td>
@@ -195,6 +190,10 @@
 													{{$value2}}
 												</span>
 											@endforeach
+
+											<span class ="badge text-sm mt-5">
+												<a href ="{{route('hr.report.attendance.detail', ['id' => $value['person_id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
+											</span>
 										</td>
 									@endif
 								</tr>

@@ -4,6 +4,7 @@
 		<thead>
 			<tr>
 				<th rowspan="2" style="vertical-align:middle">Nama</th>
+				<th rowspan="2" style="text-align:center; vertical-align:middle">Tanggal</th>
 				<th colspan="2" style="text-align:center; height:18px">In</th>
 				<th colspan="2" style="text-align:center; height:18px">Out</th>
 				<th rowspan="2" style="text-align:center; vertical-align:middle">Total Idle</th>
@@ -37,25 +38,36 @@
 						@endif
 					</td>
 					<td style="text-align:center">
-						{{ gmdate("H:i:s", $value['avg_fp_start']) }}
+						@if($value['has_schedule'])
+							<span class ="badge style-info text-sm">
+								{{ date('Y-m-d', strtotime($value['on'])) }} 
+							</span>
+						@else
+							<span class ="badge style-warning text-sm">
+								{{ date('Y-m-d', strtotime($value['on'])) }}
+							</span>
+						@endif
+					</td>	
+					<td style="text-align:center">
+						{{ date("H:i:s", strtotime($value['fp_start'])) }}
 					</td>
 					<td style="text-align:center">
-						{{ gmdate("H:i:s", $value['avg_start']) }}
+						{{ date("H:i:s", strtotime($value['start'])) }}
 					</td>
 					<td style="text-align:center">
-						{{ gmdate("H:i:s", $value['avg_fp_end']) }}
+						{{ date("H:i:s", strtotime($value['fp_end'])) }}
 					</td>
 					<td style="text-align:center">
-						{{ gmdate("H:i:s", $value['avg_end']) }}
+						{{ date("H:i:s", strtotime($value['end'])) }}
 					</td>
 					<td style="text-align:center">
-						{{ gmdate("H:i:s", $value['avg_idle']) }}
+						{{ gmdate("H:i:s", $value['total_idle']) }}
 					</td>
 					<td style="text-align:center">
-						{{ gmdate("H:i:s", $value['avg_sleep']) }}
+						{{ gmdate("H:i:s", $value['total_sleep']) }}
 					</td>
 					<td style="text-align:center">
-						{{ gmdate("H:i:s", $value['avg_active']) }}
+						{{ gmdate("H:i:s", $value['total_active']) }}
 					</td>					
 					@if($case && $case!='ontime')
 						<td style="text-align:center">

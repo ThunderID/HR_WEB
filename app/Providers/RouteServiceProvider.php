@@ -218,6 +218,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.report.wages.post'							=> '8',
 							'hr.report.performance.post'					=> '8',
 							'hr.report.attendance.csv'						=> '8',
+							'hr.report.attendance.csvd'						=> '8',
 							'hr.report.wages.csv'							=> '8',
 
 							'hr.schedule.list'								=> '6',
