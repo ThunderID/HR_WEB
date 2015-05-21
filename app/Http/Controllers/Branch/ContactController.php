@@ -90,8 +90,17 @@ class ContactController extends Controller {
 				}
 				if($address['value']!='')
 				{
-					$address['item']					= 'address';
-					$input['contacts']['address'][] 	= $address;
+					if(!is_null(Input::has('default_contact')))
+					{
+						$address['is_default']		= true;
+					}
+					else
+					{
+						$address['is_default']		= false;
+					}
+
+					$address['item']				= 'address';
+					$input['contacts']['address'][] = $address;
 				}
 			}
 		}
@@ -108,7 +117,16 @@ class ContactController extends Controller {
 					{
 						$contact['id']				= Input::get('id_item')[$key];
 					}
-					
+
+					if(!is_null(Input::has('default_contact')))
+					{
+						$contact['is_default']		= true;
+					}
+					else
+					{
+						$contact['is_default']		= false;
+					}
+
 					$contact['item']				= $value;
 					$input['contacts'][$value][] 	= $contact;
 				}

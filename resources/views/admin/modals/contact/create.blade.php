@@ -30,8 +30,21 @@
 								<input type="text" class="form-control modal_contact_inp_value" id="value[1]" name="value[1]">
 								<label for="value[1]">Isian</label>
 							</div>
-						</div>					
+						</div>
 					</div>					
+				</div>	
+				<div class="row">
+					<div class="tabs col-md-12  pt-20">
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="checkbox checkbox-styled">
+									<label class="checkbox-inline checkbox-styled">
+										<input type="checkbox" name="default_contact" class="modal_default_contact"><span>Kontak Default</span>
+									</label>									
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>	
 				<input class="modal_contact_input_id" type="hidden" name="id_item[1]">
 			</div>			

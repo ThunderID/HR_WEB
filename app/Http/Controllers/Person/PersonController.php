@@ -230,46 +230,54 @@ class PersonController extends Controller {
 		{
 			foreach (Input::get('address_address') as $key => $value) 
 			{
-				$address							= [];
-				$address['value'] 					= $value;
+				$address								= [];
+				$address['value'] 						= $value;
 				if(isset(Input::get('address_RT')[$key]) && Input::get('address_RT')[$key]!='')
 				{
-					$address['value'] 				= $address['value'].' RT. '.Input::get('address_RT')[$key];
+					$address['value'] 					= $address['value'].' RT. '.Input::get('address_RT')[$key];
 				}
 				if(isset(Input::get('address_RW')[$key]) && Input::get('address_RW')[$key]!='')
 				{
-					$address['value'] 				= $address['value'].' RW. '.Input::get('address_RW')[$key];
+					$address['value'] 					= $address['value'].' RW. '.Input::get('address_RW')[$key];
 				}
 				if(isset(Input::get('address_kecamatan')[$key]) && Input::get('address_kecamatan')[$key]!='')
 				{
-					$address['value'] 				= $address['value'].' Kec. '.Input::get('address_kecamatan')[$key];
+					$address['value'] 					= $address['value'].' Kec. '.Input::get('address_kecamatan')[$key];
 				}
 				if(isset(Input::get('address_kelurahan')[$key]) && Input::get('address_kelurahan')[$key]!='')
 				{
-					$address['value'] 				= $address['value'].' Kel. '.Input::get('address_kelurahan')[$key];
+					$address['value'] 					= $address['value'].' Kel. '.Input::get('address_kelurahan')[$key];
 				}
 				if(isset(Input::get('address_kota')[$key]) && Input::get('address_kota')[$key]!='')
 				{
-					$address['value'] 				= $address['value'].' Kota/Kab '.Input::get('address_kota')[$key];
+					$address['value'] 					= $address['value'].' Kota/Kab '.Input::get('address_kota')[$key];
 				}
 				if(isset(Input::get('address_provinsi')[$key]) && Input::get('address_provinsi')[$key]!='')
 				{
-					$address['value'] 				= $address['value'].' - '.Input::get('address_provinsi')[$key];
+					$address['value'] 					= $address['value'].' - '.Input::get('address_provinsi')[$key];
 				}
 				if(isset(Input::get('address_negara')[$key]) && Input::get('address_negara')[$key]!='')
 				{
-					$address['value'] 				= $address['value'].' - '.Input::get('address_negara')[$key];
+					$address['value'] 					= $address['value'].' - '.Input::get('address_negara')[$key];
 				}
 				if(isset(Input::get('address_kode_pos')[$key]) && Input::get('address_kode_pos')[$key]!='')
 				{
-					$address['value'] 				= $address['value'].' Kode pos '.Input::get('address_kode_pos')[$key];
+					$address['value'] 					= $address['value'].' Kode pos '.Input::get('address_kode_pos')[$key];
 				}
 				if(isset(Input::get('id_address')[$key]) && Input::get('id_address')[$key]!='')
 				{
-					$address['id'] 					= Input::get('id_address')[$key];
+					$address['id'] 						= Input::get('id_address')[$key];
 				}
 				if($address['value']!='')
 				{
+					if(!is_null(Input::has('default_contact')))
+					{
+						$address['is_default']			= true;
+					}
+					else
+					{
+						$address['is_default']			= false;
+					}
 					$address['item']					= 'address';
 					$input['contacts']['address'][] 	= $address;
 				}
@@ -280,17 +288,26 @@ class PersonController extends Controller {
 		{
 			foreach (Input::get('item') as $key => $value) 
 			{
-				$contact['value'] 					= Input::get('value')[$key];
+				$contact['value'] 						= Input::get('value')[$key];
 				
 				if($contact['value']!='')
 				{
 					if(isset(Input::get('id_item')[$key]))
 					{
-						$contact['id']				= Input::get('id_item')[$key];
+						$contact['id']					= Input::get('id_item')[$key];
+					}
+
+					if(!is_null(Input::has('default_contact')))
+					{
+						$contact['is_default']			= true;
+					}
+					else
+					{
+						$contact['is_default']			= false;
 					}
 					
-					$contact['item']				= $value;
-					$input['contacts'][$value][] 	= $contact;
+					$contact['item']					= $value;
+					$input['contacts'][$value][] 		= $contact;
 				}
 			}
 		}

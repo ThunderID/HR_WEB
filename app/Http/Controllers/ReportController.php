@@ -498,6 +498,7 @@ class ReportController extends Controller {
 		// {
 		// $search['orderworkhour'] = Input::get('sort_workhour');
 		// }
+		
 		if(Input::has('branch'))
 		{
 			$search['branchname'] 					= Input::get('branch');
