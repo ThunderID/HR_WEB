@@ -150,6 +150,11 @@ class PersonController extends Controller {
 			list($d,$m,$y) 								= explode('/', Input::get('date_of_birth'));
 			$birth 										= "$y-$m-$d";
 			$input['person']['date_of_birth']			= date("Y-m-d", strtotime($birth));
+
+			if($input['person']['date_of_birth'] > date('Y-m-d'))
+			{
+				return Redirect::back()->withErrors(['Tanggal lahir tidak boleh lebih besar dari hari ini.'])->withInput();
+			}
 		}
 
 		$input['person']['id']						= $id;
