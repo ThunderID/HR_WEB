@@ -8,6 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="keywords" content="your,keywords">
 		<meta name="description" content="Short explanation about this website">
+		<meta name="http-equiv=refresh" content="3">
 
 		<!-- BEGIN STYLESHEETS -->
 		{{-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/> --}}

@@ -4,73 +4,70 @@
 @stop
 
 @section('content')
-	<div class="row pb-10">
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<a href="{{route('hr.organisations.create') }}" class='btn btn-raised btn-primary ink-reaction mt-10'>Tambah</a>
-		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 form pull-right">
-			{!! Form::open(['route' => 'hr.organisations.index', 'class' => 'form-inline', 'method' => 'get']) !!}
-				<div class="form-group col-sm-9">
-					<input type="text" class="form-control" name="q" style="width:100%">
-					<label for="">Cari</label>
+	<div class="card">
+		<!-- BEGIN SEARCH HEADER -->
+		<div class="card-head style-primary">
+			<div class="col-md-6 col-xs-6" style="padding-left:0px; margin-top: 3px">
+				<div class="tools pull-left">
+					<form class="navbar-search" role="search">
+						{!! Form::open(['route' => ('hr.organisations.index'), 'method' => 'get']) !!}
+						<div class="form-group">
+							<input type="text" class="form-control" name="q" placeholder="Ketik kata kunci">
+						</div>
+						<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+						{!! Form::close() !!}
+					</form>
 				</div>
-				<button class="btn btn-raised btn-default-light ink-reaction" type="submit">Cari</button>
-			{!! Form::close() !!}
+			</div>
+			<div class="col-md-6 col-xs-6 mt-10" style="padding-right:0px; ">
+				<div class="tools pull-right">
+					<a class="btn btn-flat ink-reaction" href="{{route('hr.organisations.create') }}">
+						<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Tambah
+					</a>
+				</div>
+			</div>
+		</div><!--end .card-head -->
+		<!-- END SEARCH HEADER -->
+
+		<!-- END SEARCH HEADER -->
+		<div class="card-body">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="margin-bottom-xxl">
+						<span class="text-light text-lg">
+							@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
+						</span>
+						<div class="btn-group btn-group-sm pull-right">
+							@if (Input::get('q'))
+								<a href="{{ route('hr.documents.index') }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
+							@endif
+						</div>
+					</div><!--end .margin-bottom-xxl -->
+					<div class="list-results" style="margin-bottom:0px;">
+						@foreach($data as $key => $value)	
+							@if($key%2==0 && $key!=0)
+								</div>
+								<div class="list-results" style="margin-bottom:0px;">
+							@endif		
+							
+							<div class="col-xs-12 col-lg-6 hbox-xs">
+								@include('admin.widgets.contents', [
+									'route'				=> route('hr.organisations.default', ['organisation' => $value['id']]),
+									'mode'				=> 'list',
+									'data_content'		=> $value,
+									'toggle'			=> ['organisation' 	=> true],
+									'class'				=> ['top'		=> 'height-2']
+								])
+							</div>
+						@endforeach
+					</div>
+					@if(count($data))
+						@include('admin.helpers.pagination')
+					@endif
+				</div><!--end .list-results -->
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="card">
-				<div class="card-body">
-					<table class="table no-margin">
-						<thead>
-							<tr>
-								<th>No</th>
-								<th>Nama Organisasi</th>
-								<th colspan="3"></th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($data as $key => $value)
-							<tr>
-								<td>
-									{{$value['id']}}
-								</td>
-								<td>
-									{{$value['name']}}
-								</td>
-								<td>
-									<a href="{{ route('hr.organisations.delete', [$value['id']]) }}">
-										Hapus
-									</a>
-								</td>
-								<td>
-									<a href="{{ route('hr.organisations.edit', [$value['id']]) }}">
-										Edit
-									</a>
-								</td>
-								<td>
-									<a href="{{ route('hr.organisations.show', [$value['id']]) }}">
-										Detail
-									</a>
-								</td>
-							</tr>	
-							@endforeach					
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>	
-	@if(count($data))
-		@include('admin.helpers.pagination')
-	@else
-		<div class="row">
-			<div class="col-sm-12 text-center">
-				<p>Tidak ada data</p>
-			</div>
-		</div>
-	@endif
-@stop
 
+@stop
 

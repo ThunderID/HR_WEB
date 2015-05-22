@@ -30,6 +30,12 @@ Route::group(['prefix' => 'cms'], function(){
 		Route::post('/', 				['as' => 'hr.devices.update', 	'uses' => 'Auth\DevicesController@postUpdate']);
 	});
 
+	Route::group(['prefix' => 'fingers', 'before' => 'hr_acl'], function(){
+	
+		Route::get('/', 				['as' => 'hr.fingers.edit', 	'uses' => 'Auth\FingersController@getEdit']);
+
+		Route::post('/', 				['as' => 'hr.fingers.update', 	'uses' => 'Auth\FingersController@postUpdate']);
+	});
 	/* ---------------------------------------------------------------------------- END OF SETTING AREA ----------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- BEGIN APPLICATIONS ----------------------------------------------------------------------------*/
@@ -82,6 +88,66 @@ Route::group(['prefix' => 'cms'], function(){
 	});
 
 	/* ---------------------------------------------------------------------------- END OF APPLICATIONS ----------------------------------------------------------------------------*/
+
+	/* ---------------------------------------------------------------------------- ORGANISATION ---------------------------------------------------------------------------*/
+
+	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
+		Route::get('{page?}', 
+						[
+							'uses' 	=> 'Organisation\OrganisationController@getIndex', 
+							'as' 	=> 'hr.organisations.index'
+						]
+					);
+
+		Route::get('create/new', 
+						[
+							'uses' 	=> 'Organisation\OrganisationController@getCreate', 
+							'as' 	=> 'hr.organisations.create'
+						]
+					);
+
+		Route::post('store', 
+						[
+							'uses' 	=> 'Organisation\OrganisationController@postStore', 
+							'as' 	=> 'hr.organisations.store'
+						]
+					);
+
+		Route::get('show/{id}', 
+						[
+							'uses' 	=> 'Organisation\OrganisationController@getShow', 
+							'as' 	=> 'hr.organisations.show'
+						]
+					);
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'Organisation\OrganisationController@getEdit', 
+							'as' 	=> 'hr.organisations.edit'
+						]
+					);
+		Route::post('update/{id}', 
+						[
+							'uses' 	=> 'Organisation\OrganisationController@postUpdate', 
+							'as' 	=> 'hr.organisations.update'
+						]
+					);	
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'Organisation\OrganisationController@anyDelete', 
+							'as' 	=> 'hr.organisations.delete'
+						]
+					);	
+
+		Route::any('default/active', 
+						[
+							'uses' 	=> 'Organisation\OrganisationController@anyDefault', 
+							'as' 	=> 'hr.organisations.default'
+						]
+					);	
+	});
+
+	/* ---------------------------------------------------------------------------- ORGANISATION ----------------------------------------------------------------------------*/
+
 
 	/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 

@@ -1,7 +1,7 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Organisation;
 
 use Input, Session, App, Paginator, Redirect;
-use API;
+use API, DB;
 use App\Http\Controllers\Controller;
 
 class OrganisationController extends Controller {
@@ -23,7 +23,7 @@ class OrganisationController extends Controller {
 		}
 		$sort 										= ['created_at' => 'asc'];
 
-		$results 									= API::organisation()->index($page, $search, $sort);
+		$results 									= API::organisation()->index($page, $search, $sort, false);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -60,6 +60,7 @@ class OrganisationController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
+		$input['organisation']['id'] 				= $id;
 		$input['organisation']['name'] 				= Input::get('name');
 
 		$results 									= API::organisation()->store($id, $input);
@@ -128,46 +129,30 @@ class OrganisationController extends Controller {
 
 	function anyDelete($id)
 	{
-		if (Input::has('from_confirm_form'))
-		{
-			if (Input::get('from_confirm_form')=='Yes')
-			{
-				$results 									= API::organisation()->destroy($id);
-				$contents 									= json_decode($results);
+		$username 					= Session::get('user.email');
+		$password 					= Input::get('password');
 
-				if (!$contents->meta->success)
-				{
-					return Redirect::route('hr.organisations.show', ['id' => $id])->withErrors($contents->meta->errors);
-				}
-				else
-				{
-					return Redirect::route('hr.organisations.index')->with('alert_success', 'Organisasi "' . $contents->data->name. '" sudah dihapus');
-				}
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+			$results 									= API::organisation()->destroy($id);
+			$contents 									= json_decode($results);
+
+			if (!$contents->meta->success)
+			{
+				return Redirect::back()->withErrors($contents->meta->errors);
 			}
 			else
 			{
-				return Redirect::route('hr.organisations.show', ['id' => $id])->withErrors(['Batal Menghapus']);
+				return Redirect::route('hr.organisations.index')->with('alert_success', 'Organisasi "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else
 		{
-			$results 									= API::organisation()->show($id);
-			$contents 									= json_decode($results);
-
-			if(!$contents->meta->success)
-			{
-				App::abort(404);
-			}
-
-			$data 										= json_decode(json_encode($contents->data), true);
-
-			$this->layout->page_title 					= strtoupper($this->controller_name);
-
-			$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.destroy');
-			$this->layout->content->controller_name 	= $this->controller_name;
-			$this->layout->content->data 				= $data;
-
-			return $this->layout;
+			return Redirect::back()->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 
@@ -196,5 +181,17 @@ class OrganisationController extends Controller {
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+	}
+
+	function anyDefault()
+	{
+		// ---------------------- LOAD DATA ----------------------
+
+		if(Input::has('organisation'))
+		{
+			Session::put('user.organisation', Input::get('organisation'));
+		}
+		
+		return Redirect::back();
 	}
 }

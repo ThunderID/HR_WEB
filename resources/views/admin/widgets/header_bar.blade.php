@@ -19,20 +19,6 @@
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="headerbar-right">
 		<ul class="header-nav header-nav-profile">
-			<li>
-				<!-- Search form -->
-				{{-- <form class="form" role="search">
-					<div class="form-group">
-						<select id="change_branch" class="form-control select2-list">
-							<option value="">Mentari Pagi Sejahtera</option>
-							<option value="">Halo Malang</option>
-							<option value="">Gopego</option>
-							<option value="">Thunder</option>
-							<option value="">Vortege</option>
-						</select>
-					</div>
-				</form> --}}
-			</li>
 			<li class="dropdown">
 				<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
 					@if(Session::get('user.avatar')!='')
@@ -59,7 +45,20 @@
 		<ul class="header-nav header-nav-options">
 			<li class="header-nav-brand">
 				<div class="brand-holder">
-					<span class="text-lg text-menu">{{Session::get('user.org_name')}}</span>
+					<!-- Search form -->
+					@if(Session::has('user.organisations'))
+						<form class="form" role="search" action="{{route('hr.organisations.default')}}" method="post">
+							<div class="form-group">
+								<select id="change_branch" class="form-control select2-list"  onchange="this.form.submit()" name="organisation"> 
+									@foreach(Session::get('user.organisations') as $key => $value)
+										<option class="text-lg text-menu" @if($value['id']==Session::get('user.organisation')) selected @endif value="{{$value['id']}}">{{$value['name']}}</option>
+									@endforeach
+								</select>
+							</div>
+						</form>
+					@else
+						<span class="text-lg text-menu">{{Session::get('user.org_name')}}</span>
+					@endif
 				</div>				
 			</li>	
 		</ul><!--end .header-nav-profile -->
