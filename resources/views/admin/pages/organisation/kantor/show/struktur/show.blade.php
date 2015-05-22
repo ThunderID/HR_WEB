@@ -68,7 +68,7 @@
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
 					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
-					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->				
 		</form>

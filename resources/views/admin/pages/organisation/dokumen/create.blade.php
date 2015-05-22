@@ -104,7 +104,7 @@
 					<li class="clearfix">
 						<div class="row p-20">
 							<div class="col-md-12">
-								<div class="form-group" style="padding-top:30px">
+								<div class="form-group" style="padding-top:60px">
 									<textarea name="template" id="content_document" class="form-control" rows="8" placeholder="">{{$data['template']}}</textarea>
 									<label for="textarea1">Template Surat <small>*untuk mengganti nama dengan nama karyawan gunanakan //name// , untuk posisi gunakan //position//, untuk informasi lain per dokument gunakan //(nama_field_huruf_kecil)// *</small></label>
 								</div>
@@ -119,7 +119,7 @@
 			<div class="card-actionbar">
 				<div class="card-actionbar-row mr-20">
 					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
-					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
 			<!-- END FORM FOOTER -->
