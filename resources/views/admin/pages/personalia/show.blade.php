@@ -164,6 +164,7 @@
 	        });
 		});	
 
+		// Contact
 		$('.modalContact').on('show.bs.modal', function(e) {
 			var id = $(e.relatedTarget).attr('data-modal-contact-id');
 			var item = $(e.relatedTarget).attr('data-modal-contact-item');
@@ -186,7 +187,11 @@
 			}
 		});
 
+		$('.modal_form_contact').bind('submit', function() {
+			$('.modal_contact_btn_save').attr('disabled', 'disabled');
+		});
 
+		// address
 		$('.modalAddress').on('show.bs.modal', function(e) {
 			var id = $(e.relatedTarget).attr('data-modal-address-id');
 			var item = $(e.relatedTarget).attr('data-modal-address-item');
@@ -211,6 +216,15 @@
 				$('.modal_address_btn_save').text('Tambah');
 			}
 		});		
+
+		$('.modal_form_address').bind('submit', function() {
+			$('.modal_address_btn_save').attr('disabled', 'disabled');
+		});
+
+		// Work
+		$('.modal_form_work').bind('submit', function(){
+			$('.modal_btn_work').attr('disabled', 'disabled');
+		});
 
         $('.modalWork').on('show.bs.modal', function(e) {
         	var action 					= $(e.relatedTarget).attr('data-action');

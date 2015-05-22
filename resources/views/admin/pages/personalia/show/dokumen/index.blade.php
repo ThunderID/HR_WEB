@@ -64,6 +64,10 @@
 			  	var n_panel = $('#docs_type').val();
 			  	document.getElementById('input_panel').innerHTML = document.getElementById("panel" + (n_panel)).innerHTML ;
 			});
+
+			$('.modal_form_document').bind('submit', function(){
+				$('.modal_btn_form_document').attr('disabled', 'disabled');
+			});
 		});		
 	</script>
 @stop

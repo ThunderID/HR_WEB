@@ -28,7 +28,7 @@
 	</div>
 
 	<!-- BEGIN MODAL -->
-	{!! Form::open(array('route' => array('hr.persons.schedules.store',  $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('route' => array('hr.persons.schedules.store',  $data['id']),'method' => 'POST', 'class' => 'form_modal_schedule')) !!}
 		@include('admin.modals.schedule.create_schedule')
 	{!! Form::close() !!}	
 	
@@ -96,6 +96,10 @@
 		$('.modalScheduleDelete').on('show.bs.modal', function(e) {
 			var action 		= $(e.relatedTarget).attr('data-delete-action');
 			$(this).parent().attr('action', action);
+		});
+
+		$('.form_modal_schedule').bind('submit', function(){
+			$('.modal_schedule_btn_save').attr('disabled', 'disabled');
 		});
 
 		$(document).ready(function () {

@@ -126,7 +126,7 @@
 			<div class="card-actionbar style-default-light">
 				<div class="card-actionbar-row">
 					<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
-					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+					<button type="submit" class="btn btn-flat btn-accent modal_btn_relation">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
 		</div>

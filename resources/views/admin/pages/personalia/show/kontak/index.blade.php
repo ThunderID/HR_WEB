@@ -86,11 +86,11 @@
 	</div>
 
 	<!-- modals -->
-	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST', 'class' => 'modal_form_contact')) !!}
 		@include('admin.modals.contact.create')
 	{!! Form::close() !!}
 
-	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST')) !!}	
+	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
 		@include('admin.modals.address.create')
 	{!! Form::close() !!}
 @stop
