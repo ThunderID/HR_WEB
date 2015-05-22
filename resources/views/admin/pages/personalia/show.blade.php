@@ -166,9 +166,10 @@
 
 		// Contact
 		$('.modalContact').on('show.bs.modal', function(e) {
-			var id = $(e.relatedTarget).attr('data-modal-contact-id');
-			var item = $(e.relatedTarget).attr('data-modal-contact-item');
-			var val = $(e.relatedTarget).attr('data-modal-contact-value');
+			var id 			= $(e.relatedTarget).attr('data-modal-contact-id');
+			var item 		= $(e.relatedTarget).attr('data-modal-contact-item');
+			var val 		= $(e.relatedTarget).attr('data-modal-contact-value');
+			var is_default	= $(e.relatedTarget).attr('data-is-default');
 
 			if(id != 0){
 				$('.modal_contact_inp_value').val(val);
@@ -177,6 +178,12 @@
 				$('.getContacts').prop('readonly',true);
 				$('.modal_contact_title').text('Edit ' + item);
 				$('.modal_contact_btn_save').text('Simpan');
+				if (is_default == 1) {
+					$('.modal_default_contact').attr('checked', true);
+				}
+				else {
+					$('.modal_default_contact').attr('checked', false);	
+				}
 			}else{
 				$('.modal_contact_inp_value').val('');
 				$('.modal_contact_input_id').val('');
@@ -184,6 +191,7 @@
 				$('.getContacts').prop('readonly',false);
 				$('.modal_contact_title').text('Tambah Kontak');
 				$('.modal_contact_btn_save').text('Tambah');
+				$('.modal_default_contact').attr('checked', false);	
 			}
 		});
 
@@ -193,9 +201,10 @@
 
 		// address
 		$('.modalAddress').on('show.bs.modal', function(e) {
-			var id = $(e.relatedTarget).attr('data-modal-address-id');
-			var item = $(e.relatedTarget).attr('data-modal-address-item');
-			var val = $(e.relatedTarget).attr('data-modal-address-value');
+			var id 			= $(e.relatedTarget).attr('data-modal-address-id');
+			var item 		= $(e.relatedTarget).attr('data-modal-address-item');
+			var val 		= $(e.relatedTarget).attr('data-modal-address-value');
+			var is_default	= $(e.relatedTarget).attr('data-is-default');
 
 			if(id != 0){
 				val = val.replace(/\_/g, ' ');
@@ -203,14 +212,19 @@
 
 				$('.modal_address_input_id').val(id);
 
+				if (is_default == 1) {
+					$('.modal_default_contact').attr('checked', true);	
+				}
+				else {
+					$('.modal_default_contact').attr('checked', false);	
+				}
 
 				$('.modal_address_title').text('Edit Alamat');
 				$('.modal_address_btn_save').text('Simpan');
 			}else{
 				$('.modal_address_value').text('');
-
 				$('.modal_address_input_id').val('');
-
+				$('.modal_default_contact').attr('checked', false);	
 
 				$('.modal_address_title').text('Tambah Alamat');
 				$('.modal_address_btn_save').text('Tambah');
