@@ -51,7 +51,7 @@
 	</div>
 
 	<!-- BEGIN MODAL -->
-	{!! Form::open(array('route' => array('hr.persons.workleaves.store',  $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('route' => array('hr.persons.workleaves.store',  $data['id']),'method' => 'POST', 'class' => 'form_workleave')) !!}
 		@include('admin.modals.workleave.create_workleave')
 	{!! Form::close() !!}	
 	
@@ -75,6 +75,11 @@
 		// spesification for fullcalendar
 		var cal_height 	= 500;
 
+		// form workleave
+		$('.form_workleave').bind('submit', function() {
+			$('.modal_workleave_btn').attr('disabled', 'disabled');
+		});
+		
 		// modal workleave
 		$('.modalWorkleave').on('show.bs.modal', function(e) {
 			var id 					= $(e.relatedTarget).attr('data-id');
@@ -90,9 +95,15 @@
 				$('.modal_workleave_id').val(id);				
 				$('.modal_workleave').select2('data', { id: workleave_id, text: workleave_name+' : '+workleave_quota+' hari'});
 				$('.modal_workleave_start').val(workleave_start);
-				$('.modal_workleave_end').val(workleave_end);								
-				$('.modal_is_default').attr('checked', true);
+				$('.modal_workleave_end').val(workleave_end);
 				$('.modal_workleave_btn').text('Edit');
+
+				if (workleave_default == 0) {
+					$('.modal_is_default').attr('checked', false);
+				}
+				else {
+					$('.modal_is_default').attr('checked', true);
+				}
 			}
 			else
 			{				

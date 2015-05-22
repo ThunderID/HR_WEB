@@ -1,4 +1,4 @@
-<form role="form" action="{{route('hr.persons.documents.store', $data['id'])}}" method="post">
+<form role="form" action="{{route('hr.persons.documents.store', $data['id'])}}" method="post" class="modal_form_document">
 	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content form">
@@ -40,38 +40,37 @@
 
 				<div class="card-actionbar-row style-default-light">
 					<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>
-					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
+					<button type="submit" class="btn btn-flat btn-primary modal_btn_form_document">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
 		</div>
 	</div>			
 </form>
 
-
-	@foreach($documents as $key => $value)
-		<script type="text/html" id="panel{{$key}}">
-			<input name="documents_id[{{$key}}]"type="hidden" value="{{$value['id']}}">											
-			<input name="documents[{{$key}}]"type="hidden" value="">
-			@foreach($value['templates'] as $key2 => $value2)
-				<div class="form-group">
-					@if($value2['type']=='numeric' || $value2['type']=='string')
-						<input name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control">											
-						<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-						<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-					@elseif($value2['type']=='date')
-						<div class="input-daterange input-group" id="template_value[{{$key}}][{{$key2}}]" style="width:100%;">
-							<div class="input-group-content">
-								<input type="text" class="form-control" name="template_value[{{$key}}][{{$key2}}]">
-							</div>
+@foreach($documents as $key => $value)
+	<script type="text/html" id="panel{{$key}}">
+		<input name="documents_id[{{$key}}]"type="hidden" value="{{$value['id']}}">											
+		<input name="documents[{{$key}}]"type="hidden" value="">
+		@foreach($value['templates'] as $key2 => $value2)
+			<div class="form-group">
+				@if($value2['type']=='numeric' || $value2['type']=='string')
+					<input name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control">											
+					<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+					<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+				@elseif($value2['type']=='date')
+					<div class="input-daterange input-group" id="template_value[{{$key}}][{{$key2}}]" style="width:100%;">
+						<div class="input-group-content">
+							<input type="text" class="form-control" name="template_value[{{$key}}][{{$key2}}]">
 						</div>
-						<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-						<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-					@elseif($value2['type']=='text')
-						<textarea name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control"></textarea>										
-						<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
-						<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
-					@endif
-				</div>
-			@endforeach
-		</script>
-	@endforeach
+					</div>
+					<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+					<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+				@elseif($value2['type']=='text')
+					<textarea name="template_value[{{$key}}][{{$key2}}]" id="template_value[{{$key}}][{{$key2}}]" class="form-control"></textarea>										
+					<label for="template_value[{{$key}}][{{$key2}}]">{{$value2['field']}}</label>
+					<input name="template_id[{{$key}}][{{$key2}}]"type="hidden" value="{{$value2['id']}}">											
+				@endif
+			</div>
+		@endforeach
+	</script>
+@endforeach

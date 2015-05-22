@@ -24,7 +24,7 @@
 						<div class="hbox-xs v-top height-4">
 							<div class="clearfix">
 								<div class="col-lg-12 margin-bottom-lg">
-									<a class="btn pull-right ink-reaction btn-icon-toggle del-modal" type="button" data-toggle="modal" data-target="#del_modal_2_{{$value['id']}}">
+									<a class="btn pull-right ink-reaction btn-icon-toggle del-modal" type="button" data-toggle="modal" data-target="#del_modal_relation" data-action="{{ route('hr.persons.relatives.delete', ['person_id' => $data['id'], 'id' => $value['relative_id']]) }}">
 										<i class="fa fa-trash"></i>
 									</a>
 									<?php $enm = $value['relationship'] ?>
@@ -65,20 +65,17 @@
 	</div>
 
 	<!-- BEGIN MODAL -->
-	{!! Form::open(array('route' => array('hr.persons.relatives.store',  $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('route' => array('hr.persons.relatives.store',  $data['id']),'method' => 'POST', 'class' => 'modal_form_relation')) !!}
 		<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
 			@include('admin.modals.relation.create')
 		</div>
 	{!! Form::close() !!}	
 
-
-	@foreach($relatives as $key => $value)	
-	{!! Form::open(array('route' => array('hr.persons.relatives.delete',  $data['id'],$value['relative_id']),'method' => 'POST')) !!}
-		<div class="modal fade" id="del_modal_2_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal_2_{{$value['id']}}" aria-hidden="true">
+	{!! Form::open(array('route' => array('hr.persons.relatives.delete',  0, 0),'method' => 'POST')) !!}
+		<div class="modal fade" id="del_modal_relation" tabindex="-1" role="dialog" aria-labelledby="del_modal_relation" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	
 	{!! Form::close() !!}	
-	@endforeach
 @stop
 
 
@@ -97,6 +94,14 @@
 				$('#del-modal').modal('show');
 			});
 
+			$('.modal_form_relation').bind('submit', function(){
+				$('.modal_btn_relation').attr('disabled', 'disabled');
+			});
+
+			$('#del_modal_relation').on('show.bs.modal', function(e) {
+				var action = $(e.relatedTarget).attr('data-action');
+				$(this).parent().attr('action', action);
+			});
 
 			$('#relation').select2({
 	            minimumInputLength: 3,

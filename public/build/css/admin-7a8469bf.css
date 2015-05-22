@@ -18970,7 +18970,7 @@ be a descendant of the grid when it is being dragged.
   border-color: #e5e6e6;
 }
 .fc-unthemed .fc-today {
-  background: rgba(33, 150, 243, 0.07);
+  background: rgba(33, 150, 243, 0.22);
 }
 .fc-unthemed .fc-event {
   border-color: #2196f3;
