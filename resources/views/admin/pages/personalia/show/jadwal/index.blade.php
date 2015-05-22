@@ -55,14 +55,15 @@
 
 		// modal schedule
 		$('.modalSchedule').on('show.bs.modal', function(e) {
-			var id 				= $(e.relatedTarget).attr('data-id');
-			var title 			= $(e.relatedTarget).attr('data-title');
-			var date_start 		= $(e.relatedTarget).attr('data-date');
-			var date_end 		= $(e.relatedTarget).attr('data-date');
-			var start 			= $(e.relatedTarget).attr('data-start');
-			var end 			= $(e.relatedTarget).attr('data-end');
-			var status 			= $(e.relatedTarget).attr('data-status');
-			var delete_action	= $(e.relatedTarget).attr('data-delete-action');
+			var id 					= $(e.relatedTarget).attr('data-id');
+			var title 				= $(e.relatedTarget).attr('data-title');
+			var date_start 			= $(e.relatedTarget).attr('data-date');
+			var date_end 			= $(e.relatedTarget).attr('data-date');
+			var start 				= $(e.relatedTarget).attr('data-start');
+			var end 				= $(e.relatedTarget).attr('data-end');
+			var status 				= $(e.relatedTarget).attr('data-status');
+			var delete_action		= $(e.relatedTarget).attr('data-delete-action');
+			var is_affect_salary	= $(e.relatedTarget).attr('data-is-affect-salary');
 
 
 			if (id != 0) 
@@ -77,6 +78,13 @@
 				$('.modal_schedule_btn_del').attr('data-delete-action', delete_action);
 				$('.modal_schedule_btn_del').removeClass('hide');
 				$(this).find('.modal_schedule_btn_save').text('Edit');
+
+				if (is_affect_salary == 1) {
+					$('.modal_is_affect_salary').attr('checked', true);
+				}
+				else {
+					$('.modal_is_affect_salary').attr('checked', false);
+				}
 			}
 			else
 			{
@@ -88,6 +96,7 @@
 				$('.modal_schedule_end').val('');
 				$('.modal_schedule_status').val('');
 				$('.modal_schedule_btn_del').addClass('hide');
+				$('.modal_is_affect_salary').attr('checked', false);
 				$(this).find('.modal_schedule_btn_save').text('Tambah');
 			}
 		});

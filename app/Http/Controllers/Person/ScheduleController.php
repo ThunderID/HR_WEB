@@ -192,8 +192,9 @@ class ScheduleController extends Controller {
 					$schedule[$i]['tes']		= 'not';
 				}
 
-				$schedule[$i]['status']		= $sh['status'];
-				$schedule[$i]['del_action']	= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+				$schedule[$i]['status']			= $sh['status'];
+				$schedule[$i]['affect_salary']	= $sh['is_affect_salary'];
+				$schedule[$i]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
 		}
 
 		return Response::json($schedule);		
