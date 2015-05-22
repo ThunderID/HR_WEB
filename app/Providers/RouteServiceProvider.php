@@ -52,7 +52,35 @@ class RouteServiceProvider extends ServiceProvider {
 					App::abort(404);
 				}
 
-				Session::put('user.organisation', $contents->data->works[0]->branch->organisation->id);
+				if(!Session::has('user.organisation'))
+				{
+					Session::put('user.organisation', $contents->data->works[0]->branch->organisation->id);
+				}
+
+				$results_2 									= API::application()->authenticate(1, $personid = Session::get('loggedUser'), $contents->data->works[0]->id);
+
+				$contents_2 								= json_decode($results_2);
+
+				if($contents_2->meta->success)
+				{
+					$results_3 								= API::organisation()->index(1, [], [], 100);
+
+					$contents_3 							= json_decode($results_3);
+
+					if(!$contents_3->meta->success)
+					{
+						Session::flush();
+						return Redirect::guest(route('hr.login.get'));
+					}
+					$organisations							= [];
+					foreach ($contents_3->data as $key => $value) 
+					{
+						$organisations[]					= ['id' => $value->id, 'name' => $value->name];
+					}
+
+					Session::put('user.organisations', $organisations);
+				}
+
 				Session::put('user.org_name', $contents->data->works[0]->branch->organisation->name);
 				Session::put('user.role', $contents->data->works[0]->name);
 				Session::put('user.name', $contents->data->name);
@@ -90,6 +118,8 @@ class RouteServiceProvider extends ServiceProvider {
 			$routes_acl = [
 							'hr.devices.edit'								=> '1',
 							'hr.devices.update'								=> '1',
+							'hr.fingers.edit'								=> '1',
+							'hr.fingers.update'								=> '1',
 
 							'hr.applications.index'							=> '1',
 							'hr.applications.show'							=> '1',
@@ -128,6 +158,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisations.edit'							=> '2',
 							'hr.organisations.update'						=> '2',
 							'hr.organisations.delete'						=> '2',
+							'hr.organisations.default'						=> '2',
 
 							'hr.organisation.branches.index'				=> '4',
 							'hr.organisation.branches.show'					=> '4',

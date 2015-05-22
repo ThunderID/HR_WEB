@@ -9,6 +9,11 @@ class API {
 		return new APIPerson();
 	}
 
+	static function organisation()
+	{
+		return new APIOrganisation();
+	}
+
 	static function document()
 	{
 		return new APIDocument();

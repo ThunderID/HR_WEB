@@ -97,6 +97,28 @@
 			</div>
 		@endif
 
+		@if (isset($toggle['organisation']))
+			<div class="clearfix">
+				<div class="col-lg-12 text-right">
+					<a href="{{route('hr.organisations.edit', $data_content['id'])}}" class="btn btn-icon-toggle" title="Edit">
+						<i class="fa fa-pencil"></i>
+					</a>
+					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisations.delete', ['id' => $data_content['id']]) }}">
+						<i class="fa fa-trash"></i>
+					</a>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="col-lg-12 pull-right">
+					{!! Form::open(array('route' => array('hr.organisations.delete', $value['id']),'method' => 'POST')) !!}
+						<div class="modal fade modalOrganisationDelete" id="del_organisation_modal_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$value['id']}}" aria-hidden="true">
+							@include('admin.modals.delete.delete')
+						</div>	
+					{!! Form::close() !!}
+				</div>
+			</div>
+		@endif
+
 		@if (!isset($toggle['document']))
 
 			@if(isset($data_content['contacts'])&&count($data_content['contacts']))

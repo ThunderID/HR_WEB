@@ -5,16 +5,19 @@
 
 @section('content')
 	<div class="card">
-		<div class="card-head style-primary">
-			<header>Tambah data Organisasi</header>
-		</div>
+		<!-- END DEFAULT FORM ITEMS -->
+			<div class="card-head style-primary">
+				<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
+					<li class="active"><a>ORGANISASI</a></li>
+				</ul>
+			</div><!--end .card-head -->
 		@if($data['id'])
 			<form class="form" role="form" action="{{route('hr.organisations.update', $data['id'])}}" method="post">
 		@else
 			<form class="form" role="form" action="{{route('hr.organisations.store')}}" method="post">
 		@endif
 			<!-- BEGIN DEFAULT FORM ITEMS -->
-			<div class="card-body style-primary form-inverse">
+			<div class="card-body tab-content">
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="row">
