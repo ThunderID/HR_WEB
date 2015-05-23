@@ -6,18 +6,19 @@
 @section('content')
 	<div class="card">
 		<!-- BEGIN SEARCH HEADER -->
-		<div class="card-head style-primary">
-			<div class="col-md-6 col-xs-6" style="padding-left:0px; margin-top: 3px">
-				<div class="tools pull-left">
-					<form class="navbar-search" role="search">
+		<div class="card-head card-head-sm style-primary">
+			<div class="col-md-6 col-xs-6 pt-5">
+				<!-- <div class="tools pull-left"> -->
+					<a href="{{ route('hr.report.attendance.get') }}" class="btn btn-flat ink-reaction pull-left"><i class="md md-reply"></i> Kembali</a>
+					<!-- <form class="navbar-search" role="search">
 						{!! Form::open(['route' => ('hr.persons.index'), 'method' => 'get']) !!}
 						<div class="form-group">
 							<input type="text" class="form-control" name="q" placeholder="Ketik kata kunci">
 						</div>
 						<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
 						{!! Form::close() !!}
-					</form>
-				</div>
+					</form> -->
+				<!-- </div> -->
 			</div>
 		</div><!--end .card-head -->
 		<!-- END SEARCH HEADER -->
@@ -63,7 +64,7 @@
 				<div class="col-sm-8 col-md-9 col-lg-10">
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">
-							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif
+							@if(count($data)) Total data <span class="text-bold">{{count($data)}}</span> @else Tidak ada data @endif
 						</span>
 						<div class="pull-right">
 							<a href="{{ route('hr.report.attendance.csv', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a>
@@ -91,29 +92,32 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th rowspan="2">Nama</th>
-								<th class="text-center" colspan="2">In</th>
-								<th class="text-center" colspan="2">Out</th>
-								<th class="text-center" rowspan="2">Total Idle</th>
-								<th class="text-center" rowspan="2">Total Sleep</th>
-								<th class="text-center" rowspan="2">Total Active</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">No</th>
+								<th rowspan="2" class="text-middle" style="vertical-align:middle;font-weight:700">Nama</th>
+								<th colspan="2" class="text-center" style="font-weight:700">In</th>
+								<th class="text-center" colspan="2" style="font-weight:700">Out</th>
+								<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Total Idle</th>
+								<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Total Sleep</th>
+								<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Total Active</th>
 								@if(Input::has('case') && Input::get('case')!='ontime')
-									<th rowspan="2"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
 								@else
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Go In</th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Go Out</th>
 									<th rowspan="2"> </th>
 								@endif
 							</tr>
 							<tr>
-								<th class="text-center">
+								<th class="text-center" style="font-weight:700">
 									FP
 								</th>
-								<th class="text-center">
+								<th class="text-center" style="font-weight:700">
 									TR
 								</th>
-								<th class="text-center">
+								<th class="text-center" style="font-weight:700">
 									FP
 								</th>
-								<th class="text-center">
+								<th class="text-center" style="font-weight:700">
 									TR
 								</th>
 							</tr>
@@ -123,7 +127,8 @@
 							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
 							@foreach($data as $key => $value)
 								<tr>
-									<td>
+									<td class="text-center text-sm">{{ $key+1 }}.</td>
+									<td class="text-sm">
 										@if($value['person_id']!=$prev)
 											{{$value['person']['name']}}
 											<?php $prev = $value['person_id'];?>
@@ -131,36 +136,36 @@
 											<?php $prev = $value['person_id'];?>
 										@endif
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['avg_fp_start'])}}
 										<!-- {{gmdate("H:i:s", $value['fp_start'])}} -->
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['avg_start'])}}
 										<!-- {{gmdate("H:i:s", $value['start'])}} -->
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['avg_fp_end'])}}
 										<!-- {{gmdate("H:i:s", $value['fp_end'])}} -->
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['avg_end'])}}
 										<!-- {{gmdate("H:i:s", $value['end'])}} -->
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['avg_idle'])}}
 										<!-- {{gmdate("H:i:s", $value['total_idle'])}} -->
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['avg_sleep'])}}
 										<!-- {{gmdate("H:i:s", $value['total_sleep'])}} -->
 									</td>
-									<td>
+									<td class="text-center text-sm">									
 										{{gmdate("H:i:s", $value['avg_active'])}}
 										<!-- {{gmdate("H:i:s", $value['total_active'])}} -->
 									</td>
 									@if(Input::has('case') && Input::get('case')!='ontime')
-										<td>
+										<td class="text-center text-sm">
 											<?php 
 												switch (Input::get('case')) 
 												{
@@ -184,13 +189,14 @@
 											{{gmdate("H:i:s", $margin)}}
 										</td>
 									@else
-										<td>
-											@foreach($value['notes'] as $key2 => $value2)
+										@foreach($value['notes'] as $key2 => $value2)
+											<td class="text-center text-sm">
 												<span class ="badge style-{{$label[$value2]}} text-sm mt-5">
 													{{$value2}}
 												</span>
-											@endforeach
-
+											</td>
+										@endforeach
+										<td class="text-sm">
 											<span class ="badge text-sm mt-5">
 												<a href ="{{route('hr.report.attendance.detail', ['id' => $value['person_id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
 											</span>

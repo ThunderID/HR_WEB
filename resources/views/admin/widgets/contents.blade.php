@@ -149,7 +149,7 @@
 					{{$value['value']}}
 				</div>
 				<div class="col-md-2">
-					<a class="btn btn-icon-toggle btn-primary pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-item={{$value['item']}} data-modal-address-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
+					<a class="btn btn-icon-toggle pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-item={{$value['item']}} data-modal-address-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
 						<i class="fa fa-pencil"></i>
 					</a>
 				</div>
@@ -165,7 +165,7 @@
 					{{$value['value']}}
 				</div>
 				<div class="col-md-2">
-					<a class="btn btn-icon-toggle btn-primary pull-right btn_modal" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>
+					<a class="btn btn-icon-toggle pull-right btn_modal" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>
 				</div>
 				</div>
 			</div>					

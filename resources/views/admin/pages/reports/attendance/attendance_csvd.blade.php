@@ -3,6 +3,7 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
+				<th rowspan="2" style="vertical-align:middle">No</th>
 				<th rowspan="2" style="vertical-align:middle">Nama</th>
 				<th rowspan="2" style="text-align:center; vertical-align:middle">Tanggal</th>
 				<th colspan="2" style="text-align:center; height:18px">In</th>
@@ -13,10 +14,12 @@
 				@if($case && $case!='ontime')
 					<th rowspan="2" style="text-align:center; vertical-align:middle"> {{ ucwords($case) }} <br/> (Hi - Lo) </th>
 				@else
-					<th rowspan="2"> </th>
+					<th rowspan="2" style="text-align:center;vertical-align:middle;font-weight:700">Go In</th>
+					<th rowspan="2" style="text-align:center;vertical-align:middle;font-weight:700">Go Out</th>
 				@endif
 			</tr>
 			<tr>
+				<th></th>
 				<th></th>
 				<th></th>
 				<th style="text-align:center; height:18px">FP</th>
@@ -28,15 +31,14 @@
 		<tbody>			
 			<?php $prev = 0;?>
 			@foreach($data as $key => $value)
-				<tr style="height:15px">
-					<td>
-						@if($value['person_id']!=$prev)
+				<tr style="height:15px;font-size:85%">
+					@if($value['person_id']!=$prev)
+						<td rowspan="{{ count($data) }}" style="text-align:center;">{{ $key+1 }}</td>
+						<td rowspan="{{ count($data) }}">
 							{{ $value['person']['name'] }}
 							<?php $prev = $value['person_id'];?>
-						@else
-							<?php $prev = $value['person_id'];?>
-						@endif
-					</td>
+						</td>
+					@endif
 					<td style="text-align:center">
 						@if($value['has_schedule'])
 							<span class ="badge style-info text-sm">
@@ -94,11 +96,11 @@
 							{{ gmdate("H:i:s", $margin) }}
 						</td>
 					@else
-						<td>
-							@foreach($value['notes'] as $key2 => $value2)
+						@foreach($value['notes'] as $key2 => $value2)
+							<td style="text-align:center">
 								{{ $value2 }}
-							@endforeach
-						</td>
+							</td>
+						@endforeach
 					@endif					
 				</tr>
 			@endforeach 

@@ -6,9 +6,10 @@
 @section('content')
 	<div class="card">
 		<!-- BEGIN SEARCH HEADER -->
-		<div class="card-head style-primary">
-			<div class="col-md-6 col-xs-6" style="padding-left:0px; margin-top: 3px">
-				<div class="tools pull-left">
+		<div class="card-head card-head-sm style-primary">
+			<div class="col-md-6 col-xs-6 pt-5">
+				<a href="{{ URL::previous() }}" class="btn btn-flat ink-reaction pull-left"><i class="md md-reply"></i> Kembali</a>				
+				<!-- <div class="tools pull-left">
 					<form class="navbar-search" role="search">
 						{!! Form::open(['route' => ('hr.persons.index'), 'method' => 'get']) !!}
 						<div class="form-group">
@@ -17,7 +18,7 @@
 						<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
 						{!! Form::close() !!}
 					</form>
-				</div>
+				</div> -->
 			</div>
 		</div><!--end .card-head -->
 		<!-- END SEARCH HEADER -->
@@ -71,30 +72,32 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th rowspan="2">Nama</th>
-								<th class="text-center" rowspan="2">Tanggal</th>
-								<th class="text-center" colspan="2">In</th>
-								<th class="text-center" colspan="2">Out</th>
-								<th class="text-center" rowspan="2">Total Idle</th>
-								<th class="text-center" rowspan="2">Total Sleep</th>
-								<th class="text-center" rowspan="2">Total Active</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">No</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Nama</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Tanggal</th>
+								<th class="text-center" colspan="2" style="font-weight:700">In</th>
+								<th class="text-center" colspan="2" style="font-weight:700">Out</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Total Idle</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Total Sleep</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Total Active</th>
 								@if(Input::has('case') && Input::get('case')!='ontime')
-									<th rowspan="2"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
+									<th  rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
 								@else
-									<th rowspan="2"> </th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Go In</th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Go Out</th>
 								@endif
 							</tr>
 							<tr>
-								<th class="text-center">
+								<th class="text-center" style="font-weight:700">
 									FP
 								</th>
-								<th class="text-center">
+								<th class="text-center" style="font-weight:700">
 									TR
 								</th>
-								<th class="text-center">
+								<th class="text-center" style="font-weight:700">
 									FP
 								</th>
-								<th class="text-center">
+								<th class="text-center" style="font-weight:700">
 									TR
 								</th>
 							</tr>
@@ -104,15 +107,14 @@
 							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
 							@foreach($data as $key => $value)
 								<tr>
-									<td>
-										@if($value['person_id']!=$prev)
+									@if($value['person_id']!=$prev)
+										<td rowspan="{{ count($data) }}" class="text-center text-sm">{{ $key+1 }}.</td>
+										<td rowspan="{{ count($data) }}" class="text-sm">
 											{{$value['person']['name']}}
 											<?php $prev = $value['person_id'];?>
-										@else
-											<?php $prev = $value['person_id'];?>
-										@endif
-									</td>
-									<td>
+										</td>									
+									@endif
+									<td class="text-center text-sm">
 										@if($value['has_schedule'])
 											<span class ="badge style-info text-sm">
 												{{date('Y-m-d', strtotime($value['on']))}}
@@ -123,29 +125,29 @@
 											</span>
 										@endif
 									</td>	
-									<td>
+									<td class="text-center text-sm">
 										{{date("H:i:s", strtotime($value['fp_start']))}}
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{date("H:i:s", strtotime($value['start']))}}
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{date("H:i:s", strtotime($value['fp_end']))}}
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{date("H:i:s", strtotime($value['end']))}}
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['total_idle'])}}
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['total_sleep'])}}
 									</td>
-									<td>
+									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['total_active'])}}
 									</td>
 									@if(Input::has('case') && Input::get('case')!='ontime')
-										<td>
+										<td class="text-center text-sm">
 											<?php 
 												switch (Input::get('case')) 
 												{
@@ -169,13 +171,13 @@
 											{{gmdate("H:i:s", $margin)}}
 										</td>
 									@else
-										<td>
-											@foreach($value['notes'] as $key2 => $value2)
+										@foreach($value['notes'] as $key2 => $value2)
+											<td class="text-center text-sm">
 												<span class ="badge style-{{$label[$value2]}} text-sm mt-5">
 													{{$value2}}
 												</span>
-											@endforeach
-										</td>
+											</td>
+										@endforeach
 									@endif
 								</tr>
 							@endforeach
