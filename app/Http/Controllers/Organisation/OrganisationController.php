@@ -60,6 +60,7 @@ class OrganisationController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
+		$input['person']['id'] 						= Session::get('loggedUser');
 		$input['organisation']['id'] 				= $id;
 		$input['organisation']['name'] 				= Input::get('name');
 
@@ -189,9 +190,11 @@ class OrganisationController extends Controller {
 
 		if(Input::has('organisation'))
 		{
+
 			Session::put('user.organisation', Input::get('organisation'));
+			Session::put('user.role', Session::get('user.roles')[Input::get('organisation')]);
 		}
-		
+
 		return Redirect::back();
 	}
 }

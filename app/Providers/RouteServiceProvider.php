@@ -55,6 +55,7 @@ class RouteServiceProvider extends ServiceProvider {
 				if(!Session::has('user.organisation'))
 				{
 					Session::put('user.organisation', $contents->data->works[0]->branch->organisation->id);
+					Session::put('user.role', $contents->data->works[0]->name);
 				}
 
 				$chartids									= [];
@@ -76,17 +77,18 @@ class RouteServiceProvider extends ServiceProvider {
 					{
 						if(!in_array($value->branch->organisation->id, $orgids))
 						{
-							$organisations[]				= ['id' => $value->branch->organisation->id, 'name' => $value->branch->organisation->name];
-							$orgids[]						= $value->branch->organisation->id;
+							$organisations[]							= ['id' => $value->branch->organisation->id, 'name' => $value->branch->organisation->name];
+							$orgids[]									= $value->branch->organisation->id;
+							$roles[$value->branch->organisation->id]	= $value->name;
 						}
 					}
 
 					Session::put('user.organisations', $organisations);
 					Session::put('user.orgids', $orgids);
+					Session::put('user.roles', $roles);
 				}
 
 				Session::put('user.org_name', $contents->data->works[0]->branch->organisation->name);
-				Session::put('user.role', $contents->data->works[0]->name);
 				Session::put('user.name', $contents->data->name);
 				Session::put('user.email', $contents->data->contacts[0]->value);
 				Session::put('user.gender', $contents->data->gender);
