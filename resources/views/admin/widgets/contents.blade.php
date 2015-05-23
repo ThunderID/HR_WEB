@@ -63,9 +63,34 @@
 						<span class="badge style-info text-sm opacity-75 mt-5">{{$data_content['chart']['name']}} - {{$data_content['chart']['tag']}} - {{$value['chart']['branch']['name']}}</span>
 					@endif
 					@if(isset($data_content['quota']))
-						{{$data_content['quota']}} Hari
+						<span class="badge style-info text-sm opacity-75 mt-5"> 
+							{{(number_format($data_content['quota']))}} Hari
+						 </span>
+					@endif
+
+					@if(isset($data_content['workdays']))
+						<?php 
+							$days 	= explode(', ', $data_content['workdays']);
+							$indodays = ['monday' => 'senin', 'tuesday' => 'selasa', 'wednesday' => 'rabu', 'thursday' => 'kamis', 'friday' => 'jumat', 'saturday' => 'sabtu', 'sunday' => 'minggu'];
+						?>
+						@foreach($days as $key => $value)
+							<span class="badge style-info text-sm opacity-75 mt-5"> {{$indodays[strtolower($value)]}}</span>
+						@endforeach
 					@endif
 				</div>
+				@if(isset($data_content['workdays']))
+					<div class="col-xs-1">
+						<span class="opacity-50"><i class = "fa fa-clock-o"></i></span>
+					</div>
+					<div class="col-xs-11">
+						<span class="badge style-success text-sm opacity-75 mt-5"> 
+							@time_indo($data_content['start'])
+						 </span>
+						<span class="badge style-success text-sm opacity-75 mt-5"> 
+						 	@time_indo($data_content['end'])
+						 </span>
+					</div>
+				@endif
 			</div>
 		@endif
 

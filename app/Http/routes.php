@@ -89,397 +89,397 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- END OF APPLICATIONS ----------------------------------------------------------------------------*/
 
-	/* ---------------------------------------------------------------------------- ORGANISATION ---------------------------------------------------------------------------*/
+	// /* ---------------------------------------------------------------------------- ORGANISATION ---------------------------------------------------------------------------*/
 
-	Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@getIndex', 
-							'as' 	=> 'hr.organisations.index'
-						]
-					);
+	// Route::group(['prefix' => 'organisations', 'before' => 'hr_acl'], function(){
+	// 	Route::get('{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\OrganisationController@getIndex', 
+	// 						'as' 	=> 'hr.organisations.index'
+	// 					]
+	// 				);
 
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@getCreate', 
-							'as' 	=> 'hr.organisations.create'
-						]
-					);
+	// 	Route::get('create/new', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\OrganisationController@getCreate', 
+	// 						'as' 	=> 'hr.organisations.create'
+	// 					]
+	// 				);
 
-		Route::post('store', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@postStore', 
-							'as' 	=> 'hr.organisations.store'
-						]
-					);
+	// 	Route::post('store', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\OrganisationController@postStore', 
+	// 						'as' 	=> 'hr.organisations.store'
+	// 					]
+	// 				);
 
-		Route::get('show/{id}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@getShow', 
-							'as' 	=> 'hr.organisations.show'
-						]
-					);
-		Route::get('edit/{id}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@getEdit', 
-							'as' 	=> 'hr.organisations.edit'
-						]
-					);
-		Route::post('update/{id}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@postUpdate', 
-							'as' 	=> 'hr.organisations.update'
-						]
-					);	
-		Route::any('delete/{id}', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@anyDelete', 
-							'as' 	=> 'hr.organisations.delete'
-						]
-					);	
+	// 	Route::get('show/{id}/{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\Branch\BranchController@getIndex', 
+	// 						'as' 	=> 'hr.organisations.show'
+	// 					]
+	// 				);
+	// 	Route::get('edit/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\OrganisationController@getEdit', 
+	// 						'as' 	=> 'hr.organisations.edit'
+	// 					]
+	// 				);
+	// 	Route::post('update/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\OrganisationController@postUpdate', 
+	// 						'as' 	=> 'hr.organisations.update'
+	// 					]
+	// 				);	
+	// 	Route::any('delete/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\OrganisationController@anyDelete', 
+	// 						'as' 	=> 'hr.organisations.delete'
+	// 					]
+	// 				);	
 
-		Route::any('default/active', 
-						[
-							'uses' 	=> 'Organisation\OrganisationController@anyDefault', 
-							'as' 	=> 'hr.organisations.default'
-						]
-					);	
-	});
+	// 	Route::any('default/active', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\OrganisationController@anyDefault', 
+	// 						'as' 	=> 'hr.organisations.default'
+	// 					]
+	// 				);	
+	// });
 
-	/* ---------------------------------------------------------------------------- ORGANISATION ----------------------------------------------------------------------------*/
-
-
-	/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
-
-	Route::group(['prefix' => 'branches', 'before' => 'hr_acl'], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'Branch\BranchController@getIndex', 
-							'as' 	=> 'hr.organisation.branches.index'
-						]
-					);
-
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'Branch\BranchController@getCreate', 
-							'as' 	=> 'hr.organisation.branches.create'
-						]
-					);
-
-		Route::post('store', 
-						[
-							'uses' 	=> 'Branch\BranchController@postStore', 
-							'as' 	=> 'hr.organisation.branches.store'
-						]
-					);
-
-		Route::get('show/{id}', 
-						[
-							'uses' 	=> 'Branch\BranchController@getShow', 
-							'as' 	=> 'hr.organisation.branches.show'
-						]
-					);
-		Route::get('edit/{id}', 
-						[
-							'uses' 	=> 'Branch\BranchController@getEdit', 
-							'as' 	=> 'hr.organisation.branches.edit'
-						]
-					);
-		Route::post('update/{id}', 
-						[
-							'uses' 	=> 'Branch\BranchController@postUpdate', 
-							'as' 	=> 'hr.organisation.branches.update'
-						]
-					);	
-		Route::any('delete/{id}', 
-						[
-							'uses' 	=> 'Branch\BranchController@anyDelete', 
-							'as' 	=> 'hr.organisation.branches.delete'
-						]
-					);	
-
-	/* ---------------------------------------------------------------------------- BRANCH CONTACTS----------------------------------------------------------------------------*/
-		Route::get('show/{branch_id}/contacts/{page?}', 
-						[
-							'uses' 	=> 'Branch\ContactController@getIndex', 
-							'as' 	=> 'hr.branches.contacts.index'
-						]
-					);
-		Route::get('show/{branch_id}/contacts/show/{id}', 
-						[
-							'uses' 	=> 'Branch\ContactController@getShow', 
-							'as' 	=> 'hr.branches.contacts.show'
-						]
-					);
-		Route::post('show/{branch_id}/contacts/store', 
-						[
-							'uses' 	=> 'Branch\ContactController@postStore', 
-							'as' 	=> 'hr.branches.contacts.store'
-						]
-					);
-
-		Route::any('show/{branch_id}/contacts/delete/{id}', 
-						[
-							'uses' 	=> 'Branch\ContactController@anyDelete', 
-							'as' 	=> 'hr.branches.contacts.delete'
-						]
-					);
-	/* ---------------------------------------------------------------------------- END BRANCH CONTACTS----------------------------------------------------------------------------*/
-	});
+	// /* ---------------------------------------------------------------------------- ORGANISATION ----------------------------------------------------------------------------*/
 
 
-	/* ---------------------------------------------------------------------------- END ORGANISATION BRANCH ----------------------------------------------------------------------------*/
+	// /* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
-	/* ---------------------------------------------------------------------------- ORGANISATION CHART ----------------------------------------------------------------------------*/
+	// Route::group(['prefix' => 'branches', 'before' => 'hr_acl'], function(){
+	// 	Route::get('{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\BranchController@getIndex', 
+	// 						'as' 	=> 'hr.organisation.branches.index'
+	// 					]
+	// 				);
 
-	Route::group(['prefix' => 'charts', 'before' => 'hr_acl'], function(){
-		Route::get('branch/{branch_id}/create/', 
-						[
-							'uses' 	=> 'Branch\ChartController@getCreate', 
-							'as' 	=> 'hr.organisation.charts.create'
-						]
-					);	
-		Route::post('branch/{branch_id}/store/', 
-						[
-							'uses' 	=> 'Branch\ChartController@postStore', 
-							'as' 	=> 'hr.organisation.charts.store'
-						]
-					);
-		Route::get('branch/{branch_id}/show/{id}/{page?}', 
-						[
-							'uses' 	=> 'Branch\ChartController@getShow', 
-							'as' 	=> 'hr.organisation.charts.show'
-						]
-					);
-		Route::get('branch/{branch_id}/edit/{id}', 
-						[
-							'uses' 	=> 'Branch\ChartController@getEdit', 
-							'as' 	=> 'hr.organisation.charts.edit'
-						]
-					);
-		Route::post('branch/{branch_id}/update/{id}', 
-						[
-							'uses' 	=> 'Branch\ChartController@postUpdate', 
-							'as' 	=> 'hr.organisation.charts.update'
-						]
-					);
-		Route::any('branch/{branch_id}/destroy/{id}', 
-						[
-							'uses' 	=> 'Branch\ChartController@anyDelete', 
-							'as' 	=> 'hr.organisation.charts.delete'
-						]
-					);
-	});
+	// 	Route::get('create/new', 
+	// 					[
+	// 						'uses' 	=> 'Branch\BranchController@getCreate', 
+	// 						'as' 	=> 'hr.organisation.branches.create'
+	// 					]
+	// 				);
 
-	/* ---------------------------------------------------------------------------- END ORGANISATION CHART ----------------------------------------------------------------------------*/
+	// 	Route::post('store', 
+	// 					[
+	// 						'uses' 	=> 'Branch\BranchController@postStore', 
+	// 						'as' 	=> 'hr.organisation.branches.store'
+	// 					]
+	// 				);
+
+	// 	Route::get('show/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\BranchController@getShow', 
+	// 						'as' 	=> 'hr.organisation.branches.show'
+	// 					]
+	// 				);
+	// 	Route::get('edit/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\BranchController@getEdit', 
+	// 						'as' 	=> 'hr.organisation.branches.edit'
+	// 					]
+	// 				);
+	// 	Route::post('update/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\BranchController@postUpdate', 
+	// 						'as' 	=> 'hr.organisation.branches.update'
+	// 					]
+	// 				);	
+	// 	Route::any('delete/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\BranchController@anyDelete', 
+	// 						'as' 	=> 'hr.organisation.branches.delete'
+	// 					]
+	// 				);	
+
+	// /* ---------------------------------------------------------------------------- BRANCH CONTACTS----------------------------------------------------------------------------*/
+	// 	Route::get('show/{branch_id}/contacts/{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ContactController@getIndex', 
+	// 						'as' 	=> 'hr.branches.contacts.index'
+	// 					]
+	// 				);
+	// 	Route::get('show/{branch_id}/contacts/show/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ContactController@getShow', 
+	// 						'as' 	=> 'hr.branches.contacts.show'
+	// 					]
+	// 				);
+	// 	Route::post('show/{branch_id}/contacts/store', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ContactController@postStore', 
+	// 						'as' 	=> 'hr.branches.contacts.store'
+	// 					]
+	// 				);
+
+	// 	Route::any('show/{branch_id}/contacts/delete/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ContactController@anyDelete', 
+	// 						'as' 	=> 'hr.branches.contacts.delete'
+	// 					]
+	// 				);
+	// /* ---------------------------------------------------------------------------- END BRANCH CONTACTS----------------------------------------------------------------------------*/
+	// });
 
 
-	/* ---------------------------------------------------------------------------- DOCUMENT ----------------------------------------------------------------------------*/
-	Route::group(['prefix' => 'documents', 'before' => 'hr_acl'], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'Branch\DocumentController@getIndex', 
-							'as' 	=> 'hr.documents.index'
-						]
-					);
+	// /* ---------------------------------------------------------------------------- END ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'Branch\DocumentController@getCreate', 
-							'as' 	=> 'hr.documents.create'
-						]
-					);
+	// /* ---------------------------------------------------------------------------- ORGANISATION CHART ----------------------------------------------------------------------------*/
 
-		Route::post('store', 
-						[
-							'uses' 	=> 'Branch\DocumentController@postStore', 
-							'as' 	=> 'hr.documents.store'
-						]
-					);
+	// Route::group(['prefix' => 'charts', 'before' => 'hr_acl'], function(){
+	// 	Route::get('branch/{branch_id}/create/', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ChartController@getCreate', 
+	// 						'as' 	=> 'hr.organisation.charts.create'
+	// 					]
+	// 				);	
+	// 	Route::post('branch/{branch_id}/store/', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ChartController@postStore', 
+	// 						'as' 	=> 'hr.organisation.charts.store'
+	// 					]
+	// 				);
+	// 	Route::get('branch/{branch_id}/show/{id}/{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ChartController@getShow', 
+	// 						'as' 	=> 'hr.organisation.charts.show'
+	// 					]
+	// 				);
+	// 	Route::get('branch/{branch_id}/edit/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ChartController@getEdit', 
+	// 						'as' 	=> 'hr.organisation.charts.edit'
+	// 					]
+	// 				);
+	// 	Route::post('branch/{branch_id}/update/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ChartController@postUpdate', 
+	// 						'as' 	=> 'hr.organisation.charts.update'
+	// 					]
+	// 				);
+	// 	Route::any('branch/{branch_id}/destroy/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\ChartController@anyDelete', 
+	// 						'as' 	=> 'hr.organisation.charts.delete'
+	// 					]
+	// 				);
+	// });
 
-		Route::get('show/{id}', 
-						[
-							'uses' 	=> 'Branch\DocumentController@getShow', 
-							'as' 	=> 'hr.documents.show'
-						]
-					);
-		Route::get('edit/{id}', 
-						[
-							'uses' 	=> 'Branch\DocumentController@getEdit', 
-							'as' 	=> 'hr.documents.edit'
-						]
-					);
-		Route::post('update/{id}', 
-						[
-							'uses' 	=> 'Branch\DocumentController@postUpdate', 
-							'as' 	=> 'hr.documents.update'
-						]
-					);
-		Route::any('delete/{id}', 
-						[
-							'uses' 	=> 'Branch\DocumentController@anyDelete', 
-							'as' 	=> 'hr.documents.delete'
-						]
-					);
-	});
+	// /* ---------------------------------------------------------------------------- END ORGANISATION CHART ----------------------------------------------------------------------------*/
 
-	Route::group(['prefix' => 'documents/templates', 'before' => 'hr_acl'], function(){
-		Route::any('delete/{id}', 
-						[
-							'uses' 	=> 'Branch\DocumentController@anyTemplateDelete', 
-							'as' 	=> 'hr.document.templates.delete'
-						]
-					);
-	});
 
-	Route::group(['prefix' => 'documents/persons/', 'before' => 'hr_acl'], function(){
-		Route::get('{id}/{page?}', 
-						[
-							'uses' 	=> 'Branch\DocumentController@getShow', 
-							'as' 	=> 'hr.document.persons.index'
-						]
-					);
-	});
+	// /* ---------------------------------------------------------------------------- DOCUMENT ----------------------------------------------------------------------------*/
+	// Route::group(['prefix' => 'documents', 'before' => 'hr_acl'], function(){
+	// 	Route::get('{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@getIndex', 
+	// 						'as' 	=> 'hr.organisation.documents.index'
+	// 					]
+	// 				);
 
-	/* ---------------------------------------------------------------------------- END OF DOCUMENT ----------------------------------------------------------------------------*/
+	// 	Route::get('create/new', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@getCreate', 
+	// 						'as' 	=> 'hr.organisation.documents.create'
+	// 					]
+	// 				);
+
+	// 	Route::post('store', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@postStore', 
+	// 						'as' 	=> 'hr.organisation.documents.store'
+	// 					]
+	// 				);
+
+	// 	Route::get('show/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@getShow', 
+	// 						'as' 	=> 'hr.organisation.documents.show'
+	// 					]
+	// 				);
+	// 	Route::get('edit/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@getEdit', 
+	// 						'as' 	=> 'hr.organisation.documents.edit'
+	// 					]
+	// 				);
+	// 	Route::post('update/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@postUpdate', 
+	// 						'as' 	=> 'hr.organisation.documents.update'
+	// 					]
+	// 				);
+	// 	Route::any('delete/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@anyDelete', 
+	// 						'as' 	=> 'hr.organisation.documents.delete'
+	// 					]
+	// 				);
+	// });
+
+	// Route::group(['prefix' => 'documents/templates', 'before' => 'hr_acl'], function(){
+	// 	Route::any('delete/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@anyTemplateDelete', 
+	// 						'as' 	=> 'hr.document.templates.delete'
+	// 					]
+	// 				);
+	// });
+
+	// Route::group(['prefix' => 'documents/persons/', 'before' => 'hr_acl'], function(){
+	// 	Route::get('{id}/{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Branch\DocumentController@getShow', 
+	// 						'as' 	=> 'hr.document.persons.index'
+	// 					]
+	// 				);
+	// });
+
+	// /* ---------------------------------------------------------------------------- END OF DOCUMENT ----------------------------------------------------------------------------*/
 	
 
-	/* ---------------------------------------------------------------------------- SCHEDULE ----------------------------------------------------------------------------*/
-	Route::group(['prefix' => 'calendars', 'before' => 'hr_acl'], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@getIndex', 
-							'as' 	=> 'hr.calendars.index'
-						]
-					);
+	// /* ---------------------------------------------------------------------------- SCHEDULE ----------------------------------------------------------------------------*/
+	// Route::group(['prefix' => 'calendars', 'before' => 'hr_acl'], function(){
+	// 	Route::get('{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\Calendar\CalendarController@getIndex', 
+	// 						'as' 	=> 'hr.organisation.calendars.index'
+	// 					]
+	// 				);
 
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@getCreate', 
-							'as' 	=> 'hr.calendars.create'
-						]
-					);
+	// 	Route::get('create/new', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\Calendar\CalendarController@getCreate', 
+	// 						'as' 	=> 'hr.organisation.calendars.create'
+	// 					]
+	// 				);
 
-		Route::post('store', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@postStore', 
-							'as' 	=> 'hr.calendars.store'
-						]
-					);
+	// 	Route::post('store', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\Calendar\CalendarController@postStore', 
+	// 						'as' 	=> 'hr.organisation.calendars.store'
+	// 					]
+	// 				);
 
-		Route::get('show/{id}/{page?}', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@getShow', 
-							'as' 	=> 'hr.calendars.show'
-						]
-					);
-		Route::get('edit/{id}', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@getEdit', 
-							'as' 	=> 'hr.calendars.edit'
-						]
-					);
-		Route::post('update/{id}', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@postUpdate', 
-							'as' 	=> 'hr.calendars.update'
-						]
-					);
-		Route::any('delete/{id}', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@anyDelete', 
-							'as' 	=> 'hr.calendars.delete'
-						]
-					);
-		Route::any('schedules/list/{id}/{page?}',
-						[
-							'uses' 	=> 'Schedule\CalendarController@ajaxSchedule',
-							'as' 	=> 'hr.schedule.list'
-						]
-					);
-	});
+	// 	Route::get('show/{id}/{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\Calendar\CalendarController@getShow', 
+	// 						'as' 	=> 'hr.organisation.calendars.show'
+	// 					]
+	// 				);
+	// 	Route::get('edit/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\Calendar\CalendarController@getEdit', 
+	// 						'as' 	=> 'hr.organisation.calendars.edit'
+	// 					]
+	// 				);
+	// 	Route::post('update/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\Calendar\CalendarController@postUpdate', 
+	// 						'as' 	=> 'hr.organisation.calendars.update'
+	// 					]
+	// 				);
+	// 	Route::any('delete/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Organisation\Calendar\CalendarController@anyDelete', 
+	// 						'as' 	=> 'hr.organisation.calendars.delete'
+	// 					]
+	// 				);
+	// 	Route::any('schedules/list/{id}/{page?}',
+	// 					[
+	// 						'uses' 	=> 'Organisation\Calendar\CalendarController@ajaxSchedule',
+	// 						'as' 	=> 'hr.schedule.list'
+	// 					]
+	// 				);
+	// });
 
-	Route::group(['prefix' => 'calendars/schedules/', 'before' => 'hr_acl'], function(){
-		Route::post('store/{cal_id}', 
-						[
-							'uses' 	=> 'Schedule\ScheduleController@postStore', 
-							'as' 	=> 'hr.calendars.schedules.store'
-						]
-					);
-	});
+	// Route::group(['prefix' => 'calendars/schedules/', 'before' => 'hr_acl'], function(){
+	// 	Route::post('store/{cal_id}', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\ScheduleController@postStore', 
+	// 						'as' 	=> 'hr.calendars.schedules.store'
+	// 					]
+	// 				);
+	// });
 
-	Route::group(['prefix' => 'calendars/persons/', 'before' => 'hr_acl'], function(){
-		Route::post('store/{cal_id}', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@postStorePerson', 
-							'as' 	=> 'hr.calendars.persons.store'
-						]
-					);
-	});
+	// Route::group(['prefix' => 'calendars/persons/', 'before' => 'hr_acl'], function(){
+	// 	Route::post('store/{cal_id}', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\CalendarController@postStorePerson', 
+	// 						'as' 	=> 'hr.calendars.persons.store'
+	// 					]
+	// 				);
+	// });
 
-	Route::group(['prefix' => 'calendars/charts/', 'before' => 'hr_acl'], function(){
-		Route::post('store/{cal_id}', 
-						[
-							'uses' 	=> 'Schedule\CalendarController@postStoreChart', 
-							'as' 	=> 'hr.calendars.charts.store'
-						]
-					);
-	});
+	// Route::group(['prefix' => 'calendars/charts/', 'before' => 'hr_acl'], function(){
+	// 	Route::post('store/{cal_id}', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\CalendarController@postStoreChart', 
+	// 						'as' 	=> 'hr.calendars.charts.store'
+	// 					]
+	// 				);
+	// });
 
-	/* ---------------------------------------------------------------------------- END OF SCHEDULE ----------------------------------------------------------------------------*/
+	// /* ---------------------------------------------------------------------------- END OF SCHEDULE ----------------------------------------------------------------------------*/
 	
-	/* ---------------------------------------------------------------------------- WORKLEAVE ----------------------------------------------------------------------------*/
-	Route::group(['prefix' => 'workleaves', 'before' => ''], function(){
-		Route::get('{page?}', 
-						[
-							'uses' 	=> 'Schedule\WorkleaveController@getIndex', 
-							'as' 	=> 'hr.workleaves.index'
-						]
-					);
+	// /* ---------------------------------------------------------------------------- WORKLEAVE ----------------------------------------------------------------------------*/
+	// Route::group(['prefix' => 'workleaves', 'before' => ''], function(){
+	// 	Route::get('{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\WorkleaveController@getIndex', 
+	// 						'as' 	=> 'hr.organisation.workleaves.index'
+	// 					]
+	// 				);
 
-		Route::get('create/new', 
-						[
-							'uses' 	=> 'Schedule\WorkleaveController@getCreate', 
-							'as' 	=> 'hr.workleaves.create'
-						]
-					);
+	// 	Route::get('create/new', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\WorkleaveController@getCreate', 
+	// 						'as' 	=> 'hr.organisation.workleaves.create'
+	// 					]
+	// 				);
 
-		Route::post('store', 
-						[
-							'uses' 	=> 'Schedule\WorkleaveController@postStore', 
-							'as' 	=> 'hr.workleaves.store'
-						]
-					);
+	// 	Route::post('store', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\WorkleaveController@postStore', 
+	// 						'as' 	=> 'hr.organisation.workleaves.store'
+	// 					]
+	// 				);
 
-		Route::get('show/{id}/{page?}', 
-						[
-							'uses' 	=> 'Schedule\WorkleaveController@getShow', 
-							'as' 	=> 'hr.workleaves.show'
-						]
-					);
+	// 	Route::get('show/{id}/{page?}', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\WorkleaveController@getShow', 
+	// 						'as' 	=> 'hr.organisation.workleaves.show'
+	// 					]
+	// 				);
 
-		Route::get('edit/{id}', 
-						[
-							'uses' 	=> 'Schedule\WorkleaveController@getEdit', 
-							'as' 	=> 'hr.workleaves.edit'
-						]
-					);
+	// 	Route::get('edit/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\WorkleaveController@getEdit', 
+	// 						'as' 	=> 'hr.organisation.workleaves.edit'
+	// 					]
+	// 				);
 
-		Route::post('update/{id}', 
-						[
-							'uses' 	=> 'Schedule\WorkleaveController@postUpdate', 
-							'as' 	=> 'hr.workleaves.update'
-						]
-					);
-		Route::any('delete/{id}', 
-						[
-							'uses' 	=> 'Schedule\WorkleaveController@anyDelete', 
-							'as' 	=> 'hr.workleaves.delete'
-						]
-					);
-	});
+	// 	Route::post('update/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\WorkleaveController@postUpdate', 
+	// 						'as' 	=> 'hr.organisation.workleaves.update'
+	// 					]
+	// 				);
+	// 	Route::any('delete/{id}', 
+	// 					[
+	// 						'uses' 	=> 'Schedule\WorkleaveController@anyDelete', 
+	// 						'as' 	=> 'hr.organisation.workleaves.delete'
+	// 					]
+	// 				);
+	// });
 
-	/* ---------------------------------------------------------------------------- END OF WORKLEAVE ----------------------------------------------------------------------------*/
+	// /* ---------------------------------------------------------------------------- END OF WORKLEAVE ----------------------------------------------------------------------------*/
 	
 
 
@@ -780,6 +780,14 @@ Blade::extend(function ($value, $compiler)
 {
 	$pattern = $compiler->createMatcher('date_indo');
 	$replace = '<?php echo date("d-m-Y", strtotime($2)); ?>';
+
+	return preg_replace($pattern, '$1'.$replace, $value);
+});
+
+Blade::extend(function ($value, $compiler)
+{
+	$pattern = $compiler->createMatcher('time_indo');
+	$replace = '<?php echo date("H:i:s", strtotime($2)); ?>';
 
 	return preg_replace($pattern, '$1'.$replace, $value);
 });
