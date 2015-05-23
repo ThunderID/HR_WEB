@@ -550,8 +550,8 @@
 // Small device range, from phones to tablets.
 
 @media (min-width: @screen-sm-min) {
-	.make-ratio(sm, 2, 1);
-	.make-ratio(sm, 3, 1);
+  .make-ratio(sm, 2, 1);
+  .make-ratio(sm, 3, 1);
 }
 
 
@@ -560,8 +560,8 @@
 // For the desktop device range.
 
 @media (min-width: @screen-md-min) {
-	.make-ratio(md, 2, 1);
-	.make-ratio(md, 3, 1);
+  .make-ratio(md, 2, 1);
+  .make-ratio(md, 3, 1);
 }
 
 
@@ -570,8 +570,8 @@
 // For the large desktop device range.
 
 @media (min-width: @screen-lg-min) {
-	.make-ratio(lg, 2, 1);
-	.make-ratio(lg, 3, 1);
+  .make-ratio(lg, 2, 1);
+  .make-ratio(lg, 3, 1);
 }
 */
 /*
@@ -1074,4 +1074,3 @@
   border: none;
   background: inherit;
 }
-

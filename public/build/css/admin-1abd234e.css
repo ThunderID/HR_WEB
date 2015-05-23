@@ -1921,7 +1921,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 13px;
   line-height: 1.846153846;
   color: #313335;
@@ -2145,6 +2145,9 @@ mark,
 .mark {
   background-color: #faebd4;
   padding: .2em;
+}
+.text-middle {
+  vertical-align: middle;
 }
 .text-left {
   text-align: left;
@@ -6965,7 +6968,7 @@ button.close {
   z-index: 1070;
   display: block;
   visibility: visible;
-  font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 12px;
   font-weight: normal;
   line-height: 1.4;
@@ -7072,7 +7075,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 13px;
   font-weight: normal;
   line-height: 1.846153846;
@@ -8449,7 +8452,7 @@ hr.ruler-xxl {
   font-weight: 300;
 }
 .text-normal {
-  font-weight: 400;
+  font-weight: 300;
 }
 .text-medium,
 strong {
@@ -18970,7 +18973,7 @@ be a descendant of the grid when it is being dragged.
   border-color: #e5e6e6;
 }
 .fc-unthemed .fc-today {
-  background: rgba(33, 150, 243, 0.22);
+  background: rgba(33, 150, 243, 0.07);
 }
 .fc-unthemed .fc-event {
   border-color: #2196f3;

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dca341401e203922a1534d7dcf8b1771",
+    "hash": "53d693d663f5404d58b4bea49f629e51",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -59,6 +59,54 @@
                 "webprofiler"
             ],
             "time": "2015-03-07 15:15:23"
+        },
+        {
+            "name": "barryvdh/laravel-dompdf",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-dompdf.git",
+                "reference": "a8f72ed075b8a694e88f38a5ff3c05689fbe011e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/a8f72ed075b8a694e88f38a5ff3c05689fbe011e",
+                "reference": "a8f72ed075b8a694e88f38a5ff3c05689fbe011e",
+                "shasum": ""
+            },
+            "require": {
+                "dompdf/dompdf": "0.6.*",
+                "illuminate/support": "5.0.x",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\DomPDF\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "A DOMPDF Wrapper for Laravel",
+            "keywords": [
+                "dompdf",
+                "laravel",
+                "pdf"
+            ],
+            "time": "2015-02-04 10:04:35"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -275,6 +323,47 @@
                 "string"
             ],
             "time": "2014-12-20 21:24:13"
+        },
+        {
+            "name": "dompdf/dompdf",
+            "version": "v0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dompdf/dompdf.git",
+                "reference": "cf7d8a0a27270418850cc7d7ea532159e5eeb3eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/cf7d8a0a27270418850cc7d7ea532159e5eeb3eb",
+                "reference": "cf7d8a0a27270418850cc7d7ea532159e5eeb3eb",
+                "shasum": ""
+            },
+            "require": {
+                "phenx/php-font-lib": "0.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "include/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Ménager",
+                    "email": "fabien.menager@gmail.com"
+                },
+                {
+                    "name": "Brian Sweeney",
+                    "email": "eclecticgeek@gmail.com"
+                }
+            ],
+            "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
+            "homepage": "https://github.com/dompdf/dompdf",
+            "time": "2014-03-11 01:59:52"
         },
         {
             "name": "fzaninotto/faker",
@@ -1152,6 +1241,40 @@
             "time": "2015-05-02 15:40:40"
         },
         {
+            "name": "phenx/php-font-lib",
+            "version": "0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PhenX/php-font-lib.git",
+                "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
+                "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "classes/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Ménager",
+                    "email": "fabien.menager@gmail.com"
+                }
+            ],
+            "description": "A library to read, parse, export and make subsets of different types of font files.",
+            "homepage": "https://github.com/PhenX/php-font-lib",
+            "time": "2014-02-01 15:22:28"
+        },
+        {
             "name": "phpoffice/phpexcel",
             "version": "1.8.1",
             "source": {
@@ -1424,6 +1547,60 @@
                 }
             ],
             "description": "Symfony Console Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-05-02 15:18:45"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v2.6.7",
+            "target-dir": "Symfony/Component/CssSelector",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/CssSelector.git",
+                "reference": "189cf0f7f56d7c4be3b778df15a7f16a29f3680d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/189cf0f7f56d7c4be3b778df15a7f16a29f3680d",
+                "reference": "189cf0f7f56d7c4be3b778df15a7f16a29f3680d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
             "time": "2015-05-02 15:18:45"
         },
@@ -2225,12 +2402,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Doclate.git",
-                "reference": "0965476a39b7eef7e078b3caa15e0bf0d33870ed"
+                "reference": "74bb65e28fc42cd17f7cb5236f415ab6ed028c69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Doclate/zipball/0965476a39b7eef7e078b3caa15e0bf0d33870ed",
-                "reference": "0965476a39b7eef7e078b3caa15e0bf0d33870ed",
+                "url": "https://api.github.com/repos/ThunderID/Doclate/zipball/74bb65e28fc42cd17f7cb5236f415ab6ed028c69",
+                "reference": "74bb65e28fc42cd17f7cb5236f415ab6ed028c69",
                 "shasum": ""
             },
             "require": {
@@ -2253,7 +2430,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-05-18 03:17:03"
+            "time": "2015-05-19 10:24:47"
         },
         {
             "name": "thunderid/finger",
@@ -2261,12 +2438,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Finger.git",
-                "reference": "38542ee8bccab2b036c62be791c580c9f0fb640e"
+                "reference": "f1b5c808627682938c2feaa073c69a80768059ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Finger/zipball/38542ee8bccab2b036c62be791c580c9f0fb640e",
-                "reference": "38542ee8bccab2b036c62be791c580c9f0fb640e",
+                "url": "https://api.github.com/repos/ThunderID/Finger/zipball/f1b5c808627682938c2feaa073c69a80768059ec",
+                "reference": "f1b5c808627682938c2feaa073c69a80768059ec",
                 "shasum": ""
             },
             "require": {
@@ -2289,7 +2466,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-05-15 09:03:02"
+            "time": "2015-05-23 02:10:50"
         },
         {
             "name": "thunderid/log",
@@ -2297,12 +2474,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Log.git",
-                "reference": "15ae89cadd6b88806b1274b771025fc2e8218e84"
+                "reference": "72f79d6a5d5b60c4a9d6e63bd611719899098e07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Log/zipball/15ae89cadd6b88806b1274b771025fc2e8218e84",
-                "reference": "15ae89cadd6b88806b1274b771025fc2e8218e84",
+                "url": "https://api.github.com/repos/ThunderID/Log/zipball/72f79d6a5d5b60c4a9d6e63bd611719899098e07",
+                "reference": "72f79d6a5d5b60c4a9d6e63bd611719899098e07",
                 "shasum": ""
             },
             "require": {
@@ -2325,7 +2502,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-05-17 13:08:19"
+            "time": "2015-05-21 14:21:57"
         },
         {
             "name": "thunderid/menu",
@@ -2369,12 +2546,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Organisation.git",
-                "reference": "0d4742c102f76bae21183935d84bba8b2bcd4862"
+                "reference": "2fbdb18e6629745ed611502fb159257cd9291572"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Organisation/zipball/0d4742c102f76bae21183935d84bba8b2bcd4862",
-                "reference": "0d4742c102f76bae21183935d84bba8b2bcd4862",
+                "url": "https://api.github.com/repos/ThunderID/Organisation/zipball/2fbdb18e6629745ed611502fb159257cd9291572",
+                "reference": "2fbdb18e6629745ed611502fb159257cd9291572",
                 "shasum": ""
             },
             "require": {
@@ -2397,7 +2574,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-05-15 08:06:38"
+            "time": "2015-05-22 08:31:04"
         },
         {
             "name": "thunderid/person",
@@ -2405,12 +2582,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Person.git",
-                "reference": "b05eae3453de62bb14cb12c5c2da68e470ce8480"
+                "reference": "37a16c24686337fd673c96617dba7dac0e12cec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Person/zipball/b05eae3453de62bb14cb12c5c2da68e470ce8480",
-                "reference": "b05eae3453de62bb14cb12c5c2da68e470ce8480",
+                "url": "https://api.github.com/repos/ThunderID/Person/zipball/37a16c24686337fd673c96617dba7dac0e12cec2",
+                "reference": "37a16c24686337fd673c96617dba7dac0e12cec2",
                 "shasum": ""
             },
             "require": {
@@ -2433,7 +2610,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-05-17 13:06:58"
+            "time": "2015-05-21 14:53:04"
         },
         {
             "name": "thunderid/schedule",
@@ -2441,12 +2618,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Schedule.git",
-                "reference": "5a0808245275aeca012f2e542b312c94e80e7adb"
+                "reference": "5ce7963a793b89ace1ce8afaab7035e1fc6b967f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Schedule/zipball/5a0808245275aeca012f2e542b312c94e80e7adb",
-                "reference": "5a0808245275aeca012f2e542b312c94e80e7adb",
+                "url": "https://api.github.com/repos/ThunderID/Schedule/zipball/5ce7963a793b89ace1ce8afaab7035e1fc6b967f",
+                "reference": "5ce7963a793b89ace1ce8afaab7035e1fc6b967f",
                 "shasum": ""
             },
             "require": {
@@ -2469,7 +2646,7 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-05-15 06:38:31"
+            "time": "2015-05-22 10:03:14"
         },
         {
             "name": "thunderid/template",
@@ -2582,12 +2759,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ThunderID/Workleave.git",
-                "reference": "b51edb154560cd1aa8264d15d6e0b9d812d745bd"
+                "reference": "324815b3776701efdbd398ed270d07e28569a3c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ThunderID/Workleave/zipball/b51edb154560cd1aa8264d15d6e0b9d812d745bd",
-                "reference": "b51edb154560cd1aa8264d15d6e0b9d812d745bd",
+                "url": "https://api.github.com/repos/ThunderID/Workleave/zipball/324815b3776701efdbd398ed270d07e28569a3c5",
+                "reference": "324815b3776701efdbd398ed270d07e28569a3c5",
                 "shasum": ""
             },
             "require": {
@@ -2610,7 +2787,54 @@
                     "email": "chelsymooy1108@gmail.com"
                 }
             ],
-            "time": "2015-05-13 12:17:20"
+            "time": "2015-05-21 10:47:41"
+        },
+        {
+            "name": "tijsverkoyen/css-to-inline-styles",
+            "version": "1.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
+                "reference": "3065b197f54c83392a4e0ba355678a5080dd9ee2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/3065b197f54c83392a4e0ba355678a5080dd9ee2",
+                "reference": "3065b197f54c83392a4e0ba355678a5080dd9ee2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/css-selector": "~2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TijsVerkoyen\\CssToInlineStyles\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Tijs Verkoyen",
+                    "email": "css_to_inline_styles@verkoyen.eu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
+            "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
+            "time": "2015-04-01 14:40:03"
         },
         {
             "name": "vlucas/phpdotenv",
