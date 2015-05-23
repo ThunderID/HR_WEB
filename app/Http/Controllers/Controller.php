@@ -16,45 +16,29 @@ abstract class Controller extends BaseController {
 	{
 		if (Session::has('loggedUser'))
 		{
-
 			$this->layout 					= view('admin.layouts.template');
 			$this->layout->html_title 		= 'Thunder-HR';
 			
-			// leftmenu
 			$nav = new MaterialAdminSideMenu();
-			//check access
+
 			$nav->add('dashboard', 'Dashboard', route('hr.dashboard.overview'), 'md md-home');
-
-			$nav->add('setting', 'Setting', 'javascript:;', 'fa fa-gear');
-			$nav->add('setting_device', 'Device', route('hr.devices.edit'), null, 'setting');
-			$nav->add('setting_finger', 'Finger', route('hr.fingers.edit'), null, 'setting');
-			$nav->add('setting_organisation', 'Organisation', route('hr.organisations.index'), null, 'setting');
-
-			$nav->add('setting_branch', 'Branch', route('hr.organisation.branches.index'), null, 'setting');
-			$nav->add('setting_document', 'Dokumen Personalia', route('hr.documents.index'), null, 'setting');
-			$nav->add('setting_application', 'Apps Authentication', route('hr.authentications.index'), null, 'setting');
-			
-			$nav->add('calendar', 'Kalender', 'javascript:;', 'fa fa-calendar');
-			$nav->add('calendar_schedule', 'Jadwal', route('hr.calendars.index'), null, 'calendar');
-			$nav->add('calendar_workleave', 'Cuti', route('hr.workleaves.index'), null, 'calendar');
 			
 			$nav->add('data', 'Data', 'javascript:;', 'fa fa-archive');
 			$nav->add('data_personalia', 'Personalia', route('hr.persons.index', ['page' => 1, 'q' => '', 'karyawan' => 'active']), null, 'data');
 
+			$nav->add('setting', 'Setting', 'javascript:;', 'fa fa-gear');
+			$nav->add('setting_organisation', 'Organisation', route('hr.organisations.index'), null, 'setting');
+
 			$nav->add('report', 'Report', 'javascript:;', 'fa fa-copy');
 			$nav->add('report_attendance', 'Attendance', route('hr.report.attendance.get'), null, 'report');
 			$nav->add('report_wages', 'Wages', route('hr.report.wages.get'), null, 'report');
-			// $nav->add('report_performance', 'Performance', route('hr.report.performance.get'), null, 'report');
 
-
-
-
-			$this->layout->nav 			= $nav;
+			$this->layout->nav 				= $nav;
 		}
 		else
 		{
-			$this->layout 				= view('admin.layouts.template_login');
-			$this->layout->html_title 	= 'Thunder-HR';
+			$this->layout 					= view('admin.layouts.template_login');
+			$this->layout->html_title 		= 'Thunder-HR';
 		}
 	}
 }

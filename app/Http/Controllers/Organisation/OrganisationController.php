@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class OrganisationController extends Controller {
 
-	protected $controller_name = 'organisation';
+	protected $controller_name = 'organisasi';
 
 	function __construct() 
 	{
@@ -16,7 +16,7 @@ class OrganisationController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= [];
+		$search 									= ['id' => Session::get('user.orgids')];
 		if(Input::has('q'))
 		{
 			$search['name']							= Input::get('q');			
@@ -37,7 +37,7 @@ class OrganisationController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title					= strtoupper(str_plural($this->controller_name));
 
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
+		$this->layout->content 						= view('admin.pages.organisation.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
@@ -50,7 +50,7 @@ class OrganisationController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($this->controller_name);
 
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
+		$this->layout->content 						= view('admin.pages.organisation.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= null;
 
@@ -60,6 +60,7 @@ class OrganisationController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
+		$input['person']['id'] 						= Session::get('loggedUser');
 		$input['organisation']['id'] 				= $id;
 		$input['organisation']['name'] 				= Input::get('name');
 
@@ -91,7 +92,7 @@ class OrganisationController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($this->controller_name);
 
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
+		$this->layout->content 						= view('admin.pages.organisation.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 
@@ -115,7 +116,7 @@ class OrganisationController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($this->controller_name);
 
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create', compact(('data')));
+		$this->layout->content 						= view('admin.pages.organisation.create', compact(('data')));
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 
@@ -189,9 +190,11 @@ class OrganisationController extends Controller {
 
 		if(Input::has('organisation'))
 		{
+
 			Session::put('user.organisation', Input::get('organisation'));
+			Session::put('user.role', Session::get('user.roles')[Input::get('organisation')]);
 		}
-		
+
 		return Redirect::back();
 	}
 }

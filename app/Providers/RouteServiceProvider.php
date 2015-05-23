@@ -55,34 +55,40 @@ class RouteServiceProvider extends ServiceProvider {
 				if(!Session::has('user.organisation'))
 				{
 					Session::put('user.organisation', $contents->data->works[0]->branch->organisation->id);
+					Session::put('user.role', $contents->data->works[0]->name);
 				}
 
-				$results_2 									= API::application()->authenticate(1, $personid = Session::get('loggedUser'), $contents->data->works[0]->id);
+				$chartids									= [];
+				
+				foreach ($contents->data->works as $key => $value) 
+				{
+					$chartids[]								= $value->id;
+				}
+
+				$results_2 									= API::application()->authenticate(1, $personid = Session::get('loggedUser'), $chartids);
 
 				$contents_2 								= json_decode($results_2);
 
 				if($contents_2->meta->success)
 				{
-					$results_3 								= API::organisation()->index(1, [], [], 100);
-
-					$contents_3 							= json_decode($results_3);
-
-					if(!$contents_3->meta->success)
-					{
-						Session::flush();
-						return Redirect::guest(route('hr.login.get'));
-					}
 					$organisations							= [];
-					foreach ($contents_3->data as $key => $value) 
+					$orgids									= [];
+					foreach ($contents->data->works as $key => $value) 
 					{
-						$organisations[]					= ['id' => $value->id, 'name' => $value->name];
+						if(!in_array($value->branch->organisation->id, $orgids))
+						{
+							$organisations[]							= ['id' => $value->branch->organisation->id, 'name' => $value->branch->organisation->name];
+							$orgids[]									= $value->branch->organisation->id;
+							$roles[$value->branch->organisation->id]	= $value->name;
+						}
 					}
 
 					Session::put('user.organisations', $organisations);
+					Session::put('user.orgids', $orgids);
+					Session::put('user.roles', $roles);
 				}
 
 				Session::put('user.org_name', $contents->data->works[0]->branch->organisation->name);
-				Session::put('user.role', $contents->data->works[0]->name);
 				Session::put('user.name', $contents->data->name);
 				Session::put('user.email', $contents->data->contacts[0]->value);
 				Session::put('user.gender', $contents->data->gender);
@@ -160,6 +166,30 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisations.delete'						=> '2',
 							'hr.organisations.default'						=> '2',
 
+							'hr.organisation.documents.index'				=> '5',
+							'hr.organisation.documents.show'				=> '5',
+							'hr.organisation.documents.create'				=> '5',
+							'hr.organisation.documents.store'				=> '5',
+							'hr.organisation.documents.update'				=> '5',
+							'hr.organisation.documents.edit'				=> '5',
+							'hr.organisation.documents.delete'				=> '5',
+
+							'hr.organisation.calendars.index'				=> '6',
+							'hr.organisation.calendars.show'				=> '6',
+							'hr.organisation.calendars.create'				=> '6',
+							'hr.organisation.calendars.store'				=> '6',
+							'hr.organisation.calendars.update'				=> '6',
+							'hr.organisation.calendars.edit'				=> '6',
+							'hr.organisation.calendars.delete'				=> '6',
+
+							'hr.organisation.workleaves.index'				=> '6',
+							'hr.organisation.workleaves.show'				=> '6',
+							'hr.organisation.workleaves.create'				=> '6',
+							'hr.organisation.workleaves.store'				=> '6',
+							'hr.organisation.workleaves.update'				=> '6',
+							'hr.organisation.workleaves.edit'				=> '6',
+							'hr.organisation.workleaves.delete'				=> '6',
+
 							'hr.organisation.branches.index'				=> '4',
 							'hr.organisation.branches.show'					=> '4',
 							'hr.organisation.branches.create'				=> '4',
@@ -180,24 +210,8 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.organisation.charts.update'					=> '4',
 							'hr.organisation.charts.delete'					=> '4',
 							
-							'hr.documents.index'							=> '5',
-							'hr.documents.show'								=> '5',
-							'hr.documents.create'							=> '5',
-							'hr.documents.store'							=> '5',
-							'hr.documents.update'							=> '5',
-							'hr.documents.edit'								=> '5',
-							'hr.documents.delete'							=> '5',
-
 							'hr.document.persons.index'						=> '5',
 							'hr.document.templates.delete'					=> '5',
-
-							'hr.calendars.index'							=> '6',
-							'hr.calendars.show'								=> '6',
-							'hr.calendars.create'							=> '6',
-							'hr.calendars.store'							=> '6',
-							'hr.calendars.update'							=> '6',
-							'hr.calendars.edit'								=> '6',
-							'hr.calendars.delete'							=> '6',
 
 							'hr.calendars.schedules.store'					=> '6',
 							'hr.calendars.persons.store'					=> '6',
@@ -275,6 +289,7 @@ class RouteServiceProvider extends ServiceProvider {
 		$router->group(['namespace' => $this->namespace], function($router)
 		{
 			require app_path('Http/routes.php');
+			require app_path('Http/routes.organisations.php');
 			require app_path('Http/routes.api.php');
 			require app_path('Http/routes.cron.php');
 		});
