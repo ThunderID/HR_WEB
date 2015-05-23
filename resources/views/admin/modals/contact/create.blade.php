@@ -20,7 +20,7 @@
 				<div class="row">
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group">								
 								<input name="item[1]" id="item[1]" class="form-control getContacts modal_contact_inp_item" data-comp="">																
 								<label for="item[1]">Jenis Kontak</label>
 							</div>

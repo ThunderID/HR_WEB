@@ -170,8 +170,6 @@
 				events: curSource,
 				eventRender: function (event, element) {
 					var datetime_start 	= event.start._i.split('T');
-					var date_start 		= datetime_start[0].split(/-/);	
-					date_start 			= date_start[2]+'-'+date_start[1]+'-'+date_start[0];
 
 					if (event.end_i == '') {
 						var datetime_end 	= event.end._i.split('T');
@@ -179,6 +177,9 @@
 					else {
 						var datetime_end 	= datetime_start;
 					}
+
+					var date_start 		= datetime_start[0].split(/-/);	
+					date_start 			= date_start[2]+'-'+date_start[1]+'-'+date_start[0];
 
 					element.find('#date-title').html(element.find('span.fc-event-title').text());
 					element.attr('data-toggle', 'modal');
@@ -188,13 +189,14 @@
 					element.attr('data-date', date_start);
 					element.attr('data-status', event.status);
 					element.attr('data-start', datetime_start[1]);
-					element.attr('data-end', datetime_end[1]);
-					element.attr('data-is-affect-salary', event.affect_salary);				
+					element.attr('data-end', datetime_end[1]);				
 					element.attr('data-delete-action', event.del_action);
+					element.attr('data-is-affect-salary', event.affect_salary);
 					element.find('.fc-title').append('<br>');
 				},
 				eventAfterRender: function(event, $el, view ) {
 					var datetime_start 	= event.start._i.split('T');
+					console.log(event);
 					if (event.end_i == '') {
 						var datetime_end 	= event.end._i.split('T');
 				        var formattedTime 	= $.fullCalendar.formatRange(event.start, "HH:mm { - HH:mm}");
@@ -211,7 +213,28 @@
 			        else {
 			            $el.find(".fc-event-time").text(formattedTime);
 			        }
-			    }
+			    },
+				// eventClick: function(calEvent, jsEvent, view) {
+
+				//         // alert('Event: ' + calEvent.title);			        
+
+				//         // console.log(calEvent);
+				//         // console.log(jsEvent);
+				//         // console.log(view);
+
+				//         $('')
+
+				//         // change the border color just for fun
+				//         // $(this).css('border-color', 'red');
+
+			 //    },
+				// dayClick: function(date, jsEvent, view) {
+			 //        // change the day's background color just for fun
+			 //        $(this).css('background-color', 'rgba(33, 150, 243, 0.07)');
+			 //        $('.fc-day').not($(this)).css('background-color', 'white');
+			 //        console.log(date);
+
+			 //    }			    
 			});
 		};
 
