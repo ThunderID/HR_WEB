@@ -54,25 +54,25 @@ class ReportController extends Controller {
 			}
 		}
 
-		// if(Input::has('sort_margin_start'))
-		// {
-		// 	$sort 									= ['margin_start' => Input::get('sort_margin_start')];
-		// }
+		if(Input::has('sort_margin_start'))
+		{
+			$sort 									= ['margin_start' => Input::get('sort_margin_start')];
+		}
 
-		// if(Input::has('sort_margin_end'))
-		// {
-		// 	$sort 									= ['margin_end' => Input::get('sort_margin_end')];
-		// }
+		if(Input::has('sort_margin_end'))
+		{
+			$sort 									= ['margin_end' => Input::get('sort_margin_end')];
+		}
 
-		// if(Input::has('sort_idle'))
-		// {
-		// 	$sort 									= ['total_idle' => Input::get('sort_idle')];
-		// }
+		if(Input::has('sort_idle'))
+		{
+			$sort 									= ['total_idle' => Input::get('sort_idle')];
+		}
 
-		// if(Input::has('sort_workhour'))
-		// {
-		// 	$search['orderworkhour'] 				= Input::get('sort_workhour');
-		// }
+		if(Input::has('sort_workhour'))
+		{
+			$sort 									= ['total_active' => Input::get('sort_workhour')];
+		}
 		
 		if(Input::has('branch'))
 		{

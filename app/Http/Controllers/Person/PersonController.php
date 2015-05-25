@@ -17,13 +17,17 @@ class PersonController extends Controller {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['CurrentContact' => 'item'];
+
+		
 		if(Input::has('karyawan'))
 		{
+			$search['organisationid']				= Session::get('user.organisation');
 			$search['CurrentWork']					= '';
 			$search['checkwork']					= true;
 		}
 		if(Input::has('non-karyawan'))
 		{
+			$search['relativeorganisationid']		= Session::get('user.organisation');
 			$search['CheckWork']					= false;			
 		}
 		if(Input::has('gender'))
@@ -46,7 +50,7 @@ class PersonController extends Controller {
 
 		if(Input::has('sort_firstname'))
 		{
-			$sort['name']						= Input::get('sort_firstname');			
+			$sort['name']							= Input::get('sort_firstname');			
 		}
 		elseif(Input::has('sort_lastname'))
 		{
