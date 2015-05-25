@@ -440,7 +440,6 @@ class CalendarController extends Controller {
 		$results 									= API::calendar()->show($id);
 
 		$contents 									= json_decode($results);
-
 		if(!$contents->meta->success)
 		{
 			App::abort(404);
@@ -462,7 +461,7 @@ class CalendarController extends Controller {
 
 		$sort 										= ['name' => 'asc'];
 
-		$results 									= API::schedule()->index($page, $search, $sort, true);
+		$results 									= API::schedule()->index($page, $search, $sort, 100);
 
 		$contents 									= json_decode($results);
 
@@ -472,8 +471,6 @@ class CalendarController extends Controller {
 		}
 		
 		$schedules 									= json_decode(json_encode($contents->data), true);
-		
-		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$schedule = [];
 		foreach($schedules as $i => $sh)	

@@ -51,6 +51,20 @@
 										<a id="calender-next" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-right"></i></a>
 									</span>
 								</h3>
+								<div class="sk-spinner sk-spinner-fading-circle spinner-loading-schedule">
+									<div class="sk-circle1 sk-circle"></div>
+									<div class="sk-circle2 sk-circle"></div>
+									<div class="sk-circle3 sk-circle"></div>
+									<div class="sk-circle4 sk-circle"></div>
+									<div class="sk-circle5 sk-circle"></div>
+									<div class="sk-circle6 sk-circle"></div>
+									<div class="sk-circle7 sk-circle"></div>
+									<div class="sk-circle8 sk-circle"></div>
+									<div class="sk-circle9 sk-circle"></div>
+									<div class="sk-circle10 sk-circle"></div>
+									<div class="sk-circle11 sk-circle"></div>
+									<div class="sk-circle12 sk-circle"></div>
+								</div>
 								<div id="calendar" class="pt-30"></div>
 							</div>
 						</div>
@@ -84,9 +98,9 @@
 	{!! HTML::script('js/jquery.inputmask.min.js')!!}
 
 	<script type="text/javascript">		
-		// spesification for fullcalendar
+		// spesification for fullcalendar		
 		var cal_height 	= 700; 
-		var cal_link 	= "{{ route('hr.schedule.list', ['id' => $data['id'], '1']) }}";		
+		var cal_link 	= "{{ route('hr.schedule.list', ['id' => $calendar['id'], '1']) }}";		
 
 		// modal schedule
 		$('.modalSchedule').on('show.bs.modal', function(e) {
