@@ -15,7 +15,7 @@ class ChartController extends Controller {
 
 	function getIndex($page = 1)
 	{
-				// ---------------------- LOAD DATA ----------------------
+		// ---------------------- LOAD DATA ----------------------
 		if(Input::has('org_id'))
 		{
 			$org_id 								= Input::get('org_id');
@@ -83,7 +83,7 @@ class ChartController extends Controller {
 
 		$charts 									= json_decode(json_encode($contents->data), true);
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
-// dd($branch);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= $branch['name'];
 		$this->layout->content 						= view('admin.pages.organisation.cabang.'.$this->controller_name.'.index');
@@ -97,9 +97,35 @@ class ChartController extends Controller {
 		return $this->layout;
 	}
 
-	function getShow($branch_id, $id, $page = 1)
+	function getShow($id, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		$branchid 									= Input::get('branchid');
+
 		if(Input::has('tag'))
 		{
 			$department 							= Input::get('tag');
@@ -109,7 +135,7 @@ class ChartController extends Controller {
 			$department 							= null;
 		}
 
-		$results 									= API::branch()->show($branch_id, $department);
+		$results 									= API::branch()->show($branchid);
 
 		$contents 									= json_decode($results);
 
@@ -118,9 +144,9 @@ class ChartController extends Controller {
 			App::abort(404);
 		}
 
-		$data 										= json_decode(json_encode($contents->data), true);
+		$branch 									= json_decode(json_encode($contents->data), true);
 		
-		$results_2 									= API::chart()->show($branch_id, $id);
+		$results_2 									= API::chart()->show($id, ['branchid' => $branchid]);
 
 		$contents_2 								= json_decode($results_2);
 
@@ -131,7 +157,7 @@ class ChartController extends Controller {
 
 		$chart 										= json_decode(json_encode($contents_2->data), true);
 
-		$results_3 									= API::chart()->index(1, ['neighbor' => $chart['path'], 'branchid' => $branch_id], ['path' => 'asc']);
+		$results_3 									= API::application()->index(1, ['chartid' => $chart['id']], ['name' => 'asc'] ,100);
 
 		$contents 									= json_decode($results_3);
 
@@ -140,15 +166,18 @@ class ChartController extends Controller {
 			App::abort(404);
 		}
 
-		$charts 									= json_decode(json_encode($contents->data), true);
+		$authentications 							= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= $data['name'];
-		$this->layout->content 						= view('admin.pages.organisation.kantor.show.'.$this->controller_name.'.show');
+		$this->layout->content 						= view('admin.pages.organisation.cabang.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->branch 				= $branch;
 		$this->layout->content->chart 				= $chart;
-		$this->layout->content->charts 				= $charts;
+		$this->layout->content->authentications 	= $authentications;
+		$this->layout->content->paginator 			= $paginator;
 
 		return $this->layout;
 	}
@@ -330,6 +359,11 @@ class ChartController extends Controller {
 				$org_id 			= Session::get('user.organisation');
 			}
 
+			if(!in_array($org_id, Session::get('user.orgids')))
+			{
+				App::abort(404);
+			}
+
 			$branchid 				= Input::get('branchid');
 
 			$results 				= API::chart()->destroy($org_id, $branchid, $id);
@@ -347,5 +381,57 @@ class ChartController extends Controller {
 		{
 			return Redirect::back()->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
+	}
+
+	function anyStore()
+	{
+		$input['menu']['id']						= Input::get('menu_id');
+
+		$chart['chart_id']							= Input::get('chart_id');
+
+		if(Input::has('auth_id'))
+		{
+			$chart['id']							= Input::get('auth_id');
+		}
+		else
+		{
+			$chart['id']							= null;
+		}
+
+		if(Input::has('right'))
+		{
+			$chart[strtolower(Input::get('right'))]	= true;
+		}
+		elseif(Input::has('wrong'))
+		{
+			$chart[strtolower(Input::get('wrong'))]	= false;
+		}
+
+		$input['charts'][]							= $chart;
+
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::application()->menuStore($input['menu']['id'], $input);
+
+		$content 									= json_decode($results);
+		
+		if($content->meta->success)
+		{
+			return Redirect::back()->with('alert_success', 'Authentikasi Sudah Tersimpan');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 }

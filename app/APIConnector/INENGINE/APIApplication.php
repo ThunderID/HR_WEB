@@ -10,16 +10,16 @@ class APIApplication {
 		return $data->application($menuid, $personid, $chartid, $access);
 	}
 
-	function index($page, $search, $sort, $all = false)
+	function index($page, $search, $sort, $per_page = 12)
 	{
 		$data = new \ThunderID\Chauth\Controllers\ApplicationController;
-		return $data->index($page, $search, $sort, $all = false);
+		return $data->index($page, $search, $sort, $per_page);
 	}
 
-	function menuIndex($page, $search, $sort, $all = false)
+	function menuIndex($page, $search, $sort, $per_page = 12)
 	{
 		$data = new \ThunderID\Chauth\Controllers\MenuController;
-		return $data->index($page, $search, $sort, $all = false);
+		return $data->index($page, $search, $sort, $per_page);
 	}
 
 	function menuStore($id, $attributes)

@@ -219,6 +219,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.calendars.charts.store'						=> ['6', 'create'],
 
 							'hr.workleaves.persons.store'					=> ['6', 'create'],
+							'hr.charts.authentications.store'				=> ['1', 'create'],
 
 							'hr.persons.index'								=> ['7', 'read'],
 							'hr.persons.show'								=> ['7', 'read'],
@@ -272,6 +273,11 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.schedule.list'								=> ['6', 'read'],
 							'hr.schedule.person.list'						=> ['6', 'read'],
 							'hr.images.upload'								=> ['7', 'create'],
+							'hr.ajax.name'									=> ['7', 'create'],
+							'hr.ajax.company'								=> ['4', 'read'],
+							'hr.ajax.chart'									=> ['4', 'read'],
+							'hr.ajax.workleave'								=> ['6', 'read'],
+							'hr.ajax.follow'								=> ['6', 'read'],
 						];
 			return $routes_acl;
 		});
@@ -293,6 +299,7 @@ class RouteServiceProvider extends ServiceProvider {
 		{
 			require app_path('Http/routes.php');
 			require app_path('Http/routes.organisations.php');
+			require app_path('Http/routes.persons.php');
 			require app_path('Http/routes.api.php');
 			require app_path('Http/routes.cron.php');
 		});

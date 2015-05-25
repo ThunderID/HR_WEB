@@ -395,3 +395,12 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 	});
+
+	Route::group(['prefix' => 'charts/authentications', 'before' => 'hr_acl'], function(){
+		Route::any('store', 
+						[
+							'uses' 	=> 'Organisation\Branch\ChartController@anyStore', 
+							'as' 	=> 'hr.charts.authentications.store'
+						]
+					);
+	});
