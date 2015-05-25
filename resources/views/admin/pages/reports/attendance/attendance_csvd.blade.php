@@ -3,7 +3,7 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<th rowspan="2" style="vertical-align:middle">No</th>
+				<th rowspan="2" style="text-align:center; vertical-align:middle">No</th>
 				<th rowspan="2" style="vertical-align:middle">Nama</th>
 				<th rowspan="2" style="text-align:center; vertical-align:middle">Tanggal</th>
 				<th colspan="2" style="text-align:center; height:18px">In</th>
@@ -18,7 +18,7 @@
 					<th rowspan="2" style="text-align:center;vertical-align:middle;font-weight:700">Go Out</th>
 				@endif
 			</tr>
-			<tr>
+			<tr>				
 				<th></th>
 				<th></th>
 				<th></th>
@@ -31,24 +31,19 @@
 		<tbody>			
 			<?php $prev = 0;?>
 			@foreach($data as $key => $value)
-				<tr style="height:15px;font-size:85%">
+				<tr style="height:15px;">
 					@if($value['person_id']!=$prev)
-						<td rowspan="{{ count($data) }}" style="text-align:center;">{{ $key+1 }}</td>
-						<td rowspan="{{ count($data) }}">
+						<td rowspan="{{ count($data) }}" style="text-align:center; vertical-align:top">{{ $key+1 }}</td>
+						<td rowspan="{{ count($data) }}" style="vertical-align:top">
 							{{ $value['person']['name'] }}
 							<?php $prev = $value['person_id'];?>
 						</td>
+					@else
+						<td></td>
+						<td></td>
 					@endif
-					<td style="text-align:center">
-						@if($value['has_schedule'])
-							<span class ="badge style-info text-sm">
-								{{ date('Y-m-d', strtotime($value['on'])) }} 
-							</span>
-						@else
-							<span class ="badge style-warning text-sm">
-								{{ date('Y-m-d', strtotime($value['on'])) }}
-							</span>
-						@endif
+					<td style="text-align:center">						
+						{{ date('Y-m-d', strtotime($value['on'])) }}							
 					</td>	
 					<td style="text-align:center">
 						{{ date("H:i:s", strtotime($value['fp_start'])) }}

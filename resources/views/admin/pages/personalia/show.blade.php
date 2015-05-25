@@ -27,7 +27,7 @@
 			<div class="hbox-md col-md-12">
 				<div class="hbox-column col-md-2" id="sidebar_left">
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary" style="text-transform: uppercase;">CATEGORIES</li>
+						<li class="text-primary text-medium" style="text-transform: uppercase;">CATEGORIES</li>
 						<li @if(!Input::has('tag') && !isset($workleaves) && !isset($contacts) && !isset($relatives) && !isset($works) && !isset($schedules)) class="active" @endif>
 							<a href="{{route('hr.persons.show', [$data['id']])}}">Profil 
 							<small class="pull-right text-bold opacity-75"></small></a>
@@ -51,7 +51,7 @@
 						</li>
 					</ul>
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary">CONTACTS</li>
+						<li class="text-primary text-medium">CONTACTS</li>
 						<?php $isAddress = 0; ?>
 						<?php $isPhone = 0; ?>
 						<?php $isEmail = 0; ?>
@@ -91,7 +91,7 @@
 						<br/>
 					</ul>
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary" style="text-transform: uppercase;">DOKUMEN</li>
+						<li class="text-primary text-medium" style="text-transform: uppercase;">DOKUMEN</li>
 						<?php $tag =null;?>
 						@foreach($documents as $key => $value)
 							@if($value['tag']!=$tag)

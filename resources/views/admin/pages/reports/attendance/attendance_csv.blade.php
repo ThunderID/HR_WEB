@@ -3,7 +3,7 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<th rowspan="2" style="vertical-align:middle">No</th>
+				<th rowspan="2" style="text-align:center; vertical-align:middle">No</th>
 				<th rowspan="2" style="vertical-align:middle">Nama</th>
 				<th colspan="2" style="text-align:center; height:18px">In</th>
 				<th colspan="2" style="text-align:center; height:18px">Out</th>
@@ -30,7 +30,7 @@
 		<tbody>			
 			<?php $prev = 0;?>
 			@foreach($data as $key => $value)
-				<tr style="height:15px;font-size:85%">
+				<tr style="height:15px">
 					<td style="text-align:center">{{ $key+1 }}.</td>
 					<td>
 						@if($value['person_id']!=$prev)
@@ -87,7 +87,7 @@
 						</td>
 					@else
 						@foreach($value['notes'] as $key2 => $value2)
-							<td>
+							<td style="text-align:center">
 								{{ $value2 }}
 							</td>
 						@endforeach

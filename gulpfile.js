@@ -52,7 +52,7 @@ elixir(function(mix) {
 				'thunder/bootstrap.type2confirm/bootstrap.type2confirm.jquery.js',
 				// 'app.js',
 				], 'public/js/admin.js')
-	.version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
+	// .version(['public/css/admin.css', 'public/js/admin.js', 'public/js/html5shiv.js', 'public/js/respond.min.js'])
 	.copy('resources/assets/js/libs/bootstrap-datepicker/bootstrap-datepicker.js', 'public/js/bootstrap-datepicker.js')
 	.copy('resources/assets/js/libs/dropzone/dropzone.min.js', 'public/js/dropzone.min.js')
 	.copy('resources/assets/js/libs/utils/html5shiv.js', 'public/js/html5shiv.js')

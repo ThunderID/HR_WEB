@@ -420,7 +420,7 @@ class ReportController extends Controller {
 		}
 
 		$case = Input::get('case');
-		Excel::create('Attendance Reports', function($excel) use ($data, $case) 
+		Excel::create('Attendance Reports ( '.Input::get('start').' s.d '.Input::get('end').' )', function($excel) use ($data, $case) 
 		{
 			// Set the title
 			$excel->setTitle('Our new awesome title');
@@ -429,11 +429,18 @@ class ReportController extends Controller {
 			$excel->sheet('Sheetname', function ($sheet) use ($data, $case) 
 			{
 				$c 									= count($data);
-				$sheet->setBorder('A1:J'.($c+2), 'thin');
-				$sheet->setWidth(['A' => 30, 'B' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14]);
+
+				if(Input::has('case') && Input::get('case')!='ontime') {
+					$sheet->setBorder('A1:J'.($c+2), 'thin');
+				}
+				else {
+					$sheet->setBorder('A1:K'.($c+2), 'thin');
+				}
+
+				$sheet->setWidth(['A' => 5, 'B' => 30, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 12, 'K' => 12]);
 				$sheet->loadView('admin.pages.reports.attendance.attendance_csv')->with('data', $data)->with('case', $case);
 			});
-		})->export('csv');
+		})->export(Input::get('mode'));
 	}
 
 
@@ -537,7 +544,7 @@ class ReportController extends Controller {
 		}
 
 		$case = Input::get('case');
-		Excel::create('Attendance Reports', function($excel) use ($data, $case) 
+		Excel::create('Attendance Detail Reports ( '.Input::get('start').' s.d '.Input::get('end').' )', function($excel) use ($data, $case) 
 		{
 			// Set the title
 			$excel->setTitle('Our new awesome title');
@@ -546,11 +553,11 @@ class ReportController extends Controller {
 			$excel->sheet('Sheetname', function ($sheet) use ($data, $case) 
 			{
 				$c 									= count($data);
-				$sheet->setBorder('A1:L'.($c+2), 'thin');
-				$sheet->setWidth(['A' => 30, 'B' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14, 'K' => 14, 'L' => 14]);
+				$sheet->setBorder('A1:L'.($c+2), 'thin');				
+				$sheet->setWidth(['A' => 5, 'B' => 30, 'C' => 15, 'D' => 12, 'E' => 12, 'F' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14, 'K' => 14, 'L' => 14]);
 				$sheet->loadView('admin.pages.reports.attendance.attendance_csvd')->with('data', $data)->with('case', $case);
 			});
-		})->export('csv');
+		})->export(Input::get('mode'));
 	}
 
 	function getWages($page = null)
@@ -834,6 +841,6 @@ class ReportController extends Controller {
 				$sheet->setWidth(['A' => 5, 'B' => 30, 'C' => 15, 'D' => 15, 'E' => 15, 'F' => 15, 'G' => 15]);
 				$sheet->loadView('admin.pages.reports.wages.wages_csv')->with('data', $compelete)->with('status', $currentstatus)->with('cs', $cs);
 			});
-		})->export('xls');
+		})->export(Input::get('mode'));
 	}
 }

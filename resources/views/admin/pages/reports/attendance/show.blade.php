@@ -47,7 +47,20 @@
 							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif
 						</span>
 						<div class="pull-right">
-							<a href="{{ route('hr.report.attendance.csvd', ['id' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a>
+							<div class="btn-group">
+								<button type="button" class="btn ink-reaction btn-primary dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-file"></i> &nbsp;Export to <i class="fa fa-caret-down"></i>
+								</button>
+								<ul class="dropdown-menu animation-expand" role="menu">
+									<li>
+										<a href="{{ route('hr.report.attendance.csvd', ['page' => 1, 'mode' => 'csv', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;CSV</a>
+									</li>
+									<li>
+										<a href="{{ route('hr.report.attendance.csvd', ['page' => 1, 'mode' => 'xls', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;XLS</a>
+									</li>
+								</ul>
+							</div>
+							<!-- <a href="{{ route('hr.report.attendance.csvd', ['id' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a> -->
 						</div>
 						<div class="btn-group btn-group-sm pull-right">
 							@if (Input::get('q'))
