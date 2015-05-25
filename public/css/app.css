@@ -282,3 +282,12 @@
 .border-alert-info {
   border-color: #2196f3;
 }
+.calendar-loading {
+  z-index: -1;
+  opacity: 0.2;
+}
+.spinner-loading {
+  z-index: 999;
+  background: white;
+  top: 200px;
+}

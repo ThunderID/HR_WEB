@@ -166,9 +166,9 @@
 						$(this).remove();
 					}
 				},
-				loading: function(bool) {
+				loading: function(bool) {					
 					$('#calendar').toggleClass('calendar-loading');
-					$('.sk-spinner').toggle('spinner-loading');
+					$('.sk-spinner').toggle(bool);
 				},
 				events:  curSource,
 				eventRender: function (event, element) {					

@@ -19,7 +19,7 @@
 								<a id="calender-next" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-right"></i></a>
 							</span>
 						</h3>
-						<div class="sk-spinner sk-spinner-fading-circle">
+						<div class="sk-spinner sk-spinner-fading-circle spinner-loading">
       <div class="sk-circle1 sk-circle"></div>
       <div class="sk-circle2 sk-circle"></div>
       <div class="sk-circle3 sk-circle"></div>
