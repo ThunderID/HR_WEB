@@ -1,6 +1,6 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(($controller_name))}}</li>
+	<li class='active'>Report</li>
 @stop
 
 @section('content')

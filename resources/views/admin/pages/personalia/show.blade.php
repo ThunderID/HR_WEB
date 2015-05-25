@@ -1,6 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(($controller_name))}}</li>
+	<li>Personalia</li>
+	<li class='active'>{{ucwords(($data['name']))}}</li>
 @stop
 
 @section('content')
@@ -27,7 +28,7 @@
 			<div class="hbox-md col-md-12">
 				<div class="hbox-column col-md-2" id="sidebar_left">
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary text-medium" style="text-transform: uppercase;">CATEGORIES</li>
+						<li class="text-primary text-medium" style="text-transform: uppercase;">MENU</li>
 						<li @if(!Input::has('tag') && !isset($workleaves) && !isset($contacts) && !isset($relatives) && !isset($works) && !isset($schedules)) class="active" @endif>
 							<a href="{{route('hr.persons.show', [$data['id']])}}">Profil 
 							<small class="pull-right text-bold opacity-75"></small></a>
@@ -37,7 +38,7 @@
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 						<li @if(isset($works)) class="active" @endif>
-							<a href="{{route('hr.persons.works.index', [$data['id']])}}">@if(!$data['has_works']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Pekerjaan
+							<a href="{{route('hr.persons.works.index', [$data['id']])}}">@if(!$data['has_works']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Karir
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 						<li @if(isset($schedules)) class="active" @endif>
@@ -50,7 +51,7 @@
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 					</ul>
-					<ul class="nav nav-pills nav-stacked">
+					<ul class="nav nav-pills nav-stacked pt-25">
 						<li class="text-primary text-medium">CONTACTS</li>
 						<?php $isAddress = 0; ?>
 						<?php $isPhone = 0; ?>

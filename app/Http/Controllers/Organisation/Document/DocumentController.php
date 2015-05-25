@@ -97,7 +97,7 @@ class DocumentController extends Controller {
 		$this->layout->content->data 				= $data;
 		$this->layout->content->documents 			= $documents;
 		$this->layout->content->paginator 			= $paginator;
-		$this->layout->content->filters 			= [['title' => 'Filter Dokumen', 'input' => 'tag', 'filter' => 'tag','filters' => $tags]];
+		$this->layout->content->filters 			= [['title' => 'Filter Dokumen', 'display' => 'tag', 'input' => 'tag', 'filter' => 'tag','filters' => $tags]];
 		$this->layout->content->route 				= ['org_id' => $data['id'], 'tag' => Input::get('tag')];
 
 		return $this->layout;
@@ -253,6 +253,11 @@ class DocumentController extends Controller {
 			// ---------------------- LOAD DATA ----------------------
 			$search 									= ['documentid' => $id, 'currentwork' => true];
 
+			if(Input::has('branchid'))
+			{
+				$search['branchid']						= Input::get('branchid');
+			}
+
 			$sort 										= ['created_at' => 'asc'];
 
 			$results 									= API::document()->personindex($page, $search, $sort);
@@ -267,9 +272,26 @@ class DocumentController extends Controller {
 			$persons 									= json_decode(json_encode($contents_2->data), true);
 
 			$paginator 									= new Paginator($contents_2->pagination->total_data, (int)$contents_2->pagination->page, $contents_2->pagination->per_page, $contents_2->pagination->from, $contents_2->pagination->to);
+			
+			$search 									= ['organisationid' => $org_id];
+
+			$sort 										= ['name' => 'asc'];
+
+			$results_2 									= API::branch()->index(1, $search, $sort);
+
+			$contents_2 								= json_decode($results_2);
+
+			if(!$contents_2->meta->success)
+			{
+				App::abort(404);
+			}
+			
+			$branches 									= json_decode(json_encode($contents_2->data), true);
+
 			$this->layout->content->persons 			= $persons;
 			$this->layout->content->paginator 			= $paginator;
 			$this->layout->content->route 				= ['id' => $id, 'org_id' => $org_id];
+			$this->layout->content->filters 			= [['title' => 'Filter Cabang', 'input' => 'branchid', 'filter' => 'id', 'display' => 'name','filters' => $branches]];
 		}
 		else
 		{

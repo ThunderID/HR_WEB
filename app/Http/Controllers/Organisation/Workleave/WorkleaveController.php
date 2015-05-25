@@ -40,23 +40,22 @@ class WorkleaveController extends Controller {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= [];
+		$search 									= ['organisationid' => $org_id];
+	
 		if(Input::has('q'))
 		{
 			$search 								= ['name' => Input::get('q')];
 		}
 
-		if(Input::has('branch'))
+		if(Input::has('branchid'))
 		{
-			$search['branchname'] 					= Input::get('branch');
+			$search['branchid'] 					= Input::get('branchid');
 		}
 
 		if(Input::has('tag'))
 		{
 			$search['charttag'] 					= Input::get('tag');
 		}
-
-		$search 									= ['organisationid' => $org_id];
 
 		if(Input::has('sort_name'))
 		{
@@ -82,12 +81,6 @@ class WorkleaveController extends Controller {
 
 		$search 									= ['organisationid' => $org_id];
 
-		if(Input::has('branchname'))
-		{
-			$search['name']							= Input::get('branchname');
-			$search['DisplayDepartments']			= '';
-		}
-
 		$sort 										= ['name' => 'asc'];
 
 		$results_2 									= API::branch()->index(1, $search, $sort);
@@ -109,8 +102,8 @@ class WorkleaveController extends Controller {
 		$this->layout->content->data 				= $data;
 		$this->layout->content->workleaves 			= $workleaves;
 		$this->layout->content->paginator 			= $paginator;
-		$this->layout->content->filters 			= [['title' => 'Filter Cabang', 'input' => 'branchname', 'filter' => 'name','filters' => $branches]];
-		$this->layout->content->route 				= ['org_id' => $data['id'], 'branchname' => Input::get('branchname')];
+		$this->layout->content->filters 			= [['title' => 'Filter Cabang', 'input' => 'branchid', 'filter' => 'id', 'display' => 'name','filters' => $branches]];
+		$this->layout->content->route 				= ['org_id' => $data['id'], 'brancid' => Input::get('brancid')];
 
 		return $this->layout;
 	}
@@ -254,7 +247,7 @@ class WorkleaveController extends Controller {
 
 		$sort 										= ['name' => 'asc'];
 
-		$results 									= API::person()->index($page, $search, $sort, true);
+		$results 									= API::person()->index($page, $search, $sort, 100);
 
 		$contents 									= json_decode($results);
 

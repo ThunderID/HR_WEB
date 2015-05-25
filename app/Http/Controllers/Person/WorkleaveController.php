@@ -33,7 +33,9 @@ class WorkleaveController extends Controller {
 
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
-		$results 									= API::person()->show($personid);
+		$search 									= ['CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
+		$search['organisationid']					= Session::get('user.organisation');
+		$results 									= API::person()->show($personid, $search);
 
 		$contents 									= json_decode($results);
 

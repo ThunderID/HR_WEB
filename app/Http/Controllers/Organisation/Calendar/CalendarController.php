@@ -46,9 +46,9 @@ class CalendarController extends Controller {
 			$search 								= ['name' => Input::get('q'), 'organisationid' => Session::get('user.organisation'), 'withattributes' => ['charts', 'charts.branch']];
 		}
 
-		if(Input::has('branch'))
+		if(Input::has('branchid'))
 		{
-			$search['branchname'] 					= Input::get('branch');
+			$search['branchid'] 					= Input::get('branchid');
 		}
 
 		if(Input::has('tag'))
@@ -78,14 +78,7 @@ class CalendarController extends Controller {
 		
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
-
 		$search 									= ['organisationid' => $org_id];
-
-		if(Input::has('branch'))
-		{
-			$search['name']							= Input::get('branch');
-			$search['DisplayDepartments']			= '';
-		}
 
 		$sort 										= ['name' => 'asc'];
 
@@ -108,8 +101,8 @@ class CalendarController extends Controller {
 		$this->layout->content->data 				= $data;
 		$this->layout->content->calendars 			= $calendars;
 		$this->layout->content->paginator 			= $paginator;
-		$this->layout->content->filters 			= [['title' => 'Filter Cabang', 'input' => 'branchname', 'filter' => 'name','filters' => $branches]];
-		$this->layout->content->route 				= ['org_id' => $data['id'], 'branchname' => Input::get('branchname')];
+		$this->layout->content->filters 			= [['title' => 'Filter Cabang', 'input' => 'branchid', 'filter' => 'id', 'display' => 'name','filters' => $branches]];
+		$this->layout->content->route 				= ['org_id' => $data['id'], 'branchid' => Input::get('branchid')];
 
 		return $this->layout;
 	}
@@ -462,7 +455,7 @@ class CalendarController extends Controller {
 
 		$sort 										= ['name' => 'asc'];
 
-		$results 									= API::schedule()->index($page, $search, $sort, true);
+		$results 									= API::schedule()->index($page, $search, $sort, 100);
 
 		$contents 									= json_decode($results);
 

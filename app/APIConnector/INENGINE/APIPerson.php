@@ -16,16 +16,17 @@ class APIPerson {
 		return $data->person($id);
 	}
 
-	function index($page, $search, $sort)
+	function index($page, $search, $sort, $per_page = 12)
 	{
 		$data = new \ThunderID\Person\Controllers\PersonController;
-		return $data->index($page, $search, $sort);
+		return $data->index($page, $search, $sort, $per_page);
 	}
 
-	function show($id)
+	function show($id, $search = [])
 	{
+		$search['id']		= $id;
 		$data = new \ThunderID\Person\Controllers\PersonController;
-		return $data->show($id);
+		return $data->index(1, $search, [], 1);
 	}
 
 	function store($id, $attributes)

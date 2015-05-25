@@ -13,7 +13,7 @@
 					@foreach($value['filters'] as $key2 => $value2)
 						<li @if(Input::get($value['input']) == $value2[$value['filter']]) class="active" @endif>
 							<a href="{{route(Route::currentRouteName(), ['org_id' => $data['id'], 'page' => 1,$value['input'] => $value2[$value['filter']]])}}">
-								{{$value2[$value['filter']]}}
+								{{$value2[$value['display']]}}
 							</a>
 						</li>
 					@endforeach

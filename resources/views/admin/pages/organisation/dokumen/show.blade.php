@@ -36,6 +36,18 @@
 					<li class="text-primary">MENU</li>
 					<li @if(is_null($persons)) class="active" @endif><a href="{{route('hr.organisation.documents.show', [$document['id'], 'org_id' => $data['id']])}}">@if(!count($document['templates'])) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Detail  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
 					<li @if(($persons)) class="active" @endif><a href="{{route('hr.document.persons.index', [$document['id'], 'page' => 1, 'org_id' => $data['id']])}}">Karyawan </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
+					@if(isset($filters))
+						@foreach($filters as $key => $value)
+							<li class="text-primary pt-25">{{strtoupper($value['title'])}}</li>
+								@foreach($value['filters'] as $key2 => $value2)
+									<li @if(Input::get($value['input']) == $value2[$value['filter']]) class="active" @endif>
+										<a href="{{route(Route::currentRouteName(), ['org_id' => $data['id'], 'page' => 1,$value['input'] => $value2[$value['filter']]])}}">
+											{{$value2[$value['display']]}}
+										</a>
+									</li>
+								@endforeach
+						@endforeach
+					@endif
 				</ul>
 			</div>
 

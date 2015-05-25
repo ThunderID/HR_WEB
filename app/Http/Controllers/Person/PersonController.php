@@ -351,7 +351,10 @@ class PersonController extends Controller {
 	function getShow($id = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::person()->show($id);
+		$search 									= ['CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
+		$search['organisationid']					= Session::get('user.organisation');
+
+		$results 									= API::person()->show($id, $search);
 
 		$contents 									= json_decode($results);
 
@@ -402,7 +405,8 @@ class PersonController extends Controller {
 			App::abort(404);
 		}
 
-		$results 									= API::person()->show($id);
+		$search['organisationid']					= Session::get('user.organisation');
+		$results 									= API::person()->show($id, $search);
 
 		$content 									= json_decode($results);
 

@@ -1,7 +1,7 @@
 @extends('admin.pages.personalia.show')
 @section('karyawan.show')
 	<ul class="nav nav-tabs" data-toggle="tabs">
-		<li class="active"><a href="#details">Karir</a></li>
+		<li class="active"><a href="#details">Profil</a></li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane active" id="details">
