@@ -360,28 +360,38 @@ Route::group(['prefix' => 'cms'], function(){
 	/* ---------------------------------------------------------------------------- END ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
 	Route::group(['prefix' => 'calendars/schedules/', 'before' => 'hr_acl'], function(){
-		Route::post('store/{cal_id}', 
+		Route::post('store/{id}', 
 						[
-							'uses' 	=> 'Schedule\ScheduleController@postStore', 
+							'uses' 	=> 'Organisation\Calendar\ScheduleController@postStore', 
 							'as' 	=> 'hr.calendars.schedules.store'
 						]
 					);
 	});
 
-	Route::group(['prefix' => 'calendars/persons/', 'before' => 'hr_acl'], function(){
-		Route::post('store/{cal_id}', 
+	Route::group(['prefix' => 'calendars/charts/', 'before' => 'hr_acl'], function(){
+		Route::post('store/{id}', 
 						[
-							'uses' 	=> 'Schedule\CalendarController@postStorePerson', 
-							'as' 	=> 'hr.calendars.persons.store'
+							'uses' 	=> 'Organisation\Calendar\CalendarController@postStoreChart', 
+							'as' 	=> 'hr.calendars.charts.store'
 						]
 					);
 	});
 
-	Route::group(['prefix' => 'calendars/charts/', 'before' => 'hr_acl'], function(){
-		Route::post('store/{cal_id}', 
+	Route::group(['prefix' => 'workleaves/charts/', 'before' => 'hr_acl'], function(){
+		Route::post('store/{wl_id}', 
 						[
-							'uses' 	=> 'Schedule\CalendarController@postStoreChart', 
-							'as' 	=> 'hr.calendars.charts.store'
+							'uses' 	=> 'Organisation\Workleave\WorkleaveController@postPerson', 
+							'as' 	=> 'hr.workleaves.persons.store'
+						]
+					);
+	});
+
+
+	Route::group(['prefix' => 'documents/templates', 'before' => 'hr_acl'], function(){
+		Route::any('delete/{id}', 
+						[
+							'uses' 	=> 'Organisation\Document\DocumentController@anyTemplateDelete', 
+							'as' 	=> 'hr.document.templates.delete'
 						]
 					);
 	});

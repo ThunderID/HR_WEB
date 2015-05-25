@@ -210,8 +210,32 @@ class DocumentController extends Controller {
 
 	function getShow($id, $page=null)
 	{
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id, ['withattributes' => ['branches', 'calendars', 'workleaves', 'documents']]);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
 		// ---------------------- LOAD DATA ----------------------
-		$results 										= API::document()->show($id);
+		$results 										= API::document()->show($id, ['withattributes' => ['templates']]);
 
 		$contents 										= json_decode($results);
 
@@ -220,14 +244,14 @@ class DocumentController extends Controller {
 			App::abort(404);
 		}
 
-		$data 											= json_decode(json_encode($contents->data), true);
+		$document 										= json_decode(json_encode($contents->data), true);
 
 		$this->layout->content 							= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		
 		if(!is_null($page))
 		{
 			// ---------------------- LOAD DATA ----------------------
-			$search 									= ['documentid' => $id, 'withattributes' => ['person']];
+			$search 									= ['documentid' => $id, 'currentwork' => true];
 
 			$sort 										= ['created_at' => 'asc'];
 
@@ -245,7 +269,7 @@ class DocumentController extends Controller {
 			$paginator 									= new Paginator($contents_2->pagination->total_data, (int)$contents_2->pagination->page, $contents_2->pagination->per_page, $contents_2->pagination->from, $contents_2->pagination->to);
 			$this->layout->content->persons 			= $persons;
 			$this->layout->content->paginator 			= $paginator;
-			$this->layout->content->route 				= ['id' => $id];
+			$this->layout->content->route 				= ['id' => $id, 'org_id' => $org_id];
 		}
 		else
 		{
@@ -257,8 +281,8 @@ class DocumentController extends Controller {
 
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->document 			= $document;
 
-		// dd($data);
 		return $this->layout;
 	}
 
@@ -336,7 +360,12 @@ class DocumentController extends Controller {
 			{
 				$org_id 								= Session::get('user.organisation');
 			}
-			
+	
+			if(!in_array($org_id, Session::get('user.orgids')))
+			{
+				App::abort(404);
+			}
+	
 			$results 									= API::document()->destroy($org_id, $id);
 			$contents 									= json_decode($results);
 
@@ -357,7 +386,32 @@ class DocumentController extends Controller {
 
 	function anyTemplateDelete($id)
 	{
-		$results 									= API::document()->destroytemplate($id);
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$doc_id 									= Input::get('doc_id');
+
+		$results 									= API::document()->show($doc_id, ['organisationid' => $org_id]);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::document()->destroytemplate($org_id, $id);
 
 		$contents 									= json_decode($results);
 
@@ -367,13 +421,27 @@ class DocumentController extends Controller {
 		}
 		else
 		{
-			return Redirect::route('hr.documents.show', $contents->data->document_id)->with('alert_success', 'Template Dokumen "' . $contents->data->field. '" sudah dihapus');
+			return Redirect::back()->with('alert_success', 'Template Dokumen "' . $contents->data->field. '" sudah dihapus');
 		}
 	}
 
 	function showTemplatePDF($id)
 	{
-		$results 									= API::document()->show($id);
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::document()->show($id, ['organisationid' => $org_id]);
 
 		$contents 									= json_decode($results);
 

@@ -185,8 +185,16 @@ class WorkleaveController extends Controller {
 	function getShow($id, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::workleave()->show(Session::get('user.organisation'), $id);
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
 
+		$results 									= API::organisation()->show($org_id);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -196,7 +204,18 @@ class WorkleaveController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['workleaveid' => $id, 'checkwork' => true, 'takenworkleave' => ['on' => ['first day of january this year', 'last day of december this year'], 'status' => 'workleave']];
+		$results 									= API::workleave()->show($id, ['organisationid' => $org_id]);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$workleave 									= json_decode(json_encode($contents->data), true);
+
+		$search 									= ['workleaveid' => $id, 'checkwork' => true];
 
 		if(Input::has('branch'))
 		{
@@ -225,6 +244,11 @@ class WorkleaveController extends Controller {
 				$search['takenworkleave'] 			= ['on' => [$start, $end], 'status' => 'workleave'];
 			}
 		}
+		else
+		{
+			// $search['checktakenworkleave'] 			= ['on' => ['first day of january this year', 'last day of december this year'], 'status' => 'workleave'];
+			$search['takenworkleave'] 				= ['on' => ['first day of january this year', 'last day of december this year'], 'status' => 'workleave'];
+		}
 
 		$search['withattributes'] 					= ['works', 'works.branch'];
 
@@ -249,6 +273,7 @@ class WorkleaveController extends Controller {
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->workleave 			= $workleave;
 		$this->layout->content->persons 			= $persons;
 		$this->layout->content->paginator 			= $paginator;
 
@@ -348,4 +373,85 @@ class WorkleaveController extends Controller {
 		}
 	}
 
+	function postPerson($wl_id)
+	{
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+	
+		$chartids 									= explode(',', Input::get('chart'));
+		$search['organisationid']					= $org_id;
+		$search['id']								= $chartids;
+		$search['withattributes']					= ['CheckWorks'];
+
+		$results 									= API::chart()->index(1, $search, [], 100);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$charts 									= json_decode(json_encode($contents->data), true);
+
+		$personid 									= [];
+		foreach ($charts as $key => $value) 
+		{
+			foreach ($value['check_works'] as $key2 => $value2) 
+			{
+				$personid[]							= ['id' => $value2['id']];
+			}
+		}
+		// ---------------------- HANDLE INPUT ----------------------
+		$input['workleave']['id'] 					= $wl_id;
+		$input['organisation']['id'] 				= $org_id;
+		$input['persons'] 							= $personid;
+
+		//please make sure if the date is in range, make it as an array for every date => single date save in on
+		//consider the id
+		$workleave 									= Input::only('id', 'is_default');
+		if(isset($workleave['id'])&&$workleave['id']==0)
+		{
+			unset($workleave['id']);
+		}
+
+		list($d,$m,$y) 								= explode('/', Input::get('start'));
+		$workleave['start']							= date('Y-m-d', strtotime("$y-$m-$d"));
+
+		list($d,$m,$y) 								= explode('/', Input::get('end'));
+		$workleave['end']							= date('Y-m-d', strtotime("$y-$m-$d"));
+		
+		$workleave['workleave_id']					= Input::get('workleave');
+		if(is_null($workleave['is_default']))
+		{
+			$workleave['is_default']				= false;
+		}
+		else
+		{
+			$workleave['is_default']				= true;
+		}
+		
+		$input['person']['workleave']				= $workleave;
+
+		$results 									= API::workleave()->personStore($wl_id, $input);
+
+		$content 									= json_decode($results);
+		if($content->meta->success)
+		{
+			return Redirect::route('hr.organisation.workleaves.index', ['page' => 1, 'org_id' => $org_id])->with('alert_success', 'Data Cuti sudah di simpan. Untuk kasus khusus, silahkan atur melalui halaman karyawan.');
+		}
+		
+		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+	}
 }

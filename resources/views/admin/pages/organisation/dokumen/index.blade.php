@@ -66,7 +66,7 @@
 									@endif											
 									<div class="col-xs-12 col-lg-6 hbox-xs">
 										@include('admin.widgets.contents',[
-											'route'				=> route('hr.organisation.documents.show', ['id' => $value['id']]),
+											'route'				=> route('hr.organisation.documents.show', ['id' => $value['id'], 'org_id' => $data['id']]),
 											'editroute'			=> 'hr.organisation.documents.edit',
 											'deleteroute'		=> 'hr.organisation.documents.delete',
 											'mode'				=> 'list',

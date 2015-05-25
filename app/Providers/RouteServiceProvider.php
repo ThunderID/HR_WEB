@@ -218,6 +218,8 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.calendars.persons.store'					=> '6',
 							'hr.calendars.charts.store'						=> '6',
 
+							'hr.workleaves.persons.store'					=> '6',
+
 							'hr.persons.index'								=> '7',
 							'hr.persons.show'								=> '7',
 							'hr.persons.create'								=> '7',

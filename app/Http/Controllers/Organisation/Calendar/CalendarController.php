@@ -334,6 +334,11 @@ class CalendarController extends Controller {
 				$org_id 								= Session::get('user.organisation');
 			}
 
+			if(!in_array($org_id, Session::get('user.orgids')))
+			{
+				App::abort(404);
+			}
+
 			$results 									= API::calendar()->destroy($org_id, $id);
 			$contents 									= json_decode($results);
 
@@ -357,7 +362,21 @@ class CalendarController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['calendar']['id'] 					= $calid;
 
-		$input['organisation']['id']				= Session::get('user.organisation');
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$input['organisation']['id']				= $org_id;
 
 		$persons 									= explode(',', Input::get('person'));
 		foreach ($persons as $key => $value) 
@@ -376,27 +395,40 @@ class CalendarController extends Controller {
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 
-	function postStoreChart($calid, $id = null)
+	function postStoreChart($id)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['calendar']['id'] 					= $calid;
+		$input['calendar']['id'] 					= $id;
 
-		$input['organisation']['id']				= Session::get('user.organisation');
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
 
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$input['organisation']['id']				= $org_id;
 		//please make sure if the date is in range, make it as an array for every date => single date save in on
 		//consider the id
 		$charts 									= explode(',', Input::get('chart'));
 		foreach ($charts as $key => $value) 
 		{
-			$input['charts'][]						= ['chart_id' => $value, 'start' => date('Y-m-d H:i:s', strtotime(Input::get('when')))];
+			$input['charts'][]						= ['chart_id' => $value];
 		}
 
-		$results 									= API::calendar()->store($calid, $input);
+		$results 									= API::calendar()->store($id, $input);
 
 		$content 									= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.calendars.show', $calid)->with('alert_success', 'Data Kalender sudah di simpan');
+			return Redirect::back()->with('alert_success', 'Data Kalender sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();

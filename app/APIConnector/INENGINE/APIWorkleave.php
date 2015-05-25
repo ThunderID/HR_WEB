@@ -28,4 +28,10 @@ class APIWorkleave {
 		$data = new \ThunderID\Workleave\Controllers\WorkleaveController;
 		return $data->destroy($org_id, $id);
 	}
+
+	function personStore($id, $attributes)
+	{		
+		$data = new \ThunderID\Workleave\Controllers\WorkleaveController;
+		return $data->store($id, $attributes);
+	}
 }
