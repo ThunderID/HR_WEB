@@ -282,7 +282,7 @@
 .border-alert-info {
   border-color: #2196f3;
 }
-.calendar-loading {
+#calendar.calendar-loading {
   z-index: -1;
   opacity: 0.2;
 }
@@ -290,6 +290,11 @@
   z-index: 999;
   background: white;
   top: 200px;
+}
+.spinner-loading-schedule {
+  z-index: 999;
+  background: white;
+  top: 350px;
 }
 
 @-webkit-keyframes fadeIn {
@@ -19007,6 +19012,10 @@ be a descendant of the grid when it is being dragged.
 }
 
 
+.sk-spinner-fading-circle.spinner-loading {
+  z-index: 999;
+  background: white;
+  top: 200px; }
 .sk-spinner-fading-circle.sk-spinner {
   margin: 0 auto;
   width: 22px;
@@ -19017,7 +19026,7 @@ be a descendant of the grid when it is being dragged.
   height: 100%;
   position: absolute;
   left: 0;
-  top: 0; }
+  }
 .sk-spinner-fading-circle .sk-circle:before {
   content: '';
   display: block;

@@ -11,8 +11,8 @@
 		<div class="tab-pane active" id="details">
 			<div class="col-md-12">
 				<div class="row">
-					<div class="margin-bottom-xxl">
-						<h3 class="text-light no-margin pt-20">
+					<div class="margin-bottom-xxl pt-10">
+						<h3 class="text-light no-margin">
 							<span class="selected-day">&nbsp;</span> &nbsp;<small class="selected-date">&nbsp;</small>
 							<span class="pull-right">
 								<a id="calender-prev" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-angle-left"></i></a>
@@ -20,19 +20,19 @@
 							</span>
 						</h3>
 						<div class="sk-spinner sk-spinner-fading-circle spinner-loading">
-      <div class="sk-circle1 sk-circle"></div>
-      <div class="sk-circle2 sk-circle"></div>
-      <div class="sk-circle3 sk-circle"></div>
-      <div class="sk-circle4 sk-circle"></div>
-      <div class="sk-circle5 sk-circle"></div>
-      <div class="sk-circle6 sk-circle"></div>
-      <div class="sk-circle7 sk-circle"></div>
-      <div class="sk-circle8 sk-circle"></div>
-      <div class="sk-circle9 sk-circle"></div>
-      <div class="sk-circle10 sk-circle"></div>
-      <div class="sk-circle11 sk-circle"></div>
-      <div class="sk-circle12 sk-circle"></div>
-    </div>
+							<div class="sk-circle1 sk-circle"></div>
+							<div class="sk-circle2 sk-circle"></div>
+							<div class="sk-circle3 sk-circle"></div>
+							<div class="sk-circle4 sk-circle"></div>
+							<div class="sk-circle5 sk-circle"></div>
+							<div class="sk-circle6 sk-circle"></div>
+							<div class="sk-circle7 sk-circle"></div>
+							<div class="sk-circle8 sk-circle"></div>
+							<div class="sk-circle9 sk-circle"></div>
+							<div class="sk-circle10 sk-circle"></div>
+							<div class="sk-circle11 sk-circle"></div>
+							<div class="sk-circle12 sk-circle"></div>
+						</div>
 						<div id="calendar" class="pt-30"></div>
 					</div>
 				</div>

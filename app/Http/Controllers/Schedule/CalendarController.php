@@ -326,7 +326,7 @@ class CalendarController extends Controller {
 
 		$sort 										= ['name' => 'asc'];
 
-		$results 									= API::schedule()->index($page, $search, $sort, true);
+		$results 									= API::schedule()->index($page, $search, $sort, 100);
 
 		$contents 									= json_decode($results);
 
