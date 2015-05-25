@@ -1,6 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(($controller_name))}}</li>
+	<li>Report</li>
+	<li class='active'>Wages</li>
 @stop
 
 @section('content')
@@ -38,18 +39,15 @@
 						<li class="text-primary">CABANG</li>
 						<?php $branch = null;?>
 						@foreach($branches as $key => $value)
-							@if($value['name']!=$branch)
-								<li @if(Input::get('branch')==$value['name']) class="active"@endif><a href="{{route('hr.report.wages.post', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}">{{$value['name']}} <small class="pull-right text-bold opacity-75"></small></a></li>
-								<?php $branch = $value['name'];?>
-							@endif
+							<li @if(Input::get('branch')==$value['id']) <?php $branch = $value['name'];?> class="active"@endif><a href="{{route('hr.report.wages.post', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}">{{$value['name']}} <small class="pull-right text-bold opacity-75"></small></a></li>
 						@endforeach
 					</ul>
 					@if(Input::has('branch'))
 						<ul class="nav nav-pills nav-stacked">
-							<li class="text-primary">{{strtoupper(Input::get('branch'))}}</li>
+							<li class="text-primary">{{strtoupper($branch)}}</li>
 							@foreach($branches as $key => $value)
 								@foreach($value['departments'] as $key2 => $value2)
-									<li @if(Input::has('tag') && ((Input::get('tag') == ($value2['tag'])))) class="active" @endif><a href="{{route('hr.report.wages.post', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['name'], 'tag' => $value2['tag'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}">{{$value2['tag']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+									<li @if(Input::has('tag') && ((Input::get('tag') == ($value2['tag'])))) class="active" @endif><a href="{{route('hr.report.wages.post', ['page' => 1, 'q' => Input::get('q'), 'branch' => $value['id'], 'tag' => $value2['tag'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}">{{$value2['tag']}}<small class="pull-right text-bold opacity-75"></small></a></li>
 								@endforeach
 							@endforeach
 						</ul>

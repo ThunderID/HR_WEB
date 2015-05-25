@@ -20,6 +20,7 @@ class AjaxController extends Controller {
 		{
 			$search['fullname']						= Input::get('term');	
 		}
+		$search['organisationid']					= Session::get('user.organisation');
 
 		$sort 										= ['created_at' => 'asc'];
 
@@ -43,6 +44,7 @@ class AjaxController extends Controller {
 			$keyword 								= explode(' ', Input::get('term'));
 			$search									= ['orname' => $keyword, 'ortag' => $keyword, 'orbranchname' => $keyword, 'WithAttributes' => ['branch']];			
 		}
+		$search['organisationid']					= Session::get('user.organisation');
 
 		$sort 										= ['created_at' => 'asc'];
 
@@ -93,6 +95,8 @@ class AjaxController extends Controller {
 		{
 			$search['neighbor'] 					= $path;
 		}
+
+		$search['organisationid']					= Session::get('user.organisation');
 
 		$sort 										= ['created_at' => 'asc'];
 

@@ -84,7 +84,9 @@ class ReportController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$results 									= API::log()->ProcessLogIndex($page, $search, $sort, true);
+		$search['organisationid'] 					= Session::get('user.organisation');
+
+		$results 									= API::log()->ProcessLogIndex($page, $search, $sort, 100);
 		
 		$contents 									= json_decode($results);
 		if(!$contents->meta->success)
@@ -173,7 +175,7 @@ class ReportController extends Controller {
 			}
 		}
 
-		$results 									= API::log()->ProcessLogIndex(1, $search, $sort, true);
+		$results 									= API::log()->ProcessLogIndex(1, $search, $sort, 100);
 		
 		$contents 									= json_decode($results);
 		if(!$contents->meta->success)
@@ -392,7 +394,9 @@ class ReportController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$results 									= API::log()->ProcessLogIndex($page, $search, $sort, true);
+		$search['organisationid'] 					= Session::get('user.organisation');
+
+		$results 									= API::log()->ProcessLogIndex($page, $search, $sort, 100);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -516,7 +520,7 @@ class ReportController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$results 									= API::log()->ProcessLogIndex(1, $search, $sort, true);
+		$results 									= API::log()->ProcessLogIndex(1, $search, $sort, 100);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -608,14 +612,16 @@ class ReportController extends Controller {
 
 		if(Input::has('branch'))
 		{
-			$search['branchname'] 					= Input::get('branch');
+			$search['branchid'] 					= Input::get('branch');
 		}
 		if(Input::has('tag'))
 		{
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$results 									= API::person()->index($page, $search, $sort, true);
+		$search['organisationid'] 					= Session::get('user.organisation');
+
+		$results 									= API::person()->index($page, $search, $sort, 100);
 		$contents 									= json_decode($results);
 		
 		if(!$contents->meta->success)
@@ -635,7 +641,7 @@ class ReportController extends Controller {
 		
 		$search 									= ['minusquotas' => ['ondate'=> [$start, $end], 'ids' => $ids]];
 		$sort 										= ['persons.id' => 'desc'];
-		$results 									= API::person()->index($page, $search, $sort, true);
+		$results 									= API::person()->index($page, $search, $sort, 100);
 		$contents 									= json_decode($results);
 		
 		if(!$contents->meta->success)
@@ -672,7 +678,7 @@ class ReportController extends Controller {
 		$search 									= ['organisationid' => Session::get('user.organisation')];
 		if(Input::has('branch'))
 		{
-			$search['name'] 						= Input::get('branch');
+			$search['id'] 							= Input::get('branch');
 			$search['DisplayDepartments']		 	= '';
 		}
 
@@ -749,7 +755,7 @@ class ReportController extends Controller {
 
 		if(Input::has('branch'))
 		{
-			$search['branchname'] 					= Input::get('branch');
+			$search['branchid'] 					= Input::get('branch');
 		}
 
 		if(Input::has('tag'))
@@ -757,7 +763,9 @@ class ReportController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$results 									= API::person()->index($page, $search, $sort, true);
+		$search['organisationid'] 					= Session::get('user.organisation');
+
+		$results 									= API::person()->index($page, $search, $sort, 100);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -772,9 +780,11 @@ class ReportController extends Controller {
 		{
 			$ids[] 									= $value['id'];
 		}
+		
 		$search 									= ['minusquotas' => ['ondate'=> [$start, $end], 'ids' => $ids]];
 		$sort 										= ['persons.id' => 'desc'];
-		$results 									= API::person()->index($page, $search, $sort, true);
+		
+		$results 									= API::person()->index($page, $search, $sort, 100);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -814,7 +824,7 @@ class ReportController extends Controller {
 
 		if(Input::has('branch'))
 		{
-			$search['name'] 						= Input::get('branch');
+			$search['id'] 							= Input::get('branch');
 			$search['DisplayDepartments'] 			= '';
 		}
 
