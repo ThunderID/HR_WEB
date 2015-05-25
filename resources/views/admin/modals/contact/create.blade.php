@@ -39,7 +39,7 @@
 							<div class="form-group">
 								<div class="checkbox checkbox-styled">
 									<label class="checkbox-inline checkbox-styled">
-										<input type="checkbox" name="default_contact" class="modal_default_contact"><span>Kontak Default</span>
+										<input type="checkbox" name="default_contact" class="modal_default_contact"><span class="text-light">Kontak Primary</span>
 									</label>									
 								</div>
 							</div>
