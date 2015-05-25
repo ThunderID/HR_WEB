@@ -11,7 +11,7 @@
 9. Login Using email : hr@thunderid.com, password : admin
 
 ## What's New?
-1. Working on issue #67. There may disfunctional thing. just skipped it
+1. Working on issue #67. There may disfunctional thing. run composer update, remigrate and reseed. available for UI to work in : report and organisation (calendar, etc)
 2. There is new function to generate client and secret. Please run composer update
 3. Cause of restructure table, please report if there are issue or malfunction. Also use import database in archive so should not wait to longer for seed.
 4. Add new controller for authentication setting

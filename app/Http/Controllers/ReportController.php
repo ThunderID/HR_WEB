@@ -223,7 +223,7 @@ class ReportController extends Controller {
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= ucwords('Generate Report');
 
-		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.attendance.form');
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.form');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= null;
 
@@ -546,8 +546,8 @@ class ReportController extends Controller {
 			$excel->sheet('Sheetname', function ($sheet) use ($data, $case) 
 			{
 				$c 									= count($data);
-				$sheet->setBorder('A1:J'.($c+2), 'thin');
-				$sheet->setWidth(['A' => 30, 'B' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14]);
+				$sheet->setBorder('A1:L'.($c+2), 'thin');
+				$sheet->setWidth(['A' => 30, 'B' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14, 'K' => 14, 'L' => 14]);
 				$sheet->loadView('admin.pages.reports.attendance.attendance_csvd')->with('data', $data)->with('case', $case);
 			});
 		})->export('csv');
@@ -830,8 +830,8 @@ class ReportController extends Controller {
 			{
 				$c 								= count($compelete);
 				$cs 							= count($currentstatus);
-				$sheet->setBorder('A1:F'.($c+2), 'thin');
-				$sheet->setWidth(['A' => 30, 'B' => 15, 'C' => 15, 'D' => 15, 'E' => 15, 'F' => 15]);
+				$sheet->setBorder('A1:G'.($c+2), 'thin');
+				$sheet->setWidth(['A' => 5, 'B' => 30, 'C' => 15, 'D' => 15, 'E' => 15, 'F' => 15, 'G' => 15]);
 				$sheet->loadView('admin.pages.reports.wages.wages_csv')->with('data', $compelete)->with('status', $currentstatus)->with('cs', $cs);
 			});
 		})->export('xls');

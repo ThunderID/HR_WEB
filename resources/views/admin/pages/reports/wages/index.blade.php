@@ -6,18 +6,19 @@
 @section('content')
 	<div class="card">
 		<!-- BEGIN SEARCH HEADER -->
-		<div class="card-head style-primary">
-			<div class="col-md-6 col-xs-6" style="padding-left:0px; margin-top: 3px">
-				<div class="tools pull-left">
-					<form class="navbar-search" role="search">
+		<div class="card-head card-head-sm style-primary">
+			<div class="col-md-6 col-xs-6 pt-5">
+				<a href="{{ route('hr.report.wages.get') }}" class="btn btn-flat ink-reaction pull-left"><i class="md md-reply"></i> Kembali</a>
+				<!-- <div class="tools pull-left"> -->
+					<!-- <form class="navbar-search" role="search">
 						{!! Form::open(['route' => ('hr.persons.index'), 'method' => 'get']) !!}
 						<div class="form-group">
 							<input type="text" class="form-control" name="q" placeholder="Ketik kata kunci">
 						</div>
 						<button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
 						{!! Form::close() !!}
-					</form>
-				</div>
+					</form> -->
+				<!-- </div> -->
 			</div>
 		</div><!--end .card-head -->
 		<!-- END SEARCH HEADER -->
@@ -59,7 +60,7 @@
 				<div class="col-sm-8 col-md-9 col-lg-10">
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">
-							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif  per ({{date('d-m-Y', strtotime($start))}} s/d {{date('d-m-Y', strtotime($end))}})
+							@if(count($data)) Total data <span class="text-bold">{{count($data)}}</span> @else Tidak ada data @endif  per ({{date('d-m-Y', strtotime($start))}} s/d {{date('d-m-Y', strtotime($end))}})
 						</span>
 						<div class="pull-right">
 							<a href="{{ route('hr.report.wages.csv', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a>
@@ -87,12 +88,13 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th rowspan="2">Nama</th>
-								<th class="text-center" rowspan="2">Hak Cuti</th>
-								<th class="text-center" colspan="{{count($status)}}">Pengurang Cuti</th>
-								<th class="text-center" rowspan="2">Penambah Cuti</th>
-								<th class="text-center" rowspan="2">Sisa Cuti</th>
-								<th class="text-center" rowspan="2">Faktor <br/>Pengurang <br/>Gaji</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">No</th>
+								<th rowspan="2" style="vertical-align:middle;font-weight:700">Nama</th>
+								<th class="text-center" rowspan="2" style="vertical-align:middle;"><span style="font-weight:700">Hak Cuti</span> <br> (Hari)</th>
+								<th colspan="{{count($status)}}" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Pengurang Cuti</span> <br> (Hari)</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Penambah Cuti</span> <br> (Hari)</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Sisa Cuti</span> <br> (Hari)</th>
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Faktor <br/>Pengurang <br/>Gaji</th>
 							</tr>
 							<tr>
 								@foreach($status as $key2 => $value2)
@@ -106,30 +108,32 @@
 							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
 							@foreach($data as $key => $value)
 								<tr>
-									<td>
+									<td class="text-center text-sm">{{ $key+1 }}.</td>
+									<td class="text-sm">
 										{{$value['name']}}
 									</td>
-									<td class="text-center">
+									<td class="text-center text-sm">
 										{{$value['quota']}}
 									</td>
 									@foreach($status as $key2 => $value2)
-										<td>
+										<td class="text-sm">
 											{{(isset($value['status'][$value2]) ? $value['status'][$value2] : '')}}
 										</td>
 									@endforeach
-									<td>
+									<td class="text-sm">
 										@if($value['plus_quota'] != 0 )
 											{{$value['plus_quota']}}
 										@endif
 									</td>
-									<td class="text-center">
+									<td class="text-center text-sm">
 										{{$value['residue_quota']}}
 									</td>
-									<td>
+									<td class="text-sm">
 										@if($value['residue_quota'] < 0 )
 											{{0 - $value['residue_quota']}}
 										@endif
 									</td>
+									<td class="text-sm"></td>
 								</tr>
 							@endforeach
 						</tbody>

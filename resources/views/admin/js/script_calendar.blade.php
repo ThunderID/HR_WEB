@@ -171,7 +171,7 @@
 				eventRender: function (event, element) {
 					var datetime_start 	= event.start._i.split('T');
 
-					if (event.end_i == '') {
+					if (event.end._i != '') {
 						var datetime_end 	= event.end._i.split('T');
 					}
 					else {
@@ -197,7 +197,7 @@
 				eventAfterRender: function(event, $el, view ) {
 					var datetime_start 	= event.start._i.split('T');
 					console.log(event);
-					if (event.end_i == '') {
+					if (event.end._i != '') {
 						var datetime_end 	= event.end._i.split('T');
 				        var formattedTime 	= $.fullCalendar.formatRange(event.start, "HH:mm { - HH:mm}");
 					}

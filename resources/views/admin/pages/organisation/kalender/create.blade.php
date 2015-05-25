@@ -14,7 +14,7 @@
 			<!-- END DEFAULT FORM ITEMS -->
 			<div class="card-head style-primary">
 				<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
-					<li class="active"><a>PROFIL</a></li>
+					<li class="active"><a>TAMBAH KALENDER</a></li>
 				</ul>
 			</div><!--end .card-head -->		
 			<!-- BEGIN DEFAULT FORM ITEMS -->
