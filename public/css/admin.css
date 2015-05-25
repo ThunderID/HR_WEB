@@ -296,6 +296,10 @@
   background: white;
   top: 350px;
 }
+.select2-container.form-control.select2.org-change-header {
+  font-size: 13px;
+  border-bottom: none;
+}
 
 @-webkit-keyframes fadeIn {
   from {

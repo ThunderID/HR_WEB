@@ -41,17 +41,17 @@
 			</li><!--end .dropdown -->
 		</ul><!--end .header-nav-profile -->
 	</div><!--end #header-navbar-collapse -->
-	<div class="headerbar-right">
-		<ul class="header-nav header-nav-options">
-			<li class="header-nav-brand">
+	<div class="headerbar-right" style="width:200px">
+		<ul class="header-nav header-nav-options" style="width:100%">
+			<li class="header-nav-brand" style="width:100%">
 				<div class="brand-holder">
 					<!-- Search form -->
 					@if(Session::has('user.organisations'))
 						<form class="form" role="search" action="{{route('hr.organisations.default')}}" method="post">
 							<div class="form-group">
-								<select id="change_branch" class="form-control select2-list"  onchange="this.form.submit()" name="organisation"> 
+								<select id="change_branch" class="form-control select2 text-sm org-header-change"  onchange="this.form.submit()" name="organisation"> 
 									@foreach(Session::get('user.organisations') as $key => $value)
-										<option class="text-lg text-menu" @if($value['id']==Session::get('user.organisation')) selected @endif value="{{$value['id']}}">{{$value['name']}}</option>
+										<option class="text-lg text-menu" @if($value['id']==Session::get('user.organisation')) selected @endif value="{{$value['id']}}" style="font-size:10px">{{$value['name']}}</option>
 									@endforeach
 								</select>
 							</div>

@@ -296,6 +296,10 @@
   background: white;
   top: 350px;
 }
+.select2-container.org-header-change {
+  font-size: 16px;
+  border-bottom: none;
+}
 
 @-webkit-keyframes fadeIn {
   from {

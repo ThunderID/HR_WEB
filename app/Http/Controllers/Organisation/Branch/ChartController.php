@@ -83,7 +83,7 @@ class ChartController extends Controller {
 
 		$charts 									= json_decode(json_encode($contents->data), true);
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
-
+// dd($branch);
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= $branch['name'];
 		$this->layout->content 						= view('admin.pages.organisation.cabang.'.$this->controller_name.'.index');

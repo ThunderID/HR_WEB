@@ -61,4 +61,9 @@
 		@section('js')
 		@show
 	</body>
+	<script>
+		$(document).ready(function(){
+			$('#change_branch').select2({dropdownCssClass : 'bigdrop'});
+		});
+	</script>
 </html>

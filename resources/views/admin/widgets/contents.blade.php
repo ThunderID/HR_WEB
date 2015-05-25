@@ -16,7 +16,7 @@
 		<a href="{{ $route }}">
 	@endif
 
-	<div class="">
+	<div class="hbox-column v-top">
 
 		@if (isset($toggle['document']))
 			<div class="clearfix">
