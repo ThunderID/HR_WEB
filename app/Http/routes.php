@@ -323,14 +323,6 @@ Route::group(['prefix' => 'cms'], function(){
 	// 				);
 	// });
 
-	// Route::group(['prefix' => 'documents/templates', 'before' => 'hr_acl'], function(){
-	// 	Route::any('delete/{id}', 
-	// 					[
-	// 						'uses' 	=> 'Branch\DocumentController@anyTemplateDelete', 
-	// 						'as' 	=> 'hr.document.templates.delete'
-	// 					]
-	// 				);
-	// });
 
 	// Route::group(['prefix' => 'documents/persons/', 'before' => 'hr_acl'], function(){
 	// 	Route::get('{id}/{page?}', 

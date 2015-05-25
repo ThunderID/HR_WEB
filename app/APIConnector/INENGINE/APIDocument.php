@@ -35,9 +35,9 @@ class APIDocument {
 		return $data->personIndex($page, $search, $sort, $all = false);
 	}
 
-	function destroytemplate($id)
+	function destroytemplate($org_id, $id)
 	{
 		$data = new \ThunderID\Doclate\Controllers\TemplateController;
-		return $data->destroy(Session::get('user.organisation'), $id);
+		return $data->destroy($org_id, $id);
 	}
 }

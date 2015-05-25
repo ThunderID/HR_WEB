@@ -1,7 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
 	<li>{{ucwords($data['name'])}}</li>
-	<li class='active'>{{ucwords('Kalender')}}</li>
+	<li class="active">{{ucwords($calendar['name'])}}</li>
 @stop
 
 @section('content')
@@ -22,7 +22,7 @@
 					<i class="fa fa-plus-circle"></i>&nbsp;Struktur
 				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#scheduleCreate" data-id="0" data-action="{{ route('hr.calendars.schedules.store', $data['id']) }}">
-					<i class="fa fa-plus-circle"></i>&nbsp;Jadwal
+					<i class="fa fa-plus-circle"></i>&nbsp;Perubahan Jadwal
 				</a>
 			</div>
 		</div>
@@ -67,11 +67,11 @@
 		</div>	
 	{!! Form::close() !!}
 
-	{!! Form::open(array('url' => route('hr.calendars.schedules.store', $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('url' => route('hr.calendars.schedules.store', ['org_id' => $data['id'], 'id' => $calendar['id']]),'method' => 'POST')) !!}
 		@include('admin.modals.schedule.create_schedule')
 	{!! Form::close() !!}	
 
-	{!! Form::open(array('url' => route('hr.calendars.charts.store', $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('url' => route('hr.calendars.charts.store', ['org_id' => $data['id'], 'id' => $calendar['id']]),'method' => 'POST')) !!}
 		@include('admin.modals.schedule.create_chart')
 	{!! Form::close() !!}	
 @stop

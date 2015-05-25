@@ -66,7 +66,7 @@
 									@endif											
 									<div class="col-xs-12 col-lg-6 hbox-xs">
 										@include('admin.widgets.contents',[
-											'route'				=> route('hr.organisation.workleaves.show', ['id' => $value['id']]),
+											'route'				=> route('hr.organisation.workleaves.show', ['id' => $value['id'], 'page' => 1, 'org_id' => $data['id']]),
 											'editroute'			=> 'hr.organisation.workleaves.edit',
 											'deleteroute'		=> 'hr.organisation.workleaves.delete',
 											'mode'				=> 'list',

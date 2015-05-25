@@ -1,6 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(($controller_name))}}</li>
+	<li>{{ucwords($data['name'])}}</li>
+	<li class='active'>{{ucwords(($document['name']))}}</li>
 @stop
 
 @section('content')
@@ -9,13 +10,13 @@
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
-				<a href="{{route('hr.documents.index')}}" class="btn btn-flat ink-reaction pull-left">
+				<a href="{{route('hr.organisation.documents.index', ['page' => 1, 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i> Kembali
 				</a>
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
 					<i class="fa fa-trash"></i> Hapus
 				</a>
-				<a href="{{route('hr.documents.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.documents.edit', [$document['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i> Edit
 				</a>
 				<?php /*		
@@ -32,9 +33,9 @@
 			<!-- BEGIN LEFTBAR -->
 			<div class="hbox-column col-md-2" id="sidebar_left">
 				<ul class="nav nav-pills nav-stacked">
-					<li class="text-primary">CATEGORIES</li>
-					<li @if(is_null($persons)) class="active" @endif><a href="{{route('hr.documents.show', [$data['id']])}}">@if(!count($data['templates'])) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Detail  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
-					<li @if(($persons)) class="active" @endif><a href="{{route('hr.document.persons.index', [$data['id'], 'page' => 1])}}">Karyawan </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
+					<li class="text-primary">MENU</li>
+					<li @if(is_null($persons)) class="active" @endif><a href="{{route('hr.organisation.documents.show', [$document['id'], 'org_id' => $data['id']])}}">@if(!count($document['templates'])) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Detail  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+					<li @if(($persons)) class="active" @endif><a href="{{route('hr.document.persons.index', [$document['id'], 'page' => 1, 'org_id' => $data['id']])}}">Karyawan </a>  <small class="pull-right text-bold opacity-75"></small></a></li>
 				</ul>
 			</div>
 
@@ -42,23 +43,25 @@
 			<div class="hbox-column col-md-9" id="sidebar_mid">
 				<div class="pull-left width-3 clearfix hidden-xs">
 				</div>
-				<h1 class="text-light no-margin">{{ucwords($data['name'])}}</h1>
+				<h1 class="text-light no-margin">{{ucwords($document['name'])}}</h1>
 				<h5>
-					{{(isset($paginator) ? $paginator->total_item.' Dokumen' : '')}}
+					<h5>
+						@if(isset($paginator->total_item) && $paginator->total_item>0) Total Dokumen <strong>{{$paginator->total_item}}</strong> @elseif(isset($paginator->total_item)) Tidak ada data @endif
+					</h5>
 				</h5>
 				&nbsp;&nbsp;
 				@if(is_null($persons))
 					<ul class="nav nav-tabs" data-toggle="tabs">
-						<li class="active"><a href="#details">Template Dokumen</a></li>
+						<li class="active"><a href="#details">Template</a></li>
 					</ul>
 					<div class="tab-content height-8">
 						<div class="tab-pane active" id="details">
 							<br/>
-							@foreach($data['templates'] as $key => $value)
+							@foreach($document['templates'] as $key => $value)
 								<div class="row">
 									<div class="col-sm-10">{{ucwords($value['field'])}} ({{$value['type']}})</div>
 									<div class="text-right col-sm-2">
-										<a href="{{route('hr.document.templates.delete', [$value['id']])}}">
+										<a href="{{route('hr.document.templates.delete', [$value['id'], 'org_id' => $data['id'], 'doc_id' => $document['id']])}}">
 											<i class="fa fa-trash"></i>
 										</a>
 									</div>
@@ -115,7 +118,7 @@
 			<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						{!! Form::open(array('route' => array('hr.documents.delete', $data['id']),'method' => 'POST')) !!}
+						{!! Form::open(array('route' => array('hr.organisation.documents.delete', $document['id']),'method' => 'POST')) !!}
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h4 class="modal-title" id="simpleModalLabel">Hapus Data Dokumen</h4>
