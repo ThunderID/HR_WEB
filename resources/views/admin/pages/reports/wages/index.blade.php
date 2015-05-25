@@ -30,12 +30,12 @@
 				<!-- BEGIN SEARCH NAV -->
 				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary">TAMPILKAN</li>
+						<li class="text-primary">MENU</li>
 						<li @if(!Input::has('case')) class="active" @endif><a href="{{route('hr.report.wages.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'q' => Input::get('q')])}}">Semua</a></li>
 					</ul>
 					<br/>
 					<ul class="nav nav-pills nav-stacked pb-25">
-						<li class="text-primary">BRANCHES</li>
+						<li class="text-primary">CABANG</li>
 						<?php $branch = null;?>
 						@foreach($branches as $key => $value)
 							@if($value['name']!=$branch)

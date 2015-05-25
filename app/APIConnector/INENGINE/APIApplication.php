@@ -4,10 +4,10 @@ use Session;
 
 class APIApplication {
 
-	function authenticate($menuid, $personid, $chartid)
+	function authenticate($menuid, $personid, $chartid, $access)
 	{
 		$data = new \ThunderID\Chauth\Controllers\AuthenticationController;
-		return $data->application($menuid, $personid, $chartid);
+		return $data->application($menuid, $personid, $chartid, $access);
 	}
 
 	function index($page, $search, $sort, $all = false)
