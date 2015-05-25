@@ -50,7 +50,7 @@
 		// =========================================================================
 
 		p._handleCalendarPrevClick = function (e) {
-			$('#calendar').fullCalendar('prev');
+			$('#calendar').fullCalendar('prev');			
 			this._displayDate();			
 		};
 		
@@ -133,7 +133,7 @@
 			var d = date.getDate();
 			var m = date.getMonth();
 			var y = date.getFullYear();
-			// var curSource = new Array();
+			var curSource = new Array();
 
 			var curSource = cal_link;			
 
@@ -166,12 +166,15 @@
 						$(this).remove();
 					}
 				},
-
-				events: curSource,
-				eventRender: function (event, element) {
+				loading: function(bool) {
+					$('#calendar').toggleClass('calendar-loading');
+					$('.sk-spinner').toggle('spinner-loading');
+				},
+				events:  curSource,
+				eventRender: function (event, element) {					
 					var datetime_start 	= event.start._i.split('T');
 
-					if (event.end._i != '') {
+					if (event.end != null) {
 						var datetime_end 	= event.end._i.split('T');
 					}
 					else {
@@ -193,27 +196,9 @@
 					element.attr('data-delete-action', event.del_action);
 					element.attr('data-is-affect-salary', event.affect_salary);
 					element.find('.fc-title').append('<br>');
-				},
-				eventAfterRender: function(event, $el, view ) {
-					var datetime_start 	= event.start._i.split('T');
-					console.log(event);
-					if (event.end._i != '') {
-						var datetime_end 	= event.end._i.split('T');
-				        var formattedTime 	= $.fullCalendar.formatRange(event.start, "HH:mm { - HH:mm}");
-					}
-					else {
-						var datetime_end 	= datetime_start;
-						var formattedTime 	= $.fullCalendar.formatRange(event.start, event.end, "HH:mm { - HH:mm}");
-					}					
-
-			        // If FullCalendar has removed the title div, then add the title to the time div like FullCalendar would do
-			        if($el.find(".fc-event-title").length === 0) {
-			            $el.find(".fc-event-time").text(formattedTime + " - " + event.title);
-			        }
-			        else {
-			            $el.find(".fc-event-time").text(formattedTime);
-			        }
-			    },
+				}
+				
+			 //    }
 				// eventClick: function(calEvent, jsEvent, view) {
 
 				//         // alert('Event: ' + calEvent.title);			        

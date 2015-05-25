@@ -29,7 +29,8 @@ elixir(function(mix) {
 				'theme-1/material-design-iconic-font.min.css',
 				'theme-1/libs/bootstrap-tagsinput/bootstrap-tagsinput.css',
 				'theme-1/libs/select2/select2.css',
-				'theme-1/libs/fullcalendar/fullcalendar.css'
+				'theme-1/libs/fullcalendar/fullcalendar.css',
+				'loading-circle.css',
 				], 'public/css/admin.css')
 	.scripts(['libs/jquery/jquery-1.11.2.min.js',
 				'libs/jquery/jquery-migrate-1.2.1.min.js',
