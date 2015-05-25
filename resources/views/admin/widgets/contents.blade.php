@@ -16,16 +16,39 @@
 		<a href="{{ $route }}">
 	@endif
 
-	<div class="hbox-xs v-top @if (isset($class['top'])) {{ $class['top'] }} @else height-4 @endif ">
+	<div class="">
 
 		@if (isset($toggle['document']))
 			<div class="clearfix">
-				<span class="fa fa-fw fa-file-o fa-2x pull-left mt-10"></span>
-				<span class="pull-left">
-					<span class="text-bold">{{ucwords($data_content['name'])}}</span><br>
-					<span class="opacity-50"><i class = "fa fa-tags"></i> {{ucwords($data_content['tag'])}}</span><br>
-					<span class="opacity-50">{{(isset($data_content['persons'][0]['count']) ? $data_content['persons'][0]['count'].' Dokumen' : '')}} </span>
-				</span>
+				<div class="col-md-1">
+					<span class="fa fa-fw fa-file-o fa-2x pull-left mt-10"></span>
+				</div>
+				<div class="col-md-11">
+					<span class="pull-left">
+						<span class="text-bold">{{ucwords($data_content['name'])}}</span><br>
+						<span class="opacity-50"><i class = "fa fa-tags"></i> {{ucwords($data_content['tag'])}}</span><br>
+						<span class="opacity-50">{{(isset($data_content['persons'][0]['count']) ? $data_content['persons'][0]['count'].' Dokumen' : '')}} </span>
+					</span>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="col-lg-12 text-right">
+					<a href="{{route($editroute, ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn btn-icon-toggle" title="Edit">
+						<i class="fa fa-pencil"></i>
+					</a>
+					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route($deleteroute, ['id' => $data_content['id']]) }}">
+						<i class="fa fa-trash"></i>
+					</a>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="col-lg-12 pull-right">
+					{!! Form::open(array('url' => route($deleteroute, ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']]),'method' => 'POST')) !!}
+						<div class="modal fade modalOrganisationDelete" id="del_organisation_modal_{{$data_content['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$data_content['id']}}" aria-hidden="true">
+							@include('admin.modals.delete.delete')
+						</div>	
+					{!! Form::close() !!}
+				</div>
 			</div>
 		@else
 			<div class="clearfix">
@@ -70,11 +93,11 @@
 
 					@if(isset($data_content['workdays']))
 						<?php 
-							$days 	= explode(', ', $data_content['workdays']);
+							$days 	= explode(',', $data_content['workdays']);
 							$indodays = ['monday' => 'senin', 'tuesday' => 'selasa', 'wednesday' => 'rabu', 'thursday' => 'kamis', 'friday' => 'jumat', 'saturday' => 'sabtu', 'sunday' => 'minggu'];
 						?>
 						@foreach($days as $key => $value)
-							<span class="badge style-info text-sm opacity-75 mt-5"> {{$indodays[strtolower($value)]}}</span>
+							<span class="badge style-info text-sm opacity-75 mt-5"> {{(isset($indodays[strtolower($value)]) ? $indodays[strtolower($value)] : strtolower($value))}}</span>
 						@endforeach
 					@endif
 				</div>
@@ -91,6 +114,26 @@
 						 </span>
 					</div>
 				@endif
+			</div>
+
+			<div class="clearfix">
+				<div class="col-lg-12 text-right">
+					<a href="{{route($editroute, ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn btn-icon-toggle" title="Edit">
+						<i class="fa fa-pencil"></i>
+					</a>
+					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route($deleteroute, ['id' => $data_content['id']]) }}">
+						<i class="fa fa-trash"></i>
+					</a>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="col-lg-12 pull-right">
+					{!! Form::open(array('url' => route($deleteroute, ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']]),'method' => 'POST')) !!}
+						<div class="modal fade modalOrganisationDelete" id="del_organisation_modal_{{$data_content['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$data_content['id']}}" aria-hidden="true">
+							@include('admin.modals.delete.delete')
+						</div>	
+					{!! Form::close() !!}
+				</div>
 			</div>
 		@endif
 
@@ -115,12 +158,6 @@
 			</div>
 		@endif
 
-		@if (isset($toggle['branch']))
-			<div class="clearfix">
-				<div class="col-lg-12">
-				</div>
-			</div>
-		@endif
 
 		@if (isset($toggle['organisation']))
 			<div class="clearfix">
@@ -144,20 +181,37 @@
 			</div>
 		@endif
 
-		@if (!isset($toggle['document']))
-
-			@if(isset($data_content['contacts'])&&count($data_content['contacts']))
-				<ul class="fa-ul" style="padding-left:5px;">
-					@foreach($data_content['contacts'] as $key2 => $value2)
-						@if($value2['item']=='phone')
-							<li class="opacity-75"><i class="fa-li fa fa-mobile-phone fa-lg" style="margin-top:2px"></i> {!! $value2['value'] !!}</li>
-						@elseif($value2['item']=='email')
-							<li class="opacity-75"><i class="fa-li fa fa-envelope" style="margin-top:2px"></i> {!! $value2['value'] !!}</li>
-						@endif
-					@endforeach
-				</ul>
-			@endif
-			
+		@if(isset($data_content['contacts'])&&count($data_content['contacts']))
+			<ul class="fa-ul" style="padding-left:5px;">
+				@foreach($data_content['contacts'] as $key2 => $value2)
+					@if($value2['item']=='phone')
+						<li class="opacity-75"><i class="fa-li fa fa-mobile-phone fa-lg" style="margin-top:2px"></i> {!! $value2['value'] !!}</li>
+					@elseif($value2['item']=='email')
+						<li class="opacity-75"><i class="fa-li fa fa-envelope" style="margin-top:2px"></i> {!! $value2['value'] !!}</li>
+					@endif
+				@endforeach
+			</ul>
+		@endif
+		@if (isset($toggle['branch']))
+			<div class="clearfix">
+				<div class="col-lg-12 text-right">
+					<a href="{{route('hr.organisation.branches.edit', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn btn-icon-toggle" title="Edit">
+						<i class="fa fa-pencil"></i>
+					</a>
+					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+						<i class="fa fa-trash"></i>
+					</a>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="col-lg-12 pull-right">
+					{!! Form::open(array('url' => route('hr.organisation.branches.delete', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']]),'method' => 'POST')) !!}
+						<div class="modal fade modalOrganisationDelete" id="del_organisation_modal_{{$data_content['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$data_content['id']}}" aria-hidden="true">
+							@include('admin.modals.delete.delete')
+						</div>	
+					{!! Form::close() !!}
+				</div>
+			</div>
 		@endif
 	</div>
 
@@ -169,15 +223,18 @@
 		<ul class="list-unstyled">
 			<div class="alert alert-callout alert-info" role="alert" style="border-style:none;">
 				<div class="row">
-				<div class="col-md-10">
-					<strong class="text-primary">Alamat @if($value['is_default']) Sekarang @else Lama @endif</strong><br/>
-					{{$value['value']}}
-				</div>
-				<div class="col-md-2">
-					<a class="btn btn-icon-toggle btn-primary pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-item={{$value['item']}} data-modal-address-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
-						<i class="fa fa-pencil"></i>
-					</a>
-				</div>
+					<div class="col-md-10">
+						<strong class="text-primary">Alamat @if($value['is_default']) Sekarang @else Lama @endif</strong><br/>
+						{{$value['value']}}
+					</div>
+					<div class="col-md-2">
+						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+							<i class="fa fa-trash"></i>
+						</a>
+						<a class="btn btn-icon-toggle btn-primary pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-item={{$value['item']}} data-modal-address-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
+							<i class="fa fa-pencil"></i>
+						</a>
+					</div>
 				</div>
 			</div>					
 		</ul>		
@@ -185,13 +242,16 @@
 		<ul class="list-unstyled">
 			<div class="alert alert-callout alert-info" role="alert" style="border-style:none;">
 				<div class="row">
-				<div class="col-md-10">
-					<strong class="text-primary">{{ucwords(str_replace('_',' ',$value['item']))}} @if($value['is_default']) Sekarang @else Lama @endif</strong><br/>
-					{{$value['value']}}
-				</div>
-				<div class="col-md-2">
-					<a class="btn btn-icon-toggle btn-primary pull-right btn_modal" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>
-				</div>
+					<div class="col-md-10">
+						<strong class="text-primary">{{ucwords(str_replace('_',' ',$value['item']))}} @if($value['is_default']) Sekarang @else Lama @endif</strong><br/>
+						{{$value['value']}}
+					</div>
+					<div class="col-md-2">
+						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+							<i class="fa fa-trash"></i>
+						</a>
+						<a class="btn btn-icon-toggle btn-primary pull-right btn_modal" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>
+					</div>
 				</div>
 			</div>					
 		</ul>	

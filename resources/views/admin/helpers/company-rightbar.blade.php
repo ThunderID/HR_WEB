@@ -2,12 +2,12 @@
 			<div class="hbox-column col-md-3 style-default-light" id="sidebar_right">
 				<div class="row" style='height:100%;'>
 					<div class="col-xs-12">
-						@if(isset($data['contacts']))
+						@if(isset($branch['contacts']))
 							<h4>Kontak</h4>
 						@endif
 						<br/>
 						<dl class="dl-horizontal dl-icon">
-							@foreach($data['contacts'] as $key => $value)
+							@foreach($branch['contacts'] as $key => $value)
 								@if($value['item']=='phone_number')
 									<dt><span class="fa fa-fw fa-mobile fa-lg opacity-50"></span></dt>
 									<dd>

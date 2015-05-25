@@ -82,7 +82,7 @@ class ScheduleController extends Controller {
 
 		//please make sure if the date is in range, make it as an array for every date => single date save in on
 		//consider the id
-		$schedule 									= Input::only('name', 'on', 'start', 'end', 'id', 'status', 'is_affect_salary');
+		$schedule 									= Input::only('name', 'on', 'start', 'end', 'id', 'status', 'is_affect_workleave');
 		if(isset($schedule['id'])&&$schedule['id']==0)
 		{
 			unset($schedule['id']);
@@ -104,13 +104,13 @@ class ScheduleController extends Controller {
 		$schedule['start']							= date('H:i:s', strtotime($schedule['start']));
 		$schedule['end']							= date('H:i:s', strtotime($schedule['end']));
 		
-		if(is_null($schedule['is_affect_salary']))
+		if(is_null($schedule['is_affect_workleave']))
 		{
-			$schedule['is_affect_salary']			= false;
+			$schedule['is_affect_workleave']			= false;
 		}
 		else
 		{
-			$schedule['is_affect_salary']			= true;
+			$schedule['is_affect_workleave']			= true;
 		}
 		
 		$input['schedules'][]						= $schedule;
@@ -193,7 +193,7 @@ class ScheduleController extends Controller {
 				}
 
 				$schedule[$i]['status']			= $sh['status'];
-				$schedule[$i]['affect_salary']	= $sh['is_affect_salary'];
+				$schedule[$i]['affect_salary']	= $sh['is_affect_workleave'];
 				$schedule[$i]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
 		}
 

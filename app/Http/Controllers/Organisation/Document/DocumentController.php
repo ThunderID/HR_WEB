@@ -13,9 +13,13 @@ class DocumentController extends Controller {
 		parent::__construct();
 	}
 	
-	function getIndex($org_id = null, $page = 1)
+	function getIndex($page = 1)
 	{
-		if(is_null($org_id))
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
 		{
 			$org_id 								= Session::get('user.organisation');
 		}
@@ -25,7 +29,7 @@ class DocumentController extends Controller {
 			App::abort(404);
 		}
 
-		$results 									= API::organisation()->show($org_id);
+		$results 									= API::organisation()->show($org_id, ['withattributes' => ['branches', 'calendars', 'workleaves', 'documents']]);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -94,20 +98,44 @@ class DocumentController extends Controller {
 		$this->layout->content->documents 			= $documents;
 		$this->layout->content->paginator 			= $paginator;
 		$this->layout->content->filters 			= [['title' => 'Filter Dokumen', 'input' => 'tag', 'filter' => 'tag','filters' => $tags]];
-		$this->layout->content->route 				= ['id' => $data['id']];
-		$this->layout->content->route 				= ['id' => $data['id'], 'tag' => Input::get('tag')];
+		$this->layout->content->route 				= ['org_id' => $data['id'], 'tag' => Input::get('tag')];
 
 		return $this->layout;
 	}
 
 	function getCreate($id = null)
 	{
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= 'Tambah '.ucwords($this->controller_name). ' Baru';
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= null;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->document 			= null;
 
 		return $this->layout;
 	}
@@ -115,6 +143,30 @@ class DocumentController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id, ['withattributes' => ['branches', 'calendars', 'workleaves', 'documents']]);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
 		$input['document'] 							= Input::only('name','required', 'tag', 'template');
 		$input['document']['is_required']			= false;
 
@@ -143,14 +195,14 @@ class DocumentController extends Controller {
 			}
 		}
 
-		$input['organisation']['id']				= Session::get('user.organisation');
+		$input['organisation']['id']				= $org_id;
 
 		$results 									= API::document()->store($id, $input);
 
 		$content 									= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.documents.index')->with('alert_success', 'Data Dokumen sudah di simpan');
+			return Redirect::route('hr.organisation.documents.index', ['page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Dokumen sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -212,9 +264,21 @@ class DocumentController extends Controller {
 
 	function getEdit($id)
 	{
-		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::document()->show($id);
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
 
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -224,12 +288,25 @@ class DocumentController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
+		// ---------------------- LOAD DATA ----------------------
+		$results 									= API::document()->show($id, ['organisationid' => $org_id, 'withattributes' => ['templates']]);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$document 									= json_decode(json_encode($contents->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($this->controller_name);
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->document 			= $document;
 
 		return $this->layout;
 	}
@@ -251,21 +328,30 @@ class DocumentController extends Controller {
 
 		if($content->meta->success)
 		{
-			$results 									= API::document()->destroy($id);
+			if(Input::has('org_id'))
+			{
+				$org_id 								= Input::get('org_id');
+			}
+			else
+			{
+				$org_id 								= Session::get('user.organisation');
+			}
+			
+			$results 									= API::document()->destroy($org_id, $id);
 			$contents 									= json_decode($results);
 
 			if (!$contents->meta->success)
 			{
-				return Redirect::route('hr.documents.show', ['id' => $id])->withErrors($contents->meta->errors);
+				return Redirect::back()->withErrors($contents->meta->errors);
 			}
 			else
 			{
-				return Redirect::route('hr.documents.index')->with('alert_success', 'Dokumen "' . $contents->data->name. '" sudah dihapus');
+				return Redirect::back()->with('alert_success', 'Dokumen "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else
 		{
-			return Redirect::route('hr.documents.show', ['id' => $id])->withErrors(['Password yang Anda masukkan tidak sah!']);
+			return Redirect::back()->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 

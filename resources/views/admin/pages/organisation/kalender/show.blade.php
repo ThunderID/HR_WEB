@@ -1,6 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords('Kantor')}}</li>
+	<li>{{ucwords($data['name'])}}</li>
+	<li class='active'>{{ucwords('Kalender')}}</li>
 @stop
 
 @section('content')
@@ -8,17 +9,17 @@
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
-				<a href="{{route('hr.calendars.index')}}" class="btn btn-flat ink-reaction pull-left">
+				<a href="{{route('hr.organisation.calendars.index', ['page' => 1, 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i>&nbsp;Kembali
 				</a>
-				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal" data-action="{{ route('hr.calendars.delete', $data['id']) }}">
+				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal" data-action="{{ route('hr.organisation.calendars.delete', $data['id']) }}">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
-				<a href="{{route('hr.calendars.edit', $data['id'])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.calendars.edit', ['org_id' => $data['id'], 'id' => $calendar['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#chartCreate">
-					<i class="fa fa-plus-circle"></i>&nbsp;Chart
+					<i class="fa fa-plus-circle"></i>&nbsp;Struktur
 				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#scheduleCreate" data-id="0" data-action="{{ route('hr.calendars.schedules.store', $data['id']) }}">
 					<i class="fa fa-plus-circle"></i>&nbsp;Jadwal
@@ -35,14 +36,13 @@
 					<div class="col-md-12">
 						<div class="row">
 							<div class="margin-bottom-xxl">
-								<h1 class="text-light no-margin">@ucwords($data['name'])</h1>
+								<h1 class="text-light no-margin">@ucwords($calendar['name'])</h1>
 								<h5 class="pb-30 border-bottom">
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
-									@if(isset($data['charts']))
-										@foreach($data['charts'] as $key => $value)
-											<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['tag']}} - {{$value['branch']['name']}}</span>
-										@endforeach
-									@endif
+									<?php $workdays = explode(',', $calendar['workdays']);?>
+									@foreach($workdays as $key => $value)
+										<span class="badge style-info text-sm opacity-75 mt-5">{{$value}}</span>
+									@endforeach
 								</h5>
 								<h3 class="text-light no-margin pt-20">
 									<span class="selected-day">&nbsp;</span> &nbsp;<small class="selected-date">&nbsp;</small>
@@ -61,7 +61,7 @@
 		</div>
 	</div>
 
-	{!! Form::open(array('route' => array('hr.calendars.delete', $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('url' => route('hr.organisation.calendars.delete', ['id' => $calendar['id'], 'org_id' => $calendar['id']]),'method' => 'POST')) !!}
 		<div class="modal fade modalDelete" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	

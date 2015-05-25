@@ -1,6 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords('Kantor')}}</li>
+	<li>{{ucwords($data['name'])}}</li>
+	<li class='active'>{{ucwords($branch['name'])}}</li>
 @stop
 
 @section('content')
@@ -9,16 +10,16 @@
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
-				<a href="{{route('hr.organisation.branches.index')}}" class="btn btn-flat ink-reaction pull-left">
+				<a href="{{route('hr.organisation.branches.index', ['page' => 1,'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i>&nbsp;Kembali
 				</a>
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
-				<a href="{{route('hr.organisation.branches.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.branches.edit', [$branch['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
-				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $branch['name']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-users"></i>&nbsp;Karyawan
 				</a>
 			</div>
@@ -28,14 +29,17 @@
 		<!-- BEGIN CARD TILES -->
 		<div class="card-tiles">
 			<div class = "col-md-12 hbox-md">
-				@include('admin.helpers.company-leftbar')
+				@include('admin.filters.branch')
 
 				<!-- BEGIN MIDDLE -->					
 				<div class="hbox-column col-md-7" id="sidebar_mid">
 					<div class="col-md-12">
 						<div class="row">
 							<div class="margin-bottom-xxl">
-								<h1 class="text-light no-margin">{{$data['name']}}</h1>
+								<h1 class="text-light no-margin">{{$branch['name']}}</h1>
+								<h5>
+									@if($paginator->total_item>0) Total Data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
+								</h5>
 								&nbsp;&nbsp;
 							</div>
 						</div>
@@ -50,7 +54,7 @@
 		</div>
 	</div>
 
-	{!! Form::open(array('route' => array('hr.organisation.branches.delete', $data['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('url' => route('hr.organisation.branches.delete', ['id' => $branch['id'], 'org_id' => $data['id']]),'method' => 'POST')) !!}
 		<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	

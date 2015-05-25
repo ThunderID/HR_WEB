@@ -19,15 +19,15 @@
 						
 				<div class="row">
 					<div class="tabs col-md-12  pt-20">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="form-group">								
 								<input name="item[1]" id="item[1]" class="form-control getContacts modal_contact_inp_item" data-comp="">																
-								<label for="item[1]">Jenis Kontak</label>
+								<label for="item[1]">Jenis</label>
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="form-group">
-								<input type="text" class="form-control modal_contact_inp_value" id="value[1]" name="value[1]">
+								<textarea class="form-control modal_contact_inp_value" name="value[1]" style="resize: none;" rows="2"></textarea>
 								<label for="value[1]">Isian</label>
 							</div>
 						</div>
@@ -45,7 +45,7 @@
 							</div>
 						</div>
 					</div>
-				</div>	
+				</div>
 				<input class="modal_contact_input_id" type="hidden" name="id_item[1]">
 			</div>			
 			<div class="modal-footer style-default-light">

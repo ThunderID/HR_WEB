@@ -4,33 +4,34 @@ use Session;
 
 class APICalendar {
 
-	function index($page, $search, $sort, $all = false)
+	function index($page, $search, $sort, $per_page = 12)
 	{
-		$data = new \ThunderID\Schedule\Controllers\CalenderController;
-		return $data->index($page, $search, $sort, $all = false);
+		$data = new \ThunderID\Schedule\Controllers\CalendarController;
+		return $data->index($page, $search, $sort, $per_page = 12);
 	}
 
-	function show($id)
+	function show($id, $search = [])
 	{
-		$data = new \ThunderID\Schedule\Controllers\CalenderController;
-		return $data->show(Session::get('user.organisation'), $id);
+		$search['id']			= $id;
+		$data = new \ThunderID\Schedule\Controllers\CalendarController;
+		return $data->index(1, $search, [], 1);
 	}
 
 	function store($id, $attributes)
 	{		
-		$data = new \ThunderID\Schedule\Controllers\CalenderController;
+		$data = new \ThunderID\Schedule\Controllers\CalendarController;
 		return $data->store($id, $attributes);
 	}
 
-	function destroy($id)
+	function destroy($org_id, $id)
 	{
-		$data = new \ThunderID\Schedule\Controllers\CalenderController;
-		return $data->destroy(Session::get('user.organisation'), $id);
+		$data = new \ThunderID\Schedule\Controllers\CalendarController;
+		return $data->destroy($org_id, $id);
 	}
 
 	function followIndex($page, $search, $sort, $all = false)
 	{
-		$data = new \ThunderID\Schedule\Controllers\CalenderController;
+		$data = new \ThunderID\Schedule\Controllers\CalendarController;
 		return $data->followIndex($page, $search, $sort, $all = false);
 	}
 }

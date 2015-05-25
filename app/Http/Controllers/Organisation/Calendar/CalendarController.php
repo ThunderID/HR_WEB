@@ -13,9 +13,13 @@ class CalendarController extends Controller {
 		parent::__construct();
 	}
 	
-	function getIndex($org_id = null, $page = 1)
+	function getIndex($page = 1)
 	{
-		if(is_null($org_id))
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
 		{
 			$org_id 								= Session::get('user.organisation');
 		}
@@ -25,7 +29,7 @@ class CalendarController extends Controller {
 			App::abort(404);
 		}
 
-		$results 									= API::organisation()->show($org_id);
+		$results 									= API::organisation()->show($org_id, ['withattributes' => ['branches', 'calendars', 'workleaves', 'documents']]);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -105,38 +109,73 @@ class CalendarController extends Controller {
 		$this->layout->content->calendars 			= $calendars;
 		$this->layout->content->paginator 			= $paginator;
 		$this->layout->content->filters 			= [['title' => 'Filter Cabang', 'input' => 'branchname', 'filter' => 'name','filters' => $branches]];
-		$this->layout->content->route 				= ['id' => $data['id'], 'branchname' => Input::get('branchname')];
+		$this->layout->content->route 				= ['org_id' => $data['id'], 'branchname' => Input::get('branchname')];
 
 		return $this->layout;
 	}
 
 	function getCreate($id = null)
 	{
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= 'Tambah '.ucwords($this->controller_name). ' Baru';
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= null;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->calendar 			= null;
 
 		return $this->layout;
 	}
 
 	function postStore($id = null)
 	{
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['calendar'] 							= Input::only('name');
+		$input['calendar'] 							= Input::only('name', 'workdays', 'start', 'end');
 
-		// $input['calendar']['id'] 					= $id;
+		$input['calendar']['start']					= date('H:i:s', strtotime($input['calendar']['start']));
+		$input['calendar']['end']					= date('H:i:s', strtotime($input['calendar']['end']));
 
-		$input['organisation']['id']				= Session::get('user.organisation');
+		$input['organisation']['id']				= $org_id;
 
 		$results 									= API::calendar()->store($id, $input);
 
 		$content 									= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.calendars.index')->with('alert_success', 'Data Kalender sudah di simpan');
+			return Redirect::route('hr.organisation.calendars.index', ['page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Kalender sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -144,6 +183,30 @@ class CalendarController extends Controller {
 
 	function getShow($id, $page = 1)
 	{
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
 		// ---------------------- LOAD DATA ----------------------
 		$results 									= API::calendar()->show($id);
 
@@ -154,7 +217,7 @@ class CalendarController extends Controller {
 			App::abort(404);
 		}
 
-		$data 										= json_decode(json_encode($contents->data), true);
+		$calendar 									= json_decode(json_encode($contents->data), true);
 		
 		$search 									= ['calendarid' => $id, 'ondate' => [Input::get('start'), Input::get('end')]];
 
@@ -170,7 +233,7 @@ class CalendarController extends Controller {
 
 		$sort 										= ['name' => 'asc'];
 
-		$results 									= API::schedule()->index($page, $search, $sort, true);
+		$results 									= API::schedule()->index($page, $search, $sort, 100);
 
 		$contents 									= json_decode($results);
 
@@ -189,6 +252,7 @@ class CalendarController extends Controller {
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->calendar 			= $calendar;
 		$this->layout->content->schedules 			= $schedules;
 		$this->layout->content->paginator 			= $paginator;
 
@@ -198,8 +262,21 @@ class CalendarController extends Controller {
 	function getEdit($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::calendar()->show($id);
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
 
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -209,12 +286,24 @@ class CalendarController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
+		$results 									= API::calendar()->show($id, ['organisationid' => $org_id]);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$calendar 									= json_decode(json_encode($contents->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= strtoupper($this->controller_name);
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->calendar 			= $calendar;
 
 		return $this->layout;
 	}
@@ -236,21 +325,30 @@ class CalendarController extends Controller {
 
 		if($content->meta->success)
 		{
-			$results 									= API::calendar()->destroy($id);
+			if(Input::has('org_id'))
+			{
+				$org_id 								= Input::get('org_id');
+			}
+			else
+			{
+				$org_id 								= Session::get('user.organisation');
+			}
+
+			$results 									= API::calendar()->destroy($org_id, $id);
 			$contents 									= json_decode($results);
 
 			if (!$contents->meta->success)
 			{
-				return Redirect::route('hr.calendars.show', ['id' => $id])->withErrors($contents->meta->errors);
+				return Redirect::back()->withErrors($contents->meta->errors);
 			}
 			else
 			{
-				return Redirect::route('hr.calendars.index')->with('alert_success', 'Kalender "' . $contents->data->name. '" sudah dihapus');
+				return Redirect::route('hr.organisation.calendars.index')->with('alert_success', 'Kalender "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else
 		{
-			return Redirect::route('hr.calendars.show', ['id' => $id])->withErrors(['Password yang Anda masukkan tidak sah!']);
+			return Redirect::back()->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 

@@ -13,9 +13,13 @@ class BranchController extends Controller {
 		parent::__construct();
 	}
 	
-	function getIndex($org_id = null, $page = 1)
+	function getIndex($page = 1)
 	{
-		if(is_null($org_id))
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
 		{
 			$org_id 								= Session::get('user.organisation');
 		}
@@ -25,7 +29,7 @@ class BranchController extends Controller {
 			App::abort(404);
 		}
 
-		$results 									= API::organisation()->show($org_id);
+		$results 									= API::organisation()->show($org_id, ['withattributes' => ['branches', 'calendars', 'workleaves', 'documents']]);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -84,33 +88,67 @@ class BranchController extends Controller {
 		$this->layout->content->data 				= $data;
 		$this->layout->content->branches 			= $branches;
 		$this->layout->content->paginator 			= $paginator;
-		$this->layout->content->route 				= ['id' => $data['id']];
+		$this->layout->content->route 				= ['org_id' => $data['id']];
 
 		return $this->layout;
 	}
 
 	function getCreate($id = null)
 	{
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= 'Tambah '.$this->controller_name.' baru';;
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
-		$this->layout->content->data 				= null;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->branch 				= null;
 
 		return $this->layout;
 	}
 
 	function postStore($id = null)
 	{
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
 		// ---------------------- HANDLE INPUT ----------------------
 		if(Input::has('name'))
 		{
-			$input['branch'] 							= Input::only('name','license','npwp');
+			$input['branch'] 							= Input::only('name');
 		}
 		$input['branch']['id'] 							= $id;
 
-		$input['organisation']['id']					= Session::get('user.organisation');
+		$input['organisation']['id']					= $org_id;
 
 		$results 										= API::branch()->store($id, $input);
 
@@ -118,15 +156,39 @@ class BranchController extends Controller {
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.branches.index')->with('alert_success', 'Kantor '.$content->data->name.' Sudah Tersimpan');
+			return Redirect::route('hr.organisation.branches.index', [1, 'org_id' => $org_id])->with('alert_success', 'Cabang "'.$content->data->name.'" Sudah Tersimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
 	}
 
-	function getShow($id)
+	function getShow($id, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
 		if(Input::has('tag'))
 		{
 			$department 							= Input::get('tag');
@@ -135,7 +197,30 @@ class BranchController extends Controller {
 		{
 			$department 							= null;
 		}
-		$results 									= API::branch()->show($id, $department);
+
+
+		$search 									= ['OrganisationID' => $org_id, 'CurrentContact' => 'is_default', 'withattributes' => ['charts'], 'groupcontacts' => true];
+		
+		$results 									= API::branch()->show($id, $search);
+		
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$branch 									= json_decode(json_encode($contents->data), true);
+
+		$search 									= ['branchid' => $id];
+		if(Input::has('item'))
+		{
+			$search['item']							= Input::get('item');
+		}
+
+		$sort 										= ['is_default' => 'desc'];
+
+		$results 									= API::branch()->contactIndex($page, $search, $sort);
 
 		$contents 									= json_decode($results);
 
@@ -144,13 +229,19 @@ class BranchController extends Controller {
 			App::abort(404);
 		}
 
-		$data 										= json_decode(json_encode($contents->data), true);
+		$contacts 									= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= $contents->data->name;
-		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.show.struktur.index');
+		$this->layout->page_title 					= $branch['name'];
+		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.kontak.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->branch 				= $branch;
+		$this->layout->content->contacts 			= $contacts;
+		$this->layout->content->paginator 			= $paginator;
+		$this->layout->content->route 				= ['id' => $branch['id'],'org_id' => $data['id']];
+		$this->layout->content->filters 			= [['title' => 'Filter Kontak', 'input' => 'item', 'filter' => 'item','filters' => $branch['tagcontacts']]];
 
 		return $this->layout;
 	}
@@ -159,7 +250,21 @@ class BranchController extends Controller {
 	function getEdit($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$results 									= API::branch()->show($id);
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)
@@ -169,12 +274,23 @@ class BranchController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
+		$results 									= API::branch()->show($id, ['organisationid' => $org_id]);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$branch 									= json_decode(json_encode($contents->data), true);
+
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= 'Edit "'.$contents->data->name.'"';
 
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->branch 				= $branch;
 
 		return $this->layout;
 	}
@@ -196,16 +312,25 @@ class BranchController extends Controller {
 
 		if($content->meta->success)
 		{
-			$results 									= API::branch()->destroy($id);
+			if(Input::has('org_id'))
+			{
+				$org_id 								= Input::get('org_id');
+			}
+			else
+			{
+				$org_id 								= Session::get('user.organisation');
+			}
+
+			$results 									= API::branch()->destroy($org_id, $id);
 			$contents 									= json_decode($results);
 
 			if (!$contents->meta->success)
 			{
-				return Redirect::route('hr.organisation.branches.show', ['id' => $id])->withErrors($contents->meta->errors);
+				return Redirect::route('hr.organisation.branches.show', ['id' => $id, 'org_id' => $org_id])->withErrors($contents->meta->errors);
 			}
 			else
 			{
-				return Redirect::route('hr.organisation.branches.index')->with('alert_success', 'Data Kantor "' . $contents->data->name. '" sudah dihapus');
+				return Redirect::route('hr.organisation.branches.index', ['page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Cabang "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else

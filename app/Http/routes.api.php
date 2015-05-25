@@ -13,7 +13,7 @@ Route::group(['prefix' => 'api'], function(){
 	Route::post('/fp/new/finger', 				['as' => 'hr.api.fp.enroll', 			'uses' => '\ThunderID\Finger\Controllers\FingerController@store']);
 	
 	Route::post('/fp/sync/finger', 				['as' => 'hr.api.fp.sync', 				'uses' => '\ThunderID\Finger\Controllers\FingerController@update']);
-	
+
 	Route::post('/fp/random/finger', 			['as' => 'hr.api.fp.random', 			'uses' => '\ThunderID\Finger\Controllers\FingerController@random']);
 
 });
@@ -39,6 +39,8 @@ Route::get('test/sync', function()
 	$api 										= new \App\APIConnector\OUTENGINE\API;
 	$input['application'] 						= ['api' => ['client' => '123456789', 'secret' => '123456789']];
 	$input['update'] 							= '05-05-2015';
+	$input['page'] 								= 1;
+	$input['limit']	 							= 2;
 
 	return $api->runPost($api->basic_url . 'api/fp/sync/finger', $input);
 });

@@ -22,7 +22,7 @@
 								<div class="form-group">
 									<select class="form-control" id="path" name="path">
 										<option value=""></option>
-										@foreach($data['charts'] as $key => $value)
+										@foreach($charts as $key => $value)
 											<option value="{{$value['path']}}">{{$value['name']}}</option>
 										@endforeach
 									</select>
@@ -73,6 +73,7 @@
 					</div>
 				</div>
 			</div>
+			{!!Form::hidden('org_id', $data['id'])!!}
 			<div class="card-actionbar style-default-light">
 				<div class="card-actionbar-row">
 					<a class="btn btn-flat" data-dismiss="modal" aria-hidden="true">BATAL</a>

@@ -16,7 +16,30 @@ class CalendarController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= [ 'organisationid' => Session::get('user.organisation'), 'withattributes' => ['charts', 'charts.branch']];
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id, ['withattributes' => ['branches', 'calendars', 'workleaves', 'documents']]);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
 		if(Input::has('q'))
 		{
 			$search 								= ['name' => Input::get('q'), 'organisationid' => Session::get('user.organisation'), 'withattributes' => ['charts', 'charts.branch']];
@@ -43,7 +66,7 @@ class CalendarController extends Controller {
 			App::abort(404);
 		}
 
-		$data 										= json_decode(json_encode($contents->data), true);
+		$calendars 									= json_decode(json_encode($contents->data), true);
 		
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
@@ -74,6 +97,7 @@ class CalendarController extends Controller {
 		$this->layout->content 						= view('admin.pages.organisation.'.$this->controller_name.'.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->calendars 			= $calendars;
 		$this->layout->content->branches 			= $branches;
 		$this->layout->content->paginator 			= $paginator;
 

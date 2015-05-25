@@ -1,12 +1,13 @@
 @section('breadcrumb')
 	<li>Home</li>
+	<li>{{ucwords($data['name'])}}</li>
 	<li class='active'>{{ucwords(($controller_name))}}</li>
 @stop
 
 @section('content')
 	<div class="card">
-		@if($data['id'])
-			<form class="form" role="form" action="{{route('hr.organisation.branches.update', $data['id'])}}" method="post">
+		@if($branch['id'])
+			<form class="form" role="form" action="{{route('hr.organisation.branches.update', $branch['id'])}}" method="post">
 		@else
 			<form class="form" role="form" action="{{route('hr.organisation.branches.store')}}" method="post">
 		@endif
@@ -23,27 +24,14 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="text" class="form-control input-lg" id="name" name="name" value="{{$data['name']}}">
-									<label for="name">Nama Perusahaan</label>
+									<input type="text" class="form-control input-lg" id="name" name="name" value="{{$branch['name']}}">
+									<label for="name">Nama Cabang</label>
 								</div>
 							</div><!--end .col -->
-						</div><!--end .row -->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" id="license" name="license" value="{{$data['license']}}">
-									<label for="license">Nomor Ijin Perusahaan</label>
-								</div>
-							</div><!--end .col -->
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" id="npwp" name="npwp" value="{{$data['npwp']}}">
-									<label for="npwp">NPWP</label>
-								</div>
-							</div>
 						</div><!--end .row -->
 					</div>
 				</div>
+				{!!Form::hidden('org_id', $data['id'])!!}
 			</div>
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">

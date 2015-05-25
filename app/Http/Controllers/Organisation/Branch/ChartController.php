@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Branch;
+<?php namespace App\Http\Controllers\organisation\Branch;
 
 use Input, Session, App, Paginator, Redirect, Response, Request;
 use API;
@@ -11,6 +11,90 @@ class ChartController extends Controller {
 	function __construct() 
 	{
 		parent::__construct();
+	}
+
+	function getIndex($page = 1)
+	{
+				// ---------------------- LOAD DATA ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$branchid 									= Input::get('branchid');
+
+		$results 									= API::organisation()->show($org_id);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		if(Input::has('tag'))
+		{
+			$department 							= Input::get('tag');
+		}
+		else
+		{
+			$department 							= null;
+		}
+
+		$search 									= ['OrganisationID' => $org_id, 'CurrentContact' => 'is_default', 'withattributes' => ['charts'], 'DisplayDepartments' => ''];
+		
+		$results 									= API::branch()->show($branchid, $search);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$branch 									= json_decode(json_encode($contents->data), true);
+
+		$search 									= ['branchid' => $branchid];
+		if(Input::has('tag'))
+		{
+			$search['tag']							= Input::get('tag');
+		}
+
+		$sort 										= ['path' => 'asc'];
+
+		$results 									= API::chart()->index($page, $search, $sort, 100);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$charts 									= json_decode(json_encode($contents->data), true);
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= $branch['name'];
+		$this->layout->content 						= view('admin.pages.organisation.cabang.'.$this->controller_name.'.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->branch 				= $branch;
+		$this->layout->content->charts 				= $charts;
+		$this->layout->content->paginator 			= $paginator;
+		$this->layout->content->filters 			= [['title' => 'Filter Department', 'input' => 'tag', 'filter' => 'tag','filters' => $branch['departments']]];
+
+		return $this->layout;
 	}
 
 	function getShow($branch_id, $id, $page = 1)
@@ -135,13 +219,20 @@ class ChartController extends Controller {
 			}
 		}
 
-		$results 									= API::chart()->store($branch_id, $input);
+		$input['branch']['id']						= $branch_id;
+		$input['organisation']['id']				= Input::get('org_id');
+		if(!in_array($input['organisation']['id'], Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::chart()->store($id, $input);
 
 		$content 									= json_decode($results);
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.charts.show', [$branch_id, $content->data->id])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+			return Redirect::route('hr.branches.charts.index', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'page' => 1])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
@@ -218,7 +309,7 @@ class ChartController extends Controller {
 		return $this->postStore($branch_id, $id);
 	}
 
-	function anyDelete($branch_id, $id)
+	function anyDelete($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$email 						= Session::get('user.email');
@@ -230,20 +321,31 @@ class ChartController extends Controller {
 
 		if($content->meta->success)
 		{
-			$results 				= API::chart()->destroy($branch_id, $id);
+			if(Input::has('org_id'))
+			{
+				$org_id 			= Input::get('org_id');
+			}
+			else
+			{
+				$org_id 			= Session::get('user.organisation');
+			}
+
+			$branchid 				= Input::get('branchid');
+
+			$results 				= API::chart()->destroy($org_id, $branchid, $id);
 
 			$content 				= json_decode($results);
 			
 			if($content->meta->success)
 			{
-				return Redirect::route('hr.organisation.branches.show', [$branch_id])->with('alert_success', 'Posisi "' . $content->data->name. '" sudah dihapus');
+				return Redirect::back()->with('alert_success', 'Posisi "' . $content->data->name. '" sudah dihapus');
 			}
 
-			return Redirect::route('hr.organisation.branches.show', ['id' => $branch_id])->withErrors($content->meta->errors);
+			return Redirect::back()->withErrors($content->meta->errors);
 		}
 		else
 		{
-			return Redirect::route('hr.organisation.branches.show', ['id' => $branch_id])->withErrors(['Password yang Anda masukkan tidak sah!']);
+			return Redirect::back()->withErrors(['Password yang Anda masukkan tidak sah!']);
 		}
 	}
 }

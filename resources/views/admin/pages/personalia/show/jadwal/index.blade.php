@@ -63,7 +63,7 @@
 			var end 				= $(e.relatedTarget).attr('data-end');
 			var status 				= $(e.relatedTarget).attr('data-status');
 			var delete_action		= $(e.relatedTarget).attr('data-delete-action');
-			var is_affect_salary	= $(e.relatedTarget).attr('data-is-affect-salary');
+			var is_affect_workleave	= $(e.relatedTarget).attr('data-is-affect-salary');
 
 
 			if (id != 0) 
@@ -79,11 +79,11 @@
 				$('.modal_schedule_btn_del').removeClass('hide');
 				$(this).find('.modal_schedule_btn_save').text('Edit');
 
-				if (is_affect_salary == 1) {
-					$('.modal_is_affect_salary').attr('checked', true);
+				if (is_affect_workleave == 1) {
+					$('.modal_is_affect_workleave').attr('checked', true);
 				}
 				else {
-					$('.modal_is_affect_salary').attr('checked', false);
+					$('.modal_is_affect_workleave').attr('checked', false);
 				}
 			}
 			else
@@ -96,7 +96,7 @@
 				$('.modal_schedule_end').val('');
 				$('.modal_schedule_status').val('');
 				$('.modal_schedule_btn_del').addClass('hide');
-				$('.modal_is_affect_salary').attr('checked', false);
+				$('.modal_is_affect_workleave').attr('checked', false);
 				$(this).find('.modal_schedule_btn_save').text('Tambah');
 			}
 		});

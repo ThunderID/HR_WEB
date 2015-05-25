@@ -19,8 +19,8 @@
 				<a href="{{route('hr.organisations.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Ubah
 				</a>
-				<a href="{{route('hr.organisation.documents.create')}}" class="btn btn-flat ink-reaction pull-right">
-					<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Cabang
+				<a href="{{route('hr.organisation.documents.create', ['org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+					<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Dokumen
 				</a>
 				<a href="{{route('hr.persons.index', ['page' => 1, 'organisation' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-users"></i>&nbsp;Karyawan
@@ -67,6 +67,8 @@
 									<div class="col-xs-12 col-lg-6 hbox-xs">
 										@include('admin.widgets.contents',[
 											'route'				=> route('hr.organisation.documents.show', ['id' => $value['id']]),
+											'editroute'			=> 'hr.organisation.documents.edit',
+											'deleteroute'		=> 'hr.organisation.documents.delete',
 											'mode'				=> 'list',
 											'data_content'		=> $value,
 											'toggle'			=> [

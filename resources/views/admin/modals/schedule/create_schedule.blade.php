@@ -73,7 +73,7 @@
 							<div class="form-group">
 								<div class="checkbox checkbox-styled">
 									<label class="checkbox-inline checkbox-styled">
-										<input type="checkbox" name="is_affect_salary" class="modal_is_affect_salary"><span>Faktor Pengurang Gaji</span>
+										<input type="checkbox" name="is_affect_workleave" class="modal_is_affect_workleave"><span>Faktor Pengurang Cuti</span>
 									</label>									
 								</div>
 							</div>

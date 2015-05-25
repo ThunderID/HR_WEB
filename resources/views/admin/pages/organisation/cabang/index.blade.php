@@ -1,7 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
 	<li>{{ucwords($data['name'])}}</li>
-	<li class='active'>{{ucwords(($controller_name))}}</li>
+	<li class='active'>{{ucwords('cabang')}}</li>
 @stop
 
 @section('content')
@@ -19,7 +19,7 @@
 				<a href="{{route('hr.organisations.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Ubah
 				</a>
-				<a href="{{route('hr.organisation.branches.create')}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.branches.create', ['org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Cabang
 				</a>
 				<a href="{{route('hr.persons.index', ['page' => 1, 'organisation' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
@@ -66,7 +66,7 @@
 									@endif											
 									<div class="col-xs-12 col-lg-6 hbox-xs">
 										@include('admin.widgets.contents',[
-											'route'				=> route('hr.organisation.branches.show', ['id' => $value['id']]),
+											'route'				=> route('hr.organisation.branches.show', ['id' => $value['id'], 'page' => 1, 'org_id' => $data['id']]),
 											'mode'				=> 'list',
 											'data_content'		=> $value,
 											'toggle'			=> [

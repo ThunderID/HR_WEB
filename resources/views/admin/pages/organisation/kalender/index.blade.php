@@ -19,7 +19,7 @@
 				<a href="{{route('hr.organisations.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Ubah
 				</a>
-				<a href="{{route('hr.organisation.calendars.create')}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.calendars.create', ['org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Kalender
 				</a>
 				<a href="{{route('hr.persons.index', ['page' => 1, 'organisation' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
@@ -66,7 +66,9 @@
 									@endif											
 									<div class="col-xs-12 col-lg-6 hbox-xs">
 										@include('admin.widgets.contents',[
-											'route'				=> route('hr.organisation.calendars.show', ['id' => $value['id']]),
+											'route'				=> route('hr.organisation.calendars.show', ['id' => $value['id'], 'org_id' => $data['id']]),
+											'editroute'			=> 'hr.organisation.calendars.edit',
+											'deleteroute'		=> 'hr.organisation.calendars.delete',
 											'mode'				=> 'list',
 											'data_content'		=> $value,
 											'toggle'			=> [

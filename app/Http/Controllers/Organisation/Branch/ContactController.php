@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Branch;
+<?php namespace App\Http\Controllers\Organisation\Branch;
 
 use Input, Session, App, Config, Paginator, Redirect, Validator;
 use API;
@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class ContactController extends Controller {
 
-	protected $controller_name = 'kantor';
+	protected $controller_name = 'cabang';
 
 	function __construct() 
 	{
@@ -76,34 +76,21 @@ class ContactController extends Controller {
 	function postStore($branchid = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
-		$input['branch']['id'] 						= $branchid;
-
-		if(Input::has('address_address'))
+		if(Input::has('org_id'))
 		{
-			foreach (Input::get('address_address') as $key => $value) 
-			{
-				$address							= [];
-				$address['value'] 					= $value;
-				if(isset(Input::get('id_address')[$key]) && Input::get('id_address')[$key]!='')
-				{
-					$address['id'] 					= Input::get('id_address')[$key];
-				}
-				if($address['value']!='')
-				{
-					if(!is_null(Input::has('default_contact')))
-					{
-						$address['is_default']		= true;
-					}
-					else
-					{
-						$address['is_default']		= false;
-					}
-
-					$address['item']				= 'address';
-					$input['contacts']['address'][] = $address;
-				}
-			}
+			$org_id 								= Input::get('org_id');
 		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$input['branch']['id'] 						= $branchid;
 
 		if(Input::has('item'))
 		{
@@ -133,7 +120,7 @@ class ContactController extends Controller {
 			}
 		}
 
-		$input['organisation']['id']					= Session::get('user.organisation');
+		$input['organisation']['id']					= $org_id;
 
 		$results 										= API::branch()->store($branchid, $input);
 
@@ -141,9 +128,50 @@ class ContactController extends Controller {
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.branches.show', [$branchid])->with('alert_success', 'Kantor '.$content->data->name.' Sudah Tersimpan');
+			return Redirect::route('hr.organisation.branches.show', ['id' => $branchid, 'page' => 1, 'org_id' => $org_id])->with('alert_success', 'Kantor '.$content->data->name.' Sudah Tersimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
+	}
+
+	function anyDelete($id)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$username 					= Session::get('user.email');
+		$password 					= Input::get('password');
+
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+			if(Input::has('org_id'))
+			{
+				$org_id 								= Input::get('org_id');
+			}
+			else
+			{
+				$org_id 								= Session::get('user.organisation');
+			}
+
+			$branchid 									= Input::get('branchid');
+
+			$results 									= API::branch()->contactDestroy($org_id, $branchid, $id);
+			$contents 									= json_decode($results);
+
+			if (!$contents->meta->success)
+			{
+				return Redirect::back()->withErrors($contents->meta->errors);
+			}
+			else
+			{
+				return Redirect::back()->with('alert_success', 'Data Cabang "' . $contents->data->name. '" sudah dihapus');
+			}
+		}
+		else
+		{
+			return Redirect::back()->withErrors(['Password yang Anda masukkan tidak sah!']);
+		}
 	}
 }

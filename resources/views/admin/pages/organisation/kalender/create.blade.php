@@ -1,14 +1,15 @@
 @section('breadcrumb')
 	<li>Home</li>
+	<li>{{ucwords($data['name'])}}</li>
 	<li class='active'>{{ucwords(($controller_name))}}</li>
 @stop
 
 @section('content')
 	<div class="card">
-		@if($data['id'])
-			<form class="form" role="form" action="{{route('hr.calendars.update', $data['id'])}}" method="post">
+		@if($calendar['id'])
+			<form class="form" role="form" action="{{route('hr.organisation.calendars.update', ['id' => $calendar['id'], 'org_id' => $data['id']])}}" method="post">
 		@else
-			<form class="form" role="form" action="{{route('hr.calendars.store')}}" method="post">
+			<form class="form" role="form" action="{{route('hr.organisation.calendars.store', ['org_id' => $data['id']])}}" method="post">
 		@endif
 			<!-- END DEFAULT FORM ITEMS -->
 			<div class="card-head style-primary">
@@ -18,19 +19,31 @@
 			</div><!--end .card-head -->		
 			<!-- BEGIN DEFAULT FORM ITEMS -->
 			<div class="card-body tab-content">
+				<div class="form-group">
+					<input type="text" class="form-control input-lg" id="name" name="name" value="{{$calendar['name']}}">
+					<label for="name">Nama Kalender</label>
+				</div><!--end .form -->
+				<div class="form-group">
+					<input type="text" class="form-control input-lg getWorkdays" id="workdays" name="workdays" value="{{$calendar['workdays']}}">
+					<label for="workdays">Hari Kerja</label>
+				</div><!--end .form -->
 				<div class="row">
-					<div class="col-xs-12">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<input type="text" class="form-control input-lg" id="name" name="name" value="{{$data['name']}}">
-									<label for="name">Nama Kalender</label>
-								</div>
-							</div><!--end .col -->
-						</div><!--end .row -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<input type="text" class="form-control time_mask" id="start" name="start" value="{{$calendar['start']}}">
+							<label for="start">Start</label>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<input type="text" class="form-control time_mask" id="end" name="end" value="{{$calendar['end']}}">
+							<label for="end">End</label>
+						</div>
 					</div>
 				</div>
 			</div>
+
+			{!!Form::hidden('org_id', $data['id'])!!}
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
 					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
@@ -39,4 +52,24 @@
 			</div>			
 		</form>
 	</div>
+@stop
+
+@section('css')
+	{!! HTML::style('css/datepicker3.css')!!}
+@stop
+
+@section('js')
+	{!! HTML::script('js/jquery.inputmask.min.js')!!}
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.time_mask').inputmask('h:s', {placeholder: 'hh:mm'});
+			$('.getWorkdays').select2({
+				tokenSeparators: [",", " ", "_", "-"],
+				tags: [],
+				minimumInputLength: 1,
+				placeholder: "",
+				selectOnBlur: true
+	        });
+		});
+	</script>
 @stop
