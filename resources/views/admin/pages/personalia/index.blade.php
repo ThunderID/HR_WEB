@@ -47,18 +47,22 @@
 					<br/>
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary" style="text-transform: uppercase;">BRANCH</li>
+						<?php $name = '';?>
 						@foreach($branches as $key => $value)
-							<li @if(Input::has('branch') && ((Input::get('branch') == ($value['name'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['name'], 'gender' => Input::get('gender')])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+							<li @if(Input::has('branch') && ((Input::get('branch') == ($value['id'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['name'], 'gender' => Input::get('gender')])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+							@if($value['id']==Input::get('branch'))
+								<?php $name = $value['name'];?>
+							@endif
 						@endforeach
 					</ul>
 					<br/>
 					<ul class="nav nav-pills nav-stacked">
 						@if(Input::has('branch'))
-							<li class="text-primary" style="text-transform: uppercase;">{{Input::get('branch')}}</li>
+							<li class="text-primary" style="text-transform: uppercase;">{{$name}}</li>
 							<li @if(!Input::has('tag')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => Input::get('branch'), 'gender' => Input::get('gender')])}}">Semua Department <small class="pull-right text-bold opacity-75"></small></a></li>
 							@foreach($branches as $key => $value)
 								@foreach($value['departments'] as $key2 => $value2)
-									<li @if(Input::has('tag') && ((Input::get('tag') == ($value2['tag'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['name'], 'tag' => $value2['tag'], 'gender' => Input::get('gender')])}}">{{$value2['tag']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+									<li @if(Input::has('tag') && ((Input::get('tag') == ($value2['tag'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['id'], 'tag' => $value2['tag'], 'gender' => Input::get('gender')])}}">{{$value2['tag']}}<small class="pull-right text-bold opacity-75"></small></a></li>
 								@endforeach
 							@endforeach
 						@endif

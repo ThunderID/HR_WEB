@@ -18,16 +18,29 @@ class PersonController extends Controller {
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['CurrentContact' => 'item'];
 
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
 		
 		if(Input::has('karyawan'))
 		{
-			$search['organisationid']				= Session::get('user.organisation');
+			$search['organisationid']				= $org_id;
 			$search['CurrentWork']					= '';
 			$search['checkwork']					= true;
 		}
 		if(Input::has('non-karyawan'))
 		{
-			$search['relativeorganisationid']		= Session::get('user.organisation');
+			$search['relativeorganisationid']		= $org_id;
 			$search['CheckWork']					= false;			
 		}
 		if(Input::has('gender'))
@@ -37,7 +50,7 @@ class PersonController extends Controller {
 
 		if(Input::has('branch'))
 		{
-			$search['branchname']					= Input::get('branch');			
+			$search['branchid']						= Input::get('branch');			
 		}
 		if(Input::has('q'))
 		{
@@ -47,7 +60,10 @@ class PersonController extends Controller {
 		{
 			$search['charttag']						= Input::get('tag');			
 		}
-
+		if(Input::has('chart'))
+		{
+			$search['chartid']						= Input::get('chart');			
+		}
 		if(Input::has('sort_firstname'))
 		{
 			$sort['name']							= Input::get('sort_firstname');			
@@ -78,7 +94,7 @@ class PersonController extends Controller {
 		
 		if(Input::has('branch'))
 		{
-			$search['name']							= Input::get('branch');
+			$search['id']							= Input::get('branch');
 			$search['DisplayDepartments']			= '';
 		}
 

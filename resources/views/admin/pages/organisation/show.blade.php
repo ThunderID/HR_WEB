@@ -19,7 +19,7 @@
 				<a href="{{route('hr.organisations.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
-				<a href="{{route('hr.persons.index', ['page' => 1, 'organisation' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => $data['name'], 'karyawan' => 'active'])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-users"></i>&nbsp;Karyawan
 				</a>
 			</div>

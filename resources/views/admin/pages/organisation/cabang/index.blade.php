@@ -22,7 +22,7 @@
 				<a href="{{route('hr.organisation.branches.create', ['org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Cabang
 				</a>
-				<a href="{{route('hr.persons.index', ['page' => 1, 'organisation' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => $data['id'], 'karyawan' => 'active'])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-users"></i>&nbsp;Karyawan
 				</a>
 			</div>

@@ -19,7 +19,7 @@
 				<a href="{{route('hr.organisation.branches.edit', [$branch['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
-				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $branch['name']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => $data['id'], 'karyawan' => 'active', 'branch' => $branch['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-users"></i>&nbsp;Karyawan
 				</a>
 			</div>

@@ -11,16 +11,16 @@
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
-				<a href="{{route('hr.organisation.branches.index', ['page' => 1,'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-left">
+				<a href="{{route('hr.branches.charts.index', ['page' => 1,'org_id' => $data['id'], 'branchid' => $branch['id']])}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i>&nbsp;Kembali
 				</a>
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
-				<a href="{{route('hr.organisation.branches.edit', [$branch['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.branches.charts.edit', ['id' => $chart['id'],'branchid' => $branch['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
-				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $branch['name']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $branch['id'], 'chart' => $chart['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-users"></i>&nbsp;Karyawan
 				</a>
 			</div>

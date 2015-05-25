@@ -309,7 +309,7 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 
-		Route::post('store/{org_id?}', 
+		Route::post('store/{branch_id?}', 
 						[
 							'uses' 	=> 'Organisation\Branch\ChartController@postStore', 
 							'as' 	=> 'hr.branches.charts.store'
@@ -328,7 +328,7 @@ Route::group(['prefix' => 'cms'], function(){
 							'as' 	=> 'hr.branches.charts.edit'
 						]
 					);
-		Route::post('update/{id}', 
+		Route::post('update/{branch_id?}/{id}', 
 						[
 							'uses' 	=> 'Organisation\Branch\ChartController@postUpdate', 
 							'as' 	=> 'hr.branches.charts.update'

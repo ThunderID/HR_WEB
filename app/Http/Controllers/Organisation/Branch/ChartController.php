@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\organisation\Branch;
+<?php namespace App\Http\Controllers\Organisation\Branch;
 
 use Input, Session, App, Paginator, Redirect, Response, Request;
 use API;
@@ -268,9 +268,30 @@ class ChartController extends Controller {
 	}
 
 
-	function getEdit($branch_id, $id)
+	function getEdit($id)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$results 									= API::organisation()->show($org_id);
+		$contents 									= json_decode($results);
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		$branchid 									= Input::get('branchid');
+
 		if(Input::has('tag'))
 		{
 			$department 							= Input::get('tag');
@@ -280,7 +301,7 @@ class ChartController extends Controller {
 			$department 							= null;
 		}
 
-		$results 									= API::branch()->show($branch_id, $department);
+		$results 									= API::branch()->show($branchid);
 
 		$contents 									= json_decode($results);
 
@@ -289,9 +310,9 @@ class ChartController extends Controller {
 			App::abort(404);
 		}
 
-		$data 										= json_decode(json_encode($contents->data), true);
+		$branch 									= json_decode(json_encode($contents->data), true);
 		
-		$results_2 									= API::chart()->show($branch_id, $id);
+		$results_2 									= API::chart()->show($id, ['branchid' => $branchid, 'withattributes' => ['chart']]);
 
 		$contents_2 								= json_decode($results_2);
 
@@ -300,18 +321,9 @@ class ChartController extends Controller {
 			App::abort(404);
 		}
 
-		$results 									= API::chart()->show($branch_id, $id);
+		$chart 										= json_decode(json_encode($contents_2->data), true);
 
-		$contents 									= json_decode($results);
-
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}
-
-		$chart 										= json_decode(json_encode($contents->data), true);
-
-		$results_3 									= API::chart()->index(1, ['neighbor' => $chart['path'], ['path', 'asc']]);
+		$results_3 									= API::chart()->index(1, ['neighbor' => $chart['path'], 'branchid' => $chart['branch_id']], ['path' => 'asc'], 100);
 
 		$contents 									= json_decode($results_3);
 
@@ -323,12 +335,12 @@ class ChartController extends Controller {
 		$charts 									= json_decode(json_encode($contents->data), true);
 
 		$this->layout->page_title 					= 'Edit "'.$chart['name'].' "';
-		$this->layout->content 						= view('admin.pages.organisation.kantor.'.$this->controller_name.'.create');
+		$this->layout->content 						= view('admin.pages.organisation.cabang.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
+		$this->layout->content->branch 				= $branch;
 		$this->layout->content->chart 				= $chart;
 		$this->layout->content->charts 				= $charts;
-		$this->layout->content->branch_id 			= $branch_id;
 
 		return $this->layout;
 	}
