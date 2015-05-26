@@ -185,8 +185,11 @@
 					date_start 			= date_start[2]+'-'+date_start[1]+'-'+date_start[0];
 
 					element.find('#date-title').html(element.find('span.fc-event-title').text());
-					element.attr('data-toggle', 'modal');
-					element.attr('data-target', '#scheduleCreate');
+
+					if (event.mode !== 'log') {
+						element.attr('data-toggle', 'modal');
+						element.attr('data-target', '#scheduleCreate');
+					}
 					element.attr('data-id', event.id);
 					element.attr('data-title', event.title);
 					element.attr('data-date', date_start);

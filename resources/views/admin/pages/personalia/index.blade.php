@@ -111,4 +111,18 @@
 			@endif
 		</div>
 	</div>
+	{!! Form::open(array('route' => array('hr.persons.delete', 0),'method' => 'POST')) !!}
+		<div class="modal fade modalDeletePerson" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
+			@include('admin.modals.delete.delete')
+		</div>	
+	{!! Form::close() !!}		
+@stop
+
+@section('js')
+	<script>
+		$('.modalDeletePerson').on('show.bs.modal', function(e) {
+			var action	= $(e.relatedTarget).attr('data-delete-action');
+			$(this).parent().attr('action', action);
+		});
+	</script>
 @stop
