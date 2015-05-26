@@ -63,7 +63,7 @@ class ContactController extends Controller {
 
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= $data['name'];
-		$this->layout->content 						= view('admin.pages.organisation.kantor.show.kontak.index');
+		$this->layout->content 						= view('admin.pages.organisation.Cabang.show.kontak.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->contacts 			= $contacts;
@@ -128,7 +128,7 @@ class ContactController extends Controller {
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.branches.show', ['id' => $branchid, 'page' => 1, 'org_id' => $org_id])->with('alert_success', 'Kantor '.$content->data->name.' Sudah Tersimpan');
+			return Redirect::route('hr.organisation.branches.show', ['id' => $branchid, 'page' => 1, 'org_id' => $org_id])->with('alert_success', 'Cabang '.$content->data->name.' Sudah Tersimpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();

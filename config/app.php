@@ -220,7 +220,7 @@ return [
 		'API'		=> 'App\APIConnector\INENGINE\API',
 		'Excel' 	=> 'Maatwebsite\Excel\Facades\Excel',
 		'PDF' 		=> 'Barryvdh\DomPDF\Facade',
-		'Device' 	=> 'App\Http\Supports\API',
+		'Device' 	=> 'App\Http\Supports\DeviceAuth',
 	],
 
 ];

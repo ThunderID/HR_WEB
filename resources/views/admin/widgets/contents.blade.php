@@ -53,9 +53,14 @@
 		@else
 			<div class="clearfix">
 				<div class="col-lg-12 margin-bottom-lg">
-					<a class="text-lg text-medium" href="{{ $route }}">{{$data_content['name']}}</a>
+					<a class="text-lg text-medium" href="{{ $route }}">{{(isset($data_content['name']) ? $data_content['name'] : $data_content['client'])}}</a>
 				</div>
 			</div>
+			@if(isset($data_content['secret']))
+				<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['id']]) }}">
+					<i class="fa fa-trash"></i>
+				</a>
+			@endif
 		@endif
 
 		@if (isset($toggle['person']))

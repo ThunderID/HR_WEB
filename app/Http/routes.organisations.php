@@ -292,7 +292,7 @@ Route::group(['prefix' => 'cms'], function(){
 
 	/* ---------------------------------------------------------------------------- END OF DOCUMENT ----------------------------------------------------------------------------*/
 	
-		/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
+	/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 
 	Route::group(['prefix' => 'branch/charts', 'before' => 'hr_acl'], function(){
 		Route::get('/{page?}', 
@@ -401,6 +401,65 @@ Route::group(['prefix' => 'cms'], function(){
 						[
 							'uses' 	=> 'Organisation\Branch\ChartController@anyStore', 
 							'as' 	=> 'hr.charts.authentications.store'
+						]
+					);
+	});
+
+		/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
+
+	Route::group(['prefix' => 'branch/apis', 'before' => 'hr_acl'], function(){
+		Route::get('/{page?}', 
+						[
+							'uses' 	=> 'Organisation\Branch\ApiController@getIndex', 
+							'as' 	=> 'hr.branches.apis.index'
+						]
+					);
+
+		Route::get('create/new/{branch_id?}', 
+						[
+							'uses' 	=> 'Organisation\Branch\ApiController@getCreate', 
+							'as' 	=> 'hr.branches.apis.create'
+						]
+					);
+
+		Route::post('store/{branch_id?}', 
+						[
+							'uses' 	=> 'Organisation\Branch\ApiController@postStore', 
+							'as' 	=> 'hr.branches.apis.store'
+						]
+					);
+
+		Route::get('edit/{id}', 
+						[
+							'uses' 	=> 'Organisation\Branch\ApiController@getEdit', 
+							'as' 	=> 'hr.branches.apis.edit'
+						]
+					);
+		Route::post('update/{branch_id?}/{id}', 
+						[
+							'uses' 	=> 'Organisation\Branch\ApiController@postUpdate', 
+							'as' 	=> 'hr.branches.apis.update'
+						]
+					);	
+		Route::any('delete/{id}/', 
+						[
+							'uses' 	=> 'Organisation\Branch\ApiController@anyDelete', 
+							'as' 	=> 'hr.branches.apis.delete'
+						]
+					);	
+	});
+
+	Route::group(['prefix' => 'branches/finger', 'before' => 'hr_acl'], function(){
+		Route::get('show/{branch_id}', 
+						[
+							'uses' 	=> 'Organisation\Branch\FingerController@getShow', 
+							'as' 	=> 'hr.branches.finger.show'
+						]
+					);
+		Route::any('store/{branch_id}', 
+						[
+							'uses' 	=> 'Organisation\Branch\FingerController@anyStore', 
+							'as' 	=> 'hr.branches.finger.store'
 						]
 					);
 	});

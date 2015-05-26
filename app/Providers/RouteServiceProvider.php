@@ -211,8 +211,19 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.branches.charts.update'						=> ['4', 'update'],
 							'hr.branches.charts.delete'						=> ['4', 'delete'],
 							
+							'hr.branches.apis.index'						=> ['4', 'read'],
+							'hr.branches.apis.create'						=> ['4', 'read'],
+							'hr.branches.apis.show'							=> ['4', 'create'],
+							'hr.branches.apis.store'						=> ['4', 'create'],
+							'hr.branches.apis.edit'							=> ['4', 'update'],
+							'hr.branches.apis.update'						=> ['4', 'update'],
+							'hr.branches.apis.delete'						=> ['4', 'delete'],
+
 							'hr.document.persons.index'						=> ['5', 'read'],
 							'hr.document.templates.delete'					=> ['5', 'delete'],
+
+							'hr.branches.finger.show'						=> ['4', 'read'],
+							'hr.branches.finger.store'						=> ['4', 'update'],
 
 							'hr.calendars.schedules.store'					=> ['6', 'create'],
 							'hr.calendars.persons.store'					=> ['6', 'create'],

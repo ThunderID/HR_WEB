@@ -43,7 +43,7 @@ class AuthController extends Controller {
 				return Response::json(['message' => 'Not Found'], 404);
 			}
 
-			$results 								= API::application()->authenticate($menuid=9, $personid = $content->data->id, $contents->data->works[0]->id);
+			$results 								= API::application()->authenticate($menuid=9, $personid = $content->data->id, $contents->data->works[0]->id, []);
 
 			$contents 								= json_decode($results);
 
@@ -88,7 +88,7 @@ class AuthController extends Controller {
 				return Response::json(['message' => 'Not Found'], 404);
 			}
 
-			$results 								= API::application()->authenticate($menuid=10, $personid = $content->data->id, $contents->data->works[0]->id);
+			$results 								= API::application()->authenticate($menuid=10, $personid = $content->data->id, $contents->data->works[0]->id, []);
 
 			$contents 								= json_decode($results);
 

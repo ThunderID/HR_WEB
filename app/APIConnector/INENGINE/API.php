@@ -29,6 +29,11 @@ class API {
 		return new APIChart();
 	}
 
+	static function api()
+	{
+		return new APIApi();
+	}
+
 	static function calendar()
 	{
 		return new APICalendar();

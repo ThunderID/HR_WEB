@@ -43,8 +43,8 @@ class SeedHR extends Command {
 		$this->info("---------------------------------- SEEDING HR--------------------------------------------------");
 		$command = "db:seed";
 		$this->call($command, ['--class' => 'ThunderID\\Finger\\seeds\\DatabaseSeeder']);
-		$this->call($command, ['--class' => 'ThunderID\\Person\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Chauth\\seeds\\DatabaseSeeder']);
+		$this->call($command, ['--class' => 'ThunderID\\Person\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Organisation\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Contact\\seeds\\DatabaseSeeder']);
 		$this->call($command, ['--class' => 'ThunderID\\Schedule\\seeds\\DatabaseSeeder']);
