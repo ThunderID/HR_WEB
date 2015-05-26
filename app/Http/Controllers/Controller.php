@@ -17,7 +17,7 @@ abstract class Controller extends BaseController {
 		if (Session::has('loggedUser'))
 		{
 			$this->layout 					= view('admin.layouts.template');
-			$this->layout->html_title 		= 'HR Web';
+			$this->layout->html_title 		= 'HR WEB';
 			
 			$nav = new MaterialAdminSideMenu();
 
@@ -38,7 +38,7 @@ abstract class Controller extends BaseController {
 		else
 		{
 			$this->layout 					= view('admin.layouts.template_login');
-			$this->layout->html_title 		= 'HR Web';
+			$this->layout->html_title 		= 'HR WEB';
 		}
 	}
 }
