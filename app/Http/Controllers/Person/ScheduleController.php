@@ -175,6 +175,7 @@ class ScheduleController extends Controller {
 
 		$schedules 									= json_decode(json_encode($contents->data), true);
 
+		// schedule
 		$schedule = [];
 		foreach($schedules as $i => $sh)	
 		{
@@ -196,9 +197,48 @@ class ScheduleController extends Controller {
 
 				$schedule[$i]['status']			= $sh['status'];
 				$schedule[$i]['affect_salary']	= $sh['is_affect_workleave'];
+				$schedule[$i]['mode']			= 'schedule';
 				$schedule[$i]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
 		}
 
+		// log	
+		$search 								= ['personid' => $personid,'local' => true,'WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
+
+		$results 								= API::log()->ProcessLogIndex(1, $search, $sort, 100);
+		
+		$contents 								= json_decode($results);
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$logs 									= json_decode(json_encode($contents->data), true);
+
+		$j = count($schedule);
+		foreach($logs as $i => $log)	
+		{
+
+				$schedule[$j]['id']			= $log['id'];
+				$schedule[$j]['title'] 		= $log['name'];
+
+				if ((strtotime($log['fp_start']) < strtotime($log['fp_end'])) | (strtotime($log['fp_start']) != strtotime($log['fp_end'])))
+				{
+					$schedule[$j]['start']			= $log['on'].'T'.$log['fp_start'];
+					$schedule[$j]['end']			= $log['on'].'T'.$log['fp_end'];
+					$schedule[$j]['tes']			= 'oke';
+				}
+				else 
+				{
+					$schedule[$j]['start']			= $log['on'].'T'.$log['fp_start'];
+					$schedule[$j]['tes']			= 'not';
+				}
+
+				$schedule[$j]['status']				= 'log';
+				$schedule[$j]['backgroundColor']	= '#9c27b0';
+				$schedule[$j]['mode']				= 'log';				
+				$j++;
+		}
+
 		return Response::json($schedule);		
-	}
+	}	
 }
