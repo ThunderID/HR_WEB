@@ -148,7 +148,7 @@ return [
 		'App\Providers\ComposerServiceProvider',
 		
 		'Intervention\Image\ImageServiceProvider',
-		'Barryvdh\Debugbar\ServiceProvider',
+		// 'Barryvdh\Debugbar\ServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
 
