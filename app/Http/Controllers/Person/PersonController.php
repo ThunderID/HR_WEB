@@ -355,7 +355,8 @@ class PersonController extends Controller {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
-		$search['organisationid']					= Session::get('user.organisation');
+		
+		// $search['organisationid']					= Session::get('user.organisation');
 
 		$results 									= API::person()->show($id, $search);
 
@@ -437,6 +438,17 @@ class PersonController extends Controller {
 
 		if($content->meta->success)
 		{
+
+			$search['organisationid']					= Session::get('user.organisation');
+			$results 									= API::person()->show($id, $search);
+
+			$content 									= json_decode($results);
+
+			if(!$content->meta->success)
+			{
+				App::abort(404);
+			}
+
 			$results 									= API::person()->destroy($id);
 			$contents 									= json_decode($results);
 
