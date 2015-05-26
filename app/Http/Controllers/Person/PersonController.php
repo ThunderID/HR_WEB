@@ -164,18 +164,21 @@ class PersonController extends Controller {
 			}
 		}
 
-		$input['person']['id']						= $id;
-		$input['person']['avatar']					= Input::get('link_profile_picture');
+		$input['person']['id']							= $id;
+		if(Input::has('link_profile_picture'))
+		{
+			$input['person']['avatar']					= Input::get('link_profile_picture');
+		}
 
 		if(Input::get('password')!='' && !is_null($id))
 		{
-			$validator 								= Validator::make(['password' => Input::get('password')], ['password' => 'required|min:8']);
+			$validator 									= Validator::make(['password' => Input::get('password')], ['password' => 'required|min:8']);
 
 			if (!$validator->passes())
 			{
 				return Redirect::back()->withErrors($validator->errors())->withInput();
 			}
-			$input['person']['password']			= Input::get('password');
+			$input['person']['password']				= Input::get('password');
 		}
 
 		if(Input::has('work_company'))
