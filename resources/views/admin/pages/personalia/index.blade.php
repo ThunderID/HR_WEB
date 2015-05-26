@@ -37,6 +37,7 @@
 				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary">MENU</li>
+						<li @if(!Input::has('karyawan') && !Input::has('non-karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(Input::has('karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => 'active'])}}">Karyawan <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li @if(Input::has('non-karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'non-karyawan' => 'false'])}}">Non Karyawan <small class="pull-right text-bold opacity-75"></small></a></li>
 						<li class="text-primary pt-25">GENDER</li>

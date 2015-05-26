@@ -38,7 +38,7 @@ class PersonController extends Controller {
 			$search['CurrentWork']					= '';
 			$search['checkwork']					= true;
 		}
-		else
+		if(Input::has('non-karyawan'))
 		{
 			$search['relativeorganisationid']		= $org_id;
 			$search['CheckWork']					= false;			
