@@ -157,8 +157,7 @@
 		$(document).ready(function () {
 			$('.getContacts').select2({
 				tokenSeparators: [",", " ", "_", "-"],
-				tags: [],
-				minimumInputLength: 1,
+				tags: ['BBM', 'Email', 'Line', 'Mobile', 'Phone', 'Whatsapp'],
 				placeholder: "",
 				maximumSelectionSize: 1,
 				selectOnBlur: true

@@ -11,7 +11,7 @@
 		<meta name="http-equiv=refresh" content="3">
 
 		<!-- BEGIN STYLESHEETS -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/>
+		{{-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/> --}}
 		<link type="text/css" rel="stylesheet" href="{{ elixir('css/admin.css') }}" />
 		@section('css')
 		@show

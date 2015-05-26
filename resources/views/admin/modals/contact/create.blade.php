@@ -20,7 +20,13 @@
 				<div class="row">
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-12">
-							<div class="form-group">								
+							<div class="form-group">	
+								{{-- <select name="item[1]" id="" class="form-control getContacts modal_contact_inp_item">
+									<option value="bbm">BBM</option>
+									<option value="whatsapp">Whatsapp</option>
+									<option value="line">LINE</option>
+									<option value="email">Email</option>
+								</select>							 --}}
 								<input name="item[1]" id="item[1]" class="form-control getContacts modal_contact_inp_item" data-comp="">																
 								<label for="item[1]">Jenis</label>
 							</div>
