@@ -38,7 +38,7 @@ class PersonController extends Controller {
 			$search['CurrentWork']					= '';
 			$search['checkwork']					= true;
 		}
-		if(Input::has('non-karyawan'))
+		else
 		{
 			$search['relativeorganisationid']		= $org_id;
 			$search['CheckWork']					= false;			
@@ -132,18 +132,6 @@ class PersonController extends Controller {
 	{
 
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['organisationid' => Session::get('user.organisation'), 'isrequired' => true, 'WithAttributes' => ['templates']];
-
-		$sort 										= ['created_at' => 'asc'];
-
-		$results 									= API::document()->index(1, $search, $sort, $all = true);
-
-		$contents 									= json_decode($results);
-
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}
 		
 		// ---------------------- GENERATE CONTENT ----------------------
 		$this->layout->page_title 					= 'Tambah '.ucwords($this->controller_name).' Baru';
@@ -152,7 +140,6 @@ class PersonController extends Controller {
 		$this->layout->content->controller_name 	= ($this->controller_name);
 
 		$this->layout->content->data 				= null;
-		$this->layout->content->docs				= json_decode(json_encode($contents->data), true);
 
 		return $this->layout;
 	}
@@ -410,16 +397,6 @@ class PersonController extends Controller {
 	function getEdit($id = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['WithAttributes' => ['document', 'details', 'details.template']];
-		$sort 										= ['created_at' => 'asc'];
-
-		$results 									= API::person()->documentIndex($id, 1, $search, $sort);
-
-		$contents 									= json_decode($results);
-		if(!$contents->meta->success)
-		{
-			App::abort(404);
-		}
 
 		$search['organisationid']					= Session::get('user.organisation');
 		$results 									= API::person()->show($id, $search);
@@ -439,7 +416,6 @@ class PersonController extends Controller {
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.create');
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
-		$this->layout->content->docs				= json_decode(json_encode($contents->data), true);
 
 		return $this->layout;
 	}

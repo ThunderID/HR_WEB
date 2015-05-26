@@ -113,7 +113,7 @@
 									<img class="img-circle img-responsive" alt="" @if($data['gender'] =='male') src="{{url('images/male.png')}}" @else src="{{url('images/female.png')}}" @endif></img>
 								@endif
 							</div>
-							<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['name'].', '.$data['suffix_title']}}</h1>
+							<h1 class="text-light no-margin">{{$data['prefix_title'].' '.$data['name'].' '.($data['suffix_title'] ? ', '.$data['suffix_title'] : '')}}</h1>
 							<h5>
 								@if(isset($data['works']))
 									@foreach($data['works'] as $key => $value)
