@@ -31,16 +31,15 @@ class PersonController extends Controller {
 		{
 			App::abort(404);
 		}
+		$search['organisationid']					= $org_id;
 		
 		if(Input::has('karyawan'))
 		{
-			$search['organisationid']				= $org_id;
 			$search['CurrentWork']					= '';
 			$search['checkwork']					= true;
 		}
 		if(Input::has('non-karyawan'))
 		{
-			$search['relativeorganisationid']		= $org_id;
 			$search['CheckWork']					= false;			
 		}
 		if(Input::has('gender'))
@@ -147,6 +146,24 @@ class PersonController extends Controller {
 	function postStore($id = null)
 	{
 		// ---------------------- HANDLE INPUT ----------------------
+		$search 									= ['CurrentContact' => 'item'];
+
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
+		$input['organisation']['id']				= $org_id;
+
 		if(Input::has('name'))
 		{
 			$input['person'] 							= Input::only('prefix_title', 'name', 'suffix_title', 'gender', 'place_of_birth');

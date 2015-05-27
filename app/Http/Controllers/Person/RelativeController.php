@@ -31,7 +31,7 @@ class RelativeController extends Controller {
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$search 									= ['CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
-		// $search['organisationid']					= Session::get('user.organisation');
+		$search['organisationid']					= Session::get('user.organisation');
 		$results 									= API::person()->show($personid, $search);
 		$contents 									= json_decode($results);
 
@@ -75,13 +75,28 @@ class RelativeController extends Controller {
 	{
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['person']['id']						= $personid;
+
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+		$input['organisation']['id']					= $org_id;
+		
 		if(Input::has('relationship'))
 		{
 			if(Input::get('relation')!='')
 			{
 				$relate['id'] 					= Input::get('relation');
 				$relate['relationship'] 		= Input::get('relationship');
-				$relate['organisation_id'] 		= Session::get('user.organisation');
 				$input['relatives'][] 			= $relate;
 			}
 			else
@@ -94,7 +109,6 @@ class RelativeController extends Controller {
 				$relate['place_of_birth'] 		= Input::get('place_of_birth');
 				$relate['relationship'] 		= Input::get('relationship');
 				$relate['relationship'] 		= Input::get('relationship');
-				$relate['organisation_id'] 		= Session::get('user.organisation');
 				$relate['contacts'][]	 		= ['item' => 'phone', 'value' => Input::get('phone')];
 				$input['relatives'][] 			= $relate;
 			}

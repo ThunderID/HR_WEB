@@ -79,7 +79,22 @@ class WorkController extends Controller {
 		{
 			if(Input::get('work_company')!='' || Input::has('work_organisation'))
 			{
+				if(Input::has('org_id'))
+				{
+					$org_id 								= Input::get('org_id');
+				}
+				else
+				{
+					$org_id 								= Session::get('user.organisation');
+				}
+
+				if(!in_array($org_id, Session::get('user.orgids')))
+				{
+					App::abort(404);
+				}
+
 				$input['person']['id'] 				= $person_id;
+				$input['organisation']['id']		= $org_id;
 				
 				$chart['id'] 						= $id;
 				$chart['chart_id'] 					= Input::get('work_company');

@@ -34,7 +34,7 @@ class ScheduleController extends Controller {
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$search 									= ['CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
-		// $search['organisationid']					= Session::get('user.organisation');
+		$search['organisationid']					= Session::get('user.organisation');
 		$results 									= API::person()->show($personid, $search);
 
 		$contents 									= json_decode($results);
@@ -80,7 +80,20 @@ class ScheduleController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['person']['id'] 						= $personid;
 
-		$input['organisation']['id']				= Session::get('user.organisation');
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+		$input['organisation']['id']					= $org_id;
 
 		//please make sure if the date is in range, make it as an array for every date => single date save in on
 		//consider the id
@@ -162,9 +175,8 @@ class ScheduleController extends Controller {
 	function ajaxSchedulePerson($personid, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['personid' => $personid, 'ondate' => [Input::get('start'), Input::get('end')]];
+		$search 									= ['personid' => $personid, 'ondate' => [Input::get('start'), Input::get('end')], 'WithAttributes' => ['calendar']];
 		$sort 										= ['on' => 'asc'];
-
 		$results 									= API::person()->scheduleIndex($page, $search, $sort);
 		$contents 									= json_decode($results);
 
@@ -177,28 +189,59 @@ class ScheduleController extends Controller {
 
 		// schedule
 		$schedule = [];
-		foreach($schedules as $i => $sh)	
+		$begin 		= new DateTime( Input::get('start') );
+		$ended 		= new DateTime( Input::get('end')  );
+
+		$interval 	= DateInterval::createFromDateString('1 day');
+		$periods 	= new DatePeriod($begin, $interval, $ended);
+		$k=0;
+		$j=0;
+		foreach ( $periods as $period )
 		{
-
-				$schedule[$i]['id']			= $sh['id'];
-				$schedule[$i]['title'] 		= $sh['name'];
-
-				if ((strtotime($sh['start']) < strtotime($sh['end'])) | (strtotime($sh['start']) != strtotime($sh['end'])))
+			foreach($schedules as $i => $sh)	
+			{
+				if($period->format('Y-m-d') == date('Y-m-d', strtotime($sh['on'])))
 				{
-					$schedule[$i]['start']		= $sh['on'].'T'.$sh['start'];
-					$schedule[$i]['end']		= $sh['on'].'T'.$sh['end'];
-					$schedule[$i]['tes']		= 'oke';
-				}
-				else 
-				{
-					$schedule[$i]['start']		= $sh['on'].'T'.$sh['start'];
-					$schedule[$i]['tes']		= 'not';
-				}
+					$schedule[$k]['id']			= $sh['id'];
+					$schedule[$k]['title'] 		= $sh['name'];
 
-				$schedule[$i]['status']			= $sh['status'];
-				$schedule[$i]['affect_salary']	= $sh['is_affect_workleave'];
-				$schedule[$i]['mode']			= 'schedule';
-				$schedule[$i]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+					if ((strtotime($sh['start']) < strtotime($sh['end'])) | (strtotime($sh['start']) != strtotime($sh['end'])))
+					{
+						$schedule[$k]['start']		= $sh['on'].'T'.$sh['start'];
+						$schedule[$k]['end']		= $sh['on'].'T'.$sh['end'];
+						$schedule[$k]['tes']		= 'oke';
+					}
+					else 
+					{
+						$schedule[$k]['start']		= $sh['on'].'T'.$sh['start'];
+						$schedule[$k]['tes']		= 'not';
+
+					}
+					$schedule[$k]['status']			= $sh['status'];
+					$schedule[$k]['affect_salary']	= $sh['is_affect_workleave'];
+					$schedule[$k]['mode']			= 'schedule';
+					$schedule[$k]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+					$k++;
+				}
+			}
+			if($k==$j)
+			{
+				$schedule[$k]['id']				= $sh['id'];
+				$schedule[$k]['title'] 			= 'normal';
+				$schedule[$k]['start']			= $period->format('Y-m-d').'T'.$sh['calendar']['start'];
+				$schedule[$k]['end']			= $period->format('Y-m-d').$sh['calendar']['end'];
+				$schedule[$k]['tes']			= 'oke';
+				$schedule[$k]['status']			= 'yea';
+				$schedule[$k]['affect_salary']	= false;
+				$schedule[$k]['mode']			= 'schedule';
+				$schedule[$k]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+				$k++;
+				$j++;
+			}
+			else
+			{
+				$j++;
+			}
 		}
 
 		// log	
