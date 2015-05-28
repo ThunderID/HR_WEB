@@ -85,7 +85,7 @@
 							<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Email</a></li>
 						@endif
 						@if($isMsgSVC == 0)
-							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => true])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Message Service</a></li>
+							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => true])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Kontak Lain</a></li>
 						@elseif($isMsgSVC == 2)
 							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => true])}}">Kontak Lain</a> <small class="pull-right text-bold opacity-75"></small></a></li>
 						@endif							
