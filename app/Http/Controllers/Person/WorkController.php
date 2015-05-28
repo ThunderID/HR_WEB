@@ -17,7 +17,7 @@ class WorkController extends Controller {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['WithAttributes' => ['Chart', 'Chart.branch', 'person']];
-		$sort 										= ['end' => 'desc'];
+		$sort 										= ['end' => 'asc'];
 
 		$results 									= API::person()->workIndex($personid, $page, $search, $sort);
 
@@ -208,5 +208,35 @@ class WorkController extends Controller {
 	function postUpdate($personid, $id)
 	{
 		return $this->postStore($personid, $id);
+	}
+
+	function anyDelete($personid, $id)
+	{
+		$username 					= Session::get('user.email');
+		$password 					= Input::get('password');
+
+		$results 					= API::person()->authenticate($username, $password);
+
+		$content 					= json_decode($results);
+
+		if($content->meta->success)
+		{
+			$results 									= API::person()->workDestroy($personid, $id);
+
+			$contents 									= json_decode($results);
+
+			if (!$contents->meta->success)
+			{
+				return Redirect::route('hr.persons.works.index', [$personid])->withErrors($contents->meta->errors);
+			}
+			else
+			{
+				return Redirect::route('hr.persons.works.index', [$personid])->with('alert_success', 'Kerabat sudah dihapus');
+			}
+		}
+		else
+		{
+			return Redirect::route('hr.persons.works.index', [$personid])->withErrors(['Password yang Anda masukkan tidak sah!']);
+		}
 	}
 }

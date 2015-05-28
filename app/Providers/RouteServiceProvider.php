@@ -256,7 +256,8 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.persons.works.store'						=> ['7', 'create'],
 							'hr.persons.works.edit'							=> ['7', 'update'],
 							'hr.persons.works.update'						=> ['7', 'update'],
-							
+							'hr.persons.works.delete'							=> ['7', 'delete'],
+
 							'hr.persons.contacts.index'						=> ['7', 'read'],
 							'hr.persons.contacts.store'						=> ['7', 'create'],
 							'hr.persons.contacts.edit'						=> ['7', 'update'],

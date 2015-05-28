@@ -77,6 +77,12 @@ class APIPerson {
 		return $data->show($personid, $id);
 	}
 
+	function workDestroy($personid, $id)
+	{
+		$data = new \ThunderID\Person\Controllers\WorkController;
+		return $data->delete($personid, $id);
+	}
+
 	function contactIndex($page, $search, $sort)
 	{
 		$data = new \ThunderID\Contact\Controllers\ContactController;
