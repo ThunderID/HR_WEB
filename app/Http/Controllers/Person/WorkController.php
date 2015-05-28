@@ -98,7 +98,10 @@ class WorkController extends Controller {
 				
 				$chart['id'] 						= $id;
 				$chart['chart_id'] 					= Input::get('work_company');
-				$chart['status'] 					= Input::get('work_status');
+				if(Input::has('work_status'))
+				{
+					$chart['status'] 					= Input::get('work_status');
+				}					
 				list($d,$m,$y) 						= explode('/', Input::get('work_start'));
 				$start 								= "$y-$m-$d";
 				$chart['start'] 					= date("Y-m-d", strtotime($start));
