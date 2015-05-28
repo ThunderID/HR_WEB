@@ -10,7 +10,7 @@
 			<br/>	
 			<div class="tab-pane" id="details">
 				<br/>
-				@if(count($data['works']) > 0)
+				@if(count($works) > 0)
 					<ul class="timeline collapse-lg timeline-hairline no-shadow">						
 						@foreach($works as $key => $value)
 							@if($key==0)
