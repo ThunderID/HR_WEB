@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 26, 2015 at 02:50 PM
+-- Generation Time: May 28, 2015 at 11:16 PM
 -- Server version: 5.6.17-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.6
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `hr_thunder_new`
+-- Database: `thunder_hr_check`
 --
 
 -- --------------------------------------------------------
@@ -36,14 +36,14 @@ CREATE TABLE IF NOT EXISTS `hr_apis` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `apis_branch_id_index` (`branch_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `hr_apis`
 --
 
 INSERT INTO `hr_apis` (`id`, `branch_id`, `client`, `secret`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, '123456789', '123456789', '2015-05-25 18:31:46', '2015-05-25 18:31:46', NULL);
+(1, 1, '123456789', '123456789', '2015-05-27 03:23:17', '2015-05-27 03:23:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -65,9 +65,9 @@ CREATE TABLE IF NOT EXISTS `hr_applications` (
 --
 
 INSERT INTO `hr_applications` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'web', '2015-05-25 18:31:31', '2015-05-25 18:31:31', NULL),
-(2, 'tracker', '2015-05-25 18:31:31', '2015-05-25 18:31:31', NULL),
-(3, 'fingerprint', '2015-05-25 18:31:31', '2015-05-25 18:31:31', NULL);
+(1, 'web', '2015-05-27 03:22:20', '2015-05-27 03:22:20', NULL),
+(2, 'tracker', '2015-05-27 03:22:20', '2015-05-27 03:22:20', NULL),
+(3, 'fingerprint', '2015-05-27 03:22:20', '2015-05-27 03:22:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `hr_authentications` (
   PRIMARY KEY (`id`),
   KEY `authentications_menu_id_index` (`menu_id`),
   KEY `authentications_chart_id_index` (`chart_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=281 ;
 
 --
 -- Dumping data for table `hr_authentications`
@@ -121,16 +121,16 @@ CREATE TABLE IF NOT EXISTS `hr_branches` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `branches_name_organisation_id_index` (`name`,`organisation_id`),
+  KEY `branches_deleted_at_organisation_id_index` (`deleted_at`,`organisation_id`),
   KEY `branches_organisation_id_index` (`organisation_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `hr_branches`
 --
 
 INSERT INTO `hr_branches` (`id`, `organisation_id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Pusat', '2015-05-25 18:31:43', '2015-05-25 18:31:43', NULL);
+(1, 1, 'Pusat', '2015-05-27 03:22:23', '2015-05-27 03:22:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -151,14 +151,14 @@ CREATE TABLE IF NOT EXISTS `hr_calendars` (
   PRIMARY KEY (`id`),
   KEY `calendars_deleted_at_index` (`deleted_at`),
   KEY `calendars_organisation_id_index` (`organisation_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `hr_calendars`
 --
 
 INSERT INTO `hr_calendars` (`id`, `organisation_id`, `name`, `workdays`, `start`, `end`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'WIB', 'monday,tuesday,wednesday,thursday,friday', '08:00:00', '16:00:00', '2015-05-25 18:33:04', '2015-05-25 18:33:04', NULL);
+(1, 1, 'WIB', 'senin,selasa,rabu,kamis,jumat', '08:00:00', '16:00:00', '2015-05-27 03:24:57', '2015-05-27 03:24:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -182,17 +182,18 @@ CREATE TABLE IF NOT EXISTS `hr_charts` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `charts_tag_path_branch_id_index` (`tag`,`path`,`branch_id`),
+  KEY `charts_deleted_at_branch_id_path_index` (`deleted_at`,`branch_id`,`path`),
+  KEY `charts_deleted_at_branch_id_tag_index` (`deleted_at`,`branch_id`,`tag`),
   KEY `charts_branch_id_index` (`branch_id`),
   KEY `charts_chart_id_index` (`chart_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=177 ;
 
 --
 -- Dumping data for table `hr_charts`
 --
 
 INSERT INTO `hr_charts` (`id`, `branch_id`, `chart_id`, `name`, `path`, `grade`, `tag`, `min_employee`, `ideal_employee`, `max_employee`, `current_employee`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 0, 'System Admin', '1', '', 'Admin', 1, 1, 1, 1, '2015-05-25 18:31:43', '2015-05-25 18:36:25', NULL);
+(1, 1, 0, 'System Administrator', '1', '', 'admin', 1, 1, 1, 1, '2015-05-27 03:22:26', '2015-05-28 08:06:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -213,17 +214,18 @@ CREATE TABLE IF NOT EXISTS `hr_contacts` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `contacts_item_deleted_at_is_default_index` (`item`,`deleted_at`,`is_default`),
+  KEY `contacts_deleted_at_is_default_branch_id_index` (`deleted_at`,`is_default`,`branch_id`),
+  KEY `contacts_deleted_at_is_default_person_id_index` (`deleted_at`,`is_default`,`person_id`),
   KEY `contacts_branch_id_index` (`branch_id`),
   KEY `contacts_person_id_index` (`person_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=604 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=631 ;
 
 --
 -- Dumping data for table `hr_contacts`
 --
 
 INSERT INTO `hr_contacts` (`id`, `branch_id`, `person_id`, `item`, `value`, `branch_type`, `person_type`, `is_default`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(6, 0, 1, 'email', 'hr@thunderid.com', '', 'ThunderID\\Person\\Models\\Person', 1, '2015-05-25 18:31:52', '2015-05-25 18:31:52', NULL);
+(1, 0, 1, 'email', 'hr@thunderid.com', '', 'ThunderID\\Person\\Models\\Person', 1, '2015-05-27 03:23:31', '2015-05-27 03:23:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -242,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `hr_documents` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `documents_tag_is_required_deleted_at_index` (`tag`,`is_required`,`deleted_at`),
+  KEY `documents_organisation_id_tag_is_required_deleted_at_index` (`organisation_id`,`tag`,`is_required`,`deleted_at`),
   KEY `documents_organisation_id_index` (`organisation_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
@@ -251,16 +253,16 @@ CREATE TABLE IF NOT EXISTS `hr_documents` (
 --
 
 INSERT INTO `hr_documents` (`id`, `organisation_id`, `name`, `tag`, `is_required`, `template`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'surat peringatan', 'SP', 0, '', '2015-05-25 18:38:47', '2015-05-25 18:38:47', NULL),
-(2, 1, 'kontrak kerja', 'Kontrak', 0, '', '2015-05-25 18:38:47', '2015-05-25 18:38:47', NULL),
-(3, 1, 'penilaian kinerja', 'Appraisal', 0, '', '2015-05-25 18:38:47', '2015-05-25 18:38:47', NULL),
-(4, 1, 'pendidikan formal', 'Pendidikan', 0, '', '2015-05-25 18:38:47', '2015-05-25 18:38:47', NULL),
-(5, 1, 'pendidikan non formal', 'Pendidikan', 0, '', '2015-05-25 18:38:48', '2015-05-25 18:38:48', NULL),
-(6, 1, 'ktp', 'Identitas', 1, '', '2015-05-25 18:38:48', '2015-05-25 18:38:48', NULL),
-(7, 1, 'bpjs', 'Pajak', 1, '', '2015-05-25 18:38:48', '2015-05-25 18:38:48', NULL),
-(8, 1, 'npwp', 'Pajak', 0, '', '2015-05-25 18:38:48', '2015-05-25 18:38:48', NULL),
-(9, 1, 'bank', 'Akun', 0, '', '2015-05-25 18:38:48', '2015-05-25 18:38:48', NULL),
-(10, 1, 'reksa dana', 'Akun', 0, '', '2015-05-25 18:38:48', '2015-05-25 18:38:48', NULL);
+(1, 1, 'surat peringatan', 'SP', 0, '', '2015-05-27 03:28:30', '2015-05-27 03:28:30', NULL),
+(2, 1, 'kontrak kerja', 'Kontrak', 0, '', '2015-05-27 03:28:30', '2015-05-27 03:28:30', NULL),
+(3, 1, 'penilaian kinerja', 'Appraisal', 0, '', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(4, 1, 'pendidikan formal', 'Pendidikan', 0, '', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(5, 1, 'pendidikan non formal', 'Pendidikan', 0, '', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(6, 1, 'ktp', 'Identitas', 1, '', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(7, 1, 'bpjs', 'Pajak', 1, '', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(8, 1, 'npwp', 'Pajak', 0, '', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(9, 1, 'bank', 'Akun', 0, '', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(10, 1, 'reksa dana', 'Akun', 0, '', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -278,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `hr_documents_details` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `documents_details_numeric_deleted_at_index` (`numeric`,`deleted_at`),
+  KEY `documents_details_deleted_at_person_document_id_numeric_index` (`deleted_at`,`person_document_id`,`numeric`),
   KEY `documents_details_person_document_id_index` (`person_document_id`),
   KEY `documents_details_template_id_index` (`template_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1501 ;
@@ -301,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `hr_error_logs` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `error_logs_deleted_at_on_email_index` (`deleted_at`,`on`,`email`),
+  KEY `error_logs_deleted_at_organisation_id_on_index` (`deleted_at`,`organisation_id`,`on`),
   KEY `error_logs_organisation_id_index` (`organisation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -328,16 +330,16 @@ CREATE TABLE IF NOT EXISTS `hr_fingers` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fingers_deleted_at_index` (`deleted_at`),
+  KEY `fingers_deleted_at_person_id_index` (`deleted_at`,`person_id`),
   KEY `fingers_person_id_index` (`person_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `hr_fingers`
 --
 
 INSERT INTO `hr_fingers` (`id`, `person_id`, `left_thumb`, `left_index_finger`, `left_middle_finger`, `left_ring_finger`, `left_little_finger`, `right_thumb`, `right_index_finger`, `right_middle_finger`, `right_ring_finger`, `right_little_finger`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, '', '', '', '', '', '', '', '', '', '', '2015-05-25 18:36:25', '2015-05-25 18:36:25', NULL);
+(1, 1, '', '', '', '', '', '', '', '', '', '', '2015-05-27 03:27:06', '2015-05-27 03:27:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -362,16 +364,16 @@ CREATE TABLE IF NOT EXISTS `hr_finger_prints` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `finger_prints_deleted_at_index` (`deleted_at`),
+  KEY `finger_prints_deleted_at_branch_id_index` (`deleted_at`,`branch_id`),
   KEY `finger_prints_branch_id_index` (`branch_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `hr_finger_prints`
 --
 
 INSERT INTO `hr_finger_prints` (`id`, `branch_id`, `left_thumb`, `left_index_finger`, `left_middle_finger`, `left_ring_finger`, `left_little_finger`, `right_thumb`, `right_index_finger`, `right_middle_finger`, `right_ring_finger`, `right_little_finger`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2015-05-25 18:31:42', '2015-05-25 18:31:42', NULL);
+(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2015-05-27 03:22:23', '2015-05-27 03:22:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -390,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `hr_follows` (
   KEY `follows_deleted_at_index` (`deleted_at`),
   KEY `follows_calendar_id_index` (`calendar_id`),
   KEY `follows_chart_id_index` (`chart_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=241 ;
 
 --
 -- Dumping data for table `hr_follows`
@@ -415,9 +417,9 @@ CREATE TABLE IF NOT EXISTS `hr_logs` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `logs_deleted_at_on_name_index` (`deleted_at`,`on`,`name`),
+  KEY `logs_deleted_at_person_id_on_index` (`deleted_at`,`person_id`,`on`),
   KEY `logs_person_id_index` (`person_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1441 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=72001 ;
 
 -- --------------------------------------------------------
 
@@ -441,16 +443,16 @@ CREATE TABLE IF NOT EXISTS `hr_menus` (
 --
 
 INSERT INTO `hr_menus` (`id`, `application_id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Applications', '2015-05-25 18:31:31', '2015-05-25 18:31:31', NULL),
-(2, 1, 'Organisations', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL),
-(3, 1, 'Dashboard', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL),
-(4, 1, 'Branches', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL),
-(5, 1, 'Documents', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL),
-(6, 1, 'Calendars', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL),
-(7, 1, 'Persons', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL),
-(8, 1, 'Reports', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL),
-(9, 2, 'Setting', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL),
-(10, 3, 'Setting', '2015-05-25 18:31:32', '2015-05-25 18:31:32', NULL);
+(1, 1, 'Applications', '2015-05-27 03:22:21', '2015-05-27 03:22:21', NULL),
+(2, 1, 'Organisations', '2015-05-27 03:22:21', '2015-05-27 03:22:21', NULL),
+(3, 1, 'Dashboard', '2015-05-27 03:22:21', '2015-05-27 03:22:21', NULL),
+(4, 1, 'Branches', '2015-05-27 03:22:22', '2015-05-27 03:22:22', NULL),
+(5, 1, 'Documents', '2015-05-27 03:22:22', '2015-05-27 03:22:22', NULL),
+(6, 1, 'Calendars', '2015-05-27 03:22:22', '2015-05-27 03:22:22', NULL),
+(7, 1, 'Persons', '2015-05-27 03:22:22', '2015-05-27 03:22:22', NULL),
+(8, 1, 'Reports', '2015-05-27 03:22:22', '2015-05-27 03:22:22', NULL),
+(9, 2, 'Setting', '2015-05-27 03:22:22', '2015-05-27 03:22:22', NULL),
+(10, 3, 'Setting', '2015-05-27 03:22:22', '2015-05-27 03:22:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -509,14 +511,14 @@ CREATE TABLE IF NOT EXISTS `hr_organisations` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `hr_organisations`
 --
 
 INSERT INTO `hr_organisations` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Organisasi', '2015-05-25 18:31:42', '2015-05-25 18:31:42', NULL);
+(1, 'Thunder', '2015-05-27 03:22:22', '2015-05-27 03:22:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -526,6 +528,8 @@ INSERT INTO `hr_organisations` (`id`, `name`, `created_at`, `updated_at`, `delet
 
 CREATE TABLE IF NOT EXISTS `hr_persons` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organisation_id` int(10) unsigned NOT NULL,
+  `uniqid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `prefix_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `suffix_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -538,16 +542,17 @@ CREATE TABLE IF NOT EXISTS `hr_persons` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `persons_name_deleted_at_index` (`name`,`deleted_at`),
-  KEY `persons_gender_index` (`gender`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
+  KEY `persons_deleted_at_organisation_id_name_index` (`deleted_at`,`organisation_id`,`name`),
+  KEY `persons_deleted_at_organisation_id_uniqid_index` (`deleted_at`,`organisation_id`,`uniqid`),
+  KEY `persons_organisation_id_index` (`organisation_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=52 ;
 
 --
 -- Dumping data for table `hr_persons`
 --
 
-INSERT INTO `hr_persons` (`id`, `name`, `prefix_title`, `suffix_title`, `place_of_birth`, `date_of_birth`, `gender`, `password`, `avatar`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Mr. Elolel', '', '', 'ThunderLab', '2015-05-05', 'male', '$2y$10$MfW6qKX6Rtm5b/KSHOM4XuGru74mOCj5KjtGQ3err9FvJ8hE9EiRK', 'http://localhost:8000/images/2015/05/26/02/2-smilik-3.jpg', '2015-05-25 18:31:33', '2015-05-25 19:15:46', NULL);
+INSERT INTO `hr_persons` (`id`, `organisation_id`, `uniqid`, `name`, `prefix_title`, `suffix_title`, `place_of_birth`, `date_of_birth`, `gender`, `password`, `avatar`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, '1', 'Mr. Elolel', '', '', 'ThunderLab', '2015-05-28', 'male', '$2y$10$WtgFUj2wog6EfEUVZXLG8utRF5bEY5VlVnHiLk41cPq9zQu911zN6', 'http://img.article.pchome.net/00/50/22/19/pic_lib/s960x639/smilik%20(3)s960x639.jpg', '2015-05-27 03:23:19', '2015-05-28 03:07:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -584,10 +589,17 @@ CREATE TABLE IF NOT EXISTS `hr_persons_workleaves` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `persons_workleaves_deleted_at_start_is_default_index` (`deleted_at`,`start`,`is_default`),
+  KEY `persons_workleaves_deleted_at_person_id_start_is_default_index` (`deleted_at`,`person_id`,`start`,`is_default`),
   KEY `persons_workleaves_person_id_index` (`person_id`),
   KEY `persons_workleaves_workleave_id_index` (`workleave_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
+
+--
+-- Dumping data for table `hr_persons_workleaves`
+--
+
+INSERT INTO `hr_persons_workleaves` (`id`, `person_id`, `workleave_id`, `start`, `end`, `is_default`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 1, '2015-01-01', '2015-12-31', 1, '2015-05-27 03:31:05', '2015-05-27 03:31:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -608,9 +620,9 @@ CREATE TABLE IF NOT EXISTS `hr_person_schedules` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `person_schedules_deleted_at_on_index` (`deleted_at`,`on`),
+  KEY `person_schedules_deleted_at_person_id_on_index` (`deleted_at`,`person_id`,`on`),
   KEY `person_schedules_person_id_index` (`person_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=384 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=390 ;
 
 -- --------------------------------------------------------
 
@@ -640,14 +652,14 @@ CREATE TABLE IF NOT EXISTS `hr_person_widgets` (
 --
 
 INSERT INTO `hr_person_widgets` (`id`, `person_id`, `title`, `type`, `row`, `col`, `query`, `field`, `function`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'total surat peringatan', 'stat', 1, 1, '{"tag":"SP","organisationID":1}', '', 'total_documents', '2015-05-25 18:41:22', '2015-05-25 18:41:22', NULL),
-(2, 1, 'total kontrak kerja', 'stat', 1, 2, '{"tag":"Kontrak","organisationID":1}', '', 'total_documents', '2015-05-25 18:41:22', '2015-05-25 18:41:22', NULL),
-(3, 1, 'total cabang', 'stat', 1, 3, '{"organisationID":1}', '', 'total_branches', '2015-05-25 18:41:22', '2015-05-25 18:41:22', NULL),
-(4, 1, 'total pegawai', 'stat', 1, 4, '{"checkwork":"active"}', '', 'total_employees', '2015-05-25 18:41:22', '2015-05-25 18:41:22', NULL),
-(5, 1, 'pegawai baru 3 hari terakhir', 'panel', 2, 1, '{"checkwork":"- 3 days"}', '', 'index_employees', '2015-05-25 18:41:22', '2015-05-25 18:41:22', NULL),
-(6, 1, 'pegawai berhenti 3 hari terakhir', 'panel', 2, 2, '{"checkResign":"- 3 days"}', '', 'index_employees', '2015-05-25 18:41:22', '2015-05-25 18:41:22', NULL),
-(7, 1, 'surat peringatan 3 hari terakhir', 'table', 3, 1, '{"tag":"SP","organisationID":1,"checkreceiver":"- 3 days"}', '["name","created_at"]', 'index_documents', '2015-05-25 18:41:22', '2015-05-25 18:41:22', NULL),
-(8, 1, 'cabang dengan pegawai berhenti terbanyak', 'table', 3, 2, '{"organisationID":1,"countResign":"inactive"}', '["name","count"]', 'index_branches', '2015-05-25 18:41:22', '2015-05-25 18:41:22', NULL);
+(1, 1, 'total surat peringatan', 'stat', 1, 1, '{"tag":"SP","organisationID":1}', '', 'total_documents', '2015-05-27 03:31:03', '2015-05-27 03:31:03', NULL),
+(2, 1, 'total kontrak kerja', 'stat', 1, 2, '{"tag":"Kontrak","organisationID":1}', '', 'total_documents', '2015-05-27 03:31:03', '2015-05-27 03:31:03', NULL),
+(3, 1, 'total cabang', 'stat', 1, 3, '{"organisationID":1}', '', 'total_branches', '2015-05-27 03:31:03', '2015-05-27 03:31:03', NULL),
+(4, 1, 'total pegawai', 'stat', 1, 4, '{"checkwork":"active"}', '', 'total_employees', '2015-05-27 03:31:03', '2015-05-27 03:31:03', NULL),
+(5, 1, 'pegawai baru 3 hari terakhir', 'panel', 2, 1, '{"checkwork":"- 3 days"}', '', 'index_employees', '2015-05-27 03:31:04', '2015-05-27 03:31:04', NULL),
+(6, 1, 'pegawai berhenti 3 hari terakhir', 'panel', 2, 2, '{"checkResign":"- 3 days"}', '', 'index_employees', '2015-05-27 03:31:04', '2015-05-27 03:31:04', NULL),
+(7, 1, 'surat peringatan 3 hari terakhir', 'table', 3, 1, '{"tag":"SP","organisationID":1,"checkreceiver":"- 3 days"}', '["name","created_at"]', 'index_documents', '2015-05-27 03:31:04', '2015-05-27 03:31:04', NULL),
+(8, 1, 'cabang dengan pegawai berhenti terbanyak', 'table', 3, 2, '{"organisationID":1,"countResign":"inactive"}', '["name","count"]', 'index_branches', '2015-05-27 03:31:04', '2015-05-27 03:31:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -676,10 +688,10 @@ CREATE TABLE IF NOT EXISTS `hr_process_logs` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `process_logs_deleted_at_on_name_index` (`deleted_at`,`on`,`name`),
+  KEY `process_logs_deleted_at_person_id_on_index` (`deleted_at`,`person_id`,`on`),
   KEY `process_logs_person_id_index` (`person_id`),
   KEY `process_logs_work_id_index` (`work_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=181 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9001 ;
 
 -- --------------------------------------------------------
 
@@ -689,7 +701,6 @@ CREATE TABLE IF NOT EXISTS `hr_process_logs` (
 
 CREATE TABLE IF NOT EXISTS `hr_relatives` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `organisation_id` int(10) unsigned NOT NULL,
   `person_id` int(10) unsigned NOT NULL,
   `relative_id` int(10) unsigned NOT NULL,
   `relationship` enum('spouse','parent','child','partner') COLLATE utf8_unicode_ci NOT NULL,
@@ -697,10 +708,9 @@ CREATE TABLE IF NOT EXISTS `hr_relatives` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `relatives_organisation_id_index` (`organisation_id`),
   KEY `relatives_person_id_index` (`person_id`),
   KEY `relatives_relative_id_index` (`relative_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=52 ;
 
 -- --------------------------------------------------------
 
@@ -720,9 +730,25 @@ CREATE TABLE IF NOT EXISTS `hr_schedules` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `schedules_deleted_at_on_name_index` (`deleted_at`,`on`,`name`),
+  KEY `schedules_deleted_at_calendar_id_on_index` (`deleted_at`,`calendar_id`,`on`),
   KEY `schedules_calendar_id_index` (`calendar_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1285 ;
+
+--
+-- Dumping data for table `hr_schedules`
+--
+
+INSERT INTO `hr_schedules` (`id`, `calendar_id`, `name`, `on`, `start`, `end`, `is_affect_workleave`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'Hari Raya Waisak', '2015-06-02', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(2, 1, 'Cuti Bersama', '2015-07-16', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(3, 1, 'Hari Raya Idul Fitri I', '2015-07-17', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(4, 1, 'Hari Raya Idul Fitri II', '2015-07-18', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(5, 1, 'Cuti Bersama', '2015-07-20', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(6, 1, 'Cuti Bersama', '2015-07-21', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(7, 1, 'Hari Kemerdekaan Indonesia', '2015-08-17', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(8, 1, 'Hari Raya Idul Adha', '2015-09-24', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(9, 1, 'Tahun Baru Islam', '2015-10-14', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL),
+(11, 1, 'Hari Raya Kelahiran Yesus Kristus', '2015-12-25', '00:00:00', '23:59:59', 0, '2015-05-27 03:24:59', '2015-05-27 03:24:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -742,6 +768,42 @@ CREATE TABLE IF NOT EXISTS `hr_templates` (
   KEY `templates_document_id_index` (`document_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
 
+--
+-- Dumping data for table `hr_templates`
+--
+
+INSERT INTO `hr_templates` (`id`, `document_id`, `field`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'nama', 'string', '2015-05-27 03:28:30', '2015-05-27 03:28:30', NULL),
+(2, 1, 'tanggal', 'string', '2015-05-27 03:28:30', '2015-05-27 03:28:30', NULL),
+(3, 1, 'content', 'string', '2015-05-27 03:28:30', '2015-05-27 03:28:30', NULL),
+(4, 2, 'nama', 'string', '2015-05-27 03:28:30', '2015-05-27 03:28:30', NULL),
+(5, 2, 'tanggal', 'string', '2015-05-27 03:28:30', '2015-05-27 03:28:30', NULL),
+(6, 2, 'content', 'string', '2015-05-27 03:28:30', '2015-05-27 03:28:30', NULL),
+(7, 3, 'nama', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(8, 3, 'tanggal', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(9, 3, 'content', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(10, 4, 'nama pendidikan', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(11, 4, 'institusi', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(12, 4, 'bidang studi', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(13, 4, 'tanggal masuk', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(14, 4, 'tanggal lulus', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(15, 4, 'grade', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(16, 5, 'nama seminar/training', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(17, 5, 'penyelenggara', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(18, 5, 'bidang', 'string', '2015-05-27 03:28:31', '2015-05-27 03:28:31', NULL),
+(19, 5, 'tanggal mulai', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(20, 5, 'tanggal selesai', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(21, 6, 'ktp', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(22, 7, 'bpjs', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(23, 8, 'npwp', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(24, 9, 'nama bank', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(25, 9, 'cabang', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(26, 9, 'produk akun', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(27, 9, 'nomor akun', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(28, 10, 'nama reksa dana', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(29, 10, 'produk reksa dana', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL),
+(30, 10, 'nomor reksa dana', 'string', '2015-05-27 03:28:32', '2015-05-27 03:28:32', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -757,9 +819,16 @@ CREATE TABLE IF NOT EXISTS `hr_workleaves` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `workleaves_deleted_at_name_index` (`deleted_at`,`name`),
+  KEY `workleaves_deleted_at_organisation_id_index` (`deleted_at`,`organisation_id`),
   KEY `workleaves_organisation_id_index` (`organisation_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `hr_workleaves`
+--
+
+INSERT INTO `hr_workleaves` (`id`, `organisation_id`, `name`, `quota`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'Cuti Tahunan', 12, '2015-05-27 03:31:04', '2015-05-27 03:31:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -782,19 +851,19 @@ CREATE TABLE IF NOT EXISTS `hr_works` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `works_start_end_deleted_at_index` (`start`,`end`,`deleted_at`),
+  KEY `works_deleted_at_start_end_index` (`deleted_at`,`start`,`end`),
   KEY `works_end_index` (`end`),
   KEY `works_chart_id_index` (`chart_id`),
   KEY `works_person_id_index` (`person_id`),
   KEY `works_calendar_id_index` (`calendar_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=317 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=482 ;
 
 --
 -- Dumping data for table `hr_works`
 --
 
 INSERT INTO `hr_works` (`id`, `chart_id`, `person_id`, `calendar_id`, `status`, `start`, `end`, `position`, `organisation`, `reason_end_job`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 1, 'admin', '2015-05-05', '0000-00-00', '', '', '', '2015-05-25 18:36:25', '2015-05-25 18:36:25', NULL);
+(1, 1, 1, 1, 'admin', '2015-05-25', '0000-00-00', '', '', '', '2015-05-28 07:55:45', '2015-05-28 07:56:58', NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
