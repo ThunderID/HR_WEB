@@ -17,7 +17,7 @@ class WorkController extends Controller {
 	{
 		// ---------------------- LOAD DATA ----------------------
 		$search 									= ['WithAttributes' => ['Chart', 'Chart.branch', 'person']];
-		$sort 										= ['created_at' => 'asc'];
+		$sort 										= ['end' => 'desc'];
 
 		$results 									= API::person()->workIndex($personid, $page, $search, $sort);
 
