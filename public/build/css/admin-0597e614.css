@@ -291,6 +291,9 @@
   background: white;
   top: 200px;
 }
+.header-nav .select2-container .select2-choice .select2-arrow b:before {
+  font-weight: lighter;
+}
 .spinner-loading-schedule {
   z-index: 999;
   background: white;
@@ -18510,7 +18513,7 @@ temporary rendered events).
   font-size: .85em;
   line-height: 1.3;
   border-radius: 3px;
-  border: 1px solid #3a87ad;
+  /*border: 1px solid #3a87ad;*/
   /* default BORDER color */
   background-color: #3a87ad;
   /* default BACKGROUND color */

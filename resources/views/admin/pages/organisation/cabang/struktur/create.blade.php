@@ -15,7 +15,7 @@
 			<!-- END DEFAULT FORM ITEMS -->
 			<div class="card-head style-primary">
 				<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
-					<li class="active"><a>PROFIL</a></li>
+					<li class="active"><a>STRUKTUR</a></li>
 				</ul>
 			</div><!--end .card-head -->		
 			<!-- BEGIN DEFAULT FORM ITEMS -->
@@ -78,7 +78,7 @@
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
 					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
-					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
+					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
 				</div>
 			</div>			
 		</form>

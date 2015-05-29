@@ -42,6 +42,14 @@
 
 						<div class="tab-pane active" id="second5">
 							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										{!! Form::input('text', 'unique_id', '', ['class' => 'form-control']) !!}
+										<label for="company">Unique ID</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
 								<div class="col-md-3">
 									<div class="form-group">
 										{!! Form::input('text', 'prefix_title', null, ['class' => 'form-control']) !!}

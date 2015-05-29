@@ -16,7 +16,7 @@
 		<a href="{{ $route }}">
 	@endif
 
-	<div class="{{ isset($toggle['document']) ? '' : 'hbox-column v-top' }}">
+	<div class="@if((isset($toggle['document']))|(isset($toggle['api']))) @else hbox-column v-top @endif">
 
 		@if (isset($toggle['document']))
 			<div class="clearfix">
@@ -52,15 +52,17 @@
 			</div>
 		@else
 			<div class="clearfix">
-				<div class="col-lg-12 margin-bottom-lg">
+				<div class="col-lg-11 margin-bottom-lg">
 					<a class="text-lg text-medium" href="{{ $route }}">{{(isset($data_content['name']) ? $data_content['name'] : $data_content['client'])}}</a>
 				</div>
+				@if(isset($data_content['secret']))
+					<div class="col-lg-1 text-right">
+						<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['id']]) }}">
+							<i class="fa fa-trash"></i>
+						</a>
+					</div>
+				@endif
 			</div>
-			@if(isset($data_content['secret']))
-				<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['id']]) }}">
-					<i class="fa fa-trash"></i>
-				</a>
-			@endif
 		@endif
 
 		@if (isset($toggle['person']))

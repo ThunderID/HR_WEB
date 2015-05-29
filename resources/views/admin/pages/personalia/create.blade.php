@@ -30,6 +30,14 @@
 						</div>						
 						<div class="col-md-8">
 							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										{!! Form::input('text', 'unique_id', $data['uniqid'], ['class' => 'form-control']) !!}
+										<label for="company">Unique ID</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
 								<div class="col-md-3">
 									<div class="form-group">
 										{!! Form::input('text', 'prefix_title', $data['prefix_title'], ['class' => 'form-control']) !!}
