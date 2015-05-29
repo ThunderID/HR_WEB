@@ -98,7 +98,7 @@
 				@else
 					<ul class="list-unstyled" id="documentList"></ul>
 					<div class="form-group p-20">
-						<a class="btn btn-raised btn-default-bright" document-duplicate="skillTmpl" document-target="#documentList">TAMBAH INPUTAN</a>
+						<a class="btn btn-raised btn-default-bright" data-duplicate="skillTmpl" data-target="#documentList">TAMBAH INPUTAN</a>
 					</div><!--end .form-group -->
 				@endif
 				<ul class="list-unstyled">

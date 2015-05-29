@@ -71,7 +71,17 @@
 							@if($value['item'] != 'email' && $value['item'] != 'phone' && $value['item'] != 'address')
 								<?php $isMsgSVC = 2 ?>	
 							@else
-								<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">{{ucwords(str_replace('_',' ',$value['item']))}}  </a> <small class="pull-right text-bold opacity-75"></small></a></li>
+								<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif>
+									<a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">
+									<?php $add = ucwords(str_replace('_',' ',$value['item'])) ?>
+									@if ($value['item'] == 'address')
+										Alamat
+									@else
+										{{ $add }}
+									@endif
+									<small class="pull-right text-bold opacity-75"></small>
+									</a>
+								</li>
 							@endif
 						@endforeach
 

@@ -13,7 +13,11 @@
 					@foreach($value['filters'] as $key2 => $value2)
 						<li @if(Input::get($value['input']) == $value2[$value['filter']]) class="active" @endif>
 							<a href="{{route(Route::currentRouteName(), ['branchid' => $branch['id'],'org_id' => $data['id'], 'page' => 1,$value['input'] => $value2[$value['filter']]])}}">
-								{{ucwords($value2[$value['filter']])}}
+								@if ($value2[$value['filter']] == 'address')
+									Alamat
+								@else
+									{{ucwords($value2[$value['filter']])}}
+								@endif
 							</a>
 						</li>
 					@endforeach
