@@ -3,6 +3,7 @@
 use Input, Session, App, Config, Paginator, Redirect, Validator, Response;
 use API;
 use App\Http\Controllers\Controller;
+use DateTime, DateInterval, DatePeriod;
 
 class ScheduleController extends Controller {
 
@@ -175,7 +176,7 @@ class ScheduleController extends Controller {
 	function ajaxSchedulePerson($personid, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['personid' => $personid, 'ondate' => [Input::get('start'), Input::get('end')], 'WithAttributes' => ['calendar']];
+		$search 									= ['personid' => $personid, 'ondate' => [Input::get('start'), Input::get('end')], 'WithAttributes' => ['person.workscalendars.calendar']];
 		$sort 										= ['on' => 'asc'];
 		$results 									= API::person()->scheduleIndex($page, $search, $sort);
 		$contents 									= json_decode($results);
@@ -228,8 +229,8 @@ class ScheduleController extends Controller {
 			{
 				$schedule[$k]['id']				= $sh['id'];
 				$schedule[$k]['title'] 			= 'normal';
-				$schedule[$k]['start']			= $period->format('Y-m-d').'T'.$sh['calendar']['start'];
-				$schedule[$k]['end']			= $period->format('Y-m-d').$sh['calendar']['end'];
+				$schedule[$k]['start']			= $period->format('Y-m-d').'T'.$sh['person']['workscalendars'][0]['calendar']['start'];
+				$schedule[$k]['end']			= $period->format('Y-m-d').$sh['person']['workscalendars'][0]['calendar']['end'];
 				$schedule[$k]['tes']			= 'oke';
 				$schedule[$k]['status']			= 'yea';
 				$schedule[$k]['affect_salary']	= false;
