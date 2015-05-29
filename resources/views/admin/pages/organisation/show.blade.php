@@ -49,4 +49,9 @@
 			</div>
 		</div>
 	</div>
+	{!! Form::open(array('route' => array('hr.organisations.delete', $data['id']),'method' => 'POST')) !!}
+		<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
+			@include('admin.modals.delete.delete')
+		</div>	
+	{!! Form::close() !!}	
 @stop

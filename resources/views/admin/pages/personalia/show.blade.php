@@ -106,7 +106,7 @@
 				<div class="hbox-column col-md-7" id="sidebar_mid">
 					<div class="col-md-12">
 						<div class="row">
-							<div class="pull-left width-3 clearfix hidden-xs">
+							<div class="pull-left width-3 clearfix hidden-xs mr-15">
 								@if($data['avatar']!='')
 									<img class="img-circle img-responsive" alt="" src="{{url($data['avatar'])}}"></img>
 								@else

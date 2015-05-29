@@ -22,10 +22,20 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="height-6 border-gray border-lg m-0auto style-gray-bright dropzone profile dz-clickable p-0" id="profile_picture" style="height:270px;width:204px;background-color:#E5E6E6;border:2px solid #333">
-								<div class="dz-message">
-									<h4 class="text" style="line-height:200px">Unggah Foto</h4>
-								</div>
-								<input type="hidden" name="link_profile_picture" id="profile_picture_url">
+								{{-- @if (!$data['avatar']) --}}
+									<div class="dz-message">
+										<h4 class="text" style="line-height:200px">Unggah Foto</h4>
+									</div>
+								{{-- @endif --}}
+								<input type="hidden" name="link_profile_picture" id="profile_picture_url" value="{{ isset($data['avatar']) ? $data['avatar'] : '' }}">
+								@if ($data['avatar'])
+									{{-- <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
+										<div class="dz-image">
+											<img src="{{ isset($data['avatar']) ? $data['avatar'] : '' }}" alt="">
+										</div>
+										<a class="dz-remove" href="javascript:undefined;" data-dz-remove="">Remove file</a>
+									</div> --}}
+								@endif
 							</div>
 						</div>						
 						<div class="col-md-8">
