@@ -126,11 +126,13 @@
 									<td class="text-center text-sm">
 										{{$value['quota']}}
 									</td>
-									@foreach($status as $key2 => $value2)
+									@forelse($status as $key2 => $value2)
 										<td class="text-sm">
 											{{(isset($value['status'][$value2]) ? $value['status'][$value2] : '')}}
 										</td>
-									@endforeach
+									@empty
+										<td></td>
+									@endforelse
 									<td class="text-sm">
 										@if($value['plus_quota'] != 0 )
 											{{$value['plus_quota']}}
@@ -144,7 +146,6 @@
 											{{0 - $value['residue_quota']}}
 										@endif
 									</td>
-									<td class="text-sm"></td>
 								</tr>
 							@endforeach
 						</tbody>

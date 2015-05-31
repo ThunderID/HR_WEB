@@ -143,12 +143,7 @@
 								<tr>
 									<td class="text-center text-sm">{{ $key+1 }}.</td>
 									<td class="text-sm">
-										@if($value['person_id']!=$prev)
-											{{$value['person']['name']}}
-											<?php $prev = $value['person_id'];?>
-										@else
-											<?php $prev = $value['person_id'];?>
-										@endif
+										{{$value['name']}}
 									</td>
 									<td class="text-center text-sm">
 										{{gmdate("H:i:s", $value['avg_fp_start'])}}
@@ -203,7 +198,7 @@
 											{{gmdate("H:i:s", $margin)}}
 										</td>
 									@else
-										@foreach($value['notes'] as $key2 => $value2)
+										@foreach($value['log_notes'] as $key2 => $value2)
 											<td class="text-center text-sm">
 												<span class ="badge style-{{$label[$value2]}} text-sm mt-5">
 													{{$value2}}
@@ -212,7 +207,7 @@
 										@endforeach
 										<td class="text-sm">
 											<span class ="badge text-sm mt-5">
-												<a href ="{{route('hr.report.attendance.detail', ['id' => $value['person_id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
+												<a href ="{{route('hr.report.attendance.detail', ['id' => $value['id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
 											</span>
 										</td>
 									@endif

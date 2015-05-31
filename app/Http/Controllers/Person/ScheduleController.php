@@ -34,7 +34,7 @@ class ScheduleController extends Controller {
 
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
-		$search 									= ['CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
+		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
 		$search['organisationid']					= Session::get('user.organisation');
 		$results 									= API::person()->show($personid, $search);
 
@@ -98,7 +98,7 @@ class ScheduleController extends Controller {
 
 		//please make sure if the date is in range, make it as an array for every date => single date save in on
 		//consider the id
-		$schedule 									= Input::only('name', 'on', 'start', 'end', 'id', 'status', 'is_affect_workleave');
+		$schedule 									= Input::only('name', 'on', 'start', 'end', 'id', 'status');
 		if(isset($schedule['id'])&&$schedule['id']==0)
 		{
 			unset($schedule['id']);
@@ -119,15 +119,6 @@ class ScheduleController extends Controller {
 		// $schedule['on']								= date('Y-m-d', strtotime($schedule['on']));
 		$schedule['start']							= date('H:i:s', strtotime($schedule['start']));
 		$schedule['end']							= date('H:i:s', strtotime($schedule['end']));
-		
-		if(is_null($schedule['is_affect_workleave']))
-		{
-			$schedule['is_affect_workleave']			= false;
-		}
-		else
-		{
-			$schedule['is_affect_workleave']			= true;
-		}
 		
 		$input['schedules'][]						= $schedule;
 
@@ -188,6 +179,17 @@ class ScheduleController extends Controller {
 
 		$schedules 									= json_decode(json_encode($contents->data), true);
 
+		$search 									= ['WithAttributes' => ['workscalendars.calendar']];
+		$results 									= API::person()->show($personid, $search);
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$calendar 									= json_decode(json_encode($contents->data), true);
+
 		// schedule
 		$schedule = [];
 		$begin 		= new DateTime( Input::get('start') );
@@ -197,6 +199,7 @@ class ScheduleController extends Controller {
 		$periods 	= new DatePeriod($begin, $interval, $ended);
 		$k=0;
 		$j=0;
+		$date 		= [];
 		foreach ( $periods as $period )
 		{
 			foreach($schedules as $i => $sh)	
@@ -219,13 +222,21 @@ class ScheduleController extends Controller {
 
 					}
 					$schedule[$k]['status']			= $sh['status'];
-					$schedule[$k]['affect_salary']	= $sh['is_affect_workleave'];
+					if($sh['status'] == 'absence_workleave')
+					{
+						$schedule[$k]['affect_salary']	= true;
+					}
+					else
+					{
+						$schedule[$k]['affect_salary']	= false;
+					}
 					$schedule[$k]['mode']			= 'schedule';
 					$schedule[$k]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
 					$k++;
+					$date[]							= $period->format('Y-m-d');
 				}
 			}
-			if($k==$j)
+			if(!in_array($period->format('Y-m-d'), $date) && count($schedules))
 			{
 				$schedule[$k]['id']				= $sh['id'];
 				$schedule[$k]['title'] 			= 'normal';
@@ -233,15 +244,25 @@ class ScheduleController extends Controller {
 				$schedule[$k]['end']			= $period->format('Y-m-d').$sh['person']['workscalendars'][0]['calendar']['end'];
 				$schedule[$k]['tes']			= 'oke';
 				$schedule[$k]['status']			= 'yea';
-				$schedule[$k]['affect_salary']	= false;
+				$schedule[$k]['affect_salary']	= true;
 				$schedule[$k]['mode']			= 'schedule';
 				$schedule[$k]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+				$date[]							= $period->format('Y-m-d');
 				$k++;
-				$j++;
 			}
-			else
+			if(!in_array($period->format('Y-m-d'), $date) && !count($schedules))
 			{
-				$j++;
+				$schedule[$k]['id']				= null;
+				$schedule[$k]['title'] 			= 'normal';
+				$schedule[$k]['start']			= $period->format('Y-m-d').'T'.$calendar['workscalendars'][0]['calendar']['start'];
+				$schedule[$k]['end']			= $period->format('Y-m-d').$calendar['workscalendars'][0]['calendar']['end'];
+				$schedule[$k]['tes']			= 'oke';
+				$schedule[$k]['status']			= 'yea';
+				$schedule[$k]['affect_salary']	= true;
+				$schedule[$k]['mode']			= 'schedule';
+				$schedule[$k]['del_action']		= '';
+				$date[]							= $period->format('Y-m-d');
+				$k++;
 			}
 		}
 

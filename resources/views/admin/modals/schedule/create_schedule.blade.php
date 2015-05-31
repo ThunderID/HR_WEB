@@ -67,19 +67,6 @@
 						</div>
 					</div>					
 				</div>	
-				<div class="row">
-					<div class="tabs col-md-12  pt-20">
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="checkbox checkbox-styled">
-									<label class="checkbox-inline checkbox-styled">
-										<input type="checkbox" name="is_affect_workleave" class="modal_is_affect_workleave"><span>Faktor Pengurang Cuti</span>
-									</label>									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>	
 			</div>			
 			<div class="modal-footer style-default-light">
 				@if (Route::currentRouteName() == 'hr.persons.schedules.index')

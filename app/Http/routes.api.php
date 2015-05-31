@@ -16,3 +16,15 @@ Route::group(['prefix' => 'api'], function(){
 
 	Route::post('/fp/random/finger', 			['as' => 'hr.api.fp.random', 			'uses' => '\ThunderID\Finger\Controllers\FingerController@random']);
 });
+
+Route::get('test/presence', function()
+{
+	$api 										= new \App\APIConnector\OUTENGINE\API;
+	$json										= '{"application":{"api":{"client":"123456789","secret":"123456789"}},"person":{"id":"1","email":"hr@thunderid.com"},"log":[["hr@thunderid.com","28-05-2015 15:04:01","pc"]]}';
+
+	$new 										= json_decode($json);
+
+	$input 										= json_decode(json_encode($new), true);
+	
+	return $api->runPost($api->basic_url . 'api/presence', $input);
+});

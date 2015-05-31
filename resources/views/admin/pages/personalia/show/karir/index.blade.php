@@ -38,9 +38,19 @@
 												{{$value['reason_end_job']}}
 											</p>
 
+											<a class="btn pull-right ink-reaction btn-icon-toggle del-modal" type="button" data-toggle="modal" data-target="#del_modal_relation_{{$value['id']}}" data-action="{{ route('hr.persons.works.delete', ['person_id' => $data['id'], 'id' => $value['id']]) }}">
+										<i class="fa fa-trash"></i>
+									</a>	
+
+	{!! Form::open(array('route' => array('hr.persons.works.delete',  $data['id'], $value['id']),'method' => 'POST')) !!}
+		<div class="modal fade" id="del_modal_relation_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_modal_relation_{{$value['id']}}" aria-hidden="true">
+			@include('admin.modals.delete.delete')
+		</div>	
+	{!! Form::close() !!}	
 											<a data-toggle="modal" data-target="#workCreate" class="btn pull-right ink-reaction btn-icon-toggle" data-action="{{route('hr.persons.works.update', ['person_id' => $data['id'], 'id' => $value['id']])}}" data-id="{{$data['id']}}" data-value-id="{{$value['id']}}" data-chart-id="{{$value['chart_id']}}" data-work-start="{{date('d-m-Y', strtotime($value['start'])) }}" data-work-end="@if(is_null($value['end'])||$value['end']=='0000-00-00'){{'null'}}@else{{date('d-m-Y', strtotime($value['end']))}}@endif" data-reason-resign="@if($value['reason_end_job']){{$value['reason_end_job']}}@endif" data-work-status="{{$value['status']}}" data-work-position="{{$value['position']}}" data-work-organisation="{{$value['organisation']}}" data-work-company-path="{{$value['chart']['path']}}" data-work-company-name="{{$value['chart']['name']}}" data-work-branch-name="{{$value['chart']['branch']['name']}}" data-work-calendar-id="{{ $value['calendar_id'] }}">
 												<i class="fa fa-pencil" style="margin-right:0px"></i>
-											</a>											
+											</a>
+							
 										</div>
 									</div>
 								</div>

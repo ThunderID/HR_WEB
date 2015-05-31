@@ -251,7 +251,7 @@ class DocumentController extends Controller {
 		if(!is_null($page))
 		{
 			// ---------------------- LOAD DATA ----------------------
-			$search 									= ['documentid' => $id, 'currentwork' => true];
+			$search 									= ['documentid' => $id, 'currentwork' => $org_id];
 
 			if(Input::has('branchid'))
 			{

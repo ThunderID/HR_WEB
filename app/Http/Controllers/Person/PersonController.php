@@ -35,7 +35,7 @@ class PersonController extends Controller {
 		
 		if(Input::has('karyawan'))
 		{
-			$search['CurrentWork']					= '';
+			$search['CurrentWork']					= $org_id;
 			$search['checkwork']					= true;
 		}
 		if(Input::has('non-karyawan'))
@@ -374,9 +374,9 @@ class PersonController extends Controller {
 	function getShow($id = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
+		$search['organisationid']					= Session::get('user.organisation');
+		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
 		
-		// $search['organisationid']					= Session::get('user.organisation');
 
 		$results 									= API::person()->show($id, $search);
 

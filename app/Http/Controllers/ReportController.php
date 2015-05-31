@@ -16,6 +16,7 @@ class ReportController extends Controller {
 	function getAttendance($page = null)
 	{
 		// ---------------------- LOAD DATA ----------------------
+
 		if(Input::has('start'))
 		{
 			list($d,$m,$y) 							= explode('/', Input::get('start'));
@@ -23,30 +24,22 @@ class ReportController extends Controller {
 			list($d,$m,$y) 							= explode('/', Input::get('end'));
 			$end 									= "$y-$m-$d";
 
-			$search 								= ['global' => true, 'WithAttributes' => ['person'], 'ondate'=> [$start, $end]];
+			$search 								= ['globalattendance' => ['organisationid' => Session::get('user.organisation'), 'on' => [$start, $end]]];
 		}
 		else
 		{
-			$search 								= ['global' => true, 'WithAttributes' => ['person']];
+			$search 								= ['globalattendance' => ['organisationid' => Session::get('user.organisation'), 'on' => [$start, $end]]];
 		}
 		
-		$sort 										= ['person_id' => 'desc'];
+		$sort 										= [];
+
 
 		if(Input::has('case'))
 		{
-			switch (Input::get('case')) 
+			switch (strtolower(Input::get('case'))) 
 			{
-				case 'late':
-					$search['late']					= true;
-					break;
-				case 'ontime':
-					$search['ontime']				= true;
-					break;
-				case 'earlier':
-					$search['earlier']				= true;
-					break;
-				case 'overtime':
-					$search['overtime']				= true;
+				case 'late': case 'ontime' : case 'earlier' : case 'overtime' :
+					$search['globalattendance']		= ['organisationid' => Session::get('user.organisation'), 'on' => [$start, $end], 'case' => strtolower(Input::get('case'))];
 					break;
 				default:
 					App::abort('404');
@@ -56,22 +49,22 @@ class ReportController extends Controller {
 
 		if(Input::has('sort_margin_start'))
 		{
-			$sort 									= ['margin_start' => Input::get('sort_margin_start')];
+			$search['globalattendance']['sort']				= ['margin_start', Input::get('sort_margin_start')];
 		}
 
 		if(Input::has('sort_margin_end'))
 		{
-			$sort 									= ['margin_end' => Input::get('sort_margin_end')];
+			$search['globalattendance']['sort']				= ['margin_end', Input::get('sort_margin_end')];
 		}
 
 		if(Input::has('sort_idle'))
 		{
-			$sort 									= ['total_idle' => Input::get('sort_idle')];
+			$search['globalattendance']['sort']				= ['total_idle', Input::get('sort_idle')];
 		}
 
 		if(Input::has('sort_workhour'))
 		{
-			$sort 									= ['total_active' => Input::get('sort_workhour')];
+			$search['globalattendance']['sort']				= ['total_active', Input::get('sort_workhour')];
 		}
 		
 		if(Input::has('branch'))
@@ -86,8 +79,7 @@ class ReportController extends Controller {
 
 		$search['organisationid'] 					= Session::get('user.organisation');
 
-		$results 									= API::log()->ProcessLogIndex($page, $search, $sort, 100);
-		
+		$results 									= API::person()->index($page, $search, $sort, 100);
 		$contents 									= json_decode($results);
 		if(!$contents->meta->success)
 		{

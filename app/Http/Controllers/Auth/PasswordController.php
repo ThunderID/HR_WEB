@@ -37,6 +37,7 @@ class PasswordController extends Controller {
 		$password 					= Input::get('old_password');
 		$input['person']			= Input::only('password', 'password_confirmation');
 		$input['person']['id']		= Session::get('loggedUser');
+		$input['organisation']['id']= Session::get('user.organisation');
 		$validator 					= Validator::make($input['person'], ['password' => 'required|confirmed|min:8']);
 
 		if (!$validator->passes())

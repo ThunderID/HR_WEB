@@ -38,7 +38,7 @@ class DocumentController extends Controller {
 
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
-		$search 									= ['CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
+		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
 		$search['organisationid']					= Session::get('user.organisation');
 
 		$results 									= API::person()->show($personid, $search);
@@ -166,7 +166,10 @@ class DocumentController extends Controller {
 		
 		$documents 									= json_decode(json_encode($contents_2->data), true);
 
-		$results 									= API::person()->show($personid);
+		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
+		$search['organisationid']					= Session::get('user.organisation');
+
+		$results 									= API::person()->show($personid, $search);
 		
 		$contents 									= json_decode($results);
 
@@ -233,7 +236,10 @@ class DocumentController extends Controller {
 
 		$person_document 							= json_decode(json_encode($contents->data), true);
 
-		$results 									= API::person()->show($personid);
+		$search 									= ['CurrentWork' => null];
+		$search['organisationid']					= Session::get('user.organisation');
+
+		$results 									= API::person()->show($personid, $search);
 		
 		$contents 									= json_decode($results);
 
@@ -246,7 +252,7 @@ class DocumentController extends Controller {
 
 		$template									= $person_document['document']['template'];
 		$template									= str_replace("//name//", $data['name'], $template);
-		$template									= str_replace("//position//", $data['works'][0]['name'], $template);
+		$template									= str_replace("//position//", ($data['works'] ? $data['works'][0]['name'] : ''), $template);
 		
 		foreach ($person_document['details'] as $key => $value) 
 		{
@@ -272,7 +278,10 @@ class DocumentController extends Controller {
 
 		$person_document 							= json_decode(json_encode($contents->data), true);
 
-		$results 									= API::person()->show($personid);
+		$search 									= ['CurrentWork' => null];
+		$search['organisationid']					= Session::get('user.organisation');
+
+		$results 									= API::person()->show($personid, $search);
 		
 		$contents 									= json_decode($results);
 
@@ -285,7 +294,7 @@ class DocumentController extends Controller {
 
 		$template									= $person_document['document']['template'];
 		$template									= str_replace("//name//", $data['name'], $template);
-		$template									= str_replace("//position//", $data['works'][0]['name'], $template);
+		$template									= str_replace("//position//", ($data['works'] ? $data['works'][0]['name'] : ''), $template);
 		
 		foreach ($person_document['details'] as $key => $value) 
 		{
