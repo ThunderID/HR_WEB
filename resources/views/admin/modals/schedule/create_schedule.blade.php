@@ -11,7 +11,7 @@
 						<h4 class="text-primary">Petunjuk</h4>
 						<article class="margin-bottom-xxl">
 							<p class="opacity-75">
-								Start merupakan waktu mulai, dan end merupakan waktu berakhir.
+								Start merupakan jam masuk, dan end merupakan jam pulang.
 							</p>
 						</article>
 					</div><!--end .col -->

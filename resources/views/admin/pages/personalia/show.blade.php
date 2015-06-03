@@ -47,7 +47,7 @@
 						</li>
 
 						<li @if(isset($workleaves)) class="active" @endif>
-							<a href="{{route('hr.persons.workleaves.index', [$data['id']])}}"> Cuti 
+							<a href="{{route('hr.persons.workleaves.index', [$data['id']])}}"> Hak Cuti 
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 					</ul>

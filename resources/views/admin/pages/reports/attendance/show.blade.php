@@ -2,7 +2,7 @@
 	<li>Home</li>
 	<li>{{ucwords(($controller_name))}}</li>
 	<li>Attendance</li>
-	<li class='active'>{{ ucwords($data[0]['person']['name']) }}</li>
+	<li class='active'>{{ ucwords($person['name']) }}</li>
 @stop
 
 @section('content')
@@ -33,11 +33,11 @@
 				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary">MENU</li>
-						<li @if(!Input::has('case')) class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'q' => Input::get('q')])}}">Semua</a></li>
-						<li @if(Input::get('case')=='late') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'late', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Terlambat</a></li>
-						<li @if(Input::get('case')=='ontime') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'ontime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Tepat Waktu</a></li>
-						<li @if(Input::get('case')=='earlier') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'earlier', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Pulang Lebih Awal</a></li>
-						<li @if(Input::get('case')=='overtime') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'overtime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Lembur</a></li>
+						<li @if(!Input::has('case')) class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'q' => Input::get('q')])}}">Semua</a></li>
+						<li @if(Input::get('case')=='late') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'late', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Terlambat</a></li>
+						<li @if(Input::get('case')=='ontime') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'ontime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Tepat Waktu</a></li>
+						<li @if(Input::get('case')=='earlier') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'earlier', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Pulang Lebih Awal</a></li>
+						<li @if(Input::get('case')=='overtime') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'overtime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Lembur</a></li>
 					</ul>
 					<br/>
 				</div><!--end .col -->
@@ -55,10 +55,10 @@
 								</button>
 								<ul class="dropdown-menu animation-expand" role="menu">
 									<li>
-										<a href="{{ route('hr.report.attendance.csvd', ['page' => 1, 'mode' => 'csv', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;CSV</a>
+										<a href="{{ route('hr.report.attendance.detail', ['id' => $person['id'],'page' => 1, 'mode' => 'csv', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;CSV</a>
 									</li>
 									<li>
-										<a href="{{ route('hr.report.attendance.csvd', ['page' => 1, 'mode' => 'xls', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;XLS</a>
+										<a href="{{ route('hr.report.attendance.detail', ['id' => $person['id'],'page' => 1, 'mode' => 'xls', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;XLS</a>
 									</li>
 								</ul>
 							</div>
@@ -84,7 +84,7 @@
 						</div>
 					</div><!--end .margin-bottom-xxl -->
 
-					<table class="table table-bordered">
+					<table class="table table-bordered text-sm">
 						<thead>
 							<tr>
 								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">No</th>
@@ -101,6 +101,7 @@
 									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Go In</th>
 									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Go Out</th>
 								@endif
+								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700"></th>
 							</tr>
 							<tr>
 								<th class="text-center" style="font-weight:700">
@@ -122,13 +123,10 @@
 							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
 							@foreach($data as $key => $value)
 								<tr>
-									@if($value['person_id']!=$prev)
-										<td rowspan="{{ count($data) }}" class="text-center text-sm">{{ $key+1 }}.</td>
-										<td rowspan="{{ count($data) }}" class="text-sm">
-											{{$value['person']['name']}}
-											<?php $prev = $value['person_id'];?>
-										</td>									
-									@endif
+									<td class="text-center text-sm">{{ $key+1 }}.</td>
+									<td class="text-sm">
+										{{$person['name']}}
+									</td>
 									<td class="text-center text-sm">
 										@if($value['has_schedule'])
 											<span class ="badge style-info text-sm">
@@ -194,6 +192,11 @@
 											</td>
 										@endforeach
 									@endif
+									<td class="text-sm">
+										<span class ="badge text-sm mt-5">
+											<a href ="{{route('hr.report.attendance.log', ['id' => $person['id'], 'start' => date('d/m/Y', strtotime($value['on'])), 'end' => date('d/m/Y', strtotime($value['on'].' + 1 day'))])}}"> Detail</a>
+										</span>
+									</td>
 								</tr>
 							@endforeach
 						</tbody>

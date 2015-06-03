@@ -11,7 +11,7 @@
 						<h4 class="text-primary">Petunjuk</h4>
 						<article class="margin-bottom-xxl">
 							<p class="opacity-75">
-								Start merupakan waktu tanggal mulai, dan end merupakan tanggal berakhir.
+								Tanggal menentukan masa berlaku (pemakaian) hak cuti.
 							</p>
 						</article>
 					</div><!--end .col -->

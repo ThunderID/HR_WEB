@@ -29,19 +29,12 @@
 			</tr>
 		</thead>
 		<tbody>			
-			<?php $prev = 0;?>
 			@foreach($data as $key => $value)
 				<tr style="height:15px;">
-					@if($value['person_id']!=$prev)
-						<td rowspan="{{ count($data) }}" style="text-align:center; vertical-align:top">{{ $key+1 }}</td>
-						<td rowspan="{{ count($data) }}" style="vertical-align:top">
-							{{ $value['person']['name'] }}
-							<?php $prev = $value['person_id'];?>
-						</td>
-					@else
-						<td></td>
-						<td></td>
-					@endif
+					<td style="text-align:center; vertical-align:top">{{ $key+1 }}</td>
+					<td style="vertical-align:top">
+						{{$person['name']}}
+					</td>
 					<td style="text-align:center">						
 						{{ date('Y-m-d', strtotime($value['on'])) }}							
 					</td>	

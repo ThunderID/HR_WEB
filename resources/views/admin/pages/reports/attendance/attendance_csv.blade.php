@@ -33,12 +33,7 @@
 				<tr style="height:15px">
 					<td style="text-align:center">{{ $key+1 }}.</td>
 					<td>
-						@if($value['person_id']!=$prev)
-							{{ $value['person']['name'] }}
-							<?php $prev = $value['person_id'];?>
-						@else
-							<?php $prev = $value['person_id'];?>
-						@endif
+						{{ $value['name'] }}
 					</td>
 					<td style="text-align:center">
 						{{ gmdate("H:i:s", $value['avg_fp_start']) }}
@@ -86,7 +81,7 @@
 							{{ gmdate("H:i:s", $margin) }}
 						</td>
 					@else
-						@foreach($value['notes'] as $key2 => $value2)
+						@foreach($value['log_notes'] as $key2 => $value2)
 							<td style="text-align:center">
 								{{ $value2 }}
 							</td>
