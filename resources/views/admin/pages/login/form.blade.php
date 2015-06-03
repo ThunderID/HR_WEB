@@ -26,13 +26,7 @@
 							</div>
 							<br/>
 							<div class="row">
-								<div class="col-xs-6 text-left">
-									<div class="checkbox checkbox-inline checkbox-styled">
-										<label>
-											<input type="checkbox" name='remember'> <span>Remember me</span>
-										</label>
-									</div>
-								</div><!--end .col -->
+								<div class="col-xs-6 text-left">&nbsp;</div><!--end .col -->
 								<div class="col-xs-6 text-right">
 									<button class="btn btn-primary btn-raised" type="submit">Login</button>
 								</div><!--end .col -->
@@ -41,7 +35,6 @@
 					</div><!--end .col -->
 					
 					<div class="col-md-5 col-md-offset-1 text-center">
-						<br>
 						<h3 class="text-light">
 							Unauthorized User?
 						</h3>
