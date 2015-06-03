@@ -515,7 +515,7 @@ class ReportController extends Controller {
 			$status 								= null;
 			foreach ($data as $key1 => $value1)
 			{
-				if($value1['person_id']==$value['id'])
+				if($value1['id']==$value['id'])
 				{
 					$quota 							= $quota + $value1['quota'];
 					$plus 							= $plus + $value1['plus_quota'];
