@@ -158,6 +158,19 @@ class CalendarController extends Controller {
 		// ---------------------- HANDLE INPUT ----------------------
 		$input['calendar'] 							= Input::only('name', 'workdays', 'start', 'end');
 
+		$workdays 									= explode(',', $input['calendar']['workdays']);
+
+		foreach ($workdays as $key => $value) 
+		{
+			if(!in_array(strtolower($value), ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu']))
+			{
+				return Redirect::back()->withErrors(['Hari kerja harus merupakan hari  : senin, selasa, rabu, kamis, jumat, sabtu, minggu'])->withInput();
+			}
+
+			$workday[]								= strtolower($value);
+		}
+
+		$input['calendar']['workdays']				= implode(', ', $workday);
 		$input['calendar']['start']					= date('H:i:s', strtotime($input['calendar']['start']));
 		$input['calendar']['end']					= date('H:i:s', strtotime($input['calendar']['end']));
 
