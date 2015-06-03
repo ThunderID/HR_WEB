@@ -105,6 +105,7 @@ class RelativeController extends Controller {
 				$relate['name'] 				= Input::get('name');
 				$relate['suffix_title'] 		= Input::get('suffix_title');
 				$relate['gender'] 				= Input::get('gender');
+				$relate['uniqid'] 				= Input::get('unique_id');
 				$relate['date_of_birth'] 		= date("Y-m-d", strtotime(Input::get('place_of_birth')));
 				$relate['place_of_birth'] 		= Input::get('place_of_birth');
 				$relate['relationship'] 		= Input::get('relationship');

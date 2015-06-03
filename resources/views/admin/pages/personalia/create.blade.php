@@ -42,7 +42,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
-										{!! Form::input('text', 'unique_id', $data['uniqid'], ['class' => 'form-control']) !!}
+										{!! Form::input('text', 'uniqid', $data['uniqid'], ['class' => 'form-control']) !!}
 										<label for="company">Unique ID</label>
 									</div>
 								</div>
