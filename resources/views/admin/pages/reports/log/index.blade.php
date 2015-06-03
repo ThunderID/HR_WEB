@@ -29,21 +29,7 @@
 		<div class="card-body">
 			<div class="row">
 
-				<!-- BEGIN SEARCH NAV -->
-				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
-					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary">MENU</li>
-						<li @if(!Input::has('case')) class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'q' => Input::get('q')])}}">Semua</a></li>
-						<li @if(Input::get('case')=='late') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'late', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Terlambat</a></li>
-						<li @if(Input::get('case')=='ontime') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'ontime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Tepat Waktu</a></li>
-						<li @if(Input::get('case')=='earlier') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'earlier', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Pulang Lebih Awal</a></li>
-						<li @if(Input::get('case')=='overtime') class="active" @endif><a href="{{route('hr.report.attendance.detail', ['page' => 1, 'id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'overtime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Lembur</a></li>
-					</ul>
-					<br/>
-				</div><!--end .col -->
-				<!-- END SEARCH NAV -->
-
-				<div class="col-sm-8 col-md-9 col-lg-10">
+				<div class="col-sm-12">
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">
 							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif
@@ -87,35 +73,12 @@
 					<table class="table table-bordered text-sm">
 						<thead>
 							<tr>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">No</th>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Nama</th>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Tanggal</th>
-								<th class="text-center" colspan="2" style="font-weight:700">In</th>
-								<th class="text-center" colspan="2" style="font-weight:700">Out</th>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Total Idle</th>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Total Sleep</th>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Total Active</th>
-								@if(Input::has('case') && Input::get('case')!='ontime')
-									<th  rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
-								@else
-									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Go In</th>
-									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:700">Go Out</th>
-								@endif
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700"></th>
-							</tr>
-							<tr>
-								<th class="text-center" style="font-weight:700">
-									FP
-								</th>
-								<th class="text-center" style="font-weight:700">
-									TR
-								</th>
-								<th class="text-center" style="font-weight:700">
-									FP
-								</th>
-								<th class="text-center" style="font-weight:700">
-									TR
-								</th>
+								<th class="text-center" style="vertical-align:middle;font-weight:700">No</th>
+								<th class="text-center" style="vertical-align:middle;font-weight:700">Nama</th>
+								<th class="text-center" style="vertical-align:middle;font-weight:700">Event</th>
+								<th class="text-center" style="vertical-align:middle;font-weight:700">Tanggal</th>
+								<th class="text-center" style="vertical-align:middle;font-weight:700">Jam</th>
+								<th class="text-center" style="vertical-align:middle;font-weight:700">PC</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -123,79 +86,21 @@
 							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
 							@foreach($data as $key => $value)
 								<tr>
-									<td rowspan="{{ count($data) }}" class="text-center text-sm">{{ $key+1 }}.</td>
-									<td rowspan="{{ count($data) }}" class="text-sm">
+									<td class="text-center text-sm">{{ $key+1 }}.</td>
+									<td class="text-sm">
 										{{$person['name']}}
 									</td>
 									<td class="text-center text-sm">
-										@if($value['has_schedule'])
-											<span class ="badge style-info text-sm">
-												{{date('Y-m-d', strtotime($value['on']))}}
-											</span>
-										@else
-											<span class ="badge style-warning text-sm">
-												{{date('Y-m-d', strtotime($value['on']))}}
-											</span>
-										@endif
-									</td>	
-									<td class="text-center text-sm">
-										{{date("H:i:s", strtotime($value['fp_start']))}}
+										{{str_replace('_',' ',$value['name'])}}
 									</td>
 									<td class="text-center text-sm">
-										{{date("H:i:s", strtotime($value['start']))}}
+										@date_indo($value['on'])
 									</td>
 									<td class="text-center text-sm">
-										{{date("H:i:s", strtotime($value['fp_end']))}}
+										{{date("H:i:s", strtotime($value['on']))}}
 									</td>
 									<td class="text-center text-sm">
-										{{date("H:i:s", strtotime($value['end']))}}
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['total_idle'])}}
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['total_sleep'])}}
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['total_active'])}}
-									</td>
-									@if(Input::has('case') && Input::get('case')!='ontime')
-										<td class="text-center text-sm">
-											<?php 
-												switch (Input::get('case')) 
-												{
-													case 'late':
-														$margin = 0 - ($value['margin_start']);
-														break;
-													case 'ontime':
-														$margin = null;
-														break;
-													case 'earlier':
-														$margin = 0 - ($value['margin_end']);
-														break;
-													case 'overtime':
-														$margin = ($value['margin_end']);
-														break;
-													default:
-														$margin = null;
-														break;
-												}
-											;?>
-											{{gmdate("H:i:s", $margin)}}
-										</td>
-									@else
-										@foreach($value['notes'] as $key2 => $value2)
-											<td class="text-center text-sm">
-												<span class ="badge style-{{$label[$value2]}} text-sm mt-5">
-													{{$value2}}
-												</span>
-											</td>
-										@endforeach
-									@endif
-									<td class="text-sm">
-										<span class ="badge text-sm mt-5">
-											<a href ="{{route('hr.report.attendance.log', ['id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
-										</span>
+										{{$value['pc']}}
 									</td>
 								</tr>
 							@endforeach

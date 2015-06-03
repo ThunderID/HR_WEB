@@ -126,6 +126,17 @@ class ReportController extends Controller {
 	function detailAttendance($personid)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		$results 									= API::person()->show($personid, []);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$person 									= json_decode(json_encode($contents->data), true);
+
 		if(Input::has('start'))
 		{
 			list($d,$m,$y) 							= explode('/', Input::get('start'));
@@ -133,11 +144,11 @@ class ReportController extends Controller {
 			list($d,$m,$y) 							= explode('/', Input::get('end'));
 			$end 									= "$y-$m-$d";
 
-			$search 								= ['personid' => $personid,'local' => true,'WithAttributes' => ['person'], 'ondate'=> [$start, $end]];
+			$search 								= ['personid' => $personid,'local' => true, 'ondate'=> [$start, $end]];
 		}
 		else
 		{
-			$search 								= ['personid' => $personid,'local' => true,'WithAttributes' => ['person']];
+			$search 								= ['personid' => $personid,'local' => true];
 		}
 		$sort 										= [];
 
@@ -207,6 +218,108 @@ class ReportController extends Controller {
 		$this->layout->content->controller_name 	= $this->controller_name;
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
+		$this->layout->content->person 				= $person;
+		// $this->layout->content->branches 			= $branches;
+
+		return $this->layout;
+	}
+
+	function detailLog($personid)
+	{
+		// ---------------------- LOAD DATA ----------------------
+		$results 									= API::person()->show($personid, []);
+
+		$contents 									= json_decode($results);
+
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$person 									= json_decode(json_encode($contents->data), true);
+
+		if(Input::has('start'))
+		{
+			list($d,$m,$y) 							= explode('/', Input::get('start'));
+			$start 									= "$y-$m-$d";
+			list($d,$m,$y) 							= explode('/', Input::get('end'));
+			$end 									= "$y-$m-$d";
+
+			$search 								= ['personid' => $personid, 'ondate'=> [$start, $end]];
+		}
+		else
+		{
+			$search 								= ['personid' => $personid];
+		}
+		$sort 										= [];
+
+		if(Input::has('case'))
+		{
+			switch (Input::get('case')) 
+			{
+				case 'late':
+					$search['late']					= true;
+					$sort 							= ['margin_start' => 'asc'];
+					break;
+				case 'ontime':
+					$search['ontime']				= true;
+					$sort 							= ['margin_start' => 'desc'];
+					break;
+				case 'earlier':
+					$search['earlier']				= true;
+					$sort 							= ['margin_end' => 'asc'];
+					break;
+				case 'overtime':
+					$search['overtime']				= true;
+					$sort 							= ['margin_end' => 'desc'];
+					break;
+				default:
+					App::abort('404');
+				break;
+			}
+		}
+
+		$results 									= API::log()->index(1, $search, $sort, 100);
+		
+		$contents 									= json_decode($results);
+		if(!$contents->meta->success)
+		{
+			App::abort(404);
+		}
+
+		$data 										= json_decode(json_encode($contents->data), true);
+
+		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+
+		// $search 									= ['organisationid' => Session::get('user.organisation')];
+
+		// if(Input::has('branch'))
+		// {
+		// 	$search['name']							= Input::get('branch');
+		// 	$search['DisplayDepartments']			= '';
+		// }
+
+		// $sort 										= ['name' => 'asc'];
+
+		// $results_2 									= API::branch()->index(1, $search, $sort);
+
+		// $contents_2 								= json_decode($results_2);
+
+		// if(!$contents_2->meta->success)
+		// {
+		// 	App::abort(404);
+		// }
+		
+		// $branches 									= json_decode(json_encode($contents_2->data), true);
+
+		// ---------------------- GENERATE CONTENT ----------------------
+		$this->layout->page_title 					= ucwords('Generate Log Report');
+
+		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.log.index');
+		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->data 				= $data;
+		$this->layout->content->paginator 			= $paginator;
+		$this->layout->content->person 				= $person;
 		// $this->layout->content->branches 			= $branches;
 
 		return $this->layout;

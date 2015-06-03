@@ -75,7 +75,7 @@ class RouteServiceProvider extends ServiceProvider {
 					$orgids									= [];
 					foreach ($contents->data->works as $key => $value) 
 					{
-						if(!in_array($value->branch->organisation->id, $orgids))
+						if(!in_array($value->branch->organisation_id, $orgids))
 						{
 							$organisations[]							= ['id' => $value->branch->organisation->id, 'name' => $value->branch->organisation->name];
 							$orgids[]									= $value->branch->organisation->id;
@@ -101,11 +101,11 @@ class RouteServiceProvider extends ServiceProvider {
 
 				$contents 										= json_decode($results);
 
-				if(!$contents->meta->success)
-				{
-					Session::flush();
-					return Redirect::guest(route('hr.login.get'));
-				}
+				// if(!$contents->meta->success)
+				// {
+				// 	Session::flush();
+				// 	return Redirect::guest(route('hr.login.get'));
+				// }
 
 			}
 		});
@@ -276,6 +276,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.report.wages.get'							=> ['8', 'read'],
 							'hr.report.attendance.detail'					=> ['8', 'read'],
 							'hr.report.attendance.post'						=> ['8', 'read'],
+							'hr.report.attendance.log'						=> ['8', 'read'],
 							'hr.report.wages.post'							=> ['8', 'read'],
 							'hr.report.performance.post'					=> ['8', 'read'],
 							'hr.report.attendance.csv'						=> ['8', 'read'],
