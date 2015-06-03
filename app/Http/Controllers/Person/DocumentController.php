@@ -131,7 +131,7 @@ class DocumentController extends Controller {
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.persons.show', [$content->data->id]);
+			return Redirect::route('hr.persons.show', [$content->data->id])->with('alert_success', 'Dokumen Personalia sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
