@@ -191,7 +191,9 @@ class ScheduleController extends Controller {
 		$calendar 									= json_decode(json_encode($contents->data), true);
 
 		// schedule
-		$schedule = [];
+		$schedule 	= [];
+		$workdays	= [];
+		$wd			= ['senin' => 'monday', 'selasa' => 'tuesday', 'rabu' => 'wednesday', 'kamis' => 'thursday', 'jumat' => 'friday', 'sabtu' => 'saturday', 'minggu' => 'sunday'];
 		$begin 		= new DateTime( Input::get('start') );
 		$ended 		= new DateTime( Input::get('end')  );
 
@@ -199,7 +201,18 @@ class ScheduleController extends Controller {
 		$periods 	= new DatePeriod($begin, $interval, $ended);
 		$k=0;
 		$j=0;
-		$date 		= [];
+		
+		if(isset($schedules[0]['person']['workscalendars'][0]))
+		{
+			$harikerja 					= explode(',',$schedules[0]['person']['workscalendars'][0]['calendar']['workdays']);
+
+			foreach ($harikerja as $key => $value) 
+			{
+				$value 					= str_replace(' ', '', $value);
+				$workdays[]				= $wd[strtolower($value)];
+			}
+		}
+
 		foreach ( $periods as $period )
 		{
 			foreach($schedules as $i => $sh)	
@@ -238,34 +251,39 @@ class ScheduleController extends Controller {
 			}
 			if(!in_array($period->format('Y-m-d'), $date) && count($schedules))
 			{
-				$schedule[$k]['id']				= $sh['id'];
-				$schedule[$k]['title'] 			= 'normal';
-				$schedule[$k]['start']			= $period->format('Y-m-d').'T'.$sh['person']['workscalendars'][0]['calendar']['start'];
-				$schedule[$k]['end']			= $period->format('Y-m-d').$sh['person']['workscalendars'][0]['calendar']['end'];
-				$schedule[$k]['tes']			= 'oke';
-				$schedule[$k]['status']			= 'yea';
-				$schedule[$k]['affect_salary']	= true;
-				$schedule[$k]['mode']			= 'schedule';
-				$schedule[$k]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+				if(in_array(strtolower($period->format('l')), $workdays))
+				{
+					$schedule[$k]['id']				= $sh['id'];
+					$schedule[$k]['title'] 			= 'normal';
+					$schedule[$k]['start']			= $period->format('Y-m-d').'T'.$sh['person']['workscalendars'][0]['calendar']['start'];
+					$schedule[$k]['end']			= $period->format('Y-m-d').'T'.$sh['person']['workscalendars'][0]['calendar']['end'];
+					$schedule[$k]['tes']			= 'oke';
+					$schedule[$k]['status']			= 'yea';
+					$schedule[$k]['affect_salary']	= true;
+					$schedule[$k]['mode']			= 'schedule';
+					$schedule[$k]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+					$k++;
+				}
 				$date[]							= $period->format('Y-m-d');
-				$k++;
 			}
 			if(!in_array($period->format('Y-m-d'), $date) && !count($schedules))
 			{
-				$schedule[$k]['id']				= null;
-				$schedule[$k]['title'] 			= 'normal';
-				$schedule[$k]['start']			= $period->format('Y-m-d').'T'.$calendar['workscalendars'][0]['calendar']['start'];
-				$schedule[$k]['end']			= $period->format('Y-m-d').$calendar['workscalendars'][0]['calendar']['end'];
-				$schedule[$k]['tes']			= 'oke';
-				$schedule[$k]['status']			= 'yea';
-				$schedule[$k]['affect_salary']	= true;
-				$schedule[$k]['mode']			= 'schedule';
-				$schedule[$k]['del_action']		= '';
+				if(in_array(strtolower($period->format('l')), $workdays))
+				{
+					$schedule[$k]['id']				= null;
+					$schedule[$k]['title'] 			= 'normal';
+					$schedule[$k]['start']			= $period->format('Y-m-d').'T'.$calendar['workscalendars'][0]['calendar']['start'];
+					$schedule[$k]['end']			= $period->format('Y-m-d').'T'.$calendar['workscalendars'][0]['calendar']['end'];
+					$schedule[$k]['tes']			= 'oke';
+					$schedule[$k]['status']			= 'yea';
+					$schedule[$k]['affect_salary']	= true;
+					$schedule[$k]['mode']			= 'schedule';
+					$schedule[$k]['del_action']		= '';
+					$k++;
+				}
 				$date[]							= $period->format('Y-m-d');
-				$k++;
 			}
 		}
-
 		// log	
 		$search 								= ['personid' => $personid,'local' => true,'WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
 
