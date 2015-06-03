@@ -167,7 +167,13 @@
 		$(document).ready(function () {
 			$('.getContacts').select2({
 				tokenSeparators: [",", " ", "_", "-"],
-				tags: ['BBM', 'Email', 'Line', 'Mobile', 'Phone', 'Whatsapp'],
+				@if (Input::get('item') == 'email')
+					tags: ['Email'],
+				@elseif (Input::get('item') == 'phone')
+					tags: ['Phone'],
+				@else
+					tags: ['BBM', 'Line', 'Whatsapp'],
+				@endif
 				placeholder: "",
 				maximumSelectionSize: 1,
 				selectOnBlur: true

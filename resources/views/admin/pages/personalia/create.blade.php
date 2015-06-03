@@ -161,29 +161,29 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$(".date_mask").inputmask();
-	        $("#document_upload").dropzone({ 
-    			url: '{{ route("hr.images.upload") }}' ,
-    			maxFilesize: 1,
-    			addRemoveLinks: true,
-    			init: function(){
-    				thisZone = this;
-    				this.on('success', function(file){
-    					var accepted_files = this.getAcceptedFiles();
-    					var uploaded_files = [];
-    					var gallery_json;
+	     //    $("#document_upload").dropzone({ 
+    		// 	url: '{{ route("hr.images.upload") }}' ,
+    		// 	maxFilesize: 1,
+    		// 	addRemoveLinks: true,
+    		// 	init: function(){
+    		// 		thisZone = this;
+    		// 		this.on('success', function(file){
+    		// 			var accepted_files = this.getAcceptedFiles();
+    		// 			var uploaded_files = [];
+    		// 			var gallery_json;
 
-    					if (accepted_files.length > 0)
-    					{
-    						accepted_files.forEach(function(cur_value, index, array){
-    							var response = $.parseJSON(cur_value.xhr.response);
-    							uploaded_files.push(response.file.url);
-    						});
-    					}
+    		// 			if (accepted_files.length > 0)
+    		// 			{
+    		// 				accepted_files.forEach(function(cur_value, index, array){
+    		// 					var response = $.parseJSON(cur_value.xhr.response);
+    		// 					uploaded_files.push(response.file.url);
+    		// 				});
+    		// 			}
 
-    					$('#gallery_file_url').val(JSON.stringify(uploaded_files));
-    				});
-    			}
-    		});	
+    		// 			$('#gallery_file_url').val(JSON.stringify(uploaded_files));
+    		// 		});
+    		// 	}
+    		// });	
 
 	        $('.profile_picture').thumbnail_image_upload({
 	        	width:"100%",
@@ -221,12 +221,5 @@
     		// 	}
     		// });	        
         });	
-		
-		// $(function(){
-		// 	var mockFile = { name: "{!! $data['avatar'] !!}" };
-		// 	var myDzone = new Dropzone("#profile_picture");
-		// 	myDzone.options.addedfile.call(myDzone, mockFile);
-		// 	myDzone.options.thumbnail.call(myDzone, mockFile, "{!! $data['avatar'] !!}");
-		// })
 	</script>
 @stop

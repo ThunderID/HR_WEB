@@ -65,10 +65,10 @@
 			$('.time_mask').inputmask('h:s', {placeholder: 'hh:mm'});
 			$('.getWorkdays').select2({
 				tokenSeparators: [",", " ", "_", "-", "."],
-				tags: [],
-				minimumInputLength: 1,
+				tags: ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'],
 				placeholder: "",
-				selectOnBlur: true
+				selectOnBlur: true,
+				createSearchChoice: function() { return null; }
 	        });
 		});
 	</script>
