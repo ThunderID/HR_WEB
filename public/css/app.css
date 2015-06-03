@@ -300,3 +300,8 @@
   font-size: 13px;
   border-bottom: none;
 }
+
+/* untuk box list*/
+.box {
+  height: 198px;
+}

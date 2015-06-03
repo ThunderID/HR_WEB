@@ -90,8 +90,8 @@
 							@if($key%2==0 && $key!=0)
 								</div>
 								<div class="list-results" style="margin-bottom:-1px;border-bottom:1px solid #eee">
-							@endif											
-							<div class="col-xs-12 col-lg-6 hbox-xs">
+							@endif
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 hbox-xs box">
 								@include('admin.widgets.contents', [
 									'route'				=> route('hr.persons.show', ['id' => $value['id']]),
 									'mode'				=> 'list',
@@ -125,5 +125,16 @@
 			var action	= $(e.relatedTarget).attr('data-delete-action');
 			$(this).parent().attr('action', action);
 		});
+
+		$(document).ready(function(){
+			$('')
+			
+		});
+
+		function check_height()
+		{
+			return $(this).height();
+		}
+
 	</script>
 @stop

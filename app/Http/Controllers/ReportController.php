@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use Input, Session, App, Config, Paginator, Redirect, Validator;
+use Input, Session, App, Config, Paginator, Redirect, Validator, Request;
 use API, Excel;
 use App\Http\Controllers\Controller;
 
@@ -218,7 +218,7 @@ class ReportController extends Controller {
 		$this->layout->page_title 					= ucwords('Generate Report');
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.form');
-		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->controller_name 	= Request::segment(3);
 		$this->layout->content->data 				= null;
 
 		return $this->layout;

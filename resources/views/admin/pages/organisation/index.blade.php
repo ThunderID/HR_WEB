@@ -68,6 +68,18 @@
 			</div>
 		</div>
 	</div>
-
+	{!! Form::open(array('route' => array('hr.organisations.delete', 0),'method' => 'POST')) !!}
+		<div class="modal fade modalOrganisationDelete" id="del_organisation_modal" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal" aria-hidden="true">
+			@include('admin.modals.delete.delete')
+		</div>	
+	{!! Form::close() !!}
 @stop
 
+@section('js')
+	<script>
+		$('.modalOrganisationDelete').on('show.bs.modal', function(e) {
+			var action = $(e.relatedTarget).attr('data-delete-action');
+			$(this).parent().attr('action', action);
+		});
+	</script>
+@stop

@@ -5,14 +5,17 @@
 		<div class="card contain-sm style-transparent">
 			<div class="card-body">
 				<div class="row">
-					<div class="col-sm-6">
-						<br/>
+					<div class="col-md-12">
 						<span class="text-lg text-bold text-primary">LOGIN USER</span>
-
 						<br/><br/>
+						@include('admin.widgets.alerts')	
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<br>
 						<form class="form floating-label" action="{{ route('hr.login.post') }}" accept-charset="utf-8" method="post">
 							<input type='hidden' name='_token' value="{{csrf_token()}}">
-							@include('admin.widgets.alerts')
 							<div class="form-group">
 								<input type="email" class="form-control" id="email" name="email" autofocus>
 								<label for="email">Email</label>
@@ -37,8 +40,8 @@
 						</form>
 					</div><!--end .col -->
 					
-					<div class="col-sm-5 col-sm-offset-1 text-center">
-						<br><br>
+					<div class="col-md-5 col-md-offset-1 text-center">
+						<br>
 						<h3 class="text-light">
 							Unauthorized User?
 						</h3>

@@ -1,6 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>Report</li>
+	<li>Report</li>
+	<li class='active'>{{ $controller_name }}</li>
 @stop
 
 @section('content')

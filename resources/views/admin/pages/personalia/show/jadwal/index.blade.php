@@ -71,7 +71,7 @@
 
 	<script type="text/javascript">
 		// spesification for fullcalendar
-		var cal_height 	= 500;
+		var cal_height 	= 750;
 		var cal_link 	= "{{ route('hr.schedule.person.list', ['person_id' => $data['id'], '1']) }}";		
 
 		// modal schedule
