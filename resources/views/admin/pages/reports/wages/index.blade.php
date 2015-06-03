@@ -96,60 +96,62 @@
 						</div>
 					</div><!--end .margin-bottom-xxl -->
 
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">No</th>
-								<th rowspan="2" style="vertical-align:middle;font-weight:700">Nama</th>
-								<th class="text-center" rowspan="2" style="vertical-align:middle;"><span style="font-weight:700">Hak Cuti</span> <br> (Hari)</th>
-								<th colspan="{{count($status)}}" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Pengurang Cuti</span> <br> (Hari)</th>
-								<th rowspan="2" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Penambah Cuti</span> <br> (Hari)</th>
-								<th rowspan="2" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Sisa Cuti</span> <br> (Hari)</th>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Faktor <br/>Pengurang <br/>Gaji</th>
-							</tr>
-							<tr>
-								@foreach($status as $key2 => $value2)
-									<th>
-										{{ucwords($value2)}}
-									</th>
-								@endforeach
-							</tr>
-						</thead>
-						<tbody>
-							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
-							@foreach($data as $key => $value)
+					@if(count($data))
+						<table class="table table-bordered">
+							<thead>
 								<tr>
-									<td class="text-center text-sm">{{ $key+1 }}.</td>
-									<td class="text-sm">
-										{{$value['name']}}
-									</td>
-									<td class="text-center text-sm">
-										{{$value['quota']}}
-									</td>
-									@forelse($status as $key2 => $value2)
-										<td class="text-sm">
-											{{(isset($value['status'][$value2]) ? $value['status'][$value2] : '')}}
-										</td>
-									@empty
-										<td></td>
-									@endforelse
-									<td class="text-sm">
-										@if($value['plus_quota'] != 0 )
-											{{$value['plus_quota']}}
-										@endif
-									</td>
-									<td class="text-center text-sm">
-										{{$value['residue_quota']}}
-									</td>
-									<td class="text-sm">
-										@if($value['residue_quota'] < 0 )
-											{{0 - $value['residue_quota']}}
-										@endif
-									</td>
+									<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">No</th>
+									<th rowspan="2" style="vertical-align:middle;font-weight:700">Nama</th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;"><span style="font-weight:700">Hak Cuti</span> <br> (Hari)</th>
+									<th colspan="{{count($status)}}" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Pengurang Cuti</span> <br> (Hari)</th>
+									<th rowspan="2" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Penambah Cuti</span> <br> (Hari)</th>
+									<th rowspan="2" class="text-center" style="vertical-align:middle"><span style="font-weight:700">Sisa Cuti</span> <br> (Hari)</th>
+									<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:700">Faktor <br/>Pengurang <br/>Gaji</th>
 								</tr>
-							@endforeach
-						</tbody>
-					</table>
+								<tr>
+									@foreach($status as $key2 => $value2)
+										<th>
+											{{ucwords($value2)}}
+										</th>
+									@endforeach
+								</tr>
+							</thead>
+							<tbody>
+								<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
+								@foreach($data as $key => $value)
+									<tr>
+										<td class="text-center text-sm">{{ $key+1 }}.</td>
+										<td class="text-sm">
+											{{$value['name']}}
+										</td>
+										<td class="text-center text-sm">
+											{{$value['quota']}}
+										</td>
+										@forelse($status as $key2 => $value2)
+											<td class="text-sm">
+												{{(isset($value['status'][$value2]) ? $value['status'][$value2] : '')}}
+											</td>
+										@empty
+											<td></td>
+										@endforelse
+										<td class="text-sm">
+											@if($value['plus_quota'] != 0 )
+												{{$value['plus_quota']}}
+											@endif
+										</td>
+										<td class="text-center text-sm">
+											{{$value['residue_quota']}}
+										</td>
+										<td class="text-sm">
+											@if($value['residue_quota'] < 0 )
+												{{0 - $value['residue_quota']}}
+											@endif
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					@endif
 				</div>
 			</div>
 		</div>
