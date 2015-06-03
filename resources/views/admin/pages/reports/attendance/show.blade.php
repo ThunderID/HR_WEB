@@ -1,6 +1,8 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li class='active'>{{ucwords(($controller_name))}}</li>
+	<li>{{ucwords(($controller_name))}}</li>
+	<li>Attendance</li>
+	<li class='active'>{{ ucwords($data[0]['person']['name']) }}</li>
 @stop
 
 @section('content')
@@ -48,7 +50,7 @@
 						</span>
 						<div class="pull-right">
 							<div class="btn-group">
-								<button type="button" class="btn ink-reaction btn-primary dropdown-toggle" data-toggle="dropdown">
+								<button type="button" class="btn ink-reaction btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
 									<i class="fa fa-file"></i> &nbsp;Export to <i class="fa fa-caret-down"></i>
 								</button>
 								<ul class="dropdown-menu animation-expand" role="menu">

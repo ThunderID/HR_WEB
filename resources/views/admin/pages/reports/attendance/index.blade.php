@@ -69,7 +69,7 @@
 						</span>
 						<div class="pull-right">
 							<div class="btn-group">
-								<button type="button" class="btn ink-reaction btn-primary dropdown-toggle" data-toggle="dropdown">
+								<button type="button" class="btn ink-reaction btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
 									<i class="fa fa-file"></i> &nbsp;Export to <i class="fa fa-caret-down"></i>
 								</button>
 								<ul class="dropdown-menu animation-expand" role="menu">
@@ -80,10 +80,11 @@
 										<a href="{{ route('hr.report.attendance.csv', ['page' => 1, 'mode' => 'xls', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;XLS</a>
 									</li>
 								</ul>
-							</div><!--end .btn-group -->
+							</div>
+							
 							<!-- <a href="{{ route('hr.report.attendance.csv', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a> -->
 						</div>
-						<div class="btn-group btn-group-sm pull-right">
+						<div class="btn-group btn-group-sm pull-right mr-10">
 							@if (Input::get('q'))
 								<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end')]) }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
 							@endif
