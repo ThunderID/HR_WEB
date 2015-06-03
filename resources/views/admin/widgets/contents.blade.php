@@ -228,9 +228,6 @@
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
-						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
-							<i class="fa fa-trash"></i>
-						</a>
 						<a class="btn btn-icon-toggle pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-item={{$value['item']}} data-modal-address-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
 							<i class="fa fa-pencil"></i>
 						</a>
@@ -247,9 +244,6 @@
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
-						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
-							<i class="fa fa-trash"></i>
-						</a>
 						<a class="btn btn-icon-toggle pull-right btn_modal" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>
 					</div>
 				</div>

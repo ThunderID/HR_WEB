@@ -99,6 +99,7 @@
 				$('.modal_schedule_btn_del').attr('data-delete-action', delete_action);
 				$('.modal_schedule_btn_del').removeClass('hide');
 				$(this).find('.modal_schedule_btn_save').text('Edit');
+				$('#formModalLabel').text('Edit Schedule');
 
 				if (is_affect_workleave == 1) {
 					$('.modal_is_affect_workleave').attr('checked', true);
@@ -119,6 +120,7 @@
 				$('.modal_schedule_btn_del').addClass('hide');
 				$('.modal_is_affect_workleave').attr('checked', false);
 				$(this).find('.modal_schedule_btn_save').text('Tambah');
+				$('#formModalLabel').text('Tambah Schedule');
 			}
 		});
 		

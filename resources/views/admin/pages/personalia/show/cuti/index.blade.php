@@ -97,6 +97,7 @@
 				$('.modal_workleave_start').val(workleave_start);
 				$('.modal_workleave_end').val(workleave_end);
 				$('.modal_workleave_btn').text('Edit');
+				$('#formModalLabel').text('Edit Cuti');
 
 				if (workleave_default == 0) {
 					$('.modal_is_default').attr('checked', false);
@@ -113,6 +114,7 @@
 				$('.modal_workleave_end').val('');
 				$('.modal_is_default').attr('checked', false);				
 				$('.modal_workleave_btn').text('Tambah');
+				$('#formModalLabel').text('Tambah Cuti');
 			}
 		});
 		
