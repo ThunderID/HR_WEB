@@ -34,7 +34,7 @@
 						<span class="text-light text-lg">
 							@if(count($data)) Total data <strong>{{count($data)}}</strong> @else Tidak ada data @endif
 						</span>
-						<div class="pull-right">
+						<!-- <div class="pull-right">
 							<div class="btn-group">
 								<button type="button" class="btn ink-reaction btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
 									<i class="fa fa-file"></i> &nbsp;Export to <i class="fa fa-caret-down"></i>
@@ -48,8 +48,8 @@
 									</li>
 								</ul>
 							</div>
-							<!-- <a href="{{ route('hr.report.attendance.csvd', ['id' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a> -->
-						</div>
+							<a href="{{ route('hr.report.attendance.csvd', ['id' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}" class="btn btn-primary ink-reaction"><i class="fa fa-file-excel-o"></i> Export to CSV</a>
+						</div> -->
 						<div class="btn-group btn-group-sm pull-right">
 							@if (Input::get('q'))
 								<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end')]) }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>

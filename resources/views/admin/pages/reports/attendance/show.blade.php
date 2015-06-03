@@ -55,10 +55,10 @@
 								</button>
 								<ul class="dropdown-menu animation-expand" role="menu">
 									<li>
-										<a href="{{ route('hr.report.attendance.csvd', ['page' => 1, 'mode' => 'csv', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;CSV</a>
+										<a href="{{ route('hr.report.attendance.detail', ['id' => $person['id'],'page' => 1, 'mode' => 'csv', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;CSV</a>
 									</li>
 									<li>
-										<a href="{{ route('hr.report.attendance.csvd', ['page' => 1, 'mode' => 'xls', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;XLS</a>
+										<a href="{{ route('hr.report.attendance.detail', ['id' => $person['id'],'page' => 1, 'mode' => 'xls', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;XLS</a>
 									</li>
 								</ul>
 							</div>
@@ -123,8 +123,8 @@
 							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
 							@foreach($data as $key => $value)
 								<tr>
-									<td rowspan="{{ count($data) }}" class="text-center text-sm">{{ $key+1 }}.</td>
-									<td rowspan="{{ count($data) }}" class="text-sm">
+									<td class="text-center text-sm">{{ $key+1 }}.</td>
+									<td class="text-sm">
 										{{$person['name']}}
 									</td>
 									<td class="text-center text-sm">
@@ -194,7 +194,7 @@
 									@endif
 									<td class="text-sm">
 										<span class ="badge text-sm mt-5">
-											<a href ="{{route('hr.report.attendance.log', ['id' => $person['id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
+											<a href ="{{route('hr.report.attendance.log', ['id' => $person['id'], 'start' => date('d/m/Y', strtotime($value['on'])), 'end' => date('d/m/Y', strtotime($value['on'].' + 1 day'))])}}"> Detail</a>
 										</span>
 									</td>
 								</tr>
