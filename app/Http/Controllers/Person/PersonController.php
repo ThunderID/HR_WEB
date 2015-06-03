@@ -333,7 +333,7 @@ class PersonController extends Controller {
 						$contact['is_default']			= false;
 					}
 					
-					$contact['item']					= $value;
+					$contact['item']					= strtolower($value);
 					$input['contacts'][$value][] 		= $contact;
 				}
 			}
