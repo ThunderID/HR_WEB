@@ -17,7 +17,7 @@
 		</ul>
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->
-	<div class="headerbar-right">
+	<div class="headerbar-right ml-30">
 		<ul class="header-nav header-nav-profile">
 			<li class="dropdown">
 				<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
