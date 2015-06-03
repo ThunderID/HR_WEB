@@ -28,6 +28,21 @@ class RelativeController extends Controller {
 		}
 
 		$relatives 									= json_decode(json_encode($contents->data), true);
+		if(count($relatives) <= 0)
+		{
+			print_r(count($relatives));exit;
+			$search 								= ['checkrelationof' => $personid, 'CurrentContact' => 'updated_at'];
+			$sort 									= ['name' => 'asc'];
+
+			$results 								= API::person()->index($page, $search, $sort);
+			$contents 								= json_decode($results);
+
+			if(!$contents->meta->success)
+			{
+				App::abort(404);
+			}
+			$relatives 								= json_decode(json_encode($contents->data), true);
+		}
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
