@@ -130,7 +130,7 @@
 			<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						{!! Form::open(array('route' => array('hr.organisation.documents.delete', $document['id']),'method' => 'POST')) !!}
+						{!! Form::open(array('url' => route('hr.organisation.documents.delete', [$document['id'], 'org_id' => $data['id']]),'method' => 'POST')) !!}
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h4 class="modal-title" id="simpleModalLabel">Hapus Data Dokumen</h4>

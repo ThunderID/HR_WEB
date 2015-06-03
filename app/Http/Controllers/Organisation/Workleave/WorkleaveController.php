@@ -347,7 +347,6 @@ class WorkleaveController extends Controller {
 			{
 				$org_id 								= Session::get('user.organisation');
 			}
-
 			$results 									= API::workleave()->destroy($org_id, $id);
 			$contents 									= json_decode($results);
 
@@ -357,7 +356,7 @@ class WorkleaveController extends Controller {
 			}
 			else
 			{
-				return Redirect::back()->with('alert_success', 'Cuti "' . $contents->data->name. '" sudah dihapus');
+				return Redirect::route('hr.organisation.workleaves.index', [1, 'org_id' => $org_id])->with('alert_success', 'Cuti "' . $contents->data->name. '" sudah dihapus');
 			}
 		}
 		else

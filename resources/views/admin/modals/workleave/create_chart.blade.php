@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Cuti untuk posisi tertentu</h4>
+				<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Cuti untuk karyawan pada posisi tertentu</h4>
 			</div>
 			<div class="modal-body style-default-light">
 				<div class="row">
@@ -19,12 +19,10 @@
 						
 				<div class="row">
 					<div class="tabs col-md-12  pt-20">
-						<div class="col-md-12">
 							<div class="form-group">
 								<input name="chart" id="chart" class="form-control getCompany">
 								<label for="chart">Nama</label>
 							</div>
-						</div>
 					</div>					
 				</div>	
 				<div class="row">
@@ -33,9 +31,9 @@
 							<div class="input-daterange input-group">
 								<div class="input-group-content">
 									{!! Form::input('text', 'start', null, ['class' => 'form-control modal_workleave_start date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
-									<label>Tanggal</label>
+									<label>Berlaku Tanggal</label>
 								</div>
-								<span class="input-group-addon">to</span>
+								<span class="input-group-addon">-</span>
 								<div class="input-group-content">
 									{!! Form::input('text', 'end', null, ['class' => 'form-control modal_workleave_end date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
 									<div class="form-control-line"></div>
