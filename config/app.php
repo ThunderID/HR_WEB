@@ -163,6 +163,7 @@ return [
 		'ThunderID\Workleave\WorkleaveServiceProvider',
 		'ThunderID\Template\TemplateServiceProvider',
 		'ThunderID\Finger\FingerServiceProvider',
+		'ThunderID\Chauth\ChauthServiceProvider',
 
 	],
 

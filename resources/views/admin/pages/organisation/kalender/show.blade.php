@@ -37,13 +37,23 @@
 						<div class="row">
 							<div class="margin-bottom-xxl">
 								<h1 class="text-light no-margin">@ucwords($calendar['name'])</h1>
-								<h5 class="pb-30 border-bottom">
+								<h5 class="pb-10">
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
 									<?php $workdays = explode(',', $calendar['workdays']);?>
 									@foreach($workdays as $key => $value)
 										<span class="badge style-info text-sm opacity-75 mt-5">{{$value}}</span>
 									@endforeach
 								</h5>
+								<h5 class="pb-30 border-bottom">
+									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
+									<span class="badge style-success text-sm opacity-75 mt-5"> 
+										@time_indo($calendar['start'])
+									 </span>
+									<span class="badge style-success text-sm opacity-75 mt-5"> 
+									 	@time_indo($calendar['end'])
+									 </span>
+								</h5>
+								
 								<h3 class="text-light no-margin pt-20">
 									<span class="selected-day">&nbsp;</span> &nbsp;<small class="selected-date">&nbsp;</small>
 									<span class="pull-right">
