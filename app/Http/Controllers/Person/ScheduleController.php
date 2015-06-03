@@ -226,15 +226,14 @@ class ScheduleController extends Controller {
 					{
 						$schedule[$k]['start']		= $sh['on'].'T'.$sh['start'];
 						$schedule[$k]['end']		= $sh['on'].'T'.$sh['end'];
-						$schedule[$k]['tes']		= 'oke';
 					}
 					else 
 					{
 						$schedule[$k]['start']		= $sh['on'].'T'.$sh['start'];
-						$schedule[$k]['tes']		= 'not';
-
 					}
+
 					$schedule[$k]['status']			= $sh['status'];
+
 					if($sh['status'] == 'absence_workleave')
 					{
 						$schedule[$k]['affect_salary']	= true;
@@ -243,8 +242,10 @@ class ScheduleController extends Controller {
 					{
 						$schedule[$k]['affect_salary']	= false;
 					}
+					
 					$schedule[$k]['mode']			= 'schedule';
 					$schedule[$k]['del_action']		= route('hr.persons.schedules.delete', ['person_id' => $sh['person_id'], 'id' => $sh['id']]);
+					$schedule[$k]['backgroundColor']= '#ff9800';
 					$k++;
 					$date[]							= $period->format('Y-m-d');
 				}

@@ -144,6 +144,7 @@
 				droppable: true,
 				timeFormat: 'HH:mm',
 				displayEventEnd: true,
+				dayNamesShort: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
 				drop: function (date, allDay) { // this function is called when something is dropped
 					// retrieve the dropped element's stored Event Object
 					var originalEventObject = $(this).data('eventObject');
