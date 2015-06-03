@@ -486,6 +486,7 @@ class CalendarController extends Controller {
 				$schedule[$i]['title'] 	= $sh['name'];
 				$schedule[$i]['start']	= $sh['on'].'T'.$sh['start'];
 				$schedule[$i]['end']	= $sh['on'].'T'.$sh['end'];
+				$schedule[$i]['status']	= $sh['status'];
 
 				if ($sh['name']=='libur') {
 					$schedule[$i]['backgroundColor'] = '#f44336';

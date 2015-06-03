@@ -110,6 +110,7 @@
 			var date_end 		= $(e.relatedTarget).attr('data-date');
 			var start 			= $(e.relatedTarget).attr('data-start');
 			var end 			= $(e.relatedTarget).attr('data-end');
+			var status 			= $(e.relatedTarget).attr('data-status');
 
 			if (id != 0) 
 			{
@@ -119,6 +120,7 @@
 				$('.modal_schedule_date_end').val(date_end);
 				$('.modal_schedule_start').val(start);
 				$('.modal_schedule_end').val(end);
+				$('.modal_schedule_status').val(status);
 				$(this).find('.modal_schedule_btn_save').text('Edit');
 			}
 			else
@@ -129,6 +131,7 @@
 				$('.modal_schedule_date_end').val('');
 				$('.modal_schedule_start').val('');
 				$('.modal_schedule_end').val('');
+				$('.modal_schedule_status').val('');
 				$(this).find('.modal_schedule_btn_save').text('Tambah');
 			}
 		});

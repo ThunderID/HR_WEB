@@ -20,20 +20,18 @@
 						
 				<div class="row">
 					<div class="tabs col-md-12  pt-20">
-						<div class="@if(Route::currentRouteName()=='hr.persons.schedules.index') col-md-6 @else col-md-12 @endif">
+						<div class="col-md-6">
 							<div class="form-group">
 								{!! Form::input('text', 'name', null, ['class' => 'form-control modal_schedule_name']) !!}
 								<label for="item[1]">Nama</label>
 							</div>
 						</div>
-						@if(Route::currentRouteName() == 'hr.persons.schedules.index')
 							<div class="col-md-6">
 								<div class="form-group">
-									{!! Form::input('text', 'status', null, ['class' => 'form-control modal_schedule_status']) !!}
+									{!!Form::select('status', ['presence_indoor' => 'Masuk Kantor', 'presence_outdoor' => 'Masuk di luar Kantor', 'absence_workleave' => 'Tidak Masuk, mengurangi cuti', 'absence_not_workleave' => 'Tidak masuk, tidak mengurangi cuti'], null, ['class' => 'form-control modal_schedule_status'])!!}
 									<label for="item[1]">Status</label>
 								</div>
 							</div>
-						@endif
 						<div class="col-md-12">
 							<div class="form-group">
 								<div class="input-daterange input-group">
@@ -41,7 +39,7 @@
 										{!! Form::input('text', 'date_start', null, ['class' => 'form-control modal_schedule_date_start date_mask', 'data-inputmask' => '"alias" : "date"']) !!}							
 										<label>Tanggal</label>
 									</div>
-									<span class="input-group-addon">to</span>
+									<span class="input-group-addon">-</span>
 									<div class="input-group-content">
 										{!! Form::input('text', 'date_end', null, ['class' => 'form-control modal_schedule_date_end date_mask', 'data-inputmask' => '"alias" : "date"']) !!}
 										<div class="form-control-line"></div>
