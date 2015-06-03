@@ -8,7 +8,7 @@
 			<div class="page-header no-border holder" style="margin-top:0px;">
 				<br/>
 				@if(Input::has('item') && Input::get('item')=='address')
-					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-id="0">Tambah Data</button>
+					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#contactCreate" data-modal-address-id="0">Tambah Data</button>
 				@else
 					<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#contactCreate" data-modal-contact-id="0">Tambah Data</button>
 				@endif
@@ -27,7 +27,7 @@
 					'class'				=> ['top'		=> 'height-3']
 				])
 				{!! Form::open(array('url' => route('hr.branches.contacts.delete', ['id' => $value['id'], 'branchid' => $branch['id'], 'org_id' => $branch['organisation_id']]),'method' => 'POST')) !!}
-					<div class="modal fade modalOrganisationDelete" id="del_organisation_modal_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$value['id']}}" aria-hidden="true">
+					<div class="modal fade modalOrganisationDelete" id="del_organisation_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$value['id']}}" aria-hidden="true">
 						@include('admin.modals.delete.delete')
 					</div>	
 				{!! Form::close() !!}
