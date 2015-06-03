@@ -16,6 +16,7 @@ class RelativeController extends Controller {
 	function getIndex($personid, $page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		$reverse									= ['parent' => 'child', 'spouse' => 'spouse', 'partner' => 'partner', 'child' => 'parent'];
 		$search 									= ['checkrelation' => $personid, 'CurrentContact' => 'updated_at'];
 		$sort 										= ['name' => 'asc'];
 
@@ -28,22 +29,25 @@ class RelativeController extends Controller {
 		}
 
 		$relatives 									= json_decode(json_encode($contents->data), true);
-		if(count($relatives) <= 0)
+		
+		$search 									= ['checkrelationof' => $personid, 'CurrentContact' => 'updated_at'];
+		$sort 										= ['name' => 'asc'];
+	
+		$results_2 									= API::person()->index($page, $search, $sort, 6);
+		$contents_2 									= json_decode($results_2);
+
+		if(!$contents_2->meta->success)
 		{
-			print_r(count($relatives));exit;
-			$search 								= ['checkrelationof' => $personid, 'CurrentContact' => 'updated_at'];
-			$sort 									= ['name' => 'asc'];
-
-			$results 								= API::person()->index($page, $search, $sort);
-			$contents 								= json_decode($results);
-
-			if(!$contents->meta->success)
-			{
-				App::abort(404);
-			}
-			$relatives 								= json_decode(json_encode($contents->data), true);
+			App::abort(404);
 		}
-		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
+		$relatives_2 								= json_decode(json_encode($contents_2->data), true);
+
+		foreach ($relatives_2 as $key => $value) 
+		{
+			$value['relationship']					= $reverse[strtolower($value['relationship'])];
+			$relatives[]							= $value;
+		}
+		$paginator 									= new Paginator($contents->pagination->total_data + $contents_2->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page + $contents_2->pagination->per_page, ($contents->pagination->from + $contents_2->pagination->from)/2, $contents->pagination->to + $contents_2->pagination->to);
 
 		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
 		$search['organisationid']					= Session::get('user.organisation');
