@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Input, Session, App, Config, Paginator, Redirect, Validator, Request;
-use API, Excel;
+use API, Excel, Route;
 use App\Http\Controllers\Controller;
 
 class ReportController extends Controller {
@@ -138,10 +138,10 @@ class ReportController extends Controller {
 		}
 
 		// ---------------------- GENERATE CONTENT ----------------------
-		$this->layout->page_title 					= ucwords('Generate Attendance Report');
+		$this->layout->page_title 					= ucwords('Generate Report Aktivitas');
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.attendance.index');
-		$this->layout->content->controller_name 	= $this->controller_name;
+		$this->layout->content->controller_name 	= 'Aktivitas';
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
 		$this->layout->content->branches 			= $branches;
@@ -308,7 +308,7 @@ class ReportController extends Controller {
 		$this->layout->page_title 					= ucwords('Generate Report');
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.form');
-		$this->layout->content->controller_name 	= Request::segment(3);
+		$this->layout->content->controller_name 	= (Route::currentRouteName()=='hr.report.attendance.get' ? 'Aktivitas' : 'Kedatangan');
 		$this->layout->content->data 				= null;
 
 		return $this->layout;

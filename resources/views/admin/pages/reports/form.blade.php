@@ -1,7 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
-	<li>Report</li>
-	<li class='active'>{{ $controller_name }}</li>
+	<li>Reports</li>
+	<li class='active'>{{ ucwords($controller_name) }}</li>
 @stop
 
 @section('content')
