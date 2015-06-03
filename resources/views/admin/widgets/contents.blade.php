@@ -74,16 +74,7 @@
 								<span>{{$value2['name']}} di {{$value2['branch']['name']}}</span>
 							@endif
 						@endforeach
-					@endif					
-
-					<div class="pull-right">
-						<a href="{{route('hr.persons.edit', [$data_content['id']])}}" class="btn btn-icon-toggle" title="Edit">
-							<i class="fa fa-pencil"></i>
-						</a>
-						<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_modal" data-delete-action="{{ route('hr.persons.delete', $data_content['id']) }}">
-							<i class="fa fa-trash"></i>
-						</a>
-					</div>
+					@endif
 				</div>
 			</div>	
 		@endif
@@ -181,18 +172,9 @@
 					<a href="{{route('hr.organisations.edit', $data_content['id'])}}" class="btn btn-icon-toggle" title="Edit">
 						<i class="fa fa-pencil"></i>
 					</a>
-					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisations.delete', ['id' => $data_content['id']]) }}">
+					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisations.delete', ['id' => $data_content['id']]) }}">
 						<i class="fa fa-trash"></i>
 					</a>
-				</div>
-			</div>
-			<div class="clearfix">
-				<div class="col-lg-12 pull-right">
-					{!! Form::open(array('route' => array('hr.organisations.delete', $value['id']),'method' => 'POST')) !!}
-						<div class="modal fade modalOrganisationDelete" id="del_organisation_modal_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$value['id']}}" aria-hidden="true">
-							@include('admin.modals.delete.delete')
-						</div>	
-					{!! Form::close() !!}
 				</div>
 			</div>
 		@endif
@@ -214,19 +196,21 @@
 					<a href="{{route('hr.organisation.branches.edit', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn btn-icon-toggle" title="Edit">
 						<i class="fa fa-pencil"></i>
 					</a>
-					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']]) }}">
 						<i class="fa fa-trash"></i>
 					</a>
 				</div>
 			</div>
-			<div class="clearfix">
-				<div class="col-lg-12 pull-right">
-					{!! Form::open(array('url' => route('hr.organisation.branches.delete', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']]),'method' => 'POST')) !!}
-						<div class="modal fade modalOrganisationDelete" id="del_organisation_modal_{{$data_content['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$data_content['id']}}" aria-hidden="true">
-							@include('admin.modals.delete.delete')
-						</div>	
-					{!! Form::close() !!}
-				</div>
+		@endif
+
+		@if (isset($toggle['person']))
+			<div class="pull-right">
+				<a href="{{route('hr.persons.edit', [$data_content['id']])}}" class="btn btn-icon-toggle" title="Edit">
+					<i class="fa fa-pencil"></i>
+				</a>
+				<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_modal" data-delete-action="{{ route('hr.persons.delete', $data_content['id']) }}">
+					<i class="fa fa-trash"></i>
+				</a>
 			</div>
 		@endif
 	</div>
@@ -244,7 +228,7 @@
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
-						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
 							<i class="fa fa-trash"></i>
 						</a>
 						<a class="btn btn-icon-toggle pull-right" data-toggle="modal" data-target="#addressCreate" data-modal-address-item={{$value['item']}} data-modal-address-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
@@ -263,7 +247,7 @@
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
-						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
 							<i class="fa fa-trash"></i>
 						</a>
 						<a class="btn btn-icon-toggle pull-right btn_modal" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>

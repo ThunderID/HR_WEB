@@ -54,7 +54,7 @@
 								</div>
 								<div class="clearfix">&nbsp;</div>
 								<h5>
-									@if(count($branches)) Total {{$controller_name}} <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
+									@if(count($branches)) Total cabang <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
 								</h5>
 							</div><!--end .margin-bottom-xxl -->
 
@@ -64,7 +64,7 @@
 										</div>
 										<div class="list-results" style="margin-bottom:-1px;border-bottom:1px solid #eee">
 									@endif											
-									<div class="col-xs-12 col-lg-6 hbox-xs">
+									<div class="col-xs-12 col-lg-6 hbox-xs box">
 										@include('admin.widgets.contents',[
 											'route'				=> route('hr.organisation.branches.show', ['id' => $value['id'], 'page' => 1, 'org_id' => $data['id']]),
 											'mode'				=> 'list',
@@ -85,9 +85,24 @@
 			</div>
 		</div>
 	</div>
+	{!! Form::open(array('url' => route('hr.organisation.branches.delete', ['id' => 0, 'org_id' => 0]),'method' => 'POST')) !!}
+		<div class="modal fade modalOrganisationDelete" id="del_organisation_modal" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal" aria-hidden="true">
+			@include('admin.modals.delete.delete')
+		</div>	
+	{!! Form::close() !!}
+
 	{!! Form::open(array('route' => array('hr.organisations.delete', $data['id']),'method' => 'POST')) !!}
 		<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	
 	{!! Form::close() !!}
+@stop
+
+@section('js')
+	<script>
+		$('.modalOrganisationDelete').on('show.bs.modal', function(e) {
+			var action = $(e.relatedTarget).attr('data-delete-action');
+			$(this).parent().attr('action', action);
+		});
+	</script>
 @stop
