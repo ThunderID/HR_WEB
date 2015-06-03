@@ -42,11 +42,11 @@ class AjaxController extends Controller {
 		if(Input::has('term'))
 		{
 			$keyword 								= explode(' ', Input::get('term'));
-			$search									= ['orname' => $keyword, 'ortag' => $keyword, 'orbranchname' => $keyword, 'WithAttributes' => ['branch']];			
+			$search									= ['orname' => $keyword, 'ortag' => $keyword, 'orbranchname' => $keyword];			
 		}
 		$search['organisationid']					= Session::get('user.organisation');
 
-		$sort 										= ['created_at' => 'asc'];
+		$sort 										= ['charts.name' => 'asc'];
 
 		$results 									= API::chart()->index(1, $search, $sort);
 

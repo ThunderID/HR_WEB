@@ -354,7 +354,7 @@
                     return {
                         results: $.map(data, function (item) {
                             return {
-                                text: item.name + ' department '+ item.tag + ' di '+ item.branch.name,
+                                text: item.name + ' department '+ item.tag + ' di '+ item.branchname,
                                 id: item.id
                             }
                         })
