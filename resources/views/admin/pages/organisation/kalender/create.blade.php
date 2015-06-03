@@ -64,7 +64,7 @@
 		$(document).ready(function () {
 			$('.time_mask').inputmask('h:s', {placeholder: 'hh:mm'});
 			$('.getWorkdays').select2({
-				tokenSeparators: [",", " ", "_", "-"],
+				tokenSeparators: [",", " ", "_", "-", "."],
 				tags: [],
 				minimumInputLength: 1,
 				placeholder: "",

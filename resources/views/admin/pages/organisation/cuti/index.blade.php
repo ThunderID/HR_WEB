@@ -19,7 +19,7 @@
 				<a href="{{route('hr.organisations.edit', [$data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Ubah
 				</a>
-				<a href="{{route('hr.organisation.workleaves.create')}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.workleaves.create', ['org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Cuti
 				</a>
 				<a href="{{route('hr.persons.index', ['page' => 1, 'organisation' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">

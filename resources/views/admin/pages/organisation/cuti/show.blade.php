@@ -40,7 +40,7 @@
 									<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$workleave['quota']}} Hari</span>
 								</h5>
 								<div class="pb-20">
-									{!! Form::open(['class' => 'form-inline', 'url' => route('hr.organisation.workleaves.show', [$workleave['id'], 1]), 'method' => 'get']) !!}
+									{!! Form::open(['class' => 'form-inline', 'url' => route('hr.organisation.workleaves.show', ['id' => $workleave['id'], 'page' => 1, 'org_id' => $data['id']]), 'method' => 'get']) !!}
 										<div class="form-group">
 											<h4 class="text-lg text-medium">Filter</h4>
 										</div>
@@ -55,6 +55,7 @@
 										<div class="form-group">
 											{!! Form::input('submit', 'Check', 'Tampilkan', ['class' => 'btn btn-primary btn-default ink-reaction']) !!}
 										</div>
+										{!! Form::hidden('org_id', $data['id']) !!}
 									{!! Form::close() !!}
 								</div>
 								@if(count($persons))

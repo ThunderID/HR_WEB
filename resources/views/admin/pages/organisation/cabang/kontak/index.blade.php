@@ -45,4 +45,8 @@
 	{!! Form::open(array('url' => route('hr.branches.contacts.store',  ['id' => $branch['id'], 'org_id' => $data['id']]),'method' => 'POST')) !!}
 		@include('admin.modals.contact.create')
 	{!! Form::close() !!}
+
+	{!! Form::open(array('url' => route('hr.branches.contacts.store', ['id' => $branch['id'], 'org_id' => $data['id']]),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
+		@include('admin.modals.address.create')
+	{!! Form::close() !!}
 @stop

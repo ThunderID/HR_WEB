@@ -40,7 +40,7 @@ class DocumentController extends Controller {
 		$data 										= json_decode(json_encode($contents->data), true);
 
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= [ 'organisationid' => $org_id];
+		$search 									= ['organisationid' => $org_id];
 		if(Input::has('q'))
 		{
 			$search 								= ['name' => Input::get('q'), 'organisationid' => $org_id];

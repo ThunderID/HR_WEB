@@ -264,6 +264,7 @@
 			var work_company_name 		= $(e.relatedTarget).attr('data-work-company-name');
 			var work_branch_name 		= $(e.relatedTarget).attr('data-work-branch-name');
 			var work_calendar_id 		= $(e.relatedTarget).attr('data-work-calendar-id');	
+			var work_company_tag		= $(e.relatedTarget).attr('data-work-tag');
 			
 			if (typeof chart_id === "undefined"){
 				$('#tab_chart').removeClass('hide');
@@ -274,7 +275,7 @@
 			if (val_id != 0)
 			{
 				$(this).parent().attr('action', action);
-				$('.modal_work_company').select2('data', { id: val_id, text: work_company_name+' di '+work_branch_name});
+				$('.modal_work_company').select2('data', { id: chart_id, text: work_company_name+' departement '+ work_company_tag +' di '+work_branch_name});
 				$('.modal_work_company').prop('readonly', true);
 				$('.modal_work_organition').val(work_organisation);
 				$('.modal_work_position').val(work_position);
@@ -283,6 +284,7 @@
 				$('.modal_work_end').val(work_end);
 				$('.modal_reason_resign').val(reason_resign);
 				$('.modal_btn_work').text('Simpan');
+				$('#formModalLabel').text('Edit Pekerjaan');
 
 				var select = [];
 				$.ajax({
@@ -322,7 +324,13 @@
 				$('.modal_reason_resign').val('').empty();
 				$('#getCalendar').html('');
 				$('.modal_btn_work').text('Tambah');
+				$('#formModalLabel').text('Tambah Pekerjaan');
 			}
+		});
+
+		$('.modalKarirDelete').on('show.bs.modal', function(e){
+			var action = $(e.relatedTarget).attr('data-action');
+			$(this).parent().attr('action', action);
 		});
 
 		$(".date_mask").inputmask();    

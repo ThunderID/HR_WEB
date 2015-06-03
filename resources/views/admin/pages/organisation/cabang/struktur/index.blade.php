@@ -36,7 +36,7 @@
 			</div>
 		@endforelse		
 
-		{!! Form::open(array('route' => array('hr.branches.charts.store', $data['id']),'method' => 'POST')) !!}
+		{!! Form::open(array('route' => array('hr.branches.charts.store', $branch['id']),'method' => 'POST')) !!}
 			<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
 				@include('admin.modals.chart.create')
 			</div>	

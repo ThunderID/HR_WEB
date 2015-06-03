@@ -106,4 +106,10 @@
 	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
 		@include('admin.modals.address.create')
 	{!! Form::close() !!}
+
+	{!! Form::open(array('route' => array('hr.persons.update', 0), 'method' => 'POST')) !!}
+		<div class="modal fade modalContactDelete" id="del_organisation_modal" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal" aria-hidden="true">
+			@include('admin.modals.delete.delete')
+		</div>	
+	{!! Form::close() !!}	
 @stop
