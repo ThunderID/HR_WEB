@@ -103,119 +103,120 @@
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->
-
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:600">No</th>
-								<th rowspan="2" class="text-middle" style="vertical-align:middle;font-weight:600">Nama</th>
-								<th colspan="2" class="text-center" style="font-weight:600">In</th>
-								<th class="text-center" colspan="2" style="font-weight:600">Out</th>
-								<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Idle</th>
-								<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Sleep</th>
-								<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Active</th>
-								@if(Input::has('case') && Input::get('case')!='ontime')
-									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
-								@else
-									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Go In</th>
-									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Go Out</th>
-									<th rowspan="2"> </th>
-								@endif
-							</tr>
-							<tr>
-								<th class="text-center" style="font-weight:600">
-									FP
-								</th>
-								<th class="text-center" style="font-weight:600">
-									TR
-								</th>
-								<th class="text-center" style="font-weight:600">
-									FP
-								</th>
-								<th class="text-center" style="font-weight:600">
-									TR
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php $prev = 0;?>
-							<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
-							@foreach($data as $key => $value)
+					@if(count($data))
+						<table class="table table-bordered">
+							<thead>
 								<tr>
-									<td class="text-center text-sm">{{ $key+1 }}.</td>
-									<td class="text-sm">
-										{{$value['name']}}
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['avg_fp_start'])}}
-										<!-- {{gmdate("H:i:s", $value['fp_start'])}} -->
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['avg_start'])}}
-										<!-- {{gmdate("H:i:s", $value['start'])}} -->
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['avg_fp_end'])}}
-										<!-- {{gmdate("H:i:s", $value['fp_end'])}} -->
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['avg_end'])}}
-										<!-- {{gmdate("H:i:s", $value['end'])}} -->
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['avg_idle'])}}
-										<!-- {{gmdate("H:i:s", $value['total_idle'])}} -->
-									</td>
-									<td class="text-center text-sm">
-										{{gmdate("H:i:s", $value['avg_sleep'])}}
-										<!-- {{gmdate("H:i:s", $value['total_sleep'])}} -->
-									</td>
-									<td class="text-center text-sm">									
-										{{gmdate("H:i:s", $value['avg_active'])}}
-										<!-- {{gmdate("H:i:s", $value['total_active'])}} -->
-									</td>
+									<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:600">No</th>
+									<th rowspan="2" class="text-middle" style="vertical-align:middle;font-weight:600">Nama</th>
+									<th colspan="2" class="text-center" style="font-weight:600">In</th>
+									<th class="text-center" colspan="2" style="font-weight:600">Out</th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Idle</th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Sleep</th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Active</th>
 									@if(Input::has('case') && Input::get('case')!='ontime')
-										<td class="text-center text-sm">
-											<?php 
-												switch (Input::get('case')) 
-												{
-													case 'late':
-														$margin = 0 - ($value['margin_start']);
-														break;
-													case 'ontime':
-														$margin = null;
-														break;
-													case 'earlier':
-														$margin = 0 - ($value['margin_end']);
-														break;
-													case 'overtime':
-														$margin = ($value['margin_end']);
-														break;
-													default:
-														$margin = null;
-														break;
-												}
-											;?>
-											{{gmdate("H:i:s", $margin)}}
-										</td>
+										<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
 									@else
-										@foreach($value['log_notes'] as $key2 => $value2)
-											<td class="text-center text-sm">
-												<span class ="badge style-{{$label[$value2]}} text-sm mt-5">
-													{{$value2}}
-												</span>
-											</td>
-										@endforeach
-										<td class="text-sm">
-											<span class ="badge text-sm mt-5">
-												<a href ="{{route('hr.report.attendance.detail', ['id' => $value['id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
-											</span>
-										</td>
+										<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Go In</th>
+										<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Go Out</th>
+										<th rowspan="2"> </th>
 									@endif
 								</tr>
-							@endforeach
-						</tbody>
-					</table>
+								<tr>
+									<th class="text-center" style="font-weight:600">
+										FP
+									</th>
+									<th class="text-center" style="font-weight:600">
+										TR
+									</th>
+									<th class="text-center" style="font-weight:600">
+										FP
+									</th>
+									<th class="text-center" style="font-weight:600">
+										TR
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php $prev = 0;?>
+								<?php $label = ['late' => 'danger', 'overtime' => 'info', 'earlier' => 'danger', 'ontime' => 'success'];?>
+								@foreach($data as $key => $value)
+									<tr>
+										<td class="text-center text-sm">{{ $key+1 }}.</td>
+										<td class="text-sm">
+											{{$value['name']}}
+										</td>
+										<td class="text-center text-sm">
+											{{gmdate("H:i:s", $value['avg_fp_start'])}}
+											<!-- {{gmdate("H:i:s", $value['fp_start'])}} -->
+										</td>
+										<td class="text-center text-sm">
+											{{gmdate("H:i:s", $value['avg_start'])}}
+											<!-- {{gmdate("H:i:s", $value['start'])}} -->
+										</td>
+										<td class="text-center text-sm">
+											{{gmdate("H:i:s", $value['avg_fp_end'])}}
+											<!-- {{gmdate("H:i:s", $value['fp_end'])}} -->
+										</td>
+										<td class="text-center text-sm">
+											{{gmdate("H:i:s", $value['avg_end'])}}
+											<!-- {{gmdate("H:i:s", $value['end'])}} -->
+										</td>
+										<td class="text-center text-sm">
+											{{gmdate("H:i:s", $value['avg_idle'])}}
+											<!-- {{gmdate("H:i:s", $value['total_idle'])}} -->
+										</td>
+										<td class="text-center text-sm">
+											{{gmdate("H:i:s", $value['avg_sleep'])}}
+											<!-- {{gmdate("H:i:s", $value['total_sleep'])}} -->
+										</td>
+										<td class="text-center text-sm">									
+											{{gmdate("H:i:s", $value['avg_active'])}}
+											<!-- {{gmdate("H:i:s", $value['total_active'])}} -->
+										</td>
+										@if(Input::has('case') && Input::get('case')!='ontime')
+											<td class="text-center text-sm">
+												<?php 
+													switch (Input::get('case')) 
+													{
+														case 'late':
+															$margin = 0 - ($value['margin_start']);
+															break;
+														case 'ontime':
+															$margin = null;
+															break;
+														case 'earlier':
+															$margin = 0 - ($value['margin_end']);
+															break;
+														case 'overtime':
+															$margin = ($value['margin_end']);
+															break;
+														default:
+															$margin = null;
+															break;
+													}
+												;?>
+												{{gmdate("H:i:s", $margin)}}
+											</td>
+										@else
+											@foreach($value['log_notes'] as $key2 => $value2)
+												<td class="text-center text-sm">
+													<span class ="badge style-{{$label[$value2]}} text-sm mt-5">
+														{{$value2}}
+													</span>
+												</td>
+											@endforeach
+											<td class="text-sm">
+												<span class ="badge text-sm mt-5">
+													<a href ="{{route('hr.report.attendance.detail', ['id' => $value['id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
+												</span>
+											</td>
+										@endif
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					@endif
 				</div>
 			</div>
 			<!-- @if(count($data))
