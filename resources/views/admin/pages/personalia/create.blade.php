@@ -21,21 +21,8 @@
 				<div class="tab-pane active" id="profil">
 					<div class="row">
 						<div class="col-md-4">
-							<div class="height-6 border-gray border-lg m-0auto style-gray-bright dropzone profile dz-clickable p-0" id="profile_picture" style="height:270px;width:204px;background-color:#E5E6E6;border:2px solid #333">
-								{{-- @if (!$data['avatar']) --}}
-									<div class="dz-message">
-										<h4 class="text" style="line-height:200px">Unggah Foto</h4>
-									</div>
-								{{-- @endif --}}
-								<input type="hidden" name="link_profile_picture" id="profile_picture_url" value="{{ isset($data['avatar']) ? $data['avatar'] : '' }}">
-								@if ($data['avatar'])
-									{{-- <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
-										<div class="dz-image">
-											<img src="{{ isset($data['avatar']) ? $data['avatar'] : '' }}" alt="">
-										</div>
-										<a class="dz-remove" href="javascript:undefined;" data-dz-remove="">Remove file</a>
-									</div> --}}
-								@endif
+							<div class="box-profile-picture ml-30">	
+								<input type="file" class="profile_picture" data-img="{{ isset($data['avatar']) ? $data['avatar'] : '' }}">
 							</div>
 						</div>						
 						<div class="col-md-8">
@@ -169,6 +156,7 @@
 	{!! HTML::script('js/pluginmicrotemplating.min.js')!!}
 	{!! HTML::script('js/dropzone.min.js')!!}
 	{!! HTML::script('js/jquery.inputmask.min.js')!!}
+	{!! HTML::script('js/thumbnail-image-upload.jquery.js')!!}
 
 	<script type="text/javascript">
 		$(document).ready(function () {
@@ -178,6 +166,7 @@
     			maxFilesize: 1,
     			addRemoveLinks: true,
     			init: function(){
+    				thisZone = this;
     				this.on('success', function(file){
     					var accepted_files = this.getAcceptedFiles();
     					var uploaded_files = [];
@@ -196,28 +185,48 @@
     			}
     		});	
 
-	        $("#profile_picture").dropzone({ 
-    			url: '{{ route("hr.images.upload") }}' ,
-    			maxFilesize: 1,
-    			addRemoveLinks: true,
-    			init: function(){
-    				this.on('success', function(file){
-    					var accepted_files = this.getAcceptedFiles();
-    					var uploaded_files = [];
-    					var gallery_json;
+	        $('.profile_picture').thumbnail_image_upload({
+	        	width:"100%",
+    	        height:"100%",
+    	        text: "Unggah Foto",
+    	        bg: 'ebebeb',
+    	        color: '00000'
+	        });
+	     //    $("#profile_picture").dropzone({ 
+    		// 	url: '{{ route("hr.images.upload") }}' ,
+    		// 	maxFilesize: 1,
+    		// 	addRemoveLinks: true,
+    		// 	init: function(){
+    		// 		this.on('success', function(file){
+    		// 			var accepted_files = this.getAcceptedFiles();
+    		// 			var uploaded_files = [];
+    		// 			var gallery_json;
 
-    					if (accepted_files.length > 0)
-    					{
-    						accepted_files.forEach(function(cur_value, index, array){
-    							var response = $.parseJSON(cur_value.xhr.response);
-    							uploaded_files.push(response.file.url);
-    						});
-    					}
+    		// 			if (accepted_files.length > 0)
+    		// 			{
+    		// 				accepted_files.forEach(function(cur_value, index, array){
+    		// 					var response = $.parseJSON(cur_value.xhr.response);
+    		// 					uploaded_files.push(response.file.url);
+    		// 				});
+    		// 			}
 
-    					$('#profile_picture_url').val(uploaded_files);
-    				});
-    			}
-    		});	        
+    		// 			$('#profile_picture_url').val(uploaded_files);
+    		// 		});
+    		// 		console.log('halo');
+    		// 		$.get('{{ route("hr.images.upload") }}', function(data) {
+    		// 			$.each(data, function(key, value) {
+    		// 				console.log(value);
+    		// 			});
+    		// 		});
+    		// 	}
+    		// });	        
         });	
+		
+		// $(function(){
+		// 	var mockFile = { name: "{!! $data['avatar'] !!}" };
+		// 	var myDzone = new Dropzone("#profile_picture");
+		// 	myDzone.options.addedfile.call(myDzone, mockFile);
+		// 	myDzone.options.thumbnail.call(myDzone, mockFile, "{!! $data['avatar'] !!}");
+		// })
 	</script>
 @stop
