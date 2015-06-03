@@ -173,7 +173,6 @@
 				events:  curSource,
 				eventRender: function (event, element) {					
 					var datetime_start 	= event.start._i.split('T');
-
 					if (event.end != null) {
 						var datetime_end 	= event.end._i.split('T');
 					}

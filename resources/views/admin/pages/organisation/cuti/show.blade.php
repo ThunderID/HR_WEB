@@ -20,7 +20,7 @@
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#chartCreate" data-id="0" data-action="">
-					<i class="fa fa-plus-circle"></i>&nbsp;Cuti Karyawan
+					<i class="fa fa-plus-circle"></i>&nbsp;Cuti Karyawan (Posisi)
 				</a>
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 									<span class="badge style-success text-sm opacity-75 mt-5 text-right">{{$workleave['quota']}} Hari</span>
 								</h5>
 								<div class="pb-20">
-									{!! Form::open(['class' => 'form-inline', 'url' => route('hr.organisation.workleaves.show', [$workleave['id'], 1]), 'method' => 'get']) !!}
+									{!! Form::open(['class' => 'form-inline', 'url' => route('hr.organisation.workleaves.show', ['id' => $workleave['id'], 'page' => 1, 'org_id' => $data['id']]), 'method' => 'get']) !!}
 										<div class="form-group">
 											<h4 class="text-lg text-medium">Filter</h4>
 										</div>
@@ -55,6 +55,7 @@
 										<div class="form-group">
 											{!! Form::input('submit', 'Check', 'Tampilkan', ['class' => 'btn btn-primary btn-default ink-reaction']) !!}
 										</div>
+										{!! Form::hidden('org_id', $data['id']) !!}
 									{!! Form::close() !!}
 								</div>
 								@if(count($persons))
@@ -109,7 +110,7 @@
 		</div>
 	</div>
 
-	{!! Form::open(array('route' => array('hr.organisation.workleaves.delete', $workleave['id']),'method' => 'POST')) !!}
+	{!! Form::open(array('url' => route('hr.organisation.workleaves.delete', [$workleave['id'], 'org_id' => $data['id']]),'method' => 'POST')) !!}
 		<div class="modal fade" id="del_modal" tabindex="-1" role="dialog" aria-labelledby="del_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	

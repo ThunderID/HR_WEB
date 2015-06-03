@@ -37,13 +37,23 @@
 						<div class="row">
 							<div class="margin-bottom-xxl">
 								<h1 class="text-light no-margin">@ucwords($calendar['name'])</h1>
-								<h5 class="pb-30 border-bottom">
+								<h5 class="pb-10">
 									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
 									<?php $workdays = explode(',', $calendar['workdays']);?>
 									@foreach($workdays as $key => $value)
 										<span class="badge style-info text-sm opacity-75 mt-5">{{$value}}</span>
 									@endforeach
 								</h5>
+								<h5 class="pb-30 border-bottom">
+									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
+									<span class="badge style-success text-sm opacity-75 mt-5"> 
+										@time_indo($calendar['start'])
+									 </span>
+									<span class="badge style-success text-sm opacity-75 mt-5"> 
+									 	@time_indo($calendar['end'])
+									 </span>
+								</h5>
+								
 								<h3 class="text-light no-margin pt-20">
 									<span class="selected-day">&nbsp;</span> &nbsp;<small class="selected-date">&nbsp;</small>
 									<span class="pull-right">
@@ -110,6 +120,7 @@
 			var date_end 		= $(e.relatedTarget).attr('data-date');
 			var start 			= $(e.relatedTarget).attr('data-start');
 			var end 			= $(e.relatedTarget).attr('data-end');
+			var status 			= $(e.relatedTarget).attr('data-status');
 
 			if (id != 0) 
 			{
@@ -119,6 +130,7 @@
 				$('.modal_schedule_date_end').val(date_end);
 				$('.modal_schedule_start').val(start);
 				$('.modal_schedule_end').val(end);
+				$('.modal_schedule_status').val(status);
 				$(this).find('.modal_schedule_btn_save').text('Edit');
 			}
 			else
@@ -129,6 +141,7 @@
 				$('.modal_schedule_date_end').val('');
 				$('.modal_schedule_start').val('');
 				$('.modal_schedule_end').val('');
+				$('.modal_schedule_status').val('');
 				$(this).find('.modal_schedule_btn_save').text('Tambah');
 			}
 		});

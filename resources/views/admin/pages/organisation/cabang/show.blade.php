@@ -86,13 +86,14 @@
 
 
 		$('.modalContact').on('show.bs.modal', function(e) {
-			var id 			= $(e.relatedTarget).attr('data-modal-contact-id');
-			var item 		= $(e.relatedTarget).attr('data-modal-contact-item');
-			var val 		= $(e.relatedTarget).attr('data-modal-contact-value');
+			var id = $(e.relatedTarget).attr('data-modal-contact-id');
+			var item = $(e.relatedTarget).attr('data-modal-contact-item');
+			var val = $(e.relatedTarget).attr('data-modal-contact-value');
 			var is_default 	= $(e.relatedTarget).attr('data-is-default');
 
 			if(id != 0){
 				$('.modal_contact_inp_value').val(val);
+				$('.modal_contact_input_is_default').val(def);
 				$('.modal_contact_input_id').val(id);
 				$('.getContacts').select2("data", { id: item, text: item });
 				$('.getContacts').prop('readonly',true);
@@ -107,6 +108,7 @@
 				}
 			}else{
 				$('.modal_contact_inp_value').val('');
+				$('.modal_contact_input_is_default').val('');
 				$('.modal_contact_input_id').val('');
 				$('.getContacts').select2("val", "");
 				$('.getContacts').prop('readonly',false);
