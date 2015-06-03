@@ -48,6 +48,15 @@
 								</div>
 							</div>
 							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										{!! Form::input('password', 'password', null, ['class' => 'form-control']) !!}
+										<label for="password">Password</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
 								<div class="col-md-3">
 									<div class="form-group">
 										{!! Form::input('text', 'prefix_title', $data['prefix_title'], ['class' => 'form-control']) !!}
@@ -67,6 +76,7 @@
 									</div>
 								</div><!--end .col -->									
 							</div>
+
 
 							<div class="row">
 								<div class="col-md-6">
