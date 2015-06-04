@@ -31,39 +31,51 @@
 
 		<!-- END SEARCH HEADER -->
 		<div class="card-body">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="margin-bottom-xxl">
-						<span class="text-light text-lg">
-							@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
-						</span>
-						<div class="btn-group btn-group-sm pull-right">
-							@if (Input::get('q'))
-								<a href="{{ route('hr.organisations.index') }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
-							@endif
-						</div>
-					</div><!--end .margin-bottom-xxl -->
-					<div class="list-results" style="margin-bottom:0px;">
-						@foreach($data as $key => $value)	
-							@if($key%2==0 && $key!=0)
-								</div>
-								<div class="list-results" style="margin-bottom:0px;">
-							@endif		
-							
-							<div class="col-xs-12 col-lg-6 hbox-xs">
-								@include('admin.widgets.contents', [
-									'route'				=> route('hr.organisations.show', ['organisation' => $value['id']]),
-									'mode'				=> 'list',
-									'data_content'		=> $value,
-									'toggle'			=> ['organisation' 	=> true],
-									'class'				=> ['top'		=> 'height-2']
-								])
+			<div class = "col-md-12 hbox-md">
+				<div class="hbox-column col-md-2" id="sidebar_left">
+					<ul class="nav nav-pills nav-stacked">
+						<li class="text-primary">URUTKAN</li>
+						<li @if(!Input::get('sort') || Input::get('sort') == '1') class="active" @endif><a href="{{route('hr.organisations.index')}}">Urutkan A - Z</a></li>
+						<li @if(Input::get('sort') == '2') class="active" @endif><a href="{{route('hr.organisations.index', ['page' => 1,'sort' => '2'])}}">Urutkan Z - A</a></li>
+						<li @if(Input::get('sort') == '3') class="active" @endif><a href="{{route('hr.organisations.index', ['page' => 1,'sort' => '3'])}}">Data Terbaru</a></li>
+						<li @if(Input::get('sort') == '4') class="active" @endif><a href="{{route('hr.organisations.index', ['page' => 1,'sort' => '4'])}}">Data Terlama</a></li>
+					</ul>
+				</div>
+
+				<div class="hbox-column col-md-10" id="sidebar_mid">
+					<div class="col-md-12">
+						<div class="row">
+							<span class="text-light text-lg">
+								@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
+							</span>
+							<div class="btn-group btn-group-sm pull-right">
+								@if (Input::get('q'))
+									<a href="{{ route('hr.organisations.index') }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
+								@endif
 							</div>
-						@endforeach
+						</div><!--end .margin-bottom-xxl -->
+						<div class="list-results" style="margin-bottom:0px;">
+							@foreach($data as $key => $value)	
+								@if($key%2==0 && $key!=0)
+									</div>
+									<div class="list-results" style="margin-bottom:0px;">
+								@endif		
+								
+								<div class="col-xs-12 col-lg-6 hbox-xs">
+									@include('admin.widgets.contents', [
+										'route'				=> route('hr.organisations.show', ['organisation' => $value['id']]),
+										'mode'				=> 'list',
+										'data_content'		=> $value,
+										'toggle'			=> ['organisation' 	=> true],
+										'class'				=> ['top'		=> 'height-2']
+									])
+								</div>
+							@endforeach
+						</div>
+						@if(count($data))
+							@include('admin.helpers.pagination')
+						@endif
 					</div>
-					@if(count($data))
-						@include('admin.helpers.pagination')
-					@endif
 				</div><!--end .list-results -->
 			</div>
 		</div>

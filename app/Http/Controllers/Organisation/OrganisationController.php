@@ -21,7 +21,22 @@ class OrganisationController extends Controller {
 		{
 			$search['name']							= Input::get('q');			
 		}
-		$sort 										= ['created_at' => 'asc'];
+
+		if(Input::get('sort')){
+			if(Input::get('sort') == '1'){
+				$sort 								= ['created_at' => 'asc'];
+			}elseif(Input::get('sort') == '2'){
+				$sort 								= ['created_at' => 'desc'];
+			}elseif(Input::get('sort') == '3'){
+				$sort 								= ['name' => 'desc'];
+			}elseif(Input::get('sort') == '4'){
+				$sort 								= ['name' => 'asc'];
+			}else{
+				App::abort(404);
+			}
+		}else{
+			$sort 									= ['created_at' => 'asc'];
+		}
 
 		$results 									= API::organisation()->index($page, $search, $sort, 12);
 		$contents 									= json_decode($results);
@@ -39,6 +54,7 @@ class OrganisationController extends Controller {
 
 		$this->layout->content 						= view('admin.pages.organisation.index');
 		$this->layout->content->controller_name 	= $this->controller_name;
+
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
 
