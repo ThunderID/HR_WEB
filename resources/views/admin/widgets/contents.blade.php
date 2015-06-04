@@ -53,14 +53,18 @@
 		@else
 			<div class="clearfix">
 				<div class="col-lg-9 margin-bottom-lg">
-					<span class="text-lg text-medium" href="{{ $route }}">{{(isset($data_content['name']) ? $data_content['name'] : $data_content['client'])}}</span>
+					@if(isset($data_content['value']['secret']))	
+						<span class="text-lg text-medium" href="{{ $route }}">{{(isset($data_content['name']) ? $data_content['name'] : $data_content['value']['client'])}}</span>
+					@else
+						<a class="text-lg text-medium" href="{{ $route }}">{{(isset($data_content['name']) ? $data_content['name'] : $data_content['value']['client'])}}</a>
+					@endif
 				</div>
-				@if(isset($data_content['secret']))
+				@if(isset($data_content['value']['secret']))
 					<div class="col-lg-3 text-right mt-10">
 						<a href="{{ $route }}" class="btn btn-circle border-default" title="Ubah">
 							<i class="fa fa-pencil"></i>
 						</a>
-						<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['id']]) }}">
+						<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['value']['id'], 'branchid' => $data_content['branchid'], 'org_id' => $data_content['org_id']]) }}">
 							<i class="fa fa-trash"></i>
 						</a>
 					</div>
