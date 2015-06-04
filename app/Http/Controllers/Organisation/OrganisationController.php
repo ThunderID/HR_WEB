@@ -16,25 +16,37 @@ class OrganisationController extends Controller {
 	function getIndex($page = 1)
 	{
 		// ---------------------- LOAD DATA ----------------------
-		$search 									= ['id' => Session::get('user.orgids')];
+		$search 									= ['id' => Session::get('user.orgids'), 'withattributes' => ['branches', 'branches.charts']];
 		if(Input::has('q'))
 		{
 			$search['name']							= Input::get('q');			
 		}
 
-		if(Input::get('sort')){
-			if(Input::get('sort') == '1'){
+		if(Input::get('sort'))
+		{
+			if(Input::get('sort') == '1')
+			{
 				$sort 								= ['created_at' => 'asc'];
-			}elseif(Input::get('sort') == '2'){
+			}
+			elseif(Input::get('sort') == '2')
+			{
 				$sort 								= ['created_at' => 'desc'];
-			}elseif(Input::get('sort') == '3'){
+			}
+			elseif(Input::get('sort') == '3')
+			{
 				$sort 								= ['name' => 'desc'];
-			}elseif(Input::get('sort') == '4'){
+			}
+			elseif(Input::get('sort') == '4')
+			{
 				$sort 								= ['name' => 'asc'];
-			}else{
+			}
+			else
+			{
 				return Redirect::route('hr.organisations.index');
 			}
-		}else{
+		}
+		else
+		{
 			$sort 									= ['created_at' => 'asc'];
 		}
 
