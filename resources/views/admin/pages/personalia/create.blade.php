@@ -22,7 +22,7 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="box-profile-picture ml-30">	
-								<input type="file" class="profile_picture" data-img="{{ isset($data['avatar']) ? $data['avatar'] : '' }}">
+								<input name="link_profile_picture" type="file" class="profile_picture" data-img="{{ isset($data['avatar']) ? $data['avatar'] : '' }}">
 							</div>
 						</div>						
 						<div class="col-md-8">
