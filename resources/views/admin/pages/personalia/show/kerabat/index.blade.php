@@ -24,7 +24,7 @@
 						<div class="hbox-xs v-top height-4">
 							<div class="clearfix">
 								<div class="col-lg-12 margin-bottom-lg">
-									<a class="pull-right btn border-default-dark btn-circle del-modal" type="button" data-toggle="modal" data-target="#del_modal_relation" data-action="{{ route('hr.persons.relatives.delete', ['person_id' => $data['id'], 'id' => $value['relative_id']]) }}">
+									<a class="pull-right btn border-default btn-circle del-modal" type="button" data-toggle="modal" data-target="#del_modal_relation" data-action="{{ route('hr.persons.relatives.delete', ['person_id' => $data['id'], 'id' => $value['relative_id']]) }}">
 										<i class="fa fa-trash"></i>
 									</a>
 									<?php $enm = $value['relationship'] ?>
