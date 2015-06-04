@@ -109,7 +109,7 @@ class BranchController extends Controller {
 			App::abort(404);
 		}
 
-		$results 									= API::organisation()->show($org_id);
+		$results 									= API::organisation()->show($org_id, ['withattributes' => ['branches', 'calendars', 'workleaves', 'documents']]);
 		$contents 									= json_decode($results);
 
 		if(!$contents->meta->success)

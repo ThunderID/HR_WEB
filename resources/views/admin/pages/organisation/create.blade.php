@@ -6,10 +6,12 @@
 @section('content')
 	<div class="card">
 		<!-- END DEFAULT FORM ITEMS -->
-			<div class="card-head style-primary">
-				<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
-					<li class="active"><a>ORGANISASI</a></li>
-				</ul>
+			<div class="card-head card-head-sm style-primary">
+				<div class="col-xs-12 pt-5">
+					<a href="{{route('hr.organisations.index')}}" class="btn btn-flat ink-reaction pull-left">
+						<i class="md md-reply"></i>&nbsp;Kembali
+					</a>
+				</div>
 			</div><!--end .card-head -->
 		@if($data['id'])
 			<form class="form" role="form" action="{{route('hr.organisations.update', $data['id'])}}" method="post">
