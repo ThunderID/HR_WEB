@@ -200,6 +200,7 @@ class ScheduleController extends Controller {
 		$calendar 									= json_decode(json_encode($contents->data), true);
 
 		// schedule
+		$date 		= [];
 		$schedule 	= [];
 		$workdays	= [];
 		$wd			= ['senin' => 'monday', 'selasa' => 'tuesday', 'rabu' => 'wednesday', 'kamis' => 'thursday', 'jumat' => 'friday', 'sabtu' => 'saturday', 'minggu' => 'sunday'];
@@ -214,6 +215,16 @@ class ScheduleController extends Controller {
 		if(isset($schedules[0]['person']['workscalendars'][0]))
 		{
 			$harikerja 					= explode(',',$schedules[0]['person']['workscalendars'][0]['calendar']['workdays']);
+
+			foreach ($harikerja as $key => $value) 
+			{
+				$value 					= str_replace(' ', '', $value);
+				$workdays[]				= $wd[strtolower($value)];
+			}
+		}
+		elseif(isset($calendar['workscalendars'][0]))
+		{
+			$harikerja 					= explode(',',$calendar['workscalendars'][0]['calendar']['workdays']);
 
 			foreach ($harikerja as $key => $value) 
 			{
