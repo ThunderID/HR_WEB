@@ -23,7 +23,7 @@
 									<select class="form-control" id="path" name="path">
 										<option value=""></option>
 										@foreach($charts as $key => $value)
-											<option value="{{$value['path']}}">{{$value['name']}}</option>
+											<option value="{{$value['path']}}">{{$value['name']}} - {{$value['tag']}}</option>
 										@endforeach
 									</select>
 									<label for="path">Atasan</label>
