@@ -189,7 +189,7 @@
 							<?php $employee = $employee + $value2['current_employee'];?>
 						@endforeach
 					@endforeach
-					<h4>{{count($data_content['branches'])}}</h4>
+					<h4>{{count($employee)}}</h4>
 				</div>
 			</div>
 
