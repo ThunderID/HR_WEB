@@ -57,7 +57,7 @@
 				</div>
 				@if(isset($data_content['secret']))
 					<div class="col-lg-1 text-right">
-						<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['id']]) }}">
+						<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['id']]) }}">
 							<i class="fa fa-trash"></i>
 						</a>
 					</div>
@@ -219,7 +219,7 @@
 			<div class="alert alert-callout alert-info" role="alert" style="border-style:none;">
 				<div class="row">
 					<div class="col-md-10">
-						<strong class="text-primary">Alamat @if($value['is_default']) Sekarang @else Lama @endif</strong><br/>
+						<strong class="text-primary">Alamat </strong><br/>
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
@@ -244,7 +244,7 @@
 			<div class="alert alert-callout alert-info" role="alert" style="border-style:none;">
 				<div class="row">
 					<div class="col-md-10">
-						<strong class="text-primary">{{ucwords(str_replace('_',' ',$value['item']))}} @if($value['is_default']) Sekarang @else Lama @endif</strong><br/>
+						<strong class="text-primary">{{ucwords(str_replace('_',' ',$value['item']))}} </strong><br/>
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">

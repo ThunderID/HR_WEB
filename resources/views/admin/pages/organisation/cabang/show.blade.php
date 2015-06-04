@@ -13,7 +13,7 @@
 				<a href="{{route('hr.organisation.branches.index', ['page' => 1,'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i>&nbsp;Kembali
 				</a>
-				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
+				{{-- <a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
 				<a href="{{route('hr.organisation.branches.edit', [$branch['id'], 'org_id' => $data['id'], 'src' => 'show'])}}" class="btn btn-flat ink-reaction pull-right">
@@ -21,7 +21,7 @@
 				</a>
 				<a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => $data['id'], 'karyawan' => 'active', 'branch' => $branch['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-users"></i>&nbsp;Karyawan
-				</a>
+				</a> --}}
 			</div>
 		</div>
 		<!-- END CARD HEADER -->

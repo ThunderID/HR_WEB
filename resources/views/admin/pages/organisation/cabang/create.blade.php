@@ -33,7 +33,13 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 mtm-20">
-								<h3 class="text-light">Tambah Cabang</h3>
+								<h3 class="text-light">
+									@if(!$branch['id'])
+										Tambah Cabang
+									@else
+										Edit Cabang
+									@endif
+								</h3>
 							</div>
 						</div>
 						<div class="row">
