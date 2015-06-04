@@ -47,7 +47,7 @@
 				<div class="brand-holder">
 					<!-- Search form -->
 					@if(Session::has('user.organisations'))
-						<form class="form" role="search" action="{{route('hr.organisations.default')}}" method="post">
+						<!-- <form class="form" role="search" action="{{route('hr.organisations.default')}}" method="post">
 							<div class="form-group">
 								<select id="change_branch" class="form-control select2 text-sm org-header-change"  onchange="this.form.submit()" name="organisation"> 
 									@foreach(Session::get('user.organisations') as $key => $value)
@@ -55,9 +55,9 @@
 									@endforeach
 								</select>
 							</div>
-						</form>
+						</form> -->
 					@else
-						<span class="text-lg text-menu">{{Session::get('user.org_name')}}</span>
+						<!-- <span class="text-lg text-menu">{{Session::get('user.org_name')}}</span> -->
 					@endif
 				</div>				
 			</li>	

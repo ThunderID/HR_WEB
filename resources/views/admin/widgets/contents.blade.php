@@ -163,6 +163,30 @@
 
 		@if (isset($toggle['organisation']))
 			<div class="clearfix">
+				<div class="col-xs-1">
+					<h4><i class = "fa fa-building-o"></i></h4>
+				</div>
+				<div class="col-xs-11">
+					<h4>{{count($data_content['branches'])}}</h4>
+				</div>
+			</div>
+
+			<div class="clearfix">
+				<div class="col-xs-1">
+					<h4><i class = "fa fa-users"></i></h4>
+				</div>
+				<?php $employee = 0;?>
+				<div class="col-xs-11">
+					@foreach($data_content['branches'] as $key => $value)
+						@foreach($value['charts'] as $key2 => $value2)
+							<?php $employee = $employee + $value2['current_employee'];?>
+						@endforeach
+					@endforeach
+					<h4>{{count($data_content['branches'])}}</h4>
+				</div>
+			</div>
+
+			<div class="clearfix">
 				<div class="col-lg-12 text-right">
 					<a href="{{route('hr.organisations.edit', $data_content['id'])}}" class="btn border-default btn-circle" title="Edit">
 						<i class="fa fa-pencil"></i>

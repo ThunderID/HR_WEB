@@ -8,7 +8,11 @@
 							<dt><span class="fa fa-fw fa-gift fa-lg opacity-50"></span></dt>
 							<dd>
 								<span class="opacity-50">Ulang Tahun</span><br/>
-								<span class="text-medium">{{date("d F", strtotime($data['date_of_birth']))}}</span>
+								<?php $indomonth = ['january' => 'januari', 'february' => 'februari', 'march' => 'maret', 'april' => 'april',
+									'june' => 'juni', 'july' => 'juli', 'august' => 'agustus', 'september' => 'september', 'october' => 'oktober',
+									'november' => 'november', 'december' => 'desember'
+								];?>
+								<span class="text-medium">{{date("d ", strtotime($data['date_of_birth']))}} {{ucwords($indomonth[strtolower(date("F", strtotime($data['date_of_birth'])))])}}</span>
 							</dd>
 						</dl><!--end .dl-horizontal -->
 						<br/>

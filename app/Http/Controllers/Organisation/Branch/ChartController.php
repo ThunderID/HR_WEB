@@ -204,6 +204,10 @@ class ChartController extends Controller {
 		{
 			$input['chart']								= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade', 'tag');
 		}
+		if($input['chart']['path']==0 || is_null($input['chart']['path']))
+		{
+			unset($input['chart']['path']);
+		}
 		$input['chart']['id']							= $id;
 
 		if(Input::has('application_id'))
@@ -256,12 +260,26 @@ class ChartController extends Controller {
 		}
 
 		$results 									= API::chart()->store($id, $input);
-
+		$src 										= Input::get('src'); 
 		$content 									= json_decode($results);
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.branches.charts.index', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'page' => 1])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+			if($id)
+			{
+				if($src)
+				{
+					return Redirect::route('hr.branches.charts.show', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'id' => $content->data->id])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+				}
+				else
+				{
+					return Redirect::route('hr.branches.charts.index', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'page' => 1])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+				}
+			}
+			else
+			{
+				return Redirect::route('hr.branches.charts.show', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'id' => $content->data->id])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();

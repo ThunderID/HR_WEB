@@ -48,7 +48,7 @@ class AuthController extends Controller {
 			return Redirect::intended(route('hr.dashboard.overview'));
 		}
 		
-		return Redirect::back()->withErrors(['The email and password you entered did not match our records. Please double-check and try again.']);
+		return Redirect::back()->withErrors(['Email dan password yang anda masukkan tidak cocok dengan data kami. Harap anda memeriksa data masukkan dan mencoba lagi.']);
 	}
 
 	/**

@@ -43,39 +43,37 @@
 				</div>
 
 				<div class="hbox-column col-md-10" id="sidebar_mid">
-					<div class="col-md-12">
-						<div class="row">
-							<span class="text-light text-lg">
-								@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
-							</span>
-							<div class="btn-group btn-group-sm pull-right">
-								@if (Input::get('q'))
-									<a href="{{ route('hr.organisations.index') }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
-								@endif
-							</div>
-						</div><!--end .margin-bottom-xxl -->
-						<div class="list-results" style="margin-bottom:0px;">
-							@foreach($data as $key => $value)	
-								@if($key%2==0 && $key!=0)
-									</div>
-									<div class="list-results" style="margin-bottom:0px;">
-								@endif		
-								
-								<div class="col-xs-12 col-lg-6 hbox-xs">
-									@include('admin.widgets.contents', [
-										'route'				=> route('hr.organisations.show', ['organisation' => $value['id']]),
-										'mode'				=> 'list',
-										'data_content'		=> $value,
-										'toggle'			=> ['organisation' 	=> true],
-										'class'				=> ['top'		=> 'height-2']
-									])
-								</div>
-							@endforeach
+					<div class="row">
+						<span class="text-light text-lg">
+							@if(count($data)) Total data <strong>{{$paginator->total_item}}</strong> @else Tidak ada data @endif
+						</span>
+						<div class="btn-group btn-group-sm pull-right">
+							@if (Input::get('q'))
+								<a href="{{ route('hr.organisations.index') }}" class="btn btn-default-light mr-20"><i class="fa fa-trash"></i> Hapus Filter</a>
+							@endif
 						</div>
-						@if(count($data))
-							@include('admin.helpers.pagination')
-						@endif
+					</div><!--end .margin-bottom-xxl -->
+					<div class="row list-results" style="margin-bottom:0px;">
+						@foreach($data as $key => $value)	
+							@if($key%2==0 && $key!=0)
+								</div>
+								<div class="list-results" style="margin-bottom:0px;">
+							@endif		
+							
+							<div class="col-xs-12 col-lg-6 hbox-xs">
+								@include('admin.widgets.contents', [
+									'route'				=> route('hr.organisations.show', ['organisation' => $value['id']]),
+									'mode'				=> 'list',
+									'data_content'		=> $value,
+									'toggle'			=> ['organisation' 	=> true],
+									'class'				=> ['top'		=> 'height-2']
+								])
+							</div>
+						@endforeach
 					</div>
+					@if(count($data))
+						@include('admin.helpers.pagination')
+					@endif
 				</div><!--end .list-results -->
 			</div>
 		</div>

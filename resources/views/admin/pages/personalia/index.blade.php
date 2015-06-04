@@ -31,25 +31,22 @@
 
 		<!-- BEGIN SEARCH RESULTS -->
 		<div class="card-body">
-			<div class="row">
-
-				<!-- BEGIN SEARCH NAV -->
-				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
+			<div class = "col-md-12 hbox-md">
+				<div class="hbox-column col-md-2" id="sidebar_left">
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary">MENU</li>
-						<li @if(!Input::has('karyawan') && !Input::has('non-karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::has('karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => 'active'])}}">Karyawan <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::has('non-karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'non-karyawan' => 'false'])}}">Non Karyawan <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li class="text-primary pt-25">GENDER</li>
-						<li @if(Input::has('gender') && Input::get('gender')=='male') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'gender' => 'male', 'branch' => Input::get('branch'), 'tag' => Input::get('tag'), 'non-karyawan' => Input::get('non-karyawan')])}}">Pria <small class="pull-right text-bold opacity-75"></small></a></li>
-						<li @if(Input::has('gender') && Input::get('gender')=='female') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'gender' => 'female', 'branch' => Input::get('branch'), 'tag' => Input::get('tag'), 'non-karyawan' => Input::get('non-karyawan')])}}">Wanita <small class="pull-right text-bold opacity-75"></small></a></li>
+						@if(Session::has('user.organisations'))
+							<li class="text-primary" style="text-transform: uppercase;">ORGANISASI</li>
+							@foreach(Session::get('user.organisations') as $key => $value)
+								<li @if(Input::has('org_id') && ((Input::get('org_id') == ($value['id'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'org_id' => $value['id']])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+							@endforeach
+						@endif
 					</ul>
 					<br/>
 					<ul class="nav nav-pills nav-stacked">
-						<li class="text-primary" style="text-transform: uppercase;">BRANCH</li>
+						<li class="text-primary" style="text-transform: uppercase;">CABANG</li>
 						<?php $name = '';?>
 						@foreach($branches as $key => $value)
-							<li @if(Input::has('branch') && ((Input::get('branch') == ($value['id'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['id'], 'gender' => Input::get('gender')])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+							<li @if(Input::has('branch') && ((Input::get('branch') == ($value['id'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['id'], 'gender' => Input::get('gender')])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
 							@if($value['id']==Input::get('branch'))
 								<?php $name = $value['name'];?>
 							@endif
@@ -57,20 +54,31 @@
 					</ul>
 					<br/>
 					<ul class="nav nav-pills nav-stacked">
+						<li class="text-primary">MENU</li>
+						<li @if(!Input::has('karyawan') && !Input::has('non-karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'), 'q' => Input::get('q')])}}">Semua <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(Input::has('karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'karyawan' => 'active'])}}">Karyawan <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(Input::has('non-karyawan')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'non-karyawan' => 'false'])}}">Non Karyawan <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li class="text-primary pt-25">GENDER</li>
+						<li @if(Input::has('gender') && Input::get('gender')=='male') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'gender' => 'male', 'branch' => Input::get('branch'), 'tag' => Input::get('tag'), 'non-karyawan' => Input::get('non-karyawan')])}}">Pria <small class="pull-right text-bold opacity-75"></small></a></li>
+						<li @if(Input::has('gender') && Input::get('gender')=='female') class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'gender' => 'female', 'branch' => Input::get('branch'), 'tag' => Input::get('tag'), 'non-karyawan' => Input::get('non-karyawan')])}}">Wanita <small class="pull-right text-bold opacity-75"></small></a></li>
+					</ul>
+					<br/>
+					<ul class="nav nav-pills nav-stacked">
 						@if(Input::has('branch'))
 							<li class="text-primary" style="text-transform: uppercase;">{{$name}}</li>
-							<li @if(!Input::has('tag')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => Input::get('branch'), 'gender' => Input::get('gender')])}}">Semua Department <small class="pull-right text-bold opacity-75"></small></a></li>
+							<li @if(!Input::has('tag')) class="active"@endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => Input::get('branch'), 'gender' => Input::get('gender')])}}">Semua Department <small class="pull-right text-bold opacity-75"></small></a></li>
 							@foreach($branches as $key => $value)
 								@foreach($value['departments'] as $key2 => $value2)
-									<li @if(Input::has('tag') && ((Input::get('tag') == ($value2['tag'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['id'], 'tag' => $value2['tag'], 'gender' => Input::get('gender')])}}">{{$value2['tag']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+									<li @if(Input::has('tag') && ((Input::get('tag') == ($value2['tag'])))) class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'branch' => $value['id'], 'tag' => $value2['tag'], 'gender' => Input::get('gender')])}}">{{$value2['tag']}}<small class="pull-right text-bold opacity-75"></small></a></li>
 								@endforeach
 							@endforeach
 						@endif
 					</ul>
+					<br/>
 				</div><!--end .col -->
 				<!-- END SEARCH NAV -->
 
-				<div class="col-sm-8 col-md-9 col-lg-10">
+				<div class="hbox-column col-md-10" id="sidebar_mid">
 
 					<!-- BEGIN SEARCH RESULTS LIST -->
 					<div class="margin-bottom-xxl">
@@ -80,8 +88,8 @@
 								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
-								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'tag' => Input::get('tag'), 'gender' => Input::get('gender')])}}">Nama [A-Z]</a></li>
-								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1,'sort_firstname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'tag' => Input::get('tag'), 'gender' => Input::get('gender')])}}">Nama [Z-A]</a></li>
+								<li @if(Input::get('sort_firstname')=='asc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'),'sort_firstname' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'tag' => Input::get('tag'), 'gender' => Input::get('gender')])}}">Nama [A-Z]</a></li>
+								<li @if(Input::get('sort_firstname')=='desc') class="active" @endif><a href="{{route('hr.persons.index', ['page' => 1, 'org_id' => Input::get('org_id'),'sort_firstname' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'karyawan' => Input::get('karyawan'), 'tag' => Input::get('tag'), 'gender' => Input::get('gender')])}}">Nama [Z-A]</a></li>
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->
