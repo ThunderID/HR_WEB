@@ -165,7 +165,7 @@ class PersonController extends Controller {
 
 		$input['organisation']['id']				= $org_id;
 
-		if(Input::has('name'))
+		if(Input::has('name') || Input::has('uniqid') ||  Input::has('place_of_birth') || Input::has('gender') )
 		{
 			$input['person'] 							= Input::only('prefix_title', 'name', 'suffix_title', 'gender', 'place_of_birth', 'uniqid');
 		}

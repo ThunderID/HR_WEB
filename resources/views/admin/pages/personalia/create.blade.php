@@ -28,7 +28,7 @@
 						<div class="col-md-8">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="form-group">
+									<div class="form-group  @if ($errors->first('uniqid')) has-error @endif">
 										{!! Form::input('text', 'uniqid', $data['uniqid'], ['class' => 'form-control']) !!}
 										<label for="company">Unique ID</label>
 									</div>
@@ -101,11 +101,17 @@
 									<div class="radio radio-styled">
 										<label>
 											<input name="gender" type="radio" value="male"
-											@if (isset($data['gender']))
-												@if ($data['gender'] == "male")
-													 checked="checked"
-												@Endif
-											@endif
+												@if(Input::old('gender') == "male")
+													@if (Input::old('gender') == "male")
+														 checked="checked"
+													@Endif
+												@else
+													@if (isset($data['gender']))
+														@if ($data['gender'] == "male")
+															 checked="checked"
+														@Endif
+													@endif
+												@endif
 											>
 											<span>Laki-laki</span>
 										</label>
@@ -115,11 +121,17 @@
 									<div class="radio radio-styled">
 										<label>
 											<input name="gender" type="radio" value="female"
-											@if (isset($data['gender']))
-												@if ($data['gender'] == "female")
-													 checked="checked"
-												@Endif
-											@endif
+												@if(Input::old('gender') == "female")
+													@if (Input::old('gender') == "female")
+														 checked="checked"
+													@Endif
+												@else
+													@if (isset($data['gender']))
+														@if ($data['gender'] == "female")
+															 checked="checked"
+														@Endif
+													@endif
+												@endif
 											>
 											<span>Perempuan</span>
 										</label>
