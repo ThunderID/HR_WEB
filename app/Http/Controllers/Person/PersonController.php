@@ -365,6 +365,14 @@ class PersonController extends Controller {
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
+			if($id)
+			{
+				
+			}
+			else
+			{
+				
+			}	
 			return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
 		}
 		

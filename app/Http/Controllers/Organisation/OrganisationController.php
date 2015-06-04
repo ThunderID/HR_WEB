@@ -63,6 +63,7 @@ class OrganisationController extends Controller {
 		$input['person']['id'] 						= Session::get('loggedUser');
 		$input['organisation']['id'] 				= $id;
 		$input['organisation']['name'] 				= Input::get('name');
+		$src 										= Input::get('src');
 
 		$results 									= API::organisation()->store($id, $input);
 
@@ -72,7 +73,14 @@ class OrganisationController extends Controller {
 		{
 			if($id)
 			{
-				return Redirect::route('hr.organisations.index')->with('alert_success', 'organisasi "' . $content->data->name. '" sudah disimpan');
+				if($src)
+				{
+					return Redirect::route('hr.organisations.show', $content->data->id)->with('alert_success', 'organisasi "' . $content->data->name. '" sudah disimpan');
+				}
+				else
+				{
+					return Redirect::route('hr.organisations.index')->with('alert_success', 'organisasi "' . $content->data->name. '" sudah disimpan');
+				}
 			}
 			else
 			{
