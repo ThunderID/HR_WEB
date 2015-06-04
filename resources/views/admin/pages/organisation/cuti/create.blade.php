@@ -7,7 +7,7 @@
 @section('content')
 	<div class="card">
 		@if($workleave['id'])
-			<form class="form" role="form" action="{{route('hr.organisation.workleaves.update', $workleave['id'])}}" method="post">
+			<form class="form" role="form" action="{{route('hr.organisation.workleaves.update', ['id' => $workleave['id'], 'src' => Input::get('src')])}}" method="post">
 		@else
 			<form class="form" role="form" action="{{route('hr.organisation.workleaves.store')}}" method="post">
 		@endif

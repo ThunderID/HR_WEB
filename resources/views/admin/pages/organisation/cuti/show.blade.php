@@ -16,7 +16,7 @@
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
-				<a href="{{route('hr.organisation.workleaves.edit', ['id' => $workleave['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.workleaves.edit', ['id' => $workleave['id'], 'org_id' => $data['id'], 'src' => 'show'])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#chartCreate" data-id="0" data-action="">
