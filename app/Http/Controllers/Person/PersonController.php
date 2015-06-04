@@ -145,7 +145,6 @@ class PersonController extends Controller {
 
 	function postStore($id = null)
 	{
-		dd(Input::all());
 		// ---------------------- HANDLE INPUT ----------------------
 		$search 									= ['CurrentContact' => 'item'];
 
