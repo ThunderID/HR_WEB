@@ -25,10 +25,10 @@
 										</span>
 									</p>
 									<div class="pull-right">
-										<a href="javascript:;" class="btn btn-icon-toggle edit_person_workleave" title="Edit" data-toggle="modal" data-target="#workleaveCreate" data-id="{{ $value['id'] }}" data-workleave-id="{{ $value['workleave_id'] }}" data-workleave-name="{{ $value['workleave']['name'] }}" data-workleave-quota="{{ $value['workleave']['quota'] }}" data-workleave-start="{{ date('d-m-Y', strtotime($value['start'])) }}" data-workleave-end="{{ date('d-m-Y', strtotime($value['end'])) }}" data-workleave-default="{{ $value['is_default'] }}">
+										<a href="javascript:;" class="btn border-default btn-circle edit_person_workleave" title="Edit" data-toggle="modal" data-target="#workleaveCreate" data-id="{{ $value['id'] }}" data-workleave-id="{{ $value['workleave_id'] }}" data-workleave-name="{{ $value['workleave']['name'] }}" data-workleave-quota="{{ $value['workleave']['quota'] }}" data-workleave-start="{{ date('d-m-Y', strtotime($value['start'])) }}" data-workleave-end="{{ date('d-m-Y', strtotime($value['end'])) }}" data-workleave-default="{{ $value['is_default'] }}">
 											<i class="fa fa-pencil"></i>
 										</a>
-										<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_workleave_modal" data-delete-action="{{ route('hr.persons.workleaves.delete', ['person_id' => $value['person_id'], 'id' => $value['id']]) }}">
+										<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_workleave_modal" data-delete-action="{{ route('hr.persons.workleaves.delete', ['person_id' => $value['person_id'], 'id' => $value['id']]) }}">
 											<i class="fa fa-trash"></i>
 										</a>
 									</div>

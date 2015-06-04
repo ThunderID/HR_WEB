@@ -70,10 +70,10 @@
 						<div class="tab-pane active" id="details">
 							<br/>
 							@foreach($document['templates'] as $key => $value)
-								<div class="row">
+								<div class="row mb-5">
 									<div class="col-sm-10">{{ucwords($value['field'])}} ({{$value['type']}})</div>
 									<div class="text-right col-sm-2">
-										<a href="{{route('hr.document.templates.delete', [$value['id'], 'org_id' => $data['id'], 'doc_id' => $document['id']])}}">
+										<a class="btn border-default btn-circle" href="{{route('hr.document.templates.delete', [$value['id'], 'org_id' => $data['id'], 'doc_id' => $document['id']])}}">
 											<i class="fa fa-trash"></i>
 										</a>
 									</div>

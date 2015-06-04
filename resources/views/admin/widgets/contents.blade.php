@@ -33,10 +33,10 @@
 			</div>
 			<div class="clearfix">
 				<div class="col-lg-12 text-right">
-					<a href="{{route($editroute, ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn btn-icon-toggle" title="Edit">
+					<a href="{{route($editroute, ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn border-default btn-circle" title="Edit">
 						<i class="fa fa-pencil"></i>
 					</a>
-					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route($deleteroute, ['id' => $data_content['id']]) }}">
+					<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route($deleteroute, ['id' => $data_content['id']]) }}">
 						<i class="fa fa-trash"></i>
 					</a>
 				</div>
@@ -57,7 +57,7 @@
 				</div>
 				@if(isset($data_content['secret']))
 					<div class="col-lg-1 text-right">
-						<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['id']]) }}">
+						<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.branches.apis.delete', ['id' => $data_content['id']]) }}">
 							<i class="fa fa-trash"></i>
 						</a>
 					</div>
@@ -125,10 +125,10 @@
 
 			<div class="clearfix">
 				<div class="col-lg-12 text-right">
-					<a href="{{route($editroute, ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn btn-icon-toggle" title="Edit">
+					<a href="{{route($editroute, ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn border-default btn-circle" title="Edit">
 						<i class="fa fa-pencil"></i>
 					</a>
-					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route($deleteroute, ['id' => $data_content['id']]) }}">
+					<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route($deleteroute, ['id' => $data_content['id']]) }}">
 						<i class="fa fa-trash"></i>
 					</a>
 				</div>
@@ -169,10 +169,10 @@
 		@if (isset($toggle['organisation']))
 			<div class="clearfix">
 				<div class="col-lg-12 text-right">
-					<a href="{{route('hr.organisations.edit', $data_content['id'])}}" class="btn btn-icon-toggle" title="Edit">
+					<a href="{{route('hr.organisations.edit', $data_content['id'])}}" class="btn border-default btn-circle" title="Edit">
 						<i class="fa fa-pencil"></i>
 					</a>
-					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisations.delete', ['id' => $data_content['id']]) }}">
+					<a type="button" href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisations.delete', ['id' => $data_content['id']]) }}">
 						<i class="fa fa-trash"></i>
 					</a>
 				</div>
@@ -193,10 +193,10 @@
 		@if (isset($toggle['branch']))
 			<div class="clearfix">
 				<div class="col-lg-12 text-right">
-					<a href="{{route('hr.organisation.branches.edit', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn btn-icon-toggle" title="Edit">
+					<a href="{{route('hr.organisation.branches.edit', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']])}}" class="btn border-default btn-circle mr-5" title="Edit">
 						<i class="fa fa-pencil"></i>
 					</a>
-					<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']]) }}">
+					<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id'], 'org_id' => $data_content['organisation_id']]) }}">
 						<i class="fa fa-trash"></i>
 					</a>
 				</div>
@@ -205,10 +205,10 @@
 
 		@if (isset($toggle['person']))
 			<div class="pull-right">
-				<a href="{{route('hr.persons.edit', [$data_content['id']])}}" class="btn btn-icon-toggle" title="Edit">
+				<a href="{{route('hr.persons.edit', [$data_content['id']])}}" class="btn border-default btn-circle" title="Edit">
 					<i class="fa fa-pencil"></i>
 				</a>
-				<a href="javascript:;" class="btn btn-icon-toggle" title="Hapus" data-toggle="modal" data-target="#del_modal" data-delete-action="{{ route('hr.persons.delete', $data_content['id']) }}">
+				<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_modal" data-delete-action="{{ route('hr.persons.delete', $data_content['id']) }}">
 					<i class="fa fa-trash"></i>
 				</a>
 			</div>
@@ -228,10 +228,10 @@
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
-						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+						<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
 							<i class="fa fa-trash"></i>
 						</a>
-						<a class="btn btn-icon-toggle pull-right" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
+						<a class="btn border-default btn-circle pull-right mr-5" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
 							<i class="fa fa-pencil"></i>
 						</a>
 					</div>
@@ -247,10 +247,10 @@
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
-						<a href="javascript:;" class="btn btn-icon-toggle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+						<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
 							<i class="fa fa-trash"></i>
 						</a>
-						<a class="btn btn-icon-toggle pull-right btn_modal" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>
+						<a class="btn border-default btn-circle pull-right btn_modal mr-5" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>
 					</div>
 				</div>
 			</div>					

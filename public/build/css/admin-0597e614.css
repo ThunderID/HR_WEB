@@ -312,6 +312,46 @@
   height: 260px;
   width: 260px;
 }
+
+/* ----border button---- */
+.btn.btn-circle {
+  height: 34px;
+  width: 34px;
+  border-radius: 999px;
+  padding: 9px 10px;
+  -webkit-border-radius: 999px;
+}
+.btn.border-primary {
+  background: transparent;
+  border: 1px solid #2196f3;
+  color: #000;
+}
+.btn.border-primary:hover {
+  background: #2196f3;
+  border: 1px solid #2196f3;
+  color: #fff;
+}
+.btn.border-default {
+  background: transparent;
+  border: 1px solid #777;
+  color: #555;
+}
+.btn.border-default:hover {
+  background: #555;
+  border: 1px solid #555;
+  color: #e5e6e6;
+}
+.btn.border-default-dark {
+  background: transparent;
+  border: 1px solid #313534;
+  color: #000;
+}
+.btn.border-default-dark:hover {
+  background: #313534;
+  border: 1px solid #313534;
+  color: #e5e6e6;
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
