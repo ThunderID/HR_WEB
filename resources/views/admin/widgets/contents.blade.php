@@ -233,7 +233,7 @@
 								<i class="fa fa-pencil"></i>
 							</a>
 						@else
-							<a class="btn border-default btn-circle pull-right mr-5" data-toggle="modal" data-target="#addressCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
+							<a class="btn border-default btn-circle pull-right mr-5" data-toggle="modal" data-target="#addressCreate" data-modal-address-item={{$value['item']}} data-modal-address-id={{$value['id']}} data-modal-address-is-default={{$value['is_default']}} data-modal-address-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
 								<i class="fa fa-pencil"></i>
 							</a>
 						@endif

@@ -86,14 +86,13 @@
 
 
 		$('.modalContact').on('show.bs.modal', function(e) {
-			var id = $(e.relatedTarget).attr('data-modal-contact-id');
-			var item = $(e.relatedTarget).attr('data-modal-contact-item');
-			var val = $(e.relatedTarget).attr('data-modal-contact-value');
+			var id 		= $(e.relatedTarget).attr('data-modal-contact-id');
+			var item 	= $(e.relatedTarget).attr('data-modal-contact-item');
+			var val 	= $(e.relatedTarget).attr('data-modal-contact-value');
 			var is_default 	= $(e.relatedTarget).attr('data-is-default');
 
 			if(id != 0){
 				$('.modal_contact_inp_value').val(val);
-				$('.modal_contact_input_is_default').val(def);
 				$('.modal_contact_input_id').val(id);
 				$('.getContacts').select2("data", { id: item, text: item });
 				$('.getContacts').prop('readonly',true);
@@ -123,10 +122,12 @@
 			var id 			= $(e.relatedTarget).attr('data-modal-address-id');
 			var item 		= $(e.relatedTarget).attr('data-modal-address-item');
 			var val 		= $(e.relatedTarget).attr('data-modal-address-value');
-			var is_default	= $(e.relatedTarget).attr('data-is-default');
+			var is_default 	= $(e.relatedTarget).attr('data-is-default');	
 
 			if(id != 0){
 				val = val.replace(/\_/g, ' ');
+				$('.getContacts').select2("data", { id: item, text: item });
+				$('.getContacts').prop('readonly',true);
 				$('.modal_address_value').text(val);
 				$('.modal_address_input_id').val(id);
 				$('.modal_address_title').text('Edit Alamat');
@@ -141,6 +142,8 @@
 			}else{
 				$('.modal_address_value').text('');
 				$('.modal_address_input_id').val('');
+				$('.getContacts').select2("val", "");
+				$('.getContacts').prop('readonly',false);
 				$('.modal_address_title').text('Tambah Alamat');
 				$('.modal_address_btn_save').text('Tambah');
 				$('.modal_default_contact').attr('checked', false);	
