@@ -33,7 +33,13 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12 mtm-20">
-								<h3 class="text-light">Tambah Cabang</h3>
+								<h3 class="text-light">
+									@if(!$branch['id'])
+										Tambah Cabang
+									@else
+										Edit Cabang
+									@endif
+								</h3>
 							</div>
 						</div>
 						<div class="row">
@@ -47,7 +53,7 @@
 						<div class="row mt-20">
 							<div class="col-md-12">
 								<div class="text-right">
-									<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
+									<a class="btn btn-flat" href="@if(!Input::get('src')) {{route('hr.organisation.branches.index')}} @else {{route('hr.organisation.branches.show', ['id' => $branch['id']])}} @endif">BATAL</a>
 									<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
 								</div>
 							</div>

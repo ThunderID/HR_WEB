@@ -26,7 +26,7 @@
 			</div>
 			<div class="modal-footer style-default-light">
 				<p>{!! Form::hidden('from_confirm_form', 'Yes') !!}</p>
-				<a type="button" class="btn btn-flat" data-dismiss="modal">Cancel</a>
+				<a type="button" class="btn btn-flat" data-dismiss="modal">Batal</a>
 				<button type="submit" type="button" class="btn btn-flat btn-danger">Hapus</button>
 			</div>
 		</div><!-- /.modal-content -->

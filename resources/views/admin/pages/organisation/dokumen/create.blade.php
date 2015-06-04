@@ -120,7 +120,7 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row mr-20">
-					<a class="btn btn-flat" href="@if (!Input::get('src')) {{ route('hr.organisation.documents.index', ['page' => 1, 'org_id' => $data['id']]) }} @else  {{ route('hr.organisation.documents.show', ['id' => $document['id'], 'org_id' => $data['id']]) }} @endif">BATAL</a>
+					<a class="btn btn-flat" href="@if (!Input::get('src')) {{ route('hr.organisation.documents.index', ['page' => 1, 'org_id' => $data['id']]) }} @else  {{ route('hr.organisation.documents.show', ['id' => $value['id'], 'org_id' => $data['id']]) }} @endif">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DOKUMEN</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->
