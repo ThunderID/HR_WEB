@@ -361,19 +361,25 @@ class PersonController extends Controller {
 		}
 
 		$results 										= API::person()->store($id, $input);
-
+		$src 											= Input::get('src');
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
 			if($id)
 			{
-				
+				if($src)
+				{
+					return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
+				}
+				else
+				{
+					return Redirect::route('hr.persons.index');
+				}
 			}
 			else
 			{
-				
+				return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
 			}	
-			return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
