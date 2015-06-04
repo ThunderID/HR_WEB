@@ -204,6 +204,10 @@ class ChartController extends Controller {
 		{
 			$input['chart']								= Input::only('name', 'path', 'min_employee', 'max_employee', 'ideal_employee', 'grade', 'tag');
 		}
+		if($input['chart']['path']==0 || is_null($input['chart']['path']))
+		{
+			unset($input['chart']['path']);
+		}
 		$input['chart']['id']							= $id;
 
 		if(Input::has('application_id'))
