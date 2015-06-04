@@ -7,7 +7,7 @@
 @section('content')
 	<div class="card">
 		@if($branch['id'])
-			<form class="form" role="form" action="{{route('hr.organisation.branches.update', $branch['id'])}}" method="post">
+			<form class="form" role="form" action="{{route('hr.organisation.branches.update', ['id' => $branch['id'], 'src' => Input::get('src')])}}" method="post">
 		@else
 			<form class="form" role="form" action="{{route('hr.organisation.branches.store')}}" method="post">
 		@endif
