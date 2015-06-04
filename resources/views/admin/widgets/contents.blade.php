@@ -82,9 +82,9 @@
 		@if (isset($toggle['calendar']))
 			<div class="clearfix">
 				<div class="col-xs-1">
-					<span class="opacity-50"><i class = "fa fa-tags"></i></span>
+					<span class="opacity-50"><i class = "fa fa-tags mt-5"></i></span>
 				</div>
-				<div class="col-xs-11">
+				<div class="col-xs-11 mlm-10">
 					@if(isset($data_content['charts']))
 						@foreach($data_content['charts'] as $key => $value)
 							<span class="badge style-info text-sm opacity-75 mt-5">{{$value['name']}} - {{$value['tag']}} - {{$value['branch']['name']}}</span>
@@ -104,21 +104,18 @@
 							$indodays = ['monday' => 'senin', 'tuesday' => 'selasa', 'wednesday' => 'rabu', 'thursday' => 'kamis', 'friday' => 'jumat', 'saturday' => 'sabtu', 'sunday' => 'minggu'];
 						?>
 						@foreach($days as $key => $value)
-							<span class="badge style-info text-sm opacity-75 mt-5"> {{(isset($indodays[strtolower($value)]) ? $indodays[strtolower($value)] : strtolower($value))}}</span>
+							{{(isset($indodays[strtolower($value)]) ? $indodays[strtolower($value)] : strtolower($value))}}@if(($key+1)<count($days)),&nbsp;@endif 
 						@endforeach
 					@endif
 				</div>
 				@if(isset($data_content['workdays']))
 					<div class="col-xs-1">
-						<span class="opacity-50"><i class = "fa fa-clock-o"></i></span>
+						<span class="opacity-50"><i class = "fa fa-clock-o mt-5"></i></span>
 					</div>
-					<div class="col-xs-11">
-						<span class="badge style-success text-sm opacity-75 mt-5"> 
-							@time_indo($data_content['start'])
-						 </span>
-						<span class="badge style-success text-sm opacity-75 mt-5"> 
-						 	@time_indo($data_content['end'])
-						 </span>
+					<div class="col-xs-11 mlm-10">
+						@time_indo($data_content['start']) s/d
+						@time_indo($data_content['end'])
+						
 					</div>
 				@endif
 			</div>
@@ -231,9 +228,15 @@
 						<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
 							<i class="fa fa-trash"></i>
 						</a>
-						<a class="btn border-default btn-circle pull-right mr-5" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
-							<i class="fa fa-pencil"></i>
-						</a>
+						@if (isset($toggle['branch_kontak']))
+							<a class="btn border-default btn-circle pull-right mr-5" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
+								<i class="fa fa-pencil"></i>
+							</a>
+						@else
+							<a class="btn border-default btn-circle pull-right mr-5" data-toggle="modal" data-target="#addressCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
+								<i class="fa fa-pencil"></i>
+							</a>
+						@endif
 					</div>
 				</div>
 			</div>					
