@@ -352,6 +352,13 @@
   color: #e5e6e6;
 }
 
+.nav > li > a.add-button {
+  top: 0;
+  right: 0;
+  position: absolute;
+  margin-top: 6px;
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;

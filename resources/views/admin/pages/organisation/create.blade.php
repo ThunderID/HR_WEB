@@ -37,7 +37,7 @@
 			<!-- BEGIN FORM FOOTER -->
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat btn-default ink-reaction" href="{{route('hr.organisations.index')}}">BATAL</a>
+					<a class="btn btn-flat btn-default ink-reaction" href="@if(!Input::get('src')) {{route('hr.organisations.index')}} @else {{ route('hr.organisations.show', ['organisation' => $data['id']]) }} @endif">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-primary ink-reaction">SIMPAN DATA</button>
 				</div><!--end .card-actionbar-row -->
 			</div><!--end .card-actionbar -->

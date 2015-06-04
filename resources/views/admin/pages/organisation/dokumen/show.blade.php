@@ -1,6 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
 	<li>{{ucwords($data['name'])}}</li>
+	<li>Dokumen</li>
 	<li class='active'>{{ucwords(($document['name']))}}</li>
 @stop
 

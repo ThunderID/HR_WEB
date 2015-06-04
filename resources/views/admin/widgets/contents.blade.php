@@ -93,9 +93,7 @@
 						<span class="badge style-info text-sm opacity-75 mt-5">{{$data_content['chart']['name']}} - {{$data_content['chart']['tag']}} - {{$value['chart']['branch']['name']}}</span>
 					@endif
 					@if(isset($data_content['quota']))
-						<span class="badge style-info text-sm opacity-75 mt-5"> 
-							{{(number_format($data_content['quota']))}} Hari
-						 </span>
+						{{(number_format($data_content['quota']))}} Hari						
 					@endif
 
 					@if(isset($data_content['workdays']))

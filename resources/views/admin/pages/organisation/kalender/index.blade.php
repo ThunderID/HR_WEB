@@ -13,18 +13,6 @@
 				<a href="{{route('hr.organisations.index')}}" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i>&nbsp;Kembali
 				</a>
-				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
-					<i class="fa fa-trash"></i>&nbsp;Hapus
-				</a>
-				<a href="{{route('hr.organisations.edit', ['id' => $data['id'],  'src' => 'show'])}}" class="btn btn-flat ink-reaction pull-right">
-					<i class="fa fa-pencil"></i>&nbsp;Ubah
-				</a>
-				<a href="{{route('hr.organisation.calendars.create', ['org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
-					<i class="fa fa-plus-circle fa-lg"></i>&nbsp;Kalender
-				</a>
-				<a href="{{route('hr.persons.index', ['page' => 1, 'organisation' => $data['name']])}}" class="btn btn-flat ink-reaction pull-right">
-					<i class="fa fa-users"></i>&nbsp;Karyawan
-				</a>
 			</div>
 		</div>
 		<!-- END CARD HEADER -->
