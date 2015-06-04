@@ -39,7 +39,16 @@ class DocumentController extends Controller {
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
 		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
-		$search['organisationid']					= Session::get('user.organisation');
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		$search['organisationid']					= $org_id;
 
 		$results 									= API::person()->show($personid, $search);
 		
@@ -52,7 +61,7 @@ class DocumentController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['organisationid' => Session::get('user.organisation'), 'WithAttributes' => ['templates']];
+		$search 									= ['organisationid' => $org_id, 'WithAttributes' => ['templates']];
 
 		$sort 										= ['tag' => 'asc'];
 
@@ -151,7 +160,16 @@ class DocumentController extends Controller {
 
 		$person_document 							= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['organisationid' => Session::get('user.organisation'), 'WithAttributes' => ['templates']];
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		$search 									= ['organisationid' => $org_id, 'WithAttributes' => ['templates']];
 
 		$sort 										= ['tag' => 'asc'];
 
@@ -167,7 +185,7 @@ class DocumentController extends Controller {
 		$documents 									= json_decode(json_encode($contents_2->data), true);
 
 		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
-		$search['organisationid']					= Session::get('user.organisation');
+		$search['organisationid']					= $org_id;
 
 		$results 									= API::person()->show($personid, $search);
 		
@@ -237,7 +255,16 @@ class DocumentController extends Controller {
 		$person_document 							= json_decode(json_encode($contents->data), true);
 
 		$search 									= ['CurrentWork' => null];
-		$search['organisationid']					= Session::get('user.organisation');
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		$search['organisationid']					= $org_id;
 
 		$results 									= API::person()->show($personid, $search);
 		
@@ -279,7 +306,16 @@ class DocumentController extends Controller {
 		$person_document 							= json_decode(json_encode($contents->data), true);
 
 		$search 									= ['CurrentWork' => null];
-		$search['organisationid']					= Session::get('user.organisation');
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		$search['organisationid']					= $org_id;
 
 		$results 									= API::person()->show($personid, $search);
 		

@@ -50,7 +50,16 @@ class RelativeController extends Controller {
 		$paginator 									= new Paginator($contents->pagination->total_data + $contents_2->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page + $contents_2->pagination->per_page, ($contents->pagination->from + $contents_2->pagination->from)/2, $contents->pagination->to + $contents_2->pagination->to);
 
 		$search 									= ['CurrentWork' => null, 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => '', 'checkrelative' => ''];
-		$search['organisationid']					= Session::get('user.organisation');
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+		$search['organisationid']					= $org_id;
 		$results 									= API::person()->show($personid, $search);
 		$contents 									= json_decode($results);
 
@@ -61,7 +70,7 @@ class RelativeController extends Controller {
 
 		$data 										= json_decode(json_encode($contents->data), true);
 
-		$search 									= ['organisationid' => Session::get('user.organisation'), 'grouptag' => ''];
+		$search 									= ['organisationid' => $org_id, 'grouptag' => ''];
 
 		$sort 										= ['tag' => 'asc'];
 
