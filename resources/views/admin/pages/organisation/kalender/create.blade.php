@@ -7,7 +7,7 @@
 @section('content')
 	<div class="card">
 		@if($calendar['id'])
-			<form class="form" role="form" action="{{route('hr.organisation.calendars.update', ['id' => $calendar['id'], 'org_id' => $data['id']])}}" method="post">
+			<form class="form" role="form" action="{{route('hr.organisation.calendars.update', ['id' => $calendar['id'], 'org_id' => $data['id'], 'src' => Input::get('src')])}}" method="post">
 		@else
 			<form class="form" role="form" action="{{route('hr.organisation.calendars.store', ['org_id' => $data['id']])}}" method="post">
 		@endif

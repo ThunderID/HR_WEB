@@ -165,11 +165,25 @@ class WorkleaveController extends Controller {
 		$input['organisation']['id'] 				= $org_id;
 
 		$results 									= API::workleave()->store($id, $input);
-
+		$src 										= Input::get('src');
 		$content 									= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.workleaves.index', ['page' => 1, 'org_id' =>$org_id])->with('alert_success', 'Data Cuti sudah di simpan');
+			if($id)
+			{
+				if($src)
+				{
+					return Redirect::route('hr.organisation.workleaves.show', ['id' => $content->data->id ,'page' => 1, 'org_id' =>$org_id])->with('alert_success', 'Data Cuti sudah di simpan');
+				}
+				else
+				{
+					return Redirect::route('hr.organisation.workleaves.index', ['page' => 1, 'org_id' =>$org_id])->with('alert_success', 'Data Cuti sudah di simpan');
+				}
+			}
+			else
+			{
+				return Redirect::route('hr.organisation.workleaves.show', ['id' => $content->data->id ,'page' => 1, 'org_id' =>$org_id])->with('alert_success', 'Data Cuti sudah di simpan');
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();

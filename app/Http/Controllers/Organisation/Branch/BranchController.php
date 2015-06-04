@@ -150,6 +150,8 @@ class BranchController extends Controller {
 
 		$input['organisation']['id']					= $org_id;
 
+		$src 											= Input::get('src');
+
 		$results 										= API::branch()->store($id, $input);
 
 		$content 										= json_decode($results);
@@ -158,7 +160,14 @@ class BranchController extends Controller {
 		{
 			if($id)
 			{
-				return Redirect::route('hr.organisation.branches.index', [1, 'org_id' => $org_id])->with('alert_success', 'Cabang "'.$content->data->name.'" Sudah Tersimpan');
+				if($src)
+				{
+					return Redirect::route('hr.organisation.branches.show',[1,'id' => $content->data->id, 'org_id' => $org_id])->with('alert_success', 'Cabang "'.$content->data->name.'" Sudah Tersimpan');
+				}
+				else
+				{
+					return Redirect::route('hr.organisation.branches.index', [1, 'org_id' => $org_id])->with('alert_success', 'Cabang "'.$content->data->name.'" Sudah Tersimpan');
+				}
 			}
 			else
 			{

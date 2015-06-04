@@ -14,7 +14,7 @@
 				</div>
 			</div><!--end .card-head -->
 		@if($data['id'])
-			<form class="form" role="form" action="{{route('hr.organisations.update', $data['id'])}}" method="post">
+			<form class="form" role="form" action="{{route('hr.organisations.update', [$data['id'], 'src' => Input::get('src')])}}" method="post">
 		@else
 			<form class="form" role="form" action="{{route('hr.organisations.store')}}" method="post">
 		@endif

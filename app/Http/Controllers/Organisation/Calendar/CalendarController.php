@@ -177,11 +177,25 @@ class CalendarController extends Controller {
 		$input['organisation']['id']				= $org_id;
 
 		$results 									= API::calendar()->store($id, $input);
-
+		$src 										= Input::get('src');
 		$content 									= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.calendars.index', ['page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Kalender sudah di simpan');
+			if($id)
+			{
+				if($src)
+				{
+					return Redirect::route('hr.organisation.calendars.show', ['id' => $content->data->id, 'page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Kalender sudah di simpan');
+				}
+				else
+				{
+					return Redirect::route('hr.organisation.calendars.index', ['page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Kalender sudah di simpan');
+				}
+			}
+			else
+			{
+				return Redirect::route('hr.organisation.calendars.show', ['id' => $content->data->id, 'page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Kalender sudah di simpan');
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
