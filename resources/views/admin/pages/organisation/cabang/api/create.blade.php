@@ -33,8 +33,8 @@
 			</div>
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
-					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
+					<a class="btn btn-flat" href="{{route('hr.branches.apis.index', [1, 'branchid' => $branch['id'], 'org_id' => $data['id']])}} ">BATAL</a>
+					<button type="submit" class="btn btn-flat btn-accent">SIMPAN DATA</button>
 				</div>
 			</div>			
 		</form>

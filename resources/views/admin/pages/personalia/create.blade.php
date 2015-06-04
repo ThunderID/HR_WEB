@@ -134,7 +134,7 @@
 
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
+					<a class="btn btn-flat" href="@if(!Input::get('src')) {{route('hr.persons.index')}} @else {{ route('hr.persons.show', ['id' => $data['id']]) }} @endif">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
 				</div>
 			</div>

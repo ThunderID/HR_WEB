@@ -37,7 +37,7 @@
 			{!!Form::hidden('org_id', $data['id'])!!}
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
+					<a class="btn btn-flat" href="@if(!Input::get('src')) {{route('hr.organisation.workleaves.index')}} @else {{route('hr.organisation.workleaves.show', ['id' => $workleave['id']])}} @endif">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
 				</div>
 			</div>			
