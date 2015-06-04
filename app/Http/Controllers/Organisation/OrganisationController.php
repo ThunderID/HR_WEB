@@ -70,7 +70,14 @@ class OrganisationController extends Controller {
 
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisations.show', $content->data->id)->with('alert_success', 'organisasi "' . $content->data->name. '" sudah disimpan');
+			if($id)
+			{
+				return Redirect::route('hr.organisations.index')->with('alert_success', 'organisasi "' . $content->data->name. '" sudah disimpan');
+			}
+			else
+			{
+				return Redirect::route('hr.organisations.show', $content->data->id)->with('alert_success', 'organisasi "' . $content->data->name. '" sudah disimpan');
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
