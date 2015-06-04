@@ -256,12 +256,26 @@ class ChartController extends Controller {
 		}
 
 		$results 									= API::chart()->store($id, $input);
-
+		$src 										= Input::get('src'); 
 		$content 									= json_decode($results);
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.branches.charts.index', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'page' => 1])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+			if($id)
+			{
+				if($src)
+				{
+					return Redirect::route('hr.branches.charts.show', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'id' => $content->data->id])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+				}
+				else
+				{
+					return Redirect::route('hr.branches.charts.index', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'page' => 1])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+				}
+			}
+			else
+			{
+				return Redirect::route('hr.branches.charts.show', ['branchid' => $branch_id, 'org_id' => $input['organisation']['id'], 'id' => $content->data->id])->with('alert_success', 'Posisi '.$content->data->name.' Sudah Tersimpan');
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
