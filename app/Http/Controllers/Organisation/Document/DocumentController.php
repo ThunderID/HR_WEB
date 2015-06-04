@@ -198,11 +198,25 @@ class DocumentController extends Controller {
 		$input['organisation']['id']				= $org_id;
 
 		$results 									= API::document()->store($id, $input);
-
+		$src 										= Input::get('src');
 		$content 									= json_decode($results);
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.documents.index', ['page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Dokumen sudah di simpan');
+			if($id)
+			{
+				if($src)
+				{
+					return Redirect::route('hr.organisation.documents.show', ['id' => $content->data->id ,'org_id' => $org_id])->with('alert_success', 'Data Dokumen sudah di simpan');
+				}
+				else
+				{
+					return Redirect::route('hr.organisation.documents.index', ['page' => 1,'org_id' => $org_id])->with('alert_success', 'Data Dokumen sudah di simpan');
+				}
+			}
+			else
+			{
+				return Redirect::route('hr.organisation.documents.show', ['id' => $content->data->id ,'org_id' => $org_id])->with('alert_success', 'Data Dokumen sudah di simpan');
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
