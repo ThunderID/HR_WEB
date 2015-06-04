@@ -1,7 +1,7 @@
 @extends('admin.pages.personalia.show')
 @section('karyawan.show')
 	<ul class="nav nav-tabs" data-toggle="tabs">
-		<li class="active"><a href="#details">Cuti</a></li>
+		<li class="active"><a href="#details">Hak Cuti</a></li>
 	</ul>
 	<div class="page-header no-border holder" style="margin-top:0px;">
 		<br/>
