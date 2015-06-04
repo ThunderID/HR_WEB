@@ -22,7 +22,7 @@
 					<div class="col-xs-12">
 						<div class="row">
 							<div class="col-md-12">
-								<div class="form-group floating-label">
+								<div class="form-group">
 									{!! Form::text('name', $data['name'], array('class'=>'form-control input-lg', 'id' => 'name')) !!}
 									<label for="name">Nama Organisasi</label>
 								</div>										
