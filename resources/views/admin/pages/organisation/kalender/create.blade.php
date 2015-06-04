@@ -31,13 +31,13 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<input type="text" class="form-control time_mask" id="start" name="start" value="{{$calendar['start']}}">
-							<label for="start">Start</label>
+							<label for="start">Jam Masuk (Default)</label>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group">
 							<input type="text" class="form-control time_mask" id="end" name="end" value="{{$calendar['end']}}">
-							<label for="end">End</label>
+							<label for="end">Jam Pulang (Default)</label>
 						</div>
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 			{!!Form::hidden('org_id', $data['id'])!!}
 			<div class="card-actionbar">
 				<div class="card-actionbar-row">
-					<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
+					<a class="btn btn-flat" href="{{ route('hr.organisation.calendars.index', ['org_id' => $data['id']]) }}">BATAL</a>
 					<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
 				</div>
 			</div>			
