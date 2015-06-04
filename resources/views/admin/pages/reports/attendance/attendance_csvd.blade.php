@@ -3,6 +3,11 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
+				<th colspan="12">
+					Reports Aktivitas {{$person['name']}} ({{date('d-m-Y', strtotime($start))}} s/d {{date('d-m-Y', strtotime($end))}})
+				</th>
+			</tr>
+			<tr>
 				<th rowspan="2" style="text-align:center; vertical-align:middle">No</th>
 				<th rowspan="2" style="vertical-align:middle">Nama</th>
 				<th rowspan="2" style="text-align:center; vertical-align:middle">Tanggal</th>

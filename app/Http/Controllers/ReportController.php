@@ -17,6 +17,16 @@ class ReportController extends Controller {
 	{
 		// ---------------------- LOAD DATA ----------------------
 
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+
 		if(Input::has('start'))
 		{
 			list($d,$m,$y) 							= explode('/', Input::get('start'));
@@ -24,11 +34,11 @@ class ReportController extends Controller {
 			list($d,$m,$y) 							= explode('/', Input::get('end'));
 			$end 									= "$y-$m-$d";
 
-			$search 								= ['globalattendance' => ['organisationid' => Session::get('user.organisation'), 'on' => [$start, $end]]];
+			$search 								= ['globalattendance' => ['organisationid' => $org_id, 'on' => [$start, $end]]];
 		}
 		else
 		{
-			$search 								= ['globalattendance' => ['organisationid' => Session::get('user.organisation'), 'on' => [$start, $end]]];
+			$search 								= ['globalattendance' => ['organisationid' => $org_id, 'on' => [$start, $end]]];
 		}
 		
 		$sort 										= [];
@@ -39,7 +49,7 @@ class ReportController extends Controller {
 			switch (strtolower(Input::get('case'))) 
 			{
 				case 'late': case 'ontime' : case 'earlier' : case 'overtime' :
-					$search['globalattendance']		= ['organisationid' => Session::get('user.organisation'), 'on' => [$start, $end], 'case' => strtolower(Input::get('case'))];
+					$search['globalattendance']		= ['organisationid' => $org_id, 'on' => [$start, $end], 'case' => strtolower(Input::get('case'))];
 					break;
 				default:
 					App::abort('404');
@@ -77,7 +87,7 @@ class ReportController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$search['organisationid'] 					= Session::get('user.organisation');
+		$search['organisationid'] 					= $org_id;
 
 		$results 									= API::person()->index($page, $search, $sort, 100);
 		$contents 									= json_decode($results);
@@ -90,7 +100,7 @@ class ReportController extends Controller {
 
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
-		$search 									= ['organisationid' => Session::get('user.organisation')];
+		$search 									= ['organisationid' => $org_id];
 
 		if(Input::has('branch'))
 		{
@@ -114,13 +124,13 @@ class ReportController extends Controller {
 		{
 			set_time_limit(180);
 			$case = Input::get('case');
-			Excel::create('Attendance Reports ( '.Input::get('start').' s.d '.Input::get('end').' )', function($excel) use ($data, $case) 
+			Excel::create('Attendance Reports ( '.Input::get('start').' s.d '.Input::get('end').' )', function($excel) use ($data, $case, $start, $end) 
 			{
 				// Set the title
 				$excel->setTitle('Our new awesome title');
 				// Call them separately
 				$excel->setDescription('A demonstration to change the file properties');
-				$excel->sheet('Sheetname', function ($sheet) use ($data, $case) 
+				$excel->sheet('Sheetname', function ($sheet) use ($data, $case, $start, $end) 
 				{
 					$c 									= count($data);
 
@@ -132,7 +142,7 @@ class ReportController extends Controller {
 					}
 
 					$sheet->setWidth(['A' => 5, 'B' => 30, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 12, 'K' => 12]);
-					$sheet->loadView('admin.pages.reports.attendance.attendance_csv')->with('data', $data)->with('case', $case);
+					$sheet->loadView('admin.pages.reports.attendance.attendance_csv')->with('data', $data)->with('case', $case)->with('start', $start)->with('end', $end);
 				});
 			})->export(Input::get('mode'));
 		}
@@ -145,6 +155,8 @@ class ReportController extends Controller {
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
 		$this->layout->content->branches 			= $branches;
+		$this->layout->content->start 				= $start;
+		$this->layout->content->end 				= $end;
 
 		return $this->layout;
 	}
@@ -152,6 +164,15 @@ class ReportController extends Controller {
 	function detailAttendance($personid)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
 		$results 									= API::person()->show($personid, []);
 
 		$contents 									= json_decode($results);
@@ -220,18 +241,18 @@ class ReportController extends Controller {
 		{
 			set_time_limit(180);
 			$case = Input::get('case');
-			Excel::create('Attendance Detail Reports ( '.Input::get('start').' s.d '.Input::get('end').' )', function($excel) use ($data, $case, $person) 
+			Excel::create('Attendance Detail Reports ( '.Input::get('start').' s.d '.Input::get('end').' )', function($excel) use ($data, $case, $person, $start, $end) 
 			{
 				// Set the title
 				$excel->setTitle('Our new awesome title');
 				// Call them separately
 				$excel->setDescription('A demonstration to change the file properties');
-				$excel->sheet('Sheetname', function ($sheet) use ($data, $case, $person) 
+				$excel->sheet('Sheetname', function ($sheet) use ($data, $case, $person, $start, $end) 
 				{
 					$c 									= count($data);
 					$sheet->setBorder('A1:L'.($c+2), 'thin');				
 					$sheet->setWidth(['A' => 5, 'B' => 30, 'C' => 15, 'D' => 12, 'E' => 12, 'F' => 12, 'G' => 12, 'H' => 12, 'I' => 12, 'J' => 14, 'K' => 14, 'L' => 14]);
-					$sheet->loadView('admin.pages.reports.attendance.attendance_csvd')->with('data', $data)->with('case', $case)->with('person', $person);
+					$sheet->loadView('admin.pages.reports.attendance.attendance_csvd')->with('data', $data)->with('case', $case)->with('person', $person)->with('start', $start)->with('end', $end);
 				});
 			})->export(Input::get('mode'));
 		}
@@ -244,6 +265,8 @@ class ReportController extends Controller {
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
 		$this->layout->content->person 				= $person;
+		$this->layout->content->start 				= $start;
+		$this->layout->content->end 				= $end;
 
 		return $this->layout;
 	}
@@ -251,6 +274,15 @@ class ReportController extends Controller {
 	function detailLog($personid)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
 		$results 									= API::person()->show($personid, []);
 
 		$contents 									= json_decode($results);
@@ -297,7 +329,8 @@ class ReportController extends Controller {
 		$this->layout->content->data 				= $data;
 		$this->layout->content->paginator 			= $paginator;
 		$this->layout->content->person 				= $person;
-		// $this->layout->content->branches 			= $branches;
+		$this->layout->content->start 				= $start;
+		$this->layout->content->end 				= $end;
 
 		return $this->layout;
 	}
@@ -317,6 +350,16 @@ class ReportController extends Controller {
 	function getPerformance($page = null)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
+
 		if(Input::has('start'))
 		{
 			$search 								= ['WithAttributes' => ['person'], 'ondate'=> [Input::get('start'), Input::get('end')]];
@@ -371,7 +414,7 @@ class ReportController extends Controller {
 
 		$paginator 									= new Paginator($contents->pagination->total_data, (int)$contents->pagination->page, $contents->pagination->per_page, $contents->pagination->from, $contents->pagination->to);
 
-		$search 									= ['organisationid' => Session::get('user.organisation')];
+		$search 									= ['organisationid' => $org_id];
 
 		if(Input::has('branch'))
 		{
@@ -407,6 +450,15 @@ class ReportController extends Controller {
 	function getWages($page = null)
 	{
 		// ---------------------- LOAD DATA ----------------------
+		if(Input::has('org_id'))
+		{
+			$org_id 								= Input::get('org_id');
+		}
+		else
+		{
+			$org_id 								= Session::get('user.organisation');
+		}
+
 		if(Input::has('start'))
 		{
 			list($d,$m,$y) 							= explode('/', Input::get('start'));
@@ -459,7 +511,7 @@ class ReportController extends Controller {
 			$search['charttag'] 					= Input::get('tag');
 		}
 
-		$search['organisationid'] 					= Session::get('user.organisation');
+		$search['organisationid'] 					= $org_id;
 
 		$results 									= API::person()->index($page, $search, $sort, 100);
 		$contents 									= json_decode($results);
@@ -473,7 +525,7 @@ class ReportController extends Controller {
 		unset($search);
 
 
-		$search['organisationid'] 					= Session::get('user.organisation');
+		$search['organisationid'] 					= $org_id;
 		$search['checkwork'] 						= true;
 
 		$results 									= API::person()->index($page, $search, $sort, 100);
@@ -541,7 +593,7 @@ class ReportController extends Controller {
 			$compelete[$key]['status'] 				= $status;
 		}
 
-		$search 									= ['organisationid' => Session::get('user.organisation')];
+		$search 									= ['organisationid' => $org_id];
 		if(Input::has('branch'))
 		{
 			$search['id'] 							= Input::get('branch');
@@ -559,19 +611,19 @@ class ReportController extends Controller {
 		$branches 									= json_decode(json_encode($contents_2->data), true);
 		if(Input::has('mode'))
 		{
-			Excel::create('Wages Reports', function($excel) use ($compelete, $currentstatus) 
+			Excel::create('Wages Reports', function($excel) use ($compelete, $currentstatus, $start, $end) 
 			{
 				// Set the title
 				$excel->setTitle('Our new awesome title');
 				// Call them separately
 				$excel->setDescription('A demonstration to change the file properties');
-				$excel->sheet('Sheetname', function ($sheet) use ($compelete, $currentstatus) 
+				$excel->sheet('Sheetname', function ($sheet) use ($compelete, $currentstatus, $start, $end) 
 				{
 					$c 								= count($compelete);
 					$cs 							= count($currentstatus);
 					$sheet->setBorder('A1:G'.($c+2), 'thin');
 					$sheet->setWidth(['A' => 5, 'B' => 30, 'C' => 15, 'D' => 15, 'E' => 15, 'F' => 15, 'G' => 15]);
-					$sheet->loadView('admin.pages.reports.wages.wages_csv')->with('data', $compelete)->with('status', $currentstatus)->with('cs', $cs);
+					$sheet->loadView('admin.pages.reports.wages.wages_csv')->with('data', $compelete)->with('status', $currentstatus)->with('cs', $cs)->with('start', $start)->with('end', $end);
 				});
 			})->export(Input::get('mode'));
 		}

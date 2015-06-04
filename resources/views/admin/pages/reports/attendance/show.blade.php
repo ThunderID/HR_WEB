@@ -1,7 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
 	<li>{{ucwords(($controller_name))}}</li>
-	<li>Aktivitas</li>
+	<li>Aktivitas ({{date('d-m-Y', strtotime($start))}} s/d {{date('d-m-Y', strtotime($end))}})</li>
 	<li class='active'>{{ ucwords($person['name']) }}</li>
 @stop
 
@@ -194,7 +194,7 @@
 									@endif
 									<td class="text-sm">
 										<span class ="badge text-sm mt-5">
-											<a href ="{{route('hr.report.attendance.log', ['id' => $person['id'], 'start' => date('d/m/Y', strtotime($value['on'])), 'end' => date('d/m/Y', strtotime($value['on'].' + 1 day'))])}}"> Detail</a>
+											<a href ="{{route('hr.report.attendance.log', ['id' => $person['id'], 'start' => date('d/m/Y', strtotime($value['on'])), 'end' => date('d/m/Y', strtotime($value['on'].' + 1 day')), 'org_id' => Input::get('org_id')])}}"> Detail</a>
 										</span>
 									</td>
 								</tr>

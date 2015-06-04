@@ -1,7 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
 	<li>{{ucwords(($controller_name))}}</li>
-	<li>Aktivitas</li>
+	<li>Aktivitas ({{date('d-m-Y', strtotime($start))}})</li>
 	<li class='active'>{{ ucwords($person['name']) }}</li>
 @stop
 

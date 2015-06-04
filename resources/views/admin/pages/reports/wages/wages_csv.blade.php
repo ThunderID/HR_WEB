@@ -2,6 +2,11 @@
 <body>
 	<table class="table table-bordered">
 		<thead>
+			<tr>
+				<th colspan="@if($cs==0) {{$cs+6}} @else {{$cs+7}} @endif">
+					Reports Aktivitas ({{date('d-m-Y', strtotime($start))}} s/d {{date('d-m-Y', strtotime($end))}})
+				</th>
+			</tr>
 			<tr style="height:32px">
 				<th rowspan="2" style="text-align:center;vertical-align:middle">No </th>
 				<th rowspan="2" style="vertical-align:middle">Nama</th>
