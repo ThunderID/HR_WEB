@@ -16,7 +16,7 @@
 					<i class="fa fa-chevron-circle-right"></i>&nbsp;&nbsp;<a href="{{route('hr.branches.charts.show', ['branchid' => $branch['id'], 'org_id' => $data['id'], 'id' => $value['id']])}}" >{{$value['name']}} - {{$value['tag']}}</a>
 				</div>
 				<div class="text-right col-sm-2">
-					<a class="btn border-default btn-circle btn_edit" href="{{route('hr.branches.charts.show', ['org_id' => $data['id'], 'id' => $value['id'], 'page' => 1, 'tag' => $value['tag'], 'branchid' => $branch['id']])}}" data-toggle="tooltip" data-placement="top" data-original-title="edit struktur">
+					<a class="btn border-default btn-circle btn_edit" href="{{ route('hr.branches.charts.edit', ['id' => $value['id'],'branchid' => $branch['id'], 'org_id' => $data['id']]) }}" data-toggle="tooltip" data-placement="top" data-original-title="edit struktur">
 						<i class="fa fa-pencil"></i>
 					</a>
 					<a href="javascript:;" class="btn border-default btn-circle del_charts" data-toggle="tooltip" data-target="#del_modal2_{{$value['id']}}" data-placement="top" data-original-title="hapus struktur">
