@@ -156,7 +156,14 @@ class BranchController extends Controller {
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.branches.index', [1, 'org_id' => $org_id])->with('alert_success', 'Cabang "'.$content->data->name.'" Sudah Tersimpan');
+			if($id)
+			{
+				return Redirect::route('hr.organisation.branches.index', [1, 'org_id' => $org_id])->with('alert_success', 'Cabang "'.$content->data->name.'" Sudah Tersimpan');
+			}
+			else
+			{
+				return Redirect::route('hr.organisation.branches.show',[1,'id' => $content->data->id, 'org_id' => $org_id])->with('alert_success', 'Cabang "'.$content->data->name.'" Sudah Tersimpan');
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
