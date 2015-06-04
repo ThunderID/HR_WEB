@@ -16,7 +16,7 @@
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
 					<i class="fa fa-trash"></i> Hapus
 				</a>
-				<a href="{{route('hr.organisation.documents.edit', [$document['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.documents.edit', [$document['id'], 'org_id' => $data['id'], 'src' => 'show'])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i> Edit
 				</a>
 				<?php /*		

@@ -7,7 +7,7 @@
 @section('content')
 	<div class="card">
 		@if($document['id'])
-			<form class="form" role="form" action="{{route('hr.organisation.documents.update', $document['id'])}}" method="post">
+			<form class="form" role="form" action="{{route('hr.organisation.documents.update', ['id' => $document['id'], 'src' => Input::get('src')])}}" method="post">
 		@else
 			<form class="form" role="form" action="{{route('hr.organisation.documents.store')}}" method="post">
 		@endif
