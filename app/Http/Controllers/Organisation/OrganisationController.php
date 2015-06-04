@@ -32,7 +32,7 @@ class OrganisationController extends Controller {
 			}elseif(Input::get('sort') == '4'){
 				$sort 								= ['name' => 'asc'];
 			}else{
-				App::abort(404);
+				return Redirect::route('hr.organisations.index');
 			}
 		}else{
 			$sort 									= ['created_at' => 'asc'];
