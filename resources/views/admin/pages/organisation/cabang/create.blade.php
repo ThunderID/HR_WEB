@@ -53,7 +53,7 @@
 						<div class="row mt-20">
 							<div class="col-md-12">
 								<div class="text-right">
-									<a class="btn btn-flat" href="{{ URL::previous() }}">BATAL</a>
+									<a class="btn btn-flat" href="@if(!Input::get('src')) {{route('hr.organisation.branches.index')}} @else {{route('hr.organisation.branches.show', ['id' => $branch['id']])}} @endif">BATAL</a>
 									<button type="submit" class="btn btn-flat btn-primary">SIMPAN DATA</button>
 								</div>
 							</div>
