@@ -15,7 +15,7 @@
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal" data-action="{{ route('hr.organisation.calendars.delete', $data['id']) }}">
 					<i class="fa fa-trash"></i>&nbsp;Hapus
 				</a>
-				<a href="{{route('hr.organisation.calendars.edit', ['org_id' => $data['id'], 'id' => $calendar['id']])}}" class="btn btn-flat ink-reaction pull-right">
+				<a href="{{route('hr.organisation.calendars.edit', ['org_id' => $data['id'], 'id' => $calendar['id'], 'src' => 'show'])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-pencil"></i>&nbsp;Edit
 				</a>
 				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#chartCreate">
