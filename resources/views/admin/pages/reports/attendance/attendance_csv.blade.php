@@ -3,6 +3,11 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
+				<th colspan="12">
+					Reports Aktivitas ({{date('d-m-Y', strtotime($start))}} s/d {{date('d-m-Y', strtotime($end))}})
+				</th>
+			</tr>
+			<tr>
 				<th rowspan="2" style="text-align:center; vertical-align:middle">No</th>
 				<th rowspan="2" style="vertical-align:middle">Nama</th>
 				<th colspan="2" style="text-align:center; height:18px">In</th>
@@ -10,6 +15,7 @@
 				<th rowspan="2" style="text-align:center; vertical-align:middle">Total Idle</th>
 				<th rowspan="2" style="text-align:center; vertical-align:middle">Total Sleep</th>
 				<th rowspan="2" style="text-align:center; vertical-align:middle">Total Active</th>               
+				<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total <br/> Hadir <br/>(Hari)</th>
 				@if($case && $case!='ontime')
 					<th rowspan="2" style="text-align:center; vertical-align:middle"> {{ ucwords($case) }} <br/> (Hi - Lo) </th>
 				@else
@@ -55,7 +61,10 @@
 					</td>
 					<td style="text-align:center">
 						{{ gmdate("H:i:s", $value['avg_active']) }}
-					</td>					
+					</td>
+					<td class="text-center text-sm">									
+						{{number_format($value['total_attendance'])}}
+					</td>			
 					@if($case && $case!='ontime')
 						<td style="text-align:center">
 							<?php 

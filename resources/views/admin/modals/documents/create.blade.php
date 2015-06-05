@@ -1,4 +1,4 @@
-<form role="form" action="{{route('hr.persons.documents.store', $data['id'])}}" method="post" class="modal_form_document">
+<form role="form" action="{{route('hr.persons.documents.store', ['id' => $data['id'], 'tag' => Input::get('tag')])}}" method="post" class="modal_form_document">
 	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content form">
@@ -23,7 +23,11 @@
 								<select id="docs_type" name="docs_type" class="form-control">
 									<option value=""></option>								
 									@foreach($documents as $key => $value)
-										@if($value['tag']==Input::get('tag'))
+										@if(Input::get('tag'))									
+											@if($value['tag']==Input::get('tag'))
+												<option value="{{$key}}">{{$value['name']}}</option>
+											@endif
+										@else
 											<option value="{{$key}}">{{$value['name']}}</option>
 										@endif
 									@endforeach	

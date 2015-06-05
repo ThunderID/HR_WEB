@@ -138,9 +138,10 @@ class DocumentController extends Controller {
 		$results 										= API::person()->store($personid, $input);
 
 		$content 										= json_decode($results);
+
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.persons.show', [$content->data->id])->with('alert_success', 'Dokumen Personalia sudah di simpan');
+			return Redirect::route('hr.persons.documents.index', ['page' => 1, 'person_id' => $content->data->id, 'tag' => Input::get('tag')])->with('alert_success', 'Dokumen Personalia sudah di simpan');
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();

@@ -1,7 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
 	<li>Reports</li>
-	<li class='active'>Aktivitas</li>
+	<li class='active'>Aktivitas ({{date('d-m-Y', strtotime($start))}} s/d {{date('d-m-Y', strtotime($end))}})</li>
 @stop
 
 @section('content')
@@ -29,14 +29,23 @@
 			<div class="row">
 
 				<!-- BEGIN SEARCH NAV -->
-				<div class="col-sm-4 col-md-3 col-lg-2" style="padding-left:0px; padding-right:0px;">
+				<div class="col-sm-2" >
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary">MENU</li>
 						<li @if(!Input::has('case')) class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'q' => Input::get('q')])}}">Semua</a></li>
-						<li @if(Input::get('case')=='late') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'late', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Terlambat</a></li>
-						<li @if(Input::get('case')=='ontime') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'ontime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Tepat Waktu</a></li>
-						<li @if(Input::get('case')=='earlier') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'earlier', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Pulang Lebih Awal</a></li>
-						<li @if(Input::get('case')=='overtime') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'overtime', 'branch' => Input::get('branch'), 'tag' => Input::get('tag')])}}">Lembur</a></li>
+						<li @if(Input::get('case')=='late') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'late', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'tag' => Input::get('tag')])}}">Terlambat</a></li>
+						<li @if(Input::get('case')=='ontime') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'ontime', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'tag' => Input::get('tag')])}}">Tepat Waktu</a></li>
+						<li @if(Input::get('case')=='earlier') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'earlier', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'tag' => Input::get('tag')])}}">Pulang Lebih Awal</a></li>
+						<li @if(Input::get('case')=='overtime') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => 'overtime', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'tag' => Input::get('tag')])}}">Lembur</a></li>
+					</ul>
+					<br/>
+					<ul class="nav nav-pills nav-stacked">
+						@if(Session::has('user.organisations'))
+							<li class="text-primary" style="text-transform: uppercase;">ORGANISASI</li>
+							@foreach(Session::get('user.organisations') as $key => $value)
+								<li @if(Input::has('org_id') && ((Input::get('org_id') == ($value['id'])))) class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1, 'start' => Input::get('start'), 'end' => Input::get('end'), 'org_id' => $value['id']])}}">{{$value['name']}}<small class="pull-right text-bold opacity-75"></small></a></li>
+							@endforeach
+						@endif
 					</ul>
 					<br/>
 					<ul class="nav nav-pills nav-stacked pb-25">
@@ -62,7 +71,7 @@
 				</div><!--end .col -->
 				<!-- END SEARCH NAV -->
 
-				<div class="col-sm-8 col-md-9 col-lg-10">
+				<div class="col-sm-10">
 					<div class="margin-bottom-xxl">
 						<span class="text-light text-lg">
 							@if(count($data)) Total data <span class="text-bold">{{count($data)}}</span> @else Tidak ada data @endif
@@ -74,10 +83,10 @@
 								</button>
 								<ul class="dropdown-menu animation-expand" role="menu">
 									<li>
-										<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'mode' => 'csv', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;CSV</a>
+										<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'mode' => 'csv', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;CSV</a>
 									</li>
 									<li>
-										<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'mode' => 'xls', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;XLS</a>
+										<a href="{{ route('hr.report.attendance.post', ['page' => 1, 'mode' => 'xls', 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case'), 'tag' => Input::get('tag'), 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id')]) }}"><i class="fa fa-file-excel-o"></i> &nbsp;XLS</a>
 									</li>
 								</ul>
 							</div>
@@ -92,19 +101,19 @@
 								<span class="glyphicon glyphicon-arrow-down"></span> Urutkan
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
-								<li @if(Input::get('sort_margin_start')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_margin_start' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Terlambat</a></li>
-								<li @if(Input::get('sort_margin_start')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_margin_start' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Tepat Waktu</a></li>
-								<li @if(Input::get('sort_margin_end')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_margin_end' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Pulang Lebih Awal</a></li>
-								<li @if(Input::get('sort_margin_end')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_margin_end' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lembur</a></li>
-								<li @if(Input::get('sort_workhour')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_workhour' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lama Aktif [A-Z]</a></li>
-								<li @if(Input::get('sort_workhour')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_workhour' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lama Aktif [Z-A]</a></li>
-								<li @if(Input::get('sort_idle')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_idle' => 'asc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lama Idle [A-Z]</a></li>
-								<li @if(Input::get('sort_idle')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_idle' => 'desc', 'branch' => Input::get('branch'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lama Idle [Z-A]</a></li>
+								<li @if(Input::get('sort_margin_start')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_margin_start' => 'asc', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Terlambat</a></li>
+								<li @if(Input::get('sort_margin_start')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_margin_start' => 'desc', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Tepat Waktu</a></li>
+								<li @if(Input::get('sort_margin_end')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_margin_end' => 'asc', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Pulang Lebih Awal</a></li>
+								<li @if(Input::get('sort_margin_end')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_margin_end' => 'desc', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lembur</a></li>
+								<li @if(Input::get('sort_workhour')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_workhour' => 'asc', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lama Aktif [A-Z]</a></li>
+								<li @if(Input::get('sort_workhour')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_workhour' => 'desc', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lama Aktif [Z-A]</a></li>
+								<li @if(Input::get('sort_idle')=='asc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_idle' => 'asc', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lama Idle [A-Z]</a></li>
+								<li @if(Input::get('sort_idle')=='desc') class="active" @endif><a href="{{route('hr.report.attendance.post', ['page' => 1,'sort_idle' => 'desc', 'branch' => Input::get('branch'), 'org_id' => Input::get('org_id'), 'q' => Input::get('q'), 'tag' => Input::get('tag'), 'start' => Input::get('start'), 'end' => Input::get('end'), 'case' => Input::get('case')])}}">Lama Idle [Z-A]</a></li>
 							</ul>
 						</div>
 					</div><!--end .margin-bottom-xxl -->
 					@if(count($data))
-						<table class="table table-bordered">
+						<table class="table table-bordered text-sm">
 							<thead>
 								<tr>
 									<th rowspan="2" class="text-center" style="vertical-align:middle;font-weight:600">No</th>
@@ -114,6 +123,7 @@
 									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Idle</th>
 									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Sleep</th>
 									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total Active</th>
+									<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600">Total <br/> Hadir <br/>(Hari)</th>
 									@if(Input::has('case') && Input::get('case')!='ontime')
 										<th class="text-center" rowspan="2" style="vertical-align:middle;font-weight:600"> {{ucwords(Input::get('case'))}} <br/> (Hi - Lo) </th>
 									@else
@@ -174,6 +184,9 @@
 											{{gmdate("H:i:s", $value['avg_active'])}}
 											<!-- {{gmdate("H:i:s", $value['total_active'])}} -->
 										</td>
+										<td class="text-center text-sm">									
+											{{number_format($value['total_attendance'])}}
+										</td>
 										@if(Input::has('case') && Input::get('case')!='ontime')
 											<td class="text-center text-sm">
 												<?php 
@@ -208,7 +221,7 @@
 											@endforeach
 											<td class="text-sm">
 												<span class ="badge text-sm mt-5">
-													<a href ="{{route('hr.report.attendance.detail', ['id' => $value['id'], 'start' => Input::get('start'), 'end' => Input::get('end')])}}"> Detail</a>
+													<a href ="{{route('hr.report.attendance.detail', ['id' => $value['id'], 'start' => Input::get('start'), 'end' => Input::get('end'), 'org_id' => Input::get('org_id')])}}"> Detail</a>
 												</span>
 											</td>
 										@endif
