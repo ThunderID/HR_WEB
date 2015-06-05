@@ -217,7 +217,7 @@ class PersonController extends Controller {
 		}
 
 		$input['person']['id']							= $id;
-		if($paths['ori'])
+		if(Input::hasFile('link_profile_picture'))
 		{
 			$input['person']['avatar']					= $paths['ori'];
 		}
