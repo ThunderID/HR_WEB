@@ -298,14 +298,15 @@ class PersonController extends Controller {
 				}
 				if($address['value']!='')
 				{
-					if(!is_null(Input::has('default_contact')))
+					if(Input::has('default_contact') && Input::get('default_contact')=='on')
 					{
-						$address['is_default']			= true;
+						$address['is_default']		= true;
 					}
 					else
 					{
-						$address['is_default']			= false;
+						$address['is_default']		= false;
 					}
+
 					$address['item']					= 'address';
 					$input['contacts']['address'][] 	= $address;
 				}
@@ -325,13 +326,13 @@ class PersonController extends Controller {
 						$contact['id']					= Input::get('id_item')[$key];
 					}
 
-					if(!is_null(Input::has('default_contact')))
+					if(Input::has('default_contact') && Input::get('default_contact')=='on')
 					{
-						$contact['is_default']			= true;
+						$contact['is_default']		= true;
 					}
 					else
 					{
-						$contact['is_default']			= false;
+						$contact['is_default']		= false;
 					}
 					
 					$contact['item']					= strtolower($value);
