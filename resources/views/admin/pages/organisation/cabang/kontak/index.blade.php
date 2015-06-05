@@ -37,11 +37,11 @@
 		</div>
 	</div>
 
-	{!! Form::open(array('url' => route('hr.branches.contacts.store',  ['id' => $branch['id'], 'org_id' => $data['id']]),'method' => 'POST')) !!}
+	{!! Form::open(array('url' => route('hr.branches.contacts.store',  ['id' => $branch['id'], 'org_id' => $data['id'], 'itm' => Input::get('item')]),'method' => 'POST')) !!}
 		@include('admin.modals.contact.create')
 	{!! Form::close() !!}
 
-	{!! Form::open(array('url' => route('hr.branches.contacts.store', ['id' => $branch['id'], 'org_id' => $data['id']]),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
+	{!! Form::open(array('url' => route('hr.branches.contacts.store', ['id' => $branch['id'], 'org_id' => $data['id'], 'itm' => Input::get('item')]),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
 		@include('admin.modals.address.create')
 	{!! Form::close() !!}
 

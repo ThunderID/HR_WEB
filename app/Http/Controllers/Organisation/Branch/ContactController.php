@@ -123,12 +123,19 @@ class ContactController extends Controller {
 		$input['organisation']['id']					= $org_id;
 
 		$results 										= API::branch()->store($branchid, $input);
-
+		$itm     										= Input::get('itm');
 		$content 										= json_decode($results);
 		
 		if($content->meta->success)
 		{
-			return Redirect::route('hr.organisation.branches.show', ['id' => $branchid, 'page' => 1, 'org_id' => $org_id])->with('alert_success', 'Cabang '.$content->data->name.' Sudah Tersimpan');
+			if($itm)
+			{
+				return Redirect::route('hr.organisation.branches.show', ['id' => $branchid, 'page' => 1, 'org_id' => $org_id, 'item' => $itm])->with('alert_success', 'Cabang '.$content->data->name.' Sudah Tersimpan');
+			}
+			else
+			{
+				return Redirect::route('hr.organisation.branches.show', ['id' => $branchid, 'page' => 1, 'org_id' => $org_id])->with('alert_success', 'Cabang '.$content->data->name.' Sudah Tersimpan');
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();
