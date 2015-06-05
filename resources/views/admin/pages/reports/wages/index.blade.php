@@ -1,7 +1,7 @@
 @section('breadcrumb')
 	<li>Home</li>
 	<li>Reports</li>
-	<li class='active'>Kedatangan</li>
+	<li class='active'>Kehadiran</li>
 @stop
 
 @section('content')

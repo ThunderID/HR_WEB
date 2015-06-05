@@ -355,7 +355,7 @@ class ReportController extends Controller {
 		$this->layout->page_title 					= ucwords('Generate Report');
 
 		$this->layout->content 						= view('admin.pages.'.$this->controller_name.'.form');
-		$this->layout->content->controller_name 	= (Route::currentRouteName()=='hr.report.attendance.get' ? 'Aktivitas' : 'Kedatangan');
+		$this->layout->content->controller_name 	= (Route::currentRouteName()=='hr.report.attendance.get' ? 'Aktivitas' : 'Kehadiran');
 		$this->layout->content->data 				= null;
 
 		return $this->layout;

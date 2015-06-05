@@ -28,7 +28,7 @@ abstract class Controller extends BaseController {
 
 			$nav->add('report', 'Reports', 'javascript:;', 'fa fa-copy');
 			$nav->add('report_attendance', 'Aktivitas', route('hr.report.attendance.get'), null, 'report');
-			$nav->add('report_wages', 'Kedatangan', route('hr.report.wages.get'), null, 'report');
+			$nav->add('report_wages', 'Kehadiran', route('hr.report.wages.get'), null, 'report');
 
 			$nav->add('setting', 'Settings', 'javascript:;', 'fa fa-gear');
 			$nav->add('setting_organisation', 'Organisasi', route('hr.organisations.index'), null, 'setting');
