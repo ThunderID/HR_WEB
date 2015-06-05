@@ -45,7 +45,7 @@
 									@endforeach
 								</h5>
 								<h5 class="pb-30 border-bottom">
-									<span class="opacity-50"><i class = "fa fa-tags"></i></span>
+									<span class="opacity-50"><i class = "fa fa-clock-o"></i></span>
 									<span class="badge style-success text-sm opacity-75 mt-5"> 
 										@time_indo($calendar['start'])
 									 </span>
