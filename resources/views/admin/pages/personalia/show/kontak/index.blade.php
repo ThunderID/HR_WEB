@@ -99,15 +99,15 @@
 	</div>
 
 	<!-- modals -->
-	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST', 'class' => 'modal_form_contact')) !!}
+	{!! Form::open(array('url' => route('hr.persons.update',  ['id' => $data['id'], 'itm' => Input::get('item')]),'method' => 'POST', 'class' => 'modal_form_contact')) !!}
 		@include('admin.modals.contact.create')
 	{!! Form::close() !!}
 
-	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
+	{!! Form::open(array('url' => route('hr.persons.update',  ['id' => $data['id'], 'itm' => Input::get('item')]),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
 		@include('admin.modals.address.create')
 	{!! Form::close() !!}
 
-	{!! Form::open(array('route' => array('hr.persons.update', 0), 'method' => 'POST')) !!}
+	{!! Form::open(array('route' => array('hr.persons.works.delete',  0, 0), 'method' => 'POST')) !!}
 		<div class="modal fade modalContactDelete" id="del_organisation_modal" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	

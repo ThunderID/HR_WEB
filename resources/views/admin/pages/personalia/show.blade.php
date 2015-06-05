@@ -181,6 +181,11 @@
 		});	
 
 		// Contact
+		$('.modalContactDelete').on('show.bs.modal', function(e) {
+			var action = $(e.relatedTarget).attr('data-action');
+			$(this).parent().attr('action', action);
+		});
+
 		$('.modalContact').on('show.bs.modal', function(e) {
 			var id 			= $(e.relatedTarget).attr('data-modal-contact-id');
 			var item 		= $(e.relatedTarget).attr('data-modal-contact-item');

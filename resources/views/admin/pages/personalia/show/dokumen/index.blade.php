@@ -17,7 +17,7 @@
 						@foreach($person_documents as $key => $value)	
 							<div class="row">
 								<div class="col-xs-12">
-									<a href="{{route('hr.persons.documents.show', [$data['id'], $value['id'], 'tag' => $value['document']['tag']])}}">
+									<a href="{{route('hr.persons.documents.show', [$data['id'], $value['id'], 'tag' => $value['document']['tag']])}}" style="text-decoration:none">
 										<p>
 											<span class="fa fa-fw fa-file-o fa-2x pull-left"></span>
 											<span class="pull-left">
