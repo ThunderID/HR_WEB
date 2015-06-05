@@ -254,14 +254,17 @@
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
-						<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
-							<i class="fa fa-trash"></i>
-						</a>
 						@if (isset($toggle['branch_kontak']))
+							<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.branches.contacts.delete', ['id' => $data_content['id'], 'branchid' => $branch['id'], 'org_id' => $branch['organisation_id']]) }}">
+								<i class="fa fa-trash"></i>
+							</a>
 							<a class="btn border-default btn-circle pull-right mr-5" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
 								<i class="fa fa-pencil"></i>
 							</a>
 						@else
+							<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.persons.works.delete',  $data['id'], $data_content['id']) }}">
+								<i class="fa fa-trash"></i>
+							</a>
 							<a class="btn border-default btn-circle pull-right mr-5" data-toggle="modal" data-target="#addressCreate" data-modal-address-item={{$value['item']}} data-modal-address-id={{$value['id']}} data-modal-address-is-default={{$value['is_default']}} data-modal-address-value={{str_replace(' ','_',$value['value'])}} data-modal-address-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}">
 								<i class="fa fa-pencil"></i>
 							</a>
@@ -279,9 +282,15 @@
 						{{$value['value']}}
 					</div>
 					<div class="col-md-2">
-						<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_{{$data_content['id']}}" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
-							<i class="fa fa-trash"></i>
-						</a>
+						@if (isset($toggle['branch_kontak']))
+							<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.branches.contacts.delete', ['id' => $data_content['id'], 'branchid' => $branch['id'], 'org_id' => $branch['organisation_id']]) }}">
+								<i class="fa fa-trash"></i>
+							</a>
+						@else
+							<a href="javascript:;" class="btn border-default btn-circle pull-right" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal" data-delete-action="{{ route('hr.organisation.branches.delete', ['id' => $data_content['id']]) }}">
+								<i class="fa fa-trash"></i>
+							</a>
+						@endif
 						<a class="btn border-default btn-circle pull-right btn_modal mr-5" data-toggle="modal" data-target="#contactCreate" data-modal-contact-item={{$value['item']}} data-modal-contact-id={{$value['id']}} data-modal-contact-is-default={{$value['is_default']}} data-modal-contact-value={{$value['value']}} data-modal-contact-id={{$value['id']}} data-is-default="{{ $value['is_default'] }}"><i class="fa fa-pencil"></i></a>
 					</div>
 				</div>

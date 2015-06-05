@@ -77,7 +77,7 @@
 
 			$('.getContacts').select2({
 				tokenSeparators: [",", " ", "_", "-"],
-				tags: ['address', 'bbm', 'email', 'line', 'phone', 'whatsapp'],
+				tags: ['alamat', 'bbm', 'email', 'line', 'phone', 'whatsapp'],
 				placeholder: "",
 				maximumSelectionSize: 1,
 				selectOnBlur: true

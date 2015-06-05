@@ -26,11 +26,6 @@
 					'toggle'			=> ['branch_kontak' => true],
 					'class'				=> ['top'		=> 'height-3']
 				])
-				{!! Form::open(array('url' => route('hr.branches.contacts.delete', ['id' => $value['id'], 'branchid' => $branch['id'], 'org_id' => $branch['organisation_id']]),'method' => 'POST')) !!}
-					<div class="modal fade modalOrganisationDelete" id="del_organisation_{{$value['id']}}" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal_{{$value['id']}}" aria-hidden="true">
-						@include('admin.modals.delete.delete')
-					</div>	
-				{!! Form::close() !!}
 			@empty
 				<div class="alert alert-callout alert-warning" role="alert">
 					<strong>Perhatian!</strong> Data kontak belum dimasukkan.
@@ -48,5 +43,11 @@
 
 	{!! Form::open(array('url' => route('hr.branches.contacts.store', ['id' => $branch['id'], 'org_id' => $data['id']]),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
 		@include('admin.modals.address.create')
+	{!! Form::close() !!}
+
+	{!! Form::open(array('url' => route('hr.branches.contacts.delete', ['id' => 0, 'branchid' => $branch['id'], 'org_id' => $branch['organisation_id']]),'method' => 'POST')) !!}
+		<div class="modal fade modalOrganisationDelete" id="del_organisation_modal" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal" aria-hidden="true">
+			@include('admin.modals.delete.delete')
+		</div>	
 	{!! Form::close() !!}
 @stop

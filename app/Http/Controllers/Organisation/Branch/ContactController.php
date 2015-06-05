@@ -166,7 +166,7 @@ class ContactController extends Controller {
 			}
 			else
 			{
-				return Redirect::back()->with('alert_success', 'Data Cabang "' . $contents->data->name. '" sudah dihapus');
+				return Redirect::back()->with('alert_success', 'Data Cabang "' . $contents->data->item. '" sudah dihapus');
 			}
 		}
 		else

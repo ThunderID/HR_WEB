@@ -107,7 +107,7 @@
 		@include('admin.modals.address.create')
 	{!! Form::close() !!}
 
-	{!! Form::open(array('route' => array('hr.persons.update', 0), 'method' => 'POST')) !!}
+	{!! Form::open(array('route' => array('hr.persons.works.delete',  0, 0), 'method' => 'POST')) !!}
 		<div class="modal fade modalContactDelete" id="del_organisation_modal" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	
