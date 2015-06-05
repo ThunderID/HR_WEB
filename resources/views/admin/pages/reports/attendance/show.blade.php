@@ -10,7 +10,7 @@
 		<!-- BEGIN SEARCH HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-md-6 col-xs-6 pt-5">
-				<a href="{{ URL::previous() }}" class="btn btn-flat ink-reaction pull-left"><i class="md md-reply"></i> Kembali</a>				
+				<a href="{{ route('hr.report.attendance.post', [1, 'start' => Input::get('start'), 'end' => Input::get('end')]) }}" class="btn btn-flat ink-reaction pull-left"><i class="md md-reply"></i> Kembali</a>				
 				<!-- <div class="tools pull-left">
 					<form class="navbar-search" role="search">
 						{!! Form::open(['route' => ('hr.persons.index'), 'method' => 'get']) !!}
