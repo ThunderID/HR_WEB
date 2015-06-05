@@ -19,7 +19,7 @@
 				@include('admin.widgets.contents', [
 					'mode'				=> 'list',
 					'route'				=> route('hr.branches.apis.edit', ['org_id' => $data['id'], 'branchid' => $branch['id'], 'id' => $value['id']]),
-					'data_content'		=> $value,
+					'data_content'		=> ['value' => $value, 'branchid' => $branch['id'], 'org_id' => $branch['organisation_id']],
 					'toggle'			=> ['api' => true],
 					'class'				=> ['top'		=> 'height-3']
 				])
@@ -34,7 +34,7 @@
 		</div>
 	</div>
 
-	{!! Form::open(array('url' => route('hr.branches.apis.delete', ['id' => $value['id'], 'branchid' => $branch['id'], 'org_id' => $branch['organisation_id']]),'method' => 'POST')) !!}
+	{!! Form::open(array('url' => route('hr.branches.apis.delete', ['id' => 0, 'branchid' => 0, 'org_id' => 0]),'method' => 'POST')) !!}
 		<div class="modal fade modalOrganisationDelete" id="del_organisation_modal" tabindex="-1" role="dialog" aria-labelledby="del_organisation_modal" aria-hidden="true">
 			@include('admin.modals.delete.delete')
 		</div>	

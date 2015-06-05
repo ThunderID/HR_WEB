@@ -148,7 +148,29 @@
 				$('.modal_address_btn_save').text('Tambah');
 				$('.modal_default_contact').attr('checked', false);	
 			}
-		});		
+		});	
+
+		$('.modalOrganisationDelete').on('show.bs.modal', function(e) {
+			var action 	= $(e.relatedTarget).attr('data-delete-action');
+			$(this).parent().attr('action', action);
+		});	
+
+		$('.thumb').change(function(e){
+			var x = $(this).attr('data-checked-action');
+			var y = $(this).attr('data-unchecked-action');
+			$(this).prop('disabled', true);
+
+			if ($(this).attr('checked')==='checked') {
+				$('.check').attr('action', y);
+				$('.check').submit();
+				console.log('checked');
+			}
+			else {
+				$('.check').attr('action', x);
+				$('.check').submit();
+				console.log('unchecked');
+			}
+		});
 
 	</script>
 @stop
