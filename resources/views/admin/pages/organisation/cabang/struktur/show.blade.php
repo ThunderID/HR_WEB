@@ -97,15 +97,16 @@
 						<div class="col-md-12">
 							<table class="table table-bordered">
 								<thead>
-									<th>Aplikasi</th>
-									<th>Menu</th>
-									<th>C</th>
-									<th>R</th>
-									<th>U</th>
-									<th>D</th>
+									<th width="15%">Aplikasi</th>
+									<th width="45%">Menu</th>
+									<th>Tambah Data</th>
+									<th>Lihat Data</th>
+									<th>Ubah Data</th>
+									<th>Hapus Data</th>
 								</thead>
 								<tbody>
 									<?php $prev = null;?>
+									<form class="check" action="" method="post">
 									@foreach($authentications as $key => $value)
 										@foreach($value['menus'] as $key2 => $value2)
 											<tr>
@@ -117,46 +118,67 @@
 												<td>
 													{{$value2['name']}}
 												</td>
-												<td>
-													@if(isset($value2['authentications'][0]['create']) && $value2['authentications'][0]['create']) 
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'create', 'org_id' => $data['id']])}}"><i class="fa fa-check"> </i> 
-													@elseif(isset($value2['authentications'][0]['create'])) 
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'create', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i> 
-													@else
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'create', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i> 
-													@endif
+												<td class="text-center">
+													<div class="checkbox checkbox-inline checkbox-styled">
+														<label>	
+															<input type="checkbox" class="thumb" data-checked-action="@if(isset($value2['authentications'][0]['create']) && $value2['authentications'][0]['create']) {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'create', 'org_id' => $data['id']]) }} @endif" data-unchecked-action="@if (isset($value2['authentications'][0]['create'])) {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'create', 'org_id' => $data['id']]) }} @else {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'create', 'org_id' => $data['id']]) }} @endif" @if(isset($value2['authentications'][0]['create']) && $value2['authentications'][0]['create']) checked @endif>
+														</label>
+													</div>
+													{{-- @if(isset($value2['authentications'][0]['create']) && $value2['authentications'][0]['create'])  --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'create', 'org_id' => $data['id']])}}"><i class="fa fa-check"> </i>  --}}
+													{{-- @elseif(isset($value2['authentications'][0]['create']))  --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'create', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i>  --}}
+													{{-- @else --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'create', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i>  --}}
+													{{-- @endif --}}
 												</td>
-												<td>
-													@if(isset($value2['authentications'][0]['read']) && $value2['authentications'][0]['read']) 
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'read', 'org_id' => $data['id']])}}"><i class="fa fa-check"> </i> 
-													@elseif(isset($value2['authentications'][0]['read'])) 
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'read', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i> 
-													@else
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'read', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i> 
-													@endif
+												<td class="text-center">
+													<div class="checkbox checkbox-inline checkbox-styled">
+														<label>	
+															<input type="checkbox" class="thumb" data-checked-action=" @if(isset($value2['authentications'][0]['read']) && $value2['authentications'][0]['read']) {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'read', 'org_id' => $data['id']]) }} @endif" data-unchecked-action="@if (isset($value2['authentications'][0]['read'])) {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'read', 'org_id' => $data['id']]) }} @else {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'read', 'org_id' => $data['id']]) }} @endif" @if(isset($value2['authentications'][0]['read']) && $value2['authentications'][0]['read']) checked @endif>
+														</label>
+													</div>
+													{{-- @if(isset($value2['authentications'][0]['read']) && $value2['authentications'][0]['read'])  --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'read', 'org_id' => $data['id']])}}"><i class="fa fa-check"> </i>  --}}
+													{{-- @elseif(isset($value2['authentications'][0]['read']))  --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'read', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i>  --}}
+													{{-- @else --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'read', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i>  --}}
+													{{-- @endif --}}
 												</td>
-												<td>
-													@if(isset($value2['authentications'][0]['update']) && $value2['authentications'][0]['update']) 
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'update', 'org_id' => $data['id']])}}"><i class="fa fa-check"> </i> 
-													@elseif(isset($value2['authentications'][0]['update'])) 
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'update', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i> 
-													@else
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'update', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i> 
-													@endif
+												<td class="text-center">
+													<div class="checkbox checkbox-inline checkbox-styled">
+														<label>	
+															<input type="checkbox" class="thumb" data-checked-action="@if(isset($value2['authentications'][0]['update']) && $value2['authentications'][0]['update']) {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'update', 'org_id' => $data['id']]) }} @endif" data-unchecked-action="@if (isset($value2['authentications'][0]['update'])) {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'update', 'org_id' => $data['id']]) }} @else {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'update', 'org_id' => $data['id']]) }} @endif" @if(isset($value2['authentications'][0]['update']) && $value2['authentications'][0]['update']) checked @endif>
+														</label>
+													</div>
+													{{-- @if(isset($value2['authentications'][0]['update']) && $value2['authentications'][0]['update'])  --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'update', 'org_id' => $data['id']])}}"><i class="fa fa-check"> </i>  --}}
+													{{-- @elseif(isset($value2['authentications'][0]['update']))  --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'update', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i>  --}}
+													{{-- @else --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'update', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i>  --}}
+													{{-- @endif --}}
 												</td>
-												<td>
-													@if(isset($value2['authentications'][0]['delete']) && $value2['authentications'][0]['delete']) 
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'delete', 'org_id' => $data['id']])}}"><i class="fa fa-check"> </i> 
-													@elseif(isset($value2['authentications'][0]['delete'])) 
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'delete', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i> 
-													@else
-														<a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'delete', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i> 
-													@endif
+												<td class="text-center">
+													<div class="checkbox checkbox-inline checkbox-styled">
+														<label>	
+															<input type="checkbox" class="thumb" data-checked-action="@if(isset($value2['authentications'][0]['delete']) && $value2['authentications'][0]['delete']) {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'delete', 'org_id' => $data['id']]) }} @endif" data-unchecked-action="@if (isset($value2['authentications'][0]['delete'])) {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'delete', 'org_id' => $data['id']]) }} @else {{ route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'delete', 'org_id' => $data['id']]) }} @endif" @if(isset($value2['authentications'][0]['delete']) && $value2['authentications'][0]['delete']) checked @endif>
+														</label>
+													</div>
+													{{-- @if(isset($value2['authentications'][0]['delete']) && $value2['authentications'][0]['delete'])  --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'wrong' => 'delete', 'org_id' => $data['id']])}}"><i class="fa fa-check"> </i>  --}}
+													{{-- @elseif(isset($value2['authentications'][0]['delete']))  --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'auth_id' => $value2['authentications'][0]['id'], 'right' => 'delete', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i>  --}}
+													{{-- @else --}}
+														{{-- <a href="{{route('hr.charts.authentications.store', ['chart_id' => $chart['id'], 'menu_id' => $value2['id'], 'right' => 'delete', 'org_id' => $data['id']])}}"><i class="fa fa-minus"> </i>  --}}
+													{{-- @endif --}}
 												</td>
 											</tr>
 										<?php $prev = $value['id'];?>
 										@endforeach
 									@endforeach
+									</form>
 								</tbody>
 							</table>
 						</div>
@@ -247,6 +269,25 @@
 				$('.modal_address_btn_save').text('Tambah');
 			}
 		});		
+
+		$('.thumb').change(function(e){
+			var x = $(this).attr('data-checked-action');
+			var y = $(this).attr('data-unchecked-action');
+			$(this).prop('disabled', true);
+
+			if ($(this).attr('checked')==='checked') {
+				$('.check').attr('action', y);
+				$('.check').submit();
+				console.log(x);
+				console.log('checked');
+			}
+			else {
+				$('.check').attr('action', x);
+				$('.check').submit();
+				console.log(x);
+				console.log('unchecked');
+			}
+		});
 
 	</script>
 @stop
