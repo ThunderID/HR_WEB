@@ -205,6 +205,16 @@
 			</div>
 		@endif
 
+		@if (isset($toggle['follow']))
+			<div class="clearfix">
+				<div class="col-lg-12 text-right">
+					<a type="button" href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.charts.calendars.delete', ['id' => $data_content['id']]) }}">
+						<i class="fa fa-trash"></i>
+					</a>
+				</div>
+			</div>
+		@endif
+
 		@if(isset($data_content['contacts'])&&count($data_content['contacts']))
 			<ul class="fa-ul" style="padding-left:5px;">
 				@foreach($data_content['contacts'] as $key2 => $value2)
@@ -231,10 +241,10 @@
 
 		@if (isset($toggle['person']))
 			<div class="pull-right">
-				<a href="{{route('hr.persons.edit', [$data_content['id']])}}" class="btn border-default btn-circle" title="Edit">
+				<a href="{{route('hr.persons.edit', [$data_content['id'], 'org_id' => Input::get('org_id')])}}" class="btn border-default btn-circle" title="Edit">
 					<i class="fa fa-pencil"></i>
 				</a>
-				<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_modal" data-delete-action="{{ route('hr.persons.delete', $data_content['id']) }}">
+				<a href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_modal" data-delete-action="{{ route('hr.persons.delete', [$data_content['id'], 'org_id' => Input::get('org_id')]) }}">
 					<i class="fa fa-trash"></i>
 				</a>
 			</div>

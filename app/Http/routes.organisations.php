@@ -404,6 +404,29 @@ Route::group(['prefix' => 'cms'], function(){
 						]
 					);
 	});
+	
+	Route::group(['prefix' => 'charts/calendars/', 'before' => 'hr_acl'], function(){
+		
+		Route::get('{id}/{page?}', 
+						[
+							'uses' 	=> 'Organisation\Branch\Chart\FollowController@getIndex', 
+							'as' 	=> 'hr.charts.calendars.index'
+						]
+					);
+
+		Route::post('store/{id}', 
+						[
+							'uses' 	=> 'Organisation\Branch\Chart\FollowController@postStore', 
+							'as' 	=> 'hr.charts.calendars.store'
+						]
+					);
+		Route::any('delete/{chartid}/{id}', 
+						[
+							'uses' 	=> 'Organisation\Branch\Chart\FollowController@anyDelete', 
+							'as' 	=> 'hr.charts.calendars.delete'
+						]
+					);
+	});
 
 		/* ---------------------------------------------------------------------------- ORGANISATION BRANCH ----------------------------------------------------------------------------*/
 

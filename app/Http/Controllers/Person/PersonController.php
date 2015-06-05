@@ -21,6 +21,7 @@ class PersonController extends Controller {
 		if(Input::has('org_id'))
 		{
 			$org_id 								= Input::get('org_id');
+			Session::put('user.organisation', $org_id);
 		}
 		else
 		{
@@ -297,14 +298,15 @@ class PersonController extends Controller {
 				}
 				if($address['value']!='')
 				{
-					if(!is_null(Input::has('default_contact')))
+					if(Input::has('default_contact') && Input::get('default_contact')=='on')
 					{
-						$address['is_default']			= true;
+						$address['is_default']		= true;
 					}
 					else
 					{
-						$address['is_default']			= false;
+						$address['is_default']		= false;
 					}
+
 					$address['item']					= 'address';
 					$input['contacts']['address'][] 	= $address;
 				}
@@ -324,13 +326,13 @@ class PersonController extends Controller {
 						$contact['id']					= Input::get('id_item')[$key];
 					}
 
-					if(!is_null(Input::has('default_contact')))
+					if(Input::has('default_contact') && Input::get('default_contact')=='on')
 					{
-						$contact['is_default']			= true;
+						$contact['is_default']		= true;
 					}
 					else
 					{
-						$contact['is_default']			= false;
+						$contact['is_default']		= false;
 					}
 					
 					$contact['item']					= strtolower($value);
@@ -362,24 +364,32 @@ class PersonController extends Controller {
 
 		$results 										= API::person()->store($id, $input);
 		$src 											= Input::get('src');
+		$itm 											= Input::get('itm');
 		$content 										= json_decode($results);
 		if($content->meta->success)
 		{
-			if($id)
+			if($itm)
 			{
-				if($src)
-				{
-					return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
-				}
-				else
-				{
-					return Redirect::route('hr.persons.index');
-				}
+				return Redirect::route('hr.persons.contacts.index', ['person_id' => $content->data->id, 'page' => '1', 'item' => $itm])->with('alert_success', 'Data sudah di simpan');;
 			}
 			else
 			{
-				return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
-			}	
+				if($id)
+				{
+					if($src)
+					{
+						return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
+					}
+					else
+					{
+						return Redirect::route('hr.persons.index');
+					}
+				}
+				else
+				{
+					return Redirect::route('hr.persons.show',['id'=>$content->data->id])->with('alert_success', 'Data Personalia sudah di simpan');
+				}
+			}
 		}
 		
 		return Redirect::back()->withErrors($content->meta->errors)->withInput();

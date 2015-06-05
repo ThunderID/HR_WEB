@@ -101,7 +101,7 @@
 							@endif
 								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 hbox-xs box">
 								@include('admin.widgets.contents', [
-									'route'				=> route('hr.persons.show', ['id' => $value['id']]),
+									'route'				=> route('hr.persons.show', ['id' => $value['id'], 'org_id' => Input::get('org_id')]),
 									'mode'				=> 'list',
 									'data_content'		=> $value,
 									'toggle'			=> [

@@ -1,9 +1,9 @@
-<div class="modal fade modalChart" id="chartCreate" tabindex="-1" role="dialog" aria-labelledby="chartCreate" aria-hidden="true">
+<div class="modal fade modalCalendar" id="calendarCreate" tabindex="-1" role="dialog" aria-labelledby="calendarCreate" aria-hidden="true">
 	<div class="modal-dialog form">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Chart di Kalender ini</h4>
+				<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Kalender di Posisi ini</h4>
 			</div>
 			<div class="modal-body style-default-light">
 				<div class="row">
@@ -11,7 +11,7 @@
 						<h4 class="text-primary">Petunjuk</h4>
 						<article class="margin-bottom-xxl">
 							<p class="opacity-75">
-								Untuk Menambahkan banyak chart silahkan gunakan comma (,)
+								Untuk Menambahkan banyak kalender silahkan gunakan comma (,)
 							</p>
 						</article>
 					</div><!--end .col -->
@@ -21,8 +21,8 @@
 					<div class="tabs col-md-12  pt-20">
 						<div class="col-md-12">
 							<div class="form-group">
-								<input name="chart" id="chart" class="form-control getCompany">
-								<label for="chart">Nama</label>
+								<input name="calendar" id="calendar" class="form-control getCalendar">
+								<label for="calendar">Kalender</label>
 							</div>
 						</div>
 					</div>					

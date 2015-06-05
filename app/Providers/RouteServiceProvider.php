@@ -96,16 +96,15 @@ class RouteServiceProvider extends ServiceProvider {
 				
 				//check access
 				$menu 											= app('hr_acl')[Route::currentRouteName()];
-				
 				$results 										= API::application()->authenticate($menu[0], $personid = Session::get('loggedUser'), $contents->data->works[0]->id, $menu[1]);
 
 				$contents 										= json_decode($results);
 
-				// if(!$contents->meta->success)
-				// {
-				// 	Session::flush();
-				// 	return Redirect::guest(route('hr.login.get'));
-				// }
+				if(!$contents->meta->success)
+				{
+					Session::flush();
+					return Redirect::guest(route('hr.login.get'));
+				}
 
 			}
 		});
@@ -232,6 +231,10 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.workleaves.persons.store'					=> ['6', 'create'],
 							'hr.charts.authentications.store'				=> ['1', 'create'],
 
+							'hr.charts.calendars.index'						=> ['4', 'read'],
+							'hr.charts.calendars.store'						=> ['4', 'create'],
+							'hr.charts.calendars.delete'					=> ['4', 'delete'],
+
 							'hr.persons.index'								=> ['7', 'read'],
 							'hr.persons.show'								=> ['7', 'read'],
 							'hr.persons.create'								=> ['7', 'create'],
@@ -291,6 +294,7 @@ class RouteServiceProvider extends ServiceProvider {
 							'hr.ajax.chart'									=> ['4', 'read'],
 							'hr.ajax.workleave'								=> ['6', 'read'],
 							'hr.ajax.follow'								=> ['6', 'read'],
+							'hr.ajax.calendar'								=> ['6', 'read'],
 						];
 			return $routes_acl;
 		});

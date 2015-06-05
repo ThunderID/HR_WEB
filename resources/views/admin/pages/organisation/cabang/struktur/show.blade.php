@@ -23,6 +23,9 @@
 				<a href="{{route('hr.persons.index', ['page' => 1, 'branch' => $branch['id'], 'chart' => $chart['id'], 'org_id' => $data['id']])}}" class="btn btn-flat ink-reaction pull-right">
 					<i class="fa fa-users"></i>&nbsp;Karyawan
 				</a>
+				<a href="" class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#calendarCreate" data-id="0" data-action="{{ route('hr.charts.calendars.store', $data['id']) }}">
+					<i class="fa fa-plus-circle"></i>&nbsp;Kalender
+				</a>
 			</div>
 		</div>
 		<!-- END CARD HEADER -->
@@ -30,10 +33,10 @@
 		<!-- BEGIN CARD TILES -->
 		<div class="card-tiles">
 			<div class = "col-md-12 hbox-md">
-				<?php //@include('admin.filters.chart');?>
+				@include('admin.filters.chart')
 
 				<!-- BEGIN MIDDLE -->					
-				<div class="hbox-column col-md-12" id="sidebar_mid">
+				<div class="hbox-column col-md-10" id="sidebar_mid">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="margin-bottom-xxl">
@@ -97,12 +100,17 @@
 						<div class="col-md-12">
 							<table class="table table-bordered">
 								<thead>
-									<th width="15%">Aplikasi</th>
-									<th width="45%">Menu</th>
-									<th>Tambah Data</th>
-									<th>Lihat Data</th>
-									<th>Ubah Data</th>
-									<th>Hapus Data</th>
+									<tr>
+										<th  class="text-center" rowspan="2" width="15%">Aplikasi</th>
+										<th  class="text-center" rowspan="2" width="15%">Menu</th>
+										<th  class="text-center" colspan="4">Autentikasi</th>
+									</tr>
+									<tr>
+										<th  class="text-center">Tambah</th>
+										<th  class="text-center">Akses</th>
+										<th  class="text-center">Ubah</th>
+										<th  class="text-center">Hapus</th>
+									</tr>
 								</thead>
 								<tbody>
 									<?php $prev = null;?>
@@ -196,6 +204,9 @@
 		</div>	
 	{!! Form::close() !!}
 
+	{!! Form::open(array('url' => route('hr.charts.calendars.store', ['org_id' => $data['id'], 'id' => $chart['id']]),'method' => 'POST')) !!}
+		@include('admin.modals.schedule.create_calendar')
+	{!! Form::close() !!}	
 @stop
 
 @section('css')
@@ -270,6 +281,33 @@
 			}
 		});		
 
+		$('.getCalendar').select2({
+			tokenSeparators: [","],
+			tags: [],
+			placeholder: "",
+			minimumInputLength: 1,
+			selectOnBlur: true,
+            ajax: {
+                url: "{{route('hr.ajax.calendar')}}",
+                dataType: 'json',
+                quietMillis: 500,
+               	data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                }
+            }
+        });
 		$('.thumb').change(function(e){
 			var x = $(this).attr('data-checked-action');
 			var y = $(this).attr('data-unchecked-action');
