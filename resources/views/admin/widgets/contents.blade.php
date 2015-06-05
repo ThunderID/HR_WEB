@@ -16,7 +16,7 @@
 		<a href="{{ $route }}">
 	@endif
 
-	<div class="@if((isset($toggle['document']))|(isset($toggle['api']))) @else hbox-column v-top @endif">
+	<div class="@if((isset($toggle['document']))|(isset($toggle['api']))|(isset($toggle['follow']))) @else hbox-column v-top @endif">
 
 		@if (isset($toggle['document']))
 			<div class="clearfix">
@@ -206,12 +206,10 @@
 		@endif
 
 		@if (isset($toggle['follow']))
-			<div class="clearfix">
-				<div class="col-lg-12 text-right">
-					<a type="button" href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_modal_{{$data_content['id']}}" data-delete-action="{{ route('hr.charts.calendars.delete', ['id' => $data_content['id']]) }}">
-						<i class="fa fa-trash"></i>
-					</a>
-				</div>
+			<div class="col-lg-12 text-right">
+				<a type="button" href="javascript:;" class="btn border-default btn-circle" title="Hapus" data-toggle="modal" data-target="#del_organisation_kalendar_modal" data-delete-action="{{ route('hr.charts.calendars.delete', ['id' => $data_content['id']]) }}">
+					<i class="fa fa-trash"></i>
+				</a>
 			</div>
 		@endif
 

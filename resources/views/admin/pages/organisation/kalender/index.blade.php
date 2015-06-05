@@ -24,7 +24,7 @@
 
 				<!-- BEGIN MIDDLE -->					
 				<div class="hbox-column col-md-10" id="sidebar_mid">
-					<div class="col-md-12">
+					
 						<div class="row">
 							<div class="margin-bottom-xxl">
 								<h1 class="text-light no-margin pull-left">{{$data['name']}}</h1>
@@ -67,7 +67,7 @@
 								@endforeach
 							</div>
 						</div>
-					</div>
+					
 					@if(count($calendars))
 						@include('admin.helpers.pagination')
 					@endif
