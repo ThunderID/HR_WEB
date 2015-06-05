@@ -34,7 +34,7 @@
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 						<li @if(isset($relatives)) class="active" @endif>
-							<a href="{{route('hr.persons.relatives.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id')])}}"> @if(!$data['has_relatives']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Kerabat
+							<a href="{{route('hr.persons.relatives.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id')])}}"><!--  @if($data['has_works'] && !$data['has_relatives']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif --> Kerabat
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 						<li @if(isset($works)) class="active" @endif>
