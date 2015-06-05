@@ -99,11 +99,11 @@
 	</div>
 
 	<!-- modals -->
-	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST', 'class' => 'modal_form_contact')) !!}
+	{!! Form::open(array('url' => route('hr.persons.update',  ['id' => $data['id'], 'itm' => Input::get('item')]),'method' => 'POST', 'class' => 'modal_form_contact')) !!}
 		@include('admin.modals.contact.create')
 	{!! Form::close() !!}
 
-	{!! Form::open(array('route' => array('hr.persons.update',  $data['id']),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
+	{!! Form::open(array('url' => route('hr.persons.update',  ['id' => $data['id'], 'itm' => Input::get('item')]),'method' => 'POST', 'class' => 'modal_form_address')) !!}	
 		@include('admin.modals.address.create')
 	{!! Form::close() !!}
 
