@@ -9,7 +9,7 @@
 		<!-- BEGIN CARD HEADER -->
 		<div class="card-head card-head-sm style-primary">
 			<div class="col-xs-12 pt-5 ">
-				<a href="{{route('hr.persons.index')}}" class="btn btn-flat ink-reaction pull-left">
+				<a href="@if(isset($person_document)) {{route('hr.persons.show', $data['id'])}} @else {{route('hr.persons.index')}} @endif" class="btn btn-flat ink-reaction pull-left">
 					<i class="md md-reply"></i> Kembali
 				</a>
 				<a class="btn btn-flat ink-reaction pull-right" data-toggle="modal" data-target="#del_modal">
@@ -30,24 +30,24 @@
 					<ul class="nav nav-pills nav-stacked">
 						<li class="text-primary text-medium" style="text-transform: uppercase;">MENU</li>
 						<li @if(!Input::has('tag') && !isset($workleaves) && !isset($contacts) && !isset($relatives) && !isset($works) && !isset($schedules)) class="active" @endif>
-							<a href="{{route('hr.persons.show', [$data['id']])}}">Profil 
+							<a href="{{route('hr.persons.show', [$data['id'], 'org_id' => Input::get('org_id')])}}">Profil 
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 						<li @if(isset($relatives)) class="active" @endif>
-							<a href="{{route('hr.persons.relatives.index', [$data['id']])}}"> @if(!$data['has_relatives']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Kerabat
+							<a href="{{route('hr.persons.relatives.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id')])}}"> @if(!$data['has_relatives']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Kerabat
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 						<li @if(isset($works)) class="active" @endif>
-							<a href="{{route('hr.persons.works.index', [$data['id']])}}">@if(!$data['has_works']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Karir
+							<a href="{{route('hr.persons.works.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id')])}}">@if(!$data['has_works']) <i class="fa fa-exclamation pull-right mt-5 text-warning"></i> @endif Karir
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 						<li @if(isset($schedules)) class="active" @endif>
-							<a href="{{route('hr.persons.schedules.index', [$data['id']])}}"> Jadwal 
+							<a href="{{route('hr.persons.schedules.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id')])}}"> Jadwal 
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 
 						<li @if(isset($workleaves)) class="active" @endif>
-							<a href="{{route('hr.persons.workleaves.index', [$data['id']])}}"> Hak Cuti 
+							<a href="{{route('hr.persons.workleaves.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id')])}}"> Hak Cuti 
 							<small class="pull-right text-bold opacity-75"></small></a>
 						</li>
 					</ul>
@@ -72,7 +72,7 @@
 								<?php $isMsgSVC = 2 ?>	
 							@else
 								<li @if(Input::has('item') && Input::get('item') == $value['item']) class="active" @endif>
-									<a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => $value['item']])}}">
+									<a href="{{route('hr.persons.contacts.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id'), 'page' => 1,'item' => $value['item']])}}">
 									<?php $add = ucwords(str_replace('_',' ',$value['item'])) ?>
 									@if ($value['item'] == 'address')
 										Alamat
@@ -86,18 +86,18 @@
 						@endforeach
 
 						@if($isAddress == 0)
-							<li @if(Input::has('item') && Input::get('item') == 'address') class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => 'address'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Alamat</a></li>
+							<li @if(Input::has('item') && Input::get('item') == 'address') class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id'), 'page' => 1,'item' => 'address'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Alamat</a></li>
 						@endif
 						@if($isPhone == 0)
-							<li @if(Input::has('item') && Input::get('item') == 'phone') class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => 'phone'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Telepon</a></li>
+							<li @if(Input::has('item') && Input::get('item') == 'phone') class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id'), 'page' => 1,'item' => 'phone'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Telepon</a></li>
 						@endif
 						@if($isEmail == 0)
-							<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Email</a></li>
+							<li @if(Input::has('item') && Input::get('item') == 'email') class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id'), 'page' => 1,'item' => 'email'])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Email</a></li>
 						@endif
 						@if($isMsgSVC == 0)
-							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => true])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Kontak Lain</a></li>
+							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id'), 'page' => 1,'messageService' => true])}}"><i class="fa fa-exclamation pull-right mt-5 text-warning"></i>Kontak Lain</a></li>
 						@elseif($isMsgSVC == 2)
-							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'], 'page' => 1,'messageService' => true])}}">Kontak Lain</a> <small class="pull-right text-bold opacity-75"></small></a></li>
+							<li @if(Input::has('messageService')) class="active" @endif><a href="{{route('hr.persons.contacts.index', [$data['id'],'page' => 1, 'org_id' => Input::get('org_id'), 'page' => 1,'messageService' => true])}}">Kontak Lain</a> <small class="pull-right text-bold opacity-75"></small></a></li>
 						@endif							
 						<br/>
 					</ul>
@@ -106,7 +106,7 @@
 						<?php $tag =null;?>
 						@foreach($documents as $key => $value)
 							@if($value['tag']!=$tag)
-								<li @if(Input::has('tag') && Input::get('tag')==$value['tag']) class="active" @endif ><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
+								<li @if(Input::has('tag') && Input::get('tag')==$value['tag']) class="active" @endif ><a href="{{route('hr.persons.documents.index', ['id' => $data['id'], 'org_id' => Input::get('org_id'), 'page' => '1', 'tag' => $value['tag']] )}}">{{$value['tag']}}</a><small class="pull-right text-bold opacity-75"></small></a></li>			
 								<?php $tag = $value['tag'];?>
 							@endif
 						@endforeach

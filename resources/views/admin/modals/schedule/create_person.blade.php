@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Karyawan di Kalendar ini</h4>
+				<h4 class="modal-title text-xl modal_contact_title" id="formModalLabel">Tambah Karyawan di Kalender ini</h4>
 			</div>
 			<div class="modal-body style-default-light">
 				<div class="row">

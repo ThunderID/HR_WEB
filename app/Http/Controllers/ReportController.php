@@ -26,6 +26,10 @@ class ReportController extends Controller {
 			$org_id 								= Session::get('user.organisation');
 		}
 
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
 
 		if(Input::has('start'))
 		{
@@ -173,6 +177,11 @@ class ReportController extends Controller {
 			$org_id 								= Session::get('user.organisation');
 		}
 
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
 		$results 									= API::person()->show($personid, []);
 
 		$contents 									= json_decode($results);
@@ -283,6 +292,11 @@ class ReportController extends Controller {
 			$org_id 								= Session::get('user.organisation');
 		}
 
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+
 		$results 									= API::person()->show($personid, []);
 
 		$contents 									= json_decode($results);
@@ -359,6 +373,10 @@ class ReportController extends Controller {
 			$org_id 								= Session::get('user.organisation');
 		}
 
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
 
 		if(Input::has('start'))
 		{
@@ -459,6 +477,11 @@ class ReportController extends Controller {
 			$org_id 								= Session::get('user.organisation');
 		}
 
+		if(!in_array($org_id, Session::get('user.orgids')))
+		{
+			App::abort(404);
+		}
+		
 		if(Input::has('start'))
 		{
 			list($d,$m,$y) 							= explode('/', Input::get('start'));

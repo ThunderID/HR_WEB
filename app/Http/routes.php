@@ -87,6 +87,8 @@ Route::group(['prefix' => 'cms'], function(){
 		Route::get('names/search', 								[	'as'	=> 'hr.ajax.name', 		'uses' => 'AjaxController@searchName']);
 
 		Route::get('company/search', 							[	'as' 	=> 'hr.ajax.company', 	'uses' => 'AjaxController@searchCompany']);
+
+		Route::get('calendar/search', 							[	'as' 	=> 'hr.ajax.calendar', 	'uses' => 'AjaxController@searchCalendar']);
 		
 		Route::get('workleave/search', 							[	'as' 	=> 'hr.ajax.workleave', 'uses' => 'AjaxController@searchWorkleave']);
 		

@@ -21,6 +21,7 @@ class PersonController extends Controller {
 		if(Input::has('org_id'))
 		{
 			$org_id 								= Input::get('org_id');
+			Session::put('user.organisation', $org_id);
 		}
 		else
 		{

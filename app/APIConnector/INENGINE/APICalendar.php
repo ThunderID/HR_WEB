@@ -34,4 +34,10 @@ class APICalendar {
 		$data = new \ThunderID\Schedule\Controllers\CalendarController;
 		return $data->followIndex($page, $search, $sort, $all = false);
 	}
+
+	function followdestroy($chart_id, $id)
+	{
+		$data = new \ThunderID\Schedule\Controllers\CalendarController;
+		return $data->followDestroy($chart_id, $id);
+	}
 }
